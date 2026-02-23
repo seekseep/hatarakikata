@@ -8,6 +8,9 @@ import { findUserQuery } from '@/infrastructure/server/supabase/query'
 
 export async function GET() {
   const executor = await getExecutor()
+  if (executor.userType === 'guest') {
+    return toResponse(failAsNotFoundError('User not found'))
+  }
   const result = await findUserQuery({ id: executor.user.id })
   if (result.success && result.data === null) {
     return toResponse(failAsNotFoundError('User not found'))
@@ -17,6 +20,9 @@ export async function GET() {
 
 export async function PUT(request: NextRequest) {
   const executor = await getExecutor()
+  if (executor.userType === 'guest') {
+    return toResponse(failAsNotFoundError('User not found'))
+  }
   const body = await request.json()
   const result = await updateUser({ id: executor.user.id, ...body }, executor)
   return toResponse(result)
@@ -24,6 +30,9 @@ export async function PUT(request: NextRequest) {
 
 export async function DELETE() {
   const executor = await getExecutor()
+  if (executor.userType === 'guest') {
+    return toResponse(failAsNotFoundError('User not found'))
+  }
   const result = await withdraw({ id: executor.user.id }, executor)
   return toResponse(result)
 }
