@@ -1,0 +1,198 @@
+{
+  "personName": "三木谷浩史",
+  "language": "ja",
+  "wikipediaUrl": "https://ja.wikipedia.org/wiki/%E4%B8%89%E6%9C%A8%E8%B0%B7%E6%B5%A9%E5%8F%B2",
+  "wikipediaTitle": "三木谷浩史",
+  "birthDate": "1965-03-11",
+  "events": [
+    {
+      "name": "一橋大学商学部在籍",
+      "type": "working",
+      "startDate": "1984-04-01",
+      "endDate": "1988-03-01",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "一橋大学商学部に在籍し、金融論を専攻した。体育会テニス部の主将も務めた。"
+    },
+    {
+      "name": "ハーバード大学経営大学院修了",
+      "type": "working",
+      "startDate": "1993-09-01",
+      "endDate": "1995-05-01",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "ハーバード大学経営大学院でMBAを取得。"
+    },
+    {
+      "name": "日本興業銀行勤務",
+      "type": "working",
+      "startDate": "1988-04-01",
+      "endDate": "1995-11-01",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "日本興業銀行に入行し、企業金融開発部でM&Aの斡旋を担当した。"
+    },
+    {
+      "name": "楽天グループ創業",
+      "type": "working",
+      "startDate": "1995-11-01",
+      "endDate": "2026-02-24",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d"
+      ],
+      "strength": 5,
+      "row": 0,
+      "description": "楽天株式会社を創業し、代表取締役会長兼社長として活動中。"
+    },
+    {
+      "name": "生誕",
+      "startName": "1965年3月11日",
+      "type": "living",
+      "startDate": "1965-03-11",
+      "endDate": "1965-03-11",
+      "tagIds": [
+        "2f319ace-e0cc-4a6a-999a-51f4f03174fc"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "神戸市で裕福な家庭に生まれた。神戸商科大学職員住宅に居住していた。"
+    },
+    {
+      "name": "アメリカ滞在",
+      "startName": "7歳の時に家族とアメリカへ渡米",
+      "type": "living",
+      "startDate": "1972-03-11",
+      "endDate": "1974-03-11",
+      "tagIds": [
+        "2f319ace-e0cc-4a6a-999a-51f4f03174fc"
+      ],
+      "strength": 2,
+      "row": 0,
+      "description": "父のイェール大学研究員就任に伴い、7歳の時に家族でアメリカに渡った。"
+    },
+    {
+      "name": "帰国",
+      "startName": "帰国",
+      "type": "living",
+      "startDate": "1974-03-12",
+      "endDate": "1974-03-12",
+      "tagIds": [
+        "2f319ace-e0cc-4a6a-999a-51f4f03174fc"
+      ],
+      "strength": 2,
+      "row": 0,
+      "description": "アメリカ滞在後に日本に帰国し、地元の小学校に転入した。"
+    },
+    {
+      "name": "中学時代",
+      "startName": "岡山白陵中学入学",
+      "type": "living",
+      "startDate": "1977-04-01",
+      "endDate": "1983-03-31",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5",
+        "2f319ace-e0cc-4a6a-999a-51f4f03174fc"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "岡山県の岡山白陵中学校に入学し、寮生活を送った。高校の途中で退学し、実家の近所の中学校に転校した。"
+    },
+    {
+      "name": "高校卒業",
+      "startName": "兵庫県立明石高等学校卒業",
+      "type": "living",
+      "startDate": "1983-04-01",
+      "endDate": "1983-03-31",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5",
+        "2f319ace-e0cc-4a6a-999a-51f4f03174fc"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "兵庫県立明石高等学校を卒業し、高校時代はテニスのジュニア関西ベスト16に入った。"
+    },
+    {
+      "name": "大学入学",
+      "startName": "一橋大学商学部入学",
+      "type": "living",
+      "startDate": "1984-04-01",
+      "endDate": "1988-03-31",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "一橋大学商学部に入学。テニス部の主将を務め、いくつかの有名な人物と同期だった。"
+    },
+    {
+      "name": "東京での生活",
+      "startName": "東京移住",
+      "type": "living",
+      "startDate": "1988-04-01",
+      "endDate": "1993-03-31",
+      "tagIds": [
+        "2f319ace-e0cc-4a6a-999a-51f4f03174fc"
+      ],
+      "strength": 2,
+      "row": 0,
+      "description": "一橋大学卒業後に東京の興業銀行に入行し、働きながら東京で生活していた。"
+    },
+    {
+      "name": "米国留学",
+      "startName": "ハーバードMBA留学",
+      "type": "living",
+      "startDate": "1991-04-01",
+      "endDate": "1993-03-31",
+      "tagIds": [
+        "e4dea9fc-9b7b-440e-b588-f3d3ff81d455"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "ハーバード大学経営大学院に留学し、MBAを取得。滞米中に起業の夢が芽生えた。"
+    },
+    {
+      "name": "神戸に帰郷",
+      "startName": "帰郷",
+      "type": "living",
+      "startDate": "1993-04-01",
+      "endDate": "1995-03-31",
+      "tagIds": [
+        "2f319ace-e0cc-4a6a-999a-51f4f03174fc"
+      ],
+      "strength": 2,
+      "row": 0,
+      "description": "米国留学を終えて日本に帰国し、神戸の実家に戻った。"
+    },
+    {
+      "name": "起業への意欲が高まっていた時期",
+      "type": "feeling",
+      "startDate": "1995-01-01",
+      "endDate": "1995-12-31",
+      "tagIds": [
+        "c914d809-3c36-4a88-9d85-68c44250ac05"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "阪神・淡路大震災で故郷が瓦礫の山と化し、叔父叔母を失ったことにより、人生観に大きな影響を受け、起業を決意した。"
+    },
+    {
+      "name": "慈善活動に積極的だった時期",
+      "type": "feeling",
+      "startDate": "2011-01-01",
+      "endDate": "2022-12-31",
+      "tagIds": [],
+      "strength": 3,
+      "row": 0,
+      "description": "東日本大震災や熊本地震、コロナ禍の支援を行い、社会貢献への意欲と責任感を強く感じていた期間。"
+    }
+  ]
+}

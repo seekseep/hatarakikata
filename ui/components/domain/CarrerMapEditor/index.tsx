@@ -1,6 +1,8 @@
 "use client"
 
+import Drawer from "@/ui/components/basic/Drawer"
 import Spinner from "@/ui/components/basic/Spinner"
+import CareerMapViewer from "@/ui/components/domain/CareerMapViewer"
 import {
   useCareerEventsByCareerMapIdQuery,
   useCreateCareerEventMutation,
@@ -73,6 +75,12 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
         <CareerMapEventGenerateDialog />
         <CareerMapSearchDialog />
       </CarrerMapEditorContainer>
+
+      <Drawer open={!!editor.viewerCareerMapId} onClose={editor.closeViewer}>
+        {editor.viewerCareerMapId && (
+          <CareerMapViewer careerMapId={editor.viewerCareerMapId} onClose={editor.closeViewer} />
+        )}
+      </Drawer>
     </CarrerMapEditorProvider>
   )
 }

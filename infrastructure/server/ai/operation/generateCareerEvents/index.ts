@@ -1,5 +1,4 @@
 import type { GenerateCareerEventsOperation } from "@/core/application/port/operation"
-import type { GenerateCareerEventsResult } from "@/core/domain"
 import { failAsExternalServiceError, succeed } from "@/core/util/appResult"
 
 import { createOpenAIClient } from "../../client"
@@ -12,12 +11,14 @@ export const generateCareerEvents: GenerateCareerEventsOperation = async (parame
   const today = new Date().toISOString().slice(0, 10)
   const fallbackDate = parameters.map.startDate ?? today
 
+  const tagNames = parameters.tags.map((t) => t.name)
+
   const prompt = buildPrompt(
     parameters.question,
     parameters.previousQuestion,
     parameters.map.startDate ?? "",
     parameters.content,
-    parameters.tags
+    tagNames
   )
 
   const client = createOpenAIClient()
@@ -32,7 +33,7 @@ export const generateCareerEvents: GenerateCareerEventsOperation = async (parame
     const text = response.output_text
     if (!text) return failAsExternalServiceError("OpenAI returned empty response")
 
-    const parsed = JSON.parse(text) as GenerateCareerEventsResult
+    const parsed = JSON.parse(text)
     const actions = normalizeActions(parsed.actions ?? [], fallbackDate, parameters.tags)
     const nextQuestion = parsed.nextQuestion ? { content: parsed.nextQuestion.content } : null
 

@@ -4,6 +4,7 @@ export type TimelineConfig = {
   originDate: string
   endDate: string
   rowHeightInUnits: number
+  rowGapHeightInUnits: number
   headerHeightInUnits: number
   maxStrength: number
 }

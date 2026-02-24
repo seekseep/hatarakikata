@@ -1,10 +1,11 @@
 import { z } from "zod"
 
-import { CareerEventKeySchema, CareerEventPayloadBaseSchema } from "@/core/domain"
+import { CareerEventKeySchema } from "@/core/domain"
+import { careerEventPayloadBaseObject } from "@/core/domain/entity/careerEvent"
 import { AppResult } from "@/core/util/appResult"
 
 export const UpdateCareerEventCommandParametersSchema = CareerEventKeySchema.extend(
-  CareerEventPayloadBaseSchema.partial().shape,
+  careerEventPayloadBaseObject.partial().shape,
 )
 
 export type UpdateCareerEventCommandParametersInput = z.input<typeof UpdateCareerEventCommandParametersSchema>

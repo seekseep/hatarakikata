@@ -1,28 +1,107 @@
-export function buildBiographyPrompt(
+import { encode } from "@toon-format/toon"
+
+import type { CareerEventType } from "@/core/domain/entity/careerEvent"
+
+const EDUCATION_SYSTEMS = [
+  { country: '日本',     level: '小学校',               startAge: 6,  years: 6 },
+  { country: '日本',     level: '中学校',               startAge: 12, years: 3 },
+  { country: '日本',     level: '高校',                 startAge: 15, years: 3 },
+  { country: '日本',     level: '大学',                 startAge: 18, years: 4 },
+  { country: 'アメリカ', level: 'Elementary School',    startAge: 5,  years: 6 },
+  { country: 'アメリカ', level: 'Middle School',        startAge: 11, years: 3 },
+  { country: 'アメリカ', level: 'High School',          startAge: 14, years: 4 },
+  { country: 'アメリカ', level: 'University',           startAge: 18, years: 4 },
+  { country: '中国',     level: '小学',                 startAge: 6,  years: 6 },
+  { country: '中国',     level: '初中',                 startAge: 12, years: 3 },
+  { country: '中国',     level: '高中',                 startAge: 15, years: 3 },
+  { country: '中国',     level: '大学',                 startAge: 18, years: 4 },
+  { country: 'イギリス', level: 'Primary School',       startAge: 5,  years: 6 },
+  { country: 'イギリス', level: 'Secondary School',     startAge: 11, years: 5 },
+  { country: 'イギリス', level: 'Sixth Form',           startAge: 16, years: 2 },
+  { country: 'イギリス', level: 'University',           startAge: 18, years: 3 },
+  { country: 'ドイツ',   level: 'Grundschule',          startAge: 6,  years: 4 },
+  { country: 'ドイツ',   level: 'Gymnasium',            startAge: 10, years: 8 },
+  { country: 'ドイツ',   level: 'Universität',          startAge: 18, years: 4 },
+  { country: '韓国',     level: '초등학교（小学校）',   startAge: 6,  years: 6 },
+  { country: '韓国',     level: '중학교（中学校）',     startAge: 12, years: 3 },
+  { country: '韓国',     level: '고등학교（高校）',     startAge: 15, years: 3 },
+  { country: '韓国',     level: '대학교（大学）',       startAge: 18, years: 4 },
+  { country: 'インド',   level: 'Primary School',       startAge: 6,  years: 5 },
+  { country: 'インド',   level: 'Upper Primary',        startAge: 11, years: 3 },
+  { country: 'インド',   level: 'Secondary School',     startAge: 14, years: 2 },
+  { country: 'インド',   level: 'Senior Secondary',     startAge: 16, years: 2 },
+  { country: 'インド',   level: 'University',           startAge: 18, years: 3 },
+]
+
+const EDUCATION_SYSTEMS_TOON = encode({ educationSystems: EDUCATION_SYSTEMS })
+
+const TYPE_CONFIGS: Record<CareerEventType, {
+  label: string
+  description: string
+  examples: string[]
+  avoid: string[]
+}> = {
+  working: {
+    label: "working（学業・職業）",
+    description: "学校在籍・職業従事など、学業や仕事に関する状態",
+    examples: ["◯◯高校在籍", "◯◯大学在籍", "ソフトバンク CEO", "Apple 共同創業者", "転職活動をしていた"],
+    avoid: ["入学", "卒業", "入社", "退社"],
+  },
+  living: {
+    label: "living（生活・転機）",
+    description: "居住地・生活状況、および結婚・出産・受賞などの重要な転機",
+    examples: ["東京で一人暮らし", "アメリカへ留学", "療養期間", "結婚", "出産", "◯◯を受賞"],
+    avoid: ["就職", "退職"],
+  },
+  feeling: {
+    label: "feeling（心理状態）",
+    description: "モチベーション・精神状態・人生観の変化など内面の状態",
+    examples: ["起業への意欲が高まっていた時期", "燃え尽き症候群", "社会への怒りを感じていた時期"],
+    avoid: [],
+  },
+}
+
+export function buildBiographyPromptForType(
+  type: CareerEventType,
   personName: string,
   biographyMarkdown: string,
   birthDate: string | null,
-  tags: Array<{ id: string; name: string }>
+  tagNames: string[]
 ): string {
-  const tagNames = tags.map((t) => `- ${t.name}`).join("\n") || "(タグなし)"
+  const tagNamesText = tagNames.map((n) => `- ${n}`).join("\n") || "(タグなし)"
+  const config = TYPE_CONFIGS[type]
 
   const birthDateInfo = birthDate
-    ? `- 生年月日（推定含む）: ${birthDate}`
-    : "- 生年月日: 不明（伝記から推定してください）"
+    ? `- 生年月日: ${birthDate}`
+    : "- 生年月日: 伝記テキストから読み取ってください（不明なら省略）"
+
+  const avoidSection = config.avoid.length > 0
+    ? [`- 避けること: ${config.avoid.map(a => `「${a}」`).join("、")}のような単発の出来事`]
+    : []
 
   return [
     "あなたは「履歴書をガントチャートUIで可視化する」ための CareerEvent 生成アシスタントです。",
-    `以下のWikipedia伝記テキストから、${personName} のキャリアイベントを生成してください。`,
+    `以下のWikipedia伝記テキストから、${personName} の【${config.label}】のイベントのみを生成してください。`,
+    "",
+    `## 対象種別: ${config.label}`,
+    `- ${config.description}`,
+    `- 例: ${config.examples.map(e => `「${e}」`).join("、")}`,
+    ...avoidSection,
     "",
     "## 最重要コンセプト: 出来事ではなく『状態』を期間で表す",
-    "- events は原則として『状態（〜していた）』を表すこと。単発の出来事（入学/卒業/入社/退社など）を作りすぎない。",
-    "- 例（良い）: 「◯◯小学校に在籍」「◯◯高校に在籍」「株式会社Xで勤務」「東京で一人暮らし」「療養していた」「転職活動をしていた」",
-    "- 例（避ける）: 「小学校入学」「小学校卒業」「入社」「退社」",
-    "- ただし、ガント上で重要な転機（結婚、出産、病気、受賞など）は living として『短期イベント（1〜3ヶ月）』で追加してよい。",
+    "- events は原則として『状態（〜していた）』を表すこと。",
     "",
     "## ゴール",
-    "- 伝記テキストから actions（create のみ）を生成する。",
-    "- 人物の一生を網羅的にカバーすること。",
+    `- 伝記テキストから【${config.label}】に該当する actions（create のみ）を生成する。`,
+    "- 該当するイベントがなければ actions を空配列にする（無理に生成しない）。",
+    ...(type === "working" ? [
+      "",
+      "## 主要国の教育機関と在籍年数（参考情報）",
+      "- 学校名から国を判定し、以下の在籍期間を参照して startDate/endDate を読み取ること。",
+      "```toon",
+      EDUCATION_SYSTEMS_TOON,
+      "```",
+    ] : []),
     "",
     "## 人物情報",
     `- 人物名: ${personName}`,
@@ -31,38 +110,29 @@ export function buildBiographyPrompt(
     "## 出力形式（厳守）",
     "- 以下の型に一致する JSON のみ。JSON以外禁止。",
     "{",
-    "  actions: Array<",
-    "    { type: 'create', payload: { name: string, type: 'living' | 'working' | 'feeling', startDate: string, endDate: string, tagNames: string[], strength: number, row: number, description: string | null } }",
-    "  >,",
+    `  actions: Array<{ type: 'create', payload: { name?: string, startName?: string, endName?: string, type: '${type}', startDate: string, endDate: string, tagNames: string[], strength: number, description: string | null } }>,`,
     "  nextQuestion: null",
     "}",
     "",
     "## 制約（厳守）",
     "- startDate/endDate は 'YYYY-MM-01' 形式。",
     "- endDate は startDate 以上。同月でもよい。",
-    "- 不明なら『妥当な期間』を推定して埋める（最低でも1ヶ月）。",
-    "- actions は必ず1件以上。",
-    "- nextQuestion は常に null（伝記ベースなので追加質問不要）。",
+    "- startDate/endDate が伝記テキストから明確に読み取れないイベントは追加しない。推定・補完禁止。",
+    "- actions は空配列でも可。",
+    `- type は常に '${type}' で固定。`,
+    "- nextQuestion は常に null。",
     "",
-    "## 状態イベントの命名ルール（超重要）",
-    "- name は『〜していた/〜に在籍/〜で勤務/〜に居住』のように、期間が自然に読める名前にする。",
-    "- 学歴は working として『学校に在籍』を基本形にする。",
-    "- 職歴は working として『会社/職種/役職で勤務』を基本形にする。",
-    "",
-    "## 期間推定ルール",
-    "- 年/月が書かれていない場合は日本の典型で推定してよい。",
-    "  - 小学校在籍: 6〜12歳（6年間）",
-    "  - 中学校在籍: 12〜15歳（3年間）",
-    "  - 高校在籍: 15〜18歳（3年間）",
-    "  - 大学在籍: 18〜22歳（4年間）",
-    "- 推定した場合は description に『推定』と一言入れる。",
-    "",
-    "## row（ガントの行）ルール",
-    "- row は 0 以上の整数。",
-    "- 原則の帯域:",
-    "  - working: row 0〜（学業/職業の状態）",
-    "  - living: row 5〜（生活の状態/転機）",
-    "  - feeling: row 10〜（心理状態）",
+    "## イベント名フィールドのルール（超重要）",
+    "- name と startName のどちらかは必ず設定する。",
+    "- 期間イベント（startDate != endDate）: name を設定する。startName は設定しない。",
+    "  - name は期間を表す短い名前（目安: 20文字以内）",
+    "  - name に年号（令和・平成・昭和など）は含めない。",
+    "  - endName は省略可（終了時の短いラベルを付けたい場合のみ設定）",
+    "- 点イベント（startDate == endDate）: startName を設定する。name は設定しない。",
+    "  - startName は点イベントの短い名前（目安: 20文字以内）",
+    "  - startName に年号（令和・平成・昭和など）は含めない。",
+    "- description に詳細を書く。伝記テキストに書かれた事実のみを1〜3文で記述。",
+    "  - description は null にしない。必ず何か書く。",
     "",
     "## タグ付与ルール",
     "- tagNames は下の一覧からのみ選ぶ（新規作成禁止）。",
@@ -72,9 +142,18 @@ export function buildBiographyPrompt(
     "- 1〜5 の整数。重要度が高いイベントほど大きい値にする。",
     "",
     "## 利用可能なタグ名",
-    tagNames,
+    tagNamesText,
     "",
     "## 伝記テキスト（Wikipedia）",
     biographyMarkdown,
   ].join("\n")
+}
+
+export function buildBiographyPrompt(
+  personName: string,
+  biographyMarkdown: string,
+  birthDate: string | null,
+  tagNames: string[]
+): string {
+  return buildBiographyPromptForType("working", personName, biographyMarkdown, birthDate, tagNames)
 }

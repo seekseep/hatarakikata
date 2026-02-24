@@ -19,6 +19,7 @@ export type MakeReindexAllCareerMapVectorsDependencies = {
   listCareerEventsForVectorQuery: ListCareerEventsForVectorQuery
   createEmbeddingOperation: CreateEmbeddingOperation
   upsertCareerMapVectorCommand: UpsertCareerMapVectorCommand
+  onProgress?: (current: number, total: number, failed: number) => void
 }
 
 export function makeReindexAllCareerMapVectors({
@@ -26,6 +27,7 @@ export function makeReindexAllCareerMapVectors({
   listCareerEventsForVectorQuery,
   createEmbeddingOperation,
   upsertCareerMapVectorCommand,
+  onProgress,
 }: MakeReindexAllCareerMapVectorsDependencies): ReindexAllCareerMapVectorsUsecase {
   return async (executor) => {
     if (executor.type !== "system") {
@@ -36,6 +38,7 @@ export function makeReindexAllCareerMapVectors({
     if (!mapIdsResult.success) return mapIdsResult
 
     const mapIds = mapIdsResult.data
+    const total = mapIds.length
     let processed = 0
     let failed = 0
 
@@ -60,6 +63,7 @@ export function makeReindexAllCareerMapVectors({
       } catch {
         failed++
       }
+      onProgress?.(processed + failed, total, failed)
     }
 
     return succeed({ processed, failed })

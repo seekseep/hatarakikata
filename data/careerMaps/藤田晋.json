@@ -1,0 +1,108 @@
+{
+  "personName": "藤田晋",
+  "language": "ja",
+  "wikipediaUrl": "https://ja.wikipedia.org/wiki/%E8%97%A4%E7%94%B0%E6%99%8B",
+  "wikipediaTitle": "藤田晋",
+  "birthDate": "1973-05-16",
+  "events": [
+    {
+      "name": "青山学院大学在籍",
+      "type": "working",
+      "startDate": "1994-04-01",
+      "endDate": "1998-03-01",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "藤田晋は青山学院大学の経営学部に在籍し、在学中は麻雀に熱中した。"
+    },
+    {
+      "name": "株式会社サイバーエージェント設立",
+      "type": "working",
+      "startDate": "1998-04-01",
+      "endDate": "2000-12-01",
+      "tagIds": [
+        "1930938f-b7ea-49e2-a0d7-e5de5b0e7b9c"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "1998年に藤田晋は株式会社サイバーエージェントを設立し、会社の代表取締役に就任した。"
+    },
+    {
+      "name": "株式会社サイバーエージェント代表取締役就任",
+      "type": "working",
+      "startDate": "1998-04-01",
+      "endDate": "2025-12-12",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d"
+      ],
+      "strength": 5,
+      "row": 0,
+      "description": "藤田晋は1998年からサイバーエージェントの代表取締役を務め、同社の成長と上場をリードした。"
+    },
+    {
+      "name": "サイバーエージェント会長就任",
+      "type": "working",
+      "startDate": "2025-12-12",
+      "endDate": "2025-12-12",
+      "tagIds": [
+        "e92162f6-0247-4b48-b0bb-bbf5a8d45aa1"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "2025年12月12日に藤田晋はサイバーエージェントの代表取締役会長に就任した。"
+    },
+    {
+      "name": "サイバーエージェント代表取締役社長就任",
+      "type": "working",
+      "startDate": "2025-12-12",
+      "endDate": "2025-12-12",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "2025年12月12日に藤田晋はサイバーエージェントの代表取締役社長に就任した。"
+    },
+    {
+      "name": "生活拠点の変化",
+      "endName": "福井県鯖江市から東京へ移住",
+      "type": "living",
+      "startDate": "1973-05-16",
+      "endDate": "1990-01-01",
+      "tagIds": [
+        "2f319ace-e0cc-4a6a-999a-51f4f03174fc"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "藤田晋は福井県鯖江市に生まれ、小学校卒業まで鯖江で過ごした後、東京に移住した。"
+    },
+    {
+      "name": "結婚と離婚",
+      "endName": "奥菜恵と結婚、その後離婚",
+      "type": "living",
+      "startDate": "2004-01-01",
+      "endDate": "2005-07-01",
+      "tagIds": [
+        "33e521a9-fe4a-4892-b246-e893fcb13a8b"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "藤田晋は2004年1月に女優の奥菜恵と結婚し、2005年7月に離婚した。"
+    },
+    {
+      "name": "再婚と生活拠点の変化",
+      "endName": "元秘書の女性と再婚",
+      "type": "living",
+      "startDate": "2009-01-01",
+      "endDate": "2023-01-01",
+      "tagIds": [
+        "33e521a9-fe4a-4892-b246-e893fcb13a8b"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "藤田晋は2009年に元秘書の女性と再婚し、その後も家庭を築き続けている。"
+    }
+  ]
+}

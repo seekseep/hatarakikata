@@ -3,7 +3,7 @@ import { z } from "zod"
 
 import type { Executor } from "@/core/application/executor"
 import type { CreateCareerEventCommand, CreateCareerMapCommand, CreateUserCommand } from "@/core/application/port/command"
-import type { ListCareerMapEventTagsQuery, ListUserNamesQuery, ReadCareerDataQuery } from "@/core/application/port/query"
+import type { ListUserNamesQuery, ReadCareerDataQuery } from "@/core/application/port/query"
 import type { CareerEvent } from "@/core/domain"
 import { type AppResult, failAsConflictError, failAsForbiddenError, failAsInvalidParametersError, succeed } from "@/core/util/appResult"
 
@@ -32,7 +32,6 @@ export type MakeImportCareerDataDependencies = {
   createUserCommand: CreateUserCommand
   createCareerMapCommand: CreateCareerMapCommand
   createCareerEventCommand: CreateCareerEventCommand
-  listCareerMapEventTagsQuery: ListCareerMapEventTagsQuery
 }
 
 export function makeImportCareerData({
@@ -41,7 +40,6 @@ export function makeImportCareerData({
   createUserCommand,
   createCareerMapCommand,
   createCareerEventCommand,
-  listCareerMapEventTagsQuery,
 }: MakeImportCareerDataDependencies): ImportCareerDataUsecase {
   return async (input, executor) => {
     const validation = ImportCareerDataParametersSchema.safeParse(input)
@@ -64,12 +62,6 @@ export function makeImportCareerData({
 
     const data = dataResult.data
 
-    const tagResult = await listCareerMapEventTagsQuery()
-    if (!tagResult.success) return tagResult
-
-    const tags = tagResult.data.items.map((tag) => ({ id: tag.id, name: tag.name }))
-    const tagIdByName = new Map(tags.map((t) => [t.name, t.id]))
-
     const userId = uuidv4()
 
     const userResult = await createUserCommand({ id: userId, name: data.personName })
@@ -82,11 +74,11 @@ export function makeImportCareerData({
     const createdEvents: CareerEvent[] = []
 
     for (const event of data.events) {
-      const { tagNames, ...rest } = event
+      const { tagIds, ...rest } = event
       const result = await createCareerEventCommand({
         careerMapId,
         ...rest,
-        tags: tagNames.map((name) => tagIdByName.get(name)).filter((id): id is string => Boolean(id)),
+        tags: tagIds,
       })
       if (!result.success) throw new Error(`Failed to create event: ${result.error.message}`)
       createdEvents.push(result.data)

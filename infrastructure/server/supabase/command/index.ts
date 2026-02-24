@@ -1,3 +1,4 @@
+export { createAuthUserCommand } from './auth/createAuthUserCommand'
 export { createCareerEventCommand, deleteCareerEventCommand, updateCareerEventCommand } from './careerEvent'
 export { createCareerMapCommand, deleteCareerMapCommand, updateCareerMapCommand } from './careerMap'
 export { createCareerMapVectorCommand, updateCareerMapVectorCommand, upsertCareerMapVectorCommand } from './careerMapVector'

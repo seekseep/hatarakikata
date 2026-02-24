@@ -1,0 +1,227 @@
+{
+  "personName": "南場智子",
+  "language": "ja",
+  "wikipediaUrl": "https://ja.wikipedia.org/wiki/%E5%8D%97%E5%A0%B4%E6%99%BA%E5%AD%90",
+  "wikipediaTitle": "南場智子",
+  "birthDate": "1978-04-01",
+  "events": [
+    {
+      "name": "津田塾大学在籍",
+      "type": "working",
+      "startDate": "1981-04-01",
+      "endDate": "1985-03-01",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "南場智子は津田塾大学の英文学科に在籍し、学業に励んでいた。"
+    },
+    {
+      "name": "ハーバード大学院留学",
+      "type": "working",
+      "startDate": "1988-09-01",
+      "endDate": "1990-06-01",
+      "tagIds": [
+        "e4dea9fc-9b7b-440e-b588-f3d3ff81d455"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "南場智子は津田塾大学卒業後、姉妹校のブリンマー大学に1年間留学した。その後、ハーバード大学院に進学した。"
+    },
+    {
+      "name": "マッキンゼー・アンド・カンパニー日本支社勤務",
+      "type": "working",
+      "startDate": "1986-04-01",
+      "endDate": "1988-08-01",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "南場智子はマッキンゼー・アンド・カンパニーに入社し、日本支社で勤務していた。"
+    },
+    {
+      "name": "ハーバード大学経営大学院修了",
+      "type": "working",
+      "startDate": "1990-06-01",
+      "endDate": "1990-06-30",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5"
+      ],
+      "strength": 2,
+      "row": 0,
+      "description": "南場智子はハーバード大学経営大学院を修了した。"
+    },
+    {
+      "name": "マッキンゼー・インコーポレイテッド・ジャパン パートナー",
+      "type": "working",
+      "startDate": "1996-12-01",
+      "endDate": "1999-02-28",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "南場智子はマッキンゼー・インコーポレイテッド・ジャパンのパートナーに就任した。"
+    },
+    {
+      "name": "ディー・エヌ・エー設立",
+      "type": "working",
+      "startDate": "1999-03-01",
+      "endDate": "2025-11-01",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d"
+      ],
+      "strength": 5,
+      "row": 0,
+      "description": "南場智子は株式会社ディー・エヌ・エーを設立し、創業者として代表取締役に就任した。"
+    },
+    {
+      "name": "新潟から東京への上京",
+      "type": "living",
+      "startDate": "1978-04-01",
+      "endDate": "1978-12-01",
+      "tagIds": [
+        "2f319ace-e0cc-4a6a-999a-51f4f03174fc"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "南場は高校卒業後、保守的な家族の反対を押し切って東京に上京し、津田塾大学に進学した。"
+    },
+    {
+      "name": "津田塾大学卒業",
+      "type": "living",
+      "startDate": "1982-04-01",
+      "endDate": "1986-03-01",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "津田塾大学にて英文学科を専攻し、優秀な成績を収め、奨学金を得て留学経験も積んだ。"
+    },
+    {
+      "name": "ハーバード大学院留学",
+      "type": "living",
+      "startDate": "1986-09-01",
+      "endDate": "1988-08-01",
+      "tagIds": [
+        "e4dea9fc-9b7b-440e-b588-f3d3ff81d455"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "大学卒業後、ハーバード大学の経営学修士課程に留学し、国際的な視野を広げた。"
+    },
+    {
+      "name": "結婚",
+      "startName": "結婚",
+      "type": "living",
+      "startDate": "1990-01-01",
+      "endDate": "1999-12-01",
+      "tagIds": [
+        "33e521a9-fe4a-4892-b246-e893fcb13a8b"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "南場は夫と結婚し、家庭と仕事を両立しながらキャリアを築き始めた。"
+    },
+    {
+      "name": "夫の看病期間",
+      "startName": "夫の看病期間",
+      "type": "living",
+      "startDate": "2008-05-01",
+      "endDate": "2011-05-01",
+      "tagIds": [
+        "3d8d17e0-48d8-45ed-be90-ae2bc66bfafa"
+      ],
+      "strength": 2,
+      "row": 0,
+      "description": "夫が癌と診断され、南場は看病のため一時的に仕事から離れ、家庭に専念した期間。"
+    },
+    {
+      "name": "デジタル臨時行政調査会構成員就任",
+      "startName": "デジタル庁の活動開始",
+      "type": "living",
+      "startDate": "2021-11-16",
+      "endDate": "2021-11-16",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d"
+      ],
+      "strength": 2,
+      "row": 0,
+      "description": "南場はデジタル庁のデジタル臨時行政調査会の構成員となり、政府のデジタル化推進に関わる。"
+    },
+    {
+      "name": "挑戦への情熱を持ち続けていた時期",
+      "startName": "挑戦への情熱",
+      "type": "feeling",
+      "startDate": "1988-01-01",
+      "endDate": "1996-12-31",
+      "tagIds": [
+        "c914d809-3c36-4a88-9d85-68c44250ac05",
+        "b20ee26b-5530-48c8-9c17-8d104458a706"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "マッキンゼー日本支社を退職し、ハーバード・ビジネス・スクールに入学した時期。新たな挑戦に対する強い意欲と情熱を持ち続けていた。"
+    },
+    {
+      "name": "起業への意欲が高まっていた時期",
+      "startName": "起業意欲",
+      "type": "feeling",
+      "startDate": "1996-01-01",
+      "endDate": "1999-02-28",
+      "tagIds": [
+        "c914d809-3c36-4a88-9d85-68c44250ac05",
+        "b20ee26b-5530-48c8-9c17-8d104458a706"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "戦略と実行を重視し、実践的な経験を積んだ後、自らの事業を創りたいとの強い意欲を抱くようになった。"
+    },
+    {
+      "name": "実行者としての決意をした時期",
+      "startName": "決意",
+      "type": "feeling",
+      "startDate": "1999-03-01",
+      "endDate": "2004-08-31",
+      "tagIds": [
+        "c914d809-3c36-4a88-9d85-68c44250ac05",
+        "b20ee26b-5530-48c8-9c17-8d104458a706"
+      ],
+      "strength": 5,
+      "row": 0,
+      "description": "起業を決断し、実際に事業を展開していく中で、自己の行動力と実行力に自信を持ち始めた。"
+    },
+    {
+      "name": "社会への貢献意識が高まっていた時期",
+      "startName": "社会貢献志向",
+      "type": "feeling",
+      "startDate": "2005-01-01",
+      "endDate": "2024-11-01",
+      "tagIds": [
+        "c914d809-3c36-4a88-9d85-68c44250ac05",
+        "7205ccb1-fc04-42b2-8f84-6b8305a7b6e1"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "社会に役立つ事業を追求し、経営者としての使命感と責任感に満ち溢れていた。"
+    },
+    {
+      "name": "成功と挑戦を両立している時期",
+      "startName": "成功と挑戦",
+      "type": "feeling",
+      "startDate": "2011-01-01",
+      "endDate": "2024-11-01",
+      "tagIds": [
+        "c914d809-3c36-4a88-9d85-68c44250ac05",
+        "b20ee26b-5530-48c8-9c17-8d104458a706",
+        "7205ccb1-fc04-42b2-8f84-6b8305a7b6e1"
+      ],
+      "strength": 5,
+      "row": 0,
+      "description": "多角化戦略を推進し、球団運営や社会的活動も積極的に行う中で、自身の挑戦と達成感を感じている。"
+    }
+  ]
+}

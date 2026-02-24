@@ -4,24 +4,33 @@ export const GenerateCareerEventQuestionSchema = z.object({
   content: z.string(),
 })
 
-export const GeneratedCareerEventParameterSchema = z.object({
-  name: z.string().default(""),
+const generatedCareerEventParameterObject = z.object({
+  name: z.string().optional(),
+  startName: z.string().optional(),
+  endName: z.string().optional(),
   type: z.enum(["living", "working", "feeling"]).default("working"),
   startDate: z.string(),
   endDate: z.string(),
-  tagNames: z.array(z.string()).default([]),
+  tagIds: z.array(z.string()).default([]),
   strength: z.number().int().min(1).max(5).default(3),
   row: z.number().int().min(0).default(0),
   description: z.string().nullable().default(null),
 })
 
+export const GeneratedCareerEventParameterSchema = generatedCareerEventParameterObject.refine(
+  (data) => !!(data.name || data.startName),
+  { message: "name または startName のどちらかは必須です" }
+)
+
 export const GeneratedCareerEventUpdateParameterSchema = z.object({
   id: z.string(),
   name: z.string().optional(),
+  startName: z.string().optional(),
+  endName: z.string().optional(),
   type: z.enum(["living", "working", "feeling"]).optional(),
   startDate: z.string().optional(),
   endDate: z.string().optional(),
-  tagNames: z.array(z.string()).optional(),
+  tagIds: z.array(z.string()).optional(),
   strength: z.number().int().min(1).max(5).optional(),
   row: z.number().int().min(0).optional(),
   description: z.string().nullable().optional(),

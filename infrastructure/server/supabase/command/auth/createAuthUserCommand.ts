@@ -1,9 +1,9 @@
-import type { CreateAuthUserOperation } from "@/core/application/port/operation/createAuthUser"
+import type { CreateAuthUserCommand } from "@/core/application/port/command"
 import { failAsExternalServiceError, succeed } from "@/core/util/appResult"
 
 import { createSupabaseAdmin } from "../../client"
 
-export const createAuthUserCommand: CreateAuthUserOperation = async (parameters) => {
+export const createAuthUserCommand: CreateAuthUserCommand = async (parameters) => {
   try {
     const supabase = createSupabaseAdmin()
     const { data, error } = await supabase.auth.admin.createUser({

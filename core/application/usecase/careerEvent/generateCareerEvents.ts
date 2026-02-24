@@ -88,7 +88,6 @@ export function makeGenerateCareerEvents({
 
     if (!generateResult.success) return generateResult
 
-    const tagIdByName = new Map(tags.map((t) => [t.name, t.id]))
     const tagNameById = new Map(tags.map((t) => [t.id, t.name]))
     const currentEventsById = new Map(
       (parameters.currentEvents ?? []).map((e) => [e.id, e])
@@ -98,11 +97,11 @@ export function makeGenerateCareerEvents({
 
     for (const action of generateResult.data.actions) {
       if (action.type === "create") {
-        const { tagNames, ...rest } = action.payload
+        const { tagIds, ...rest } = action.payload
         const result = await createCareerEventCommand({
           careerMapId: parameters.careerMapId,
           ...rest,
-          tags: tagNames.map((name) => tagIdByName.get(name)).filter((id): id is string => Boolean(id)),
+          tags: tagIds,
         })
         if (!result.success) throw new Error(`Failed to create event: ${result.error.message}`)
         resultActions.push({ type: "create", event: result.data })
@@ -110,10 +109,7 @@ export function makeGenerateCareerEvents({
         const existing = currentEventsById.get(action.payload.id)
         if (!existing) continue // skip if event not found
 
-        const { id, tagNames, ...updates } = action.payload
-        const tagIds = tagNames
-          ? tagNames.map((name) => tagIdByName.get(name)).filter((tid): tid is string => Boolean(tid))
-          : undefined
+        const { id, tagIds, ...updates } = action.payload
 
         await updateCareerEventCommand({
           id,

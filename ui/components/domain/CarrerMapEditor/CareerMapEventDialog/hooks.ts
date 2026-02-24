@@ -9,9 +9,12 @@ import { fromMonth,toMonth } from "./utils"
 
 type FormValues = {
   name: string
+  startName: string
+  endName: string
   type: string
   startMonth: string
   endMonth: string
+  hasEndDate: boolean
   strength: number
   description: string
   tags: string[]
@@ -34,9 +37,12 @@ export function useCareerMapEventDialogForm() {
   const form = useForm<FormValues>({
     defaultValues: {
       name: "",
+      startName: "",
+      endName: "",
       type: "working",
       startMonth: "",
       endMonth: "",
+      hasEndDate: true,
       strength: 3,
       description: "",
       tags: [] as string[],
@@ -55,22 +61,30 @@ export function useCareerMapEventDialogForm() {
 
   useEffect(() => {
     if (open && mode === "edit" && event) {
+      const isPoint = event.startDate === event.endDate
       reset({
         name: event.name ?? "",
+        startName: event.startName ?? (isPoint ? (event.name ?? "") : ""),
+        endName: event.endName ?? "",
         type: event.type ?? "working",
         startMonth: toMonth(event.startDate),
         endMonth: toMonth(event.endDate),
+        hasEndDate: !isPoint,
         strength: event.strength ?? 3,
         description: event.description ?? "",
         tags: (event.tags ?? []).map((t) => t.id),
       })
     } else if (open && mode === "create") {
       const prefill = dialogState.mode === "create" ? dialogState.prefill : undefined
+      const hasEndDate = !!(prefill?.startDate && prefill?.endDate && prefill.startDate !== prefill.endDate)
       reset({
         name: "",
+        startName: "",
+        endName: "",
         type: "working",
         startMonth: toMonth(prefill?.startDate ?? ""),
         endMonth: toMonth(prefill?.endDate ?? ""),
+        hasEndDate,
         strength: 3,
         description: "",
         tags: [],
@@ -81,12 +95,17 @@ export function useCareerMapEventDialogForm() {
   const onSubmit = handleSubmit((values: FormValues) => {
     const row = mode === "edit" && event ? event.row : 0
 
+    const startDate = fromMonth(values.startMonth)
+    const endDate = values.hasEndDate ? fromMonth(values.endMonth) : startDate
+
     const payload: CareerEventPayload = {
       careerMapId,
-      name: values.name,
+      ...(values.hasEndDate
+        ? { name: values.name, endName: values.endName || undefined, startName: undefined }
+        : { startName: values.startName, name: undefined, endName: undefined }),
       type: values.type as CareerEventType,
-      startDate: fromMonth(values.startMonth),
-      endDate: fromMonth(values.endMonth),
+      startDate,
+      endDate,
       strength: Number(values.strength),
       tags,
       row,

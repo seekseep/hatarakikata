@@ -1,38 +1,48 @@
 import type { GenerateCareerEventsFromBiographyOperation } from "@/core/application/port/operation/generateCareerEventsFromBiography"
-import type { GenerateCareerEventsResult } from "@/core/domain"
 import { failAsExternalServiceError, succeed } from "@/core/util/appResult"
 
 import { createOpenAIClient } from "../../client"
 import { normalizeActions } from "../../converter"
-import { buildBiographyPrompt } from "./prompt"
+import { buildBiographyPromptForType } from "./prompt"
 
 const MODEL = process.env.OPENAI_MODEL ?? "gpt-4.1-nano"
+
+const EVENT_TYPES = ["working", "living", "feeling"] as const
 
 export const generateCareerEventsFromBiography: GenerateCareerEventsFromBiographyOperation = async (parameters) => {
   const today = new Date().toISOString().slice(0, 10)
   const fallbackDate = parameters.birthDate ?? today
 
-  const prompt = buildBiographyPrompt(
-    parameters.personName,
-    parameters.biographyMarkdown,
-    parameters.birthDate,
-    parameters.tags
-  )
-
   const client = createOpenAIClient()
 
   try {
-    const response = await client.responses.create({
-      model: MODEL,
-      input: prompt,
-      text: { format: { type: "json_object" } },
+    const tagNames = parameters.tags.map((t) => t.name)
+
+    const results = await Promise.all(
+      EVENT_TYPES.map((type) => {
+        const prompt = buildBiographyPromptForType(
+          type,
+          parameters.personName,
+          parameters.biographyMarkdown,
+          parameters.birthDate,
+          tagNames
+        )
+        return client.responses.create({
+          model: MODEL,
+          input: prompt,
+          text: { format: { type: "json_object" } },
+        })
+      })
+    )
+
+    const allActions = results.flatMap((response) => {
+      const text = response.output_text
+      if (!text) return []
+      const parsed = JSON.parse(text)
+      return parsed.actions ?? []
     })
 
-    const text = response.output_text
-    if (!text) return failAsExternalServiceError("OpenAI returned empty response")
-
-    const parsed = JSON.parse(text) as GenerateCareerEventsResult
-    const actions = normalizeActions(parsed.actions ?? [], fallbackDate, parameters.tags)
+    const actions = normalizeActions(allActions, fallbackDate, parameters.tags)
 
     return succeed({ actions, nextQuestion: null })
   } catch (error) {

@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useRef, useState } from "react"
+import { useCallback, useReducer, useRef } from "react"
 
 import type { CareerEvent } from "@/core/domain"
 
@@ -18,14 +18,164 @@ type DragState = {
   originalEvent: CareerEvent
 }
 
+// --- State & Action ---
+
+type State = {
+  dragState: DragState | null
+  previewRect: Rect | null
+  previewStrength: number | null
+}
+
+type Action =
+  | { type: "start"; dragState: DragState; rect: Rect; strength: number }
+  | { type: "preview"; rect: Rect; strength?: number }
+  | { type: "end" }
+
+const initialState: State = {
+  dragState: null,
+  previewRect: null,
+  previewStrength: null,
+}
+
+function reducer(state: State, action: Action): State {
+  switch (action.type) {
+    case "start":
+      return { dragState: action.dragState, previewRect: action.rect, previewStrength: action.strength }
+    case "preview":
+      return { ...state, previewRect: action.rect, previewStrength: action.strength ?? state.previewStrength }
+    case "end":
+      return initialState
+  }
+}
+
+// --- Preview 計算（純粋関数） ---
+
+function computeMovePreview(
+  dragState: DragState,
+  dx: number,
+  dy: number,
+  config: TimelineConfig,
+  snapX: (x: number) => number,
+): Rect {
+  const { startRect, originalEvent } = dragState
+  const rowHeight = config.rowHeightInUnits * config.unit
+  const rowGapHeight = config.rowGapHeightInUnits * config.unit
+  const rowStep = rowHeight + rowGapHeight
+
+  const snappedStartX = snapX(startRect.x + dx)
+  const snappedEndX = snapX(startRect.x + startRect.width + dx)
+  const newRow = yToRow(startRect.y + dy, config)
+  const rowTopPx = config.headerHeightInUnits * config.unit + newRow * rowStep
+  const strength = originalEvent.strength ?? 3
+  const height = strength * rowHeight + (strength - 1) * rowGapHeight
+
+  return {
+    x: snappedStartX,
+    y: rowTopPx,
+    width: Math.max(snappedEndX - snappedStartX, config.unit),
+    height,
+  }
+}
+
+function computeResizeStartPreview(
+  dragState: DragState,
+  dx: number,
+  config: TimelineConfig,
+  snapX: (x: number) => number,
+): Rect {
+  const { startRect } = dragState
+  const snappedX = snapX(startRect.x + dx)
+  const endX = startRect.x + startRect.width
+  return {
+    x: snappedX,
+    y: startRect.y,
+    width: Math.max(endX - snappedX, config.unit),
+    height: startRect.height,
+  }
+}
+
+function computeResizeEndPreview(
+  dragState: DragState,
+  dx: number,
+  config: TimelineConfig,
+  snapX: (x: number) => number,
+): Rect {
+  const { startRect } = dragState
+  const snappedEndX = snapX(startRect.x + startRect.width + dx)
+  return {
+    x: startRect.x,
+    y: startRect.y,
+    width: Math.max(snappedEndX - startRect.x, config.unit),
+    height: startRect.height,
+  }
+}
+
+function computeStrengthPreview(
+  dragState: DragState,
+  dy: number,
+  config: TimelineConfig,
+): { rect: Rect; strength: number } {
+  const { startRect, originalEvent } = dragState
+  const rowHeight = config.rowHeightInUnits * config.unit
+  const rowGapHeight = config.rowGapHeightInUnits * config.unit
+  const rowStep = rowHeight + rowGapHeight
+
+  const currentStrength = originalEvent.strength ?? 3
+  const strengthDelta = dy / rowStep
+  const strength = Math.round(Math.min(config.maxStrength, Math.max(1, currentStrength + strengthDelta)))
+  const height = strength * rowHeight + (strength - 1) * rowGapHeight
+
+  return { rect: { x: startRect.x, y: startRect.y, width: startRect.width, height }, strength }
+}
+
+// --- Commit 計算（純粋関数） ---
+
+function computeCommittedEvent(
+  dragState: DragState,
+  dx: number,
+  dy: number,
+  config: TimelineConfig,
+): CareerEvent {
+  const { mode, originalEvent, startRect } = dragState
+  const rowStep = (config.rowHeightInUnits + config.rowGapHeightInUnits) * config.unit
+
+  if (mode === "move") {
+    const newStartX = startRect.x + dx
+    const newEndX = newStartX + startRect.width
+    return {
+      ...originalEvent,
+      startDate: xToDate(newStartX, config),
+      endDate: xToDate(newEndX, config),
+      row: yToRow(startRect.y + dy, config),
+    }
+  }
+
+  if (mode === "resize-start") {
+    const newWidth = Math.max(startRect.width - dx, config.unit)
+    const newX = startRect.x + startRect.width - newWidth
+    return { ...originalEvent, startDate: xToDate(newX, config) }
+  }
+
+  if (mode === "resize-end") {
+    const newWidth = Math.max(startRect.width + dx, config.unit)
+    return { ...originalEvent, endDate: xToDate(startRect.x + newWidth, config) }
+  }
+
+  // strength
+  const currentStrength = originalEvent.strength ?? 3
+  const strengthDelta = dy / rowStep
+  const newStrength = Math.round(Math.min(config.maxStrength, Math.max(1, currentStrength + strengthDelta)))
+  return { ...originalEvent, strength: newStrength }
+}
+
+// --- Hook ---
+
 export function useDragInteraction(
   config: TimelineConfig,
   onUpdate: (event: CareerEvent) => void,
 ) {
-  const [dragState, setDragState] = useState<DragState | null>(null)
+  const [{ dragState, previewRect, previewStrength }, dispatch] = useReducer(reducer, initialState)
   const dragStateRef = useRef<DragState | null>(null)
-  const [previewRect, setPreviewRect] = useState<Rect | null>(null)
-  const [previewStrength, setPreviewStrength] = useState<number | null>(null)
 
   const handlePointerDown = useCallback((
     e: React.PointerEvent,
@@ -45,10 +195,8 @@ export function useDragInteraction(
       startRect: rect,
       originalEvent: event,
     }
-    setDragState(state)
     dragStateRef.current = state
-    setPreviewRect(rect)
-    setPreviewStrength(event.strength ?? 3)
+    dispatch({ type: "start", dragState: state, rect, strength: event.strength ?? 3 })
   }, [])
 
   const snapX = useCallback((x: number) => {
@@ -61,52 +209,16 @@ export function useDragInteraction(
 
     const dx = e.clientX - state.startPointerX
     const dy = e.clientY - state.startPointerY
-    const { startRect, mode, originalEvent } = state
-    const rowHeight = config.rowHeightInUnits * config.unit
 
-    if (mode === "move") {
-      const snappedStartX = snapX(startRect.x + dx)
-      const snappedEndX = snapX(startRect.x + startRect.width + dx)
-      const newRow = yToRow(startRect.y + dy, config)
-      const rowTopPx = config.headerHeightInUnits * config.unit + newRow * rowHeight
-      const strength = originalEvent.strength ?? 3
-      const height = strength * rowHeight
-      setPreviewRect({
-        x: snappedStartX,
-        y: rowTopPx,
-        width: Math.max(snappedEndX - snappedStartX, config.unit),
-        height,
-      })
-    } else if (mode === "resize-start") {
-      const snappedX = snapX(startRect.x + dx)
-      const endX = startRect.x + startRect.width
-      setPreviewRect({
-        x: snappedX,
-        y: startRect.y,
-        width: Math.max(endX - snappedX, config.unit),
-        height: startRect.height,
-      })
-    } else if (mode === "resize-end") {
-      const snappedEndX = snapX(startRect.x + startRect.width + dx)
-      setPreviewRect({
-        x: startRect.x,
-        y: startRect.y,
-        width: Math.max(snappedEndX - startRect.x, config.unit),
-        height: startRect.height,
-      })
-    } else if (mode === "strength") {
-      const currentStrength = originalEvent.strength ?? 3
-      const strengthDelta = dy / rowHeight
-      const newStrength = Math.round(Math.min(config.maxStrength, Math.max(1, currentStrength + strengthDelta)))
-      setPreviewStrength(newStrength)
-
-      const newHeight = newStrength * rowHeight
-      setPreviewRect({
-        x: startRect.x,
-        y: startRect.y,
-        width: startRect.width,
-        height: newHeight,
-      })
+    if (state.mode === "move") {
+      dispatch({ type: "preview", rect: computeMovePreview(state, dx, dy, config, snapX) })
+    } else if (state.mode === "resize-start") {
+      dispatch({ type: "preview", rect: computeResizeStartPreview(state, dx, config, snapX) })
+    } else if (state.mode === "resize-end") {
+      dispatch({ type: "preview", rect: computeResizeEndPreview(state, dx, config, snapX) })
+    } else if (state.mode === "strength") {
+      const { rect, strength } = computeStrengthPreview(state, dy, config)
+      dispatch({ type: "preview", rect, strength })
     }
   }, [config, snapX])
 
@@ -118,50 +230,10 @@ export function useDragInteraction(
 
     const dx = e.clientX - state.startPointerX
     const dy = e.clientY - state.startPointerY
-    const { mode, originalEvent, startRect } = state
-    const rowHeight = config.rowHeightInUnits * config.unit
 
-    let updatedEvent: CareerEvent = { ...originalEvent }
-
-    if (mode === "move") {
-      const newStartX = startRect.x + dx
-      const newEndX = newStartX + startRect.width
-      const newRow = yToRow(startRect.y + dy, config)
-      updatedEvent = {
-        ...originalEvent,
-        startDate: xToDate(newStartX, config),
-        endDate: xToDate(newEndX, config),
-        row: newRow,
-      }
-    } else if (mode === "resize-start") {
-      const newWidth = Math.max(startRect.width - dx, config.unit)
-      const newX = startRect.x + startRect.width - newWidth
-      updatedEvent = {
-        ...originalEvent,
-        startDate: xToDate(newX, config),
-      }
-    } else if (mode === "resize-end") {
-      const newWidth = Math.max(startRect.width + dx, config.unit)
-      const newEndX = startRect.x + newWidth
-      updatedEvent = {
-        ...originalEvent,
-        endDate: xToDate(newEndX, config),
-      }
-    } else if (mode === "strength") {
-      const currentStrength = originalEvent.strength ?? 3
-      const strengthDelta = dy / rowHeight
-      const newStrength = Math.round(Math.min(config.maxStrength, Math.max(1, currentStrength + strengthDelta)))
-      updatedEvent = {
-        ...originalEvent,
-        strength: newStrength,
-      }
-    }
-
-    onUpdate(updatedEvent)
-    setDragState(null)
+    onUpdate(computeCommittedEvent(state, dx, dy, config))
     dragStateRef.current = null
-    setPreviewRect(null)
-    setPreviewStrength(null)
+    dispatch({ type: "end" })
   }, [config, onUpdate])
 
   return {

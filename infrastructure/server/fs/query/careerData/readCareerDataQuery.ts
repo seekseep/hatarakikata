@@ -5,11 +5,11 @@ import { CareerDataSchema } from '@/core/application/port/command/careerData/sav
 import type { ReadCareerDataQuery } from '@/core/application/port/query/careerData/readCareerDataQuery'
 import { failAsExternalServiceError, failAsNotFoundError, succeed } from '@/core/util/appResult'
 
-const DATA_DIR = path.resolve(process.cwd(), 'data')
+const CAREER_MAPS_DIR = path.resolve(process.cwd(), 'data/careerMaps')
 
 export const readCareerDataQuery: ReadCareerDataQuery = async (personName) => {
   try {
-    const filePath = path.join(DATA_DIR, `${personName}.json`)
+    const filePath = path.join(CAREER_MAPS_DIR, `${personName}.json`)
 
     if (!fs.existsSync(filePath)) {
       return failAsNotFoundError(`Career data not found: ${personName}`)

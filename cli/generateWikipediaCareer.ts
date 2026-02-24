@@ -1,55 +1,83 @@
 import 'dotenv/config'
 
+import { Command } from 'commander'
 import inquirer from 'inquirer'
+import pLimit from 'p-limit'
 
 import type { SystemExecutor } from '../core/application/executor'
-import { generateCareerFromWikipedia } from './usecase'
+import { loadPersonNamesFromFile } from './utils/loadPersonNamesFromFile'
+import { processOne } from './utils/processOne'
 
-async function main() {
-  const { personName, language } = await inquirer.prompt([
-    {
-      type: 'input',
-      name: 'personName',
-      message: '人物名を入力してください:',
-      validate: (input: string) => input.trim() ? true : '人物名を入力してください',
-    },
-    {
-      type: 'input',
-      name: 'language',
-      message: 'Wikipedia言語コード:',
-      default: 'ja',
-    },
-  ])
+const CONCURRENCY = 5
 
-  try {
+const program = new Command()
 
-    console.log(`\n${personName} のWikipediaページからキャリアデータを生成します...`)
+program
+  .name('generate-wikipedia-career')
+  .description('WikipediaページからキャリアデータをAIで生成する')
+  .argument('[personNames...]', '人物名（複数指定可）')
+  .option('-l, --language <code>', 'Wikipedia言語コード', 'ja')
+  .option('-f, --file <path>', '人物名リストファイル（1行1名、# コメント行は無視）')
 
-    const executor: SystemExecutor = {
-      type: 'system',
-      operation: { name: 'generate-wikipedia-career' },
-    }
+program.parse()
 
-    const result = await generateCareerFromWikipedia({ personName, language }, executor)
+const args = program.args
+const opts = program.opts<{ language: string; file?: string }>()
 
-    if (!result.success) {
-      console.error('Failed:', result.error.type, result.error.message)
-      process.exit(1)
-    }
-
-    console.log('\n=== 生成完了 ===')
-    console.log(`人物名: ${result.data.personName}`)
-    console.log(`Wikipedia URL: ${result.data.wikipediaUrl}`)
-    console.log(`推定生年月日: ${result.data.birthDate ?? '不明'}`)
-    console.log(`イベント数: ${result.data.events.length}`)
-    console.log('\nイベント一覧:')
-    for (const event of result.data.events) {
-      console.log(`  - ${event.name} (${event.type}) ${event.startDate} ~ ${event.endDate}`)
-    }
-  } catch (error) {
-    console.error('Unexpected error:', error)
-    process.exit(1)
-  }
+const executor: SystemExecutor = {
+  type: 'system',
+  operation: { name: 'generate-wikipedia-career' },
 }
 
-main()
+async function main() {
+  const language = opts.language
+  let personNames: string[] = args
+
+  if (opts.file) {
+    personNames = loadPersonNamesFromFile(opts.file)
+  }
+
+  if (personNames.length === 0) {
+    const answers = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'personName',
+        message: '人物名を入力してください:',
+        validate: (input: string) => input.trim() ? true : '人物名を入力してください',
+      },
+    ])
+    personNames = [answers.personName]
+  }
+
+  console.log(`\n${personNames.length}件をWikipediaページからキャリアデータを生成します（最大${CONCURRENCY}件並列）...\n`)
+
+  const limit = pLimit(CONCURRENCY)
+
+  await Promise.all(
+    personNames.map((personName, i) =>
+      limit(async () => {
+        console.log(`\n▶ ${personName} (${i + 1}/${personNames.length})`)
+        const result = await processOne(personName, language, executor)
+
+        if (!result.success) {
+          if (result.error.type === 'ConflictError') {
+            console.log(`  [${personName}] スキップ: データが既に存在します`)
+          } else {
+            console.error(`  [${personName}] 失敗: ${result.error.type} - ${result.error.message}`)
+          }
+        } else {
+          console.log(`  [${personName}] Wikipedia URL: ${result.data.wikipediaUrl}`)
+          console.log(`  [${personName}] 推定生年月日: ${result.data.birthDate ?? '不明'}`)
+          console.log(`  [${personName}] イベント数: ${result.data.events.length}`)
+        }
+      })
+    )
+  )
+
+  console.log('\n=== 全処理完了 ===')
+}
+
+main().catch((error) => {
+  console.error('Unexpected error:', error)
+  process.exit(1)
+})

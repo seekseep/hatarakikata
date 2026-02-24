@@ -56,11 +56,13 @@ export function eventToRect(event: CareerEvent, config: TimelineConfig): Rect {
 
   const row = event.row ?? 0
   const rowHeight = config.rowHeightInUnits * config.unit
+  const rowGapHeight = config.rowGapHeightInUnits * config.unit
+  const rowStep = rowHeight + rowGapHeight
   const headerPx = config.headerHeightInUnits * config.unit
-  const y = headerPx + row * rowHeight
+  const y = headerPx + row * rowStep
 
   const strength = event.strength ?? 3
-  const height = strength * rowHeight
+  const height = strength * rowHeight + (strength - 1) * rowGapHeight
 
   return { x, y, width, height }
 }
@@ -71,8 +73,8 @@ export function computeCanvasWidth(config: TimelineConfig): number {
 
 export function yToRow(y: number, config: TimelineConfig): number {
   const headerPx = config.headerHeightInUnits * config.unit
-  const rowPx = config.rowHeightInUnits * config.unit
-  return Math.max(0, Math.floor((y - headerPx) / rowPx))
+  const rowStep = (config.rowHeightInUnits + config.rowGapHeightInUnits) * config.unit
+  return Math.max(0, Math.floor((y - headerPx) / rowStep))
 }
 
 export function buildTimelineConfig(startDate: string, endDate: string, scale: number): TimelineConfig {
@@ -84,6 +86,7 @@ export function buildTimelineConfig(startDate: string, endDate: string, scale: n
     originDate: `${originYear}-01-01`,
     endDate,
     rowHeightInUnits: 1.2,
+    rowGapHeightInUnits: 0.3,
     headerHeightInUnits: 3,
     maxStrength: 5,
   }
@@ -97,6 +100,7 @@ export function computeTimelineConfig(careerMap: CareerMap & { startDate: string
     originDate: `${originYear}-01-01`,
     endDate: careerMap.endDate,
     rowHeightInUnits: 1.2,
+    rowGapHeightInUnits: 0.3,
     headerHeightInUnits: 3,
     maxStrength: 5,
   }

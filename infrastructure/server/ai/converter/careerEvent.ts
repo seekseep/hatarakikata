@@ -14,65 +14,79 @@ function escapeToonValue(value: string): string {
 
 export function formatEvents(events: CareerEvent[]): string {
   if (events.length === 0) return "(イベントなし)"
-  const header = `events[${events.length}]{id,name,type,startDate,endDate,strength,row,tags,description}:`
+  const header = `events[${events.length}]{id,name,startName,endName,type,startDate,endDate,strength,row,tags,description}:`
   const rows = events.map((e) => {
     const tags = e.tags?.length ? e.tags.map((t) => t.name).join(";") : ""
     const desc = e.description ? e.description.replace(/\s+/g, " ") : ""
-    return `  ${e.id},${escapeToonValue(e.name)},${e.type ?? "working"},${e.startDate},${e.endDate},${e.strength},${e.row},${escapeToonValue(tags)},${escapeToonValue(desc)}`
+    return `  ${e.id},${escapeToonValue(e.name ?? "")},${escapeToonValue(e.startName ?? "")},${escapeToonValue(e.endName ?? "")},${e.type ?? "working"},${e.startDate},${e.endDate},${e.strength},${e.row},${escapeToonValue(tags)},${escapeToonValue(desc)}`
   })
   return [header, ...rows].join("\n")
 }
 
 export function normalizeActions(
-  actions: GenerateCareerEventAction[],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  actions: any[],
   fallbackDate: string,
-  tags: Array<{ id: string; name: string }>
+  tags: { id: string; name: string }[]
 ): GenerateCareerEventAction[] {
+  const tagIdByName = new Map(tags.map((t) => [t.name, t.id]))
   const tagNameSet = new Set(tags.map((t) => t.name))
   const validTypes = ["living", "working", "feeling"] as const
 
-  return actions.map((action): GenerateCareerEventAction => {
-    if (action.type === "create") {
-      const e = action.payload
-      return {
-        type: "create",
-        payload: {
-          name: e.name ?? "新しいイベント",
-          type: validTypes.includes(e.type as typeof validTypes[number]) ? e.type : "working",
-          startDate: ensureDate(e.startDate, fallbackDate),
-          endDate: ensureDate(e.endDate, fallbackDate),
-          tagNames: Array.isArray(e.tagNames)
-            ? e.tagNames.filter((name) => tagNameSet.has(name))
-            : [],
-          strength: Math.min(5, Math.max(1, Math.round(Number(e.strength) || 3))),
-          row: typeof e.row === "number" && Number.isFinite(e.row) ? e.row : 0,
-          description: e.description ?? null,
-        },
+  const resolveTagIds = (rawTagNames: unknown): string[] => {
+    if (!Array.isArray(rawTagNames)) return []
+    return rawTagNames
+      .filter((name): name is string => typeof name === "string" && tagNameSet.has(name))
+      .map((name) => tagIdByName.get(name)!)
+  }
+
+  return actions
+    .filter((action) => action?.type === "create" || action?.type === "update")
+    .map((action): GenerateCareerEventAction => {
+      if (action.type === "create") {
+        const e = action.payload ?? {}
+        const hasName = !!(e.name)
+        const hasStartName = !!(e.startName)
+        return {
+          type: "create",
+          payload: {
+            ...(hasName ? { name: e.name } : {}),
+            ...(hasStartName ? { startName: e.startName } : {}),
+            ...(!hasName && !hasStartName ? { startName: "新しいイベント" } : {}),
+            ...(e.endName ? { endName: e.endName } : {}),
+            type: validTypes.includes(e.type) ? e.type : "working",
+            startDate: ensureDate(e.startDate, fallbackDate),
+            endDate: ensureDate(e.endDate, fallbackDate),
+            tagIds: resolveTagIds(e.tagNames),
+            strength: Math.min(5, Math.max(1, Math.round(Number(e.strength) || 3))),
+            row: typeof e.row === "number" && Number.isFinite(e.row) ? e.row : 0,
+            description: e.description ?? null,
+          },
+        }
       }
-    }
 
-    // update
-    const e = action.payload
-    const normalized: typeof e = { id: e.id }
-    if (e.name !== undefined) normalized.name = e.name
-    if (e.type !== undefined) {
-      normalized.type = validTypes.includes(e.type as typeof validTypes[number]) ? e.type : undefined
-    }
-    if (e.startDate !== undefined) normalized.startDate = ensureDate(e.startDate, fallbackDate)
-    if (e.endDate !== undefined) normalized.endDate = ensureDate(e.endDate, fallbackDate)
-    if (e.tagNames !== undefined) {
-      normalized.tagNames = Array.isArray(e.tagNames)
-        ? e.tagNames.filter((name) => tagNameSet.has(name))
-        : undefined
-    }
-    if (e.strength !== undefined) {
-      normalized.strength = Math.min(5, Math.max(1, Math.round(Number(e.strength) || 3)))
-    }
-    if (e.row !== undefined) {
-      normalized.row = typeof e.row === "number" && Number.isFinite(e.row) ? e.row : undefined
-    }
-    if (e.description !== undefined) normalized.description = e.description ?? null
+      // update
+      const e = action.payload ?? {}
+      const normalized: GenerateCareerEventAction["payload"] = { id: e.id }
+      if (e.name !== undefined) normalized.name = e.name
+      if (e.startName !== undefined) normalized.startName = e.startName
+      if (e.endName !== undefined) normalized.endName = e.endName
+      if (e.type !== undefined) {
+        normalized.type = validTypes.includes(e.type) ? e.type : undefined
+      }
+      if (e.startDate !== undefined) normalized.startDate = ensureDate(e.startDate, fallbackDate)
+      if (e.endDate !== undefined) normalized.endDate = ensureDate(e.endDate, fallbackDate)
+      if (e.tagNames !== undefined) {
+        normalized.tagIds = resolveTagIds(e.tagNames)
+      }
+      if (e.strength !== undefined) {
+        normalized.strength = Math.min(5, Math.max(1, Math.round(Number(e.strength) || 3)))
+      }
+      if (e.row !== undefined) {
+        normalized.row = typeof e.row === "number" && Number.isFinite(e.row) ? e.row : undefined
+      }
+      if (e.description !== undefined) normalized.description = e.description ?? null
 
-    return { type: "update", payload: normalized }
-  })
+      return { type: "update", payload: normalized }
+    })
 }

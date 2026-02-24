@@ -110,17 +110,15 @@ export function makeImportCareerFromWikipedia({
     if (!careerMapResult.success) return careerMapResult
 
     const careerMapId = careerMapResult.data.id
-    const tagIdByName = new Map(tags.map((t) => [t.name, t.id]))
-
     const createdEvents: CareerEvent[] = []
 
     for (const action of createActions) {
       if (action.type === "create") {
-        const { tagNames, ...rest } = action.payload
+        const { tagIds, ...rest } = action.payload
         const result = await createCareerEventCommand({
           careerMapId,
           ...rest,
-          tags: tagNames.map((name) => tagIdByName.get(name)).filter((id): id is string => Boolean(id)),
+          tags: tagIds,
         })
         if (!result.success) throw new Error(`Failed to create event: ${result.error.message}`)
         createdEvents.push(result.data)

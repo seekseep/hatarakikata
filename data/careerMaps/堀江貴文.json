@@ -1,0 +1,134 @@
+{
+  "personName": "堀江貴文",
+  "language": "ja",
+  "wikipediaUrl": "https://ja.wikipedia.org/wiki/%E5%A0%80%E6%B1%9F%E8%B2%B4%E6%96%87",
+  "wikipediaTitle": "堀江貴文",
+  "birthDate": "1972-10-01",
+  "events": [
+    {
+      "name": "インターネット事業会社設立",
+      "type": "working",
+      "startDate": "1996-04-01",
+      "endDate": "1997-03-31",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "東京大学在学中にインターネット事業会社「有限会社オン・ザ・エッヂ」を設立し、インターネット黎明期にホームページ制作や管理運営を行った。"
+    },
+    {
+      "name": "ライブドア社長",
+      "type": "working",
+      "startDate": "2002-01-01",
+      "endDate": "2006-04-14",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "東証マザーズ上場企業のライブドアの社長に就任し、時価総額8000億円、売上高784億円の企業へ成長させた。"
+    },
+    {
+      "name": "政治活動・出馬",
+      "type": "working",
+      "startDate": "2005-08-16",
+      "endDate": "2005-09-11",
+      "tagIds": [
+        "c914d809-3c36-4a88-9d85-68c44250ac05"
+      ],
+      "strength": 2,
+      "row": 0,
+      "description": "第44回衆議院選挙に自民党公認候補として福岡1区から立候補したが落選した。"
+    },
+    {
+      "name": "ラジオ局CROSS FM代表取締役会長",
+      "type": "working",
+      "startDate": "2023-09-22",
+      "endDate": "9999-12-31",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d"
+      ],
+      "strength": 2,
+      "row": 0,
+      "description": "2023年9月にCROSS FMの株式を取得し、代表取締役会長に就任した。"
+    },
+    {
+      "name": "living",
+      "startName": "福岡県八女市生まれ",
+      "type": "living",
+      "startDate": "1972-10-01",
+      "endDate": "1972-10-29",
+      "tagIds": [
+        "2f319ace-e0cc-4a6a-999a-51f4f03174fc"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "堀江貴文は福岡県八女市で生まれた。"
+    },
+    {
+      "name": "living",
+      "startName": "結婚歴あり",
+      "type": "living",
+      "startDate": "2000-01-01",
+      "endDate": "2000-12-31",
+      "tagIds": [
+        "33e521a9-fe4a-4892-b246-e893fcb13a8b"
+      ],
+      "strength": 2,
+      "row": 0,
+      "description": "堀江は秋田県出身の女性と結婚したことがある。"
+    },
+    {
+      "name": "living",
+      "startName": "住居・生活状況",
+      "type": "living",
+      "startDate": "2013-03-27",
+      "endDate": "2023-09-22",
+      "tagIds": [
+        "2f319ace-e0cc-4a6a-999a-51f4f03174fc"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "堀江は長野刑務所から仮釈放された後、活動を続けている。"
+    },
+    {
+      "name": "挑戦していた時期",
+      "type": "working",
+      "startDate": "1996-04-01",
+      "endDate": "2001-03-01",
+      "tagIds": [
+        "c914d809-3c36-4a88-9d85-68c44250ac05",
+        "b20ee26b-5530-48c8-9c17-8d104458a706"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "大学在学中にインターネット事業会社を設立し、売上高2億5000万円で東証マザーズに上場。多方面に挑戦し成長していた時期。"
+    },
+    {
+      "name": "メディアに注目された時期",
+      "type": "working",
+      "startDate": "2006-01-16",
+      "endDate": "2006-04-27",
+      "tagIds": [
+        "d7a7fbaa-6315-4692-a56a-0e212331f474"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "ライブドア事件により逮捕・収監され、社会的に大きな注目と心理的負担を感じていた時期。"
+    },
+    {
+      "name": "復帰と挑戦の時期",
+      "type": "working",
+      "startDate": "2013-03-27",
+      "endDate": "2025-01-01",
+      "tagIds": [
+        "c914d809-3c36-4a88-9d85-68c44250ac05",
+        "b20ee26b-5530-48c8-9c17-8d104458a706"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "刑期満了後には仮釈放や新事業の開始、さまざまな挑戦を続け、自己成長を模索している心理状態。"
+    }
+  ]
+}

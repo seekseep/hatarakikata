@@ -1,0 +1,169 @@
+{
+  "personName": "川邊健太郎",
+  "language": "ja",
+  "wikipediaUrl": "https://ja.wikipedia.org/wiki/%E5%B7%9D%E9%82%8A%E5%81%A5%E5%A4%AA%E9%83%8E",
+  "wikipediaTitle": "川邊健太郎",
+  "birthDate": "1974-10-19",
+  "events": [
+    {
+      "name": "青山学院大学在籍",
+      "startName": "青山学院大学入学",
+      "endName": "青山学院大学卒業",
+      "type": "working",
+      "startDate": "1991-04-01",
+      "endDate": "1998-03-01",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5",
+        "c914d809-3c36-4a88-9d85-68c44250ac05"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "青山学院大学法学部に在籍し、学業に励んでいた。"
+    },
+    {
+      "name": "有限会社電脳隊設立・役員",
+      "type": "working",
+      "startDate": "1996-12-01",
+      "endDate": "1998-03-01",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d",
+        "1930938f-b7ea-49e2-a0d7-e5de5b0e7b9c"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "1996年に有限会社電脳隊を設立し、取締役として活動していた。"
+    },
+    {
+      "name": "電脳隊代表取締役社長",
+      "type": "working",
+      "startDate": "1999-09-01",
+      "endDate": "2000-07-01",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "1999年に電脳隊の代表取締役社長に就任し、活動していた。"
+    },
+    {
+      "name": "ヤフー株式会社入社",
+      "type": "working",
+      "startDate": "2000-08-01",
+      "endDate": "2018-06-01",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d",
+        "c914d809-3c36-4a88-9d85-68c44250ac05"
+      ],
+      "strength": 5,
+      "row": 0,
+      "description": "2000年にヤフー（現・LINEヤフー）に入社し、さまざまな役職を歴任した。"
+    },
+    {
+      "name": "GyaO代表取締役社長",
+      "type": "working",
+      "startDate": "2009-05-01",
+      "endDate": "2012-04-01",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "2009年から2012年までGyaOの代表取締役社長を務めていた。"
+    },
+    {
+      "name": "ヤフー株式会社副社長",
+      "type": "working",
+      "startDate": "2012-07-01",
+      "endDate": "2018-06-01",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d",
+        "9a3f731f-da18-4a3d-9d3f-763b7b7ea6d1"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "2012年にヤフーの副社長に就任し、経営に尽力していた。"
+    },
+    {
+      "name": "ヤフー代表取締役社長CEO",
+      "type": "working",
+      "startDate": "2018-06-01",
+      "endDate": "2023-04-01",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d",
+        "e92162f6-0247-4b48-b0bb-bbf5a8d45aa1"
+      ],
+      "strength": 5,
+      "row": 0,
+      "description": "2018年にヤフーの代表取締役社長CEOに就任し、リーダーシップを発揮していた。"
+    },
+    {
+      "name": "東京都渋谷区恵比寿に在住",
+      "startName": "東京都渋谷区恵比寿に在住",
+      "type": "living",
+      "startDate": "1974-10-19",
+      "endDate": "2023-12-01",
+      "tagIds": [
+        "2f319ace-e0cc-4a6a-999a-51f4f03174fc"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "出身地は東京都渋谷区恵比寿。特段の移住や引越しの情報はなく、長期在住と推測されるため、在住状態を期間として設定した。"
+    },
+    {
+      "name": "挑戦していた",
+      "startName": "起業への意欲が高まっていた時期",
+      "endName": "起業の準備を進めていた時期",
+      "type": "feeling",
+      "startDate": "1995-01-01",
+      "endDate": "1996-12-01",
+      "tagIds": [
+        "c914d809-3c36-4a88-9d85-68c44250ac05"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "大学在学中に電脳隊を立ち上げ、起業への意欲を持ち続けていた時期。積極的に新しい事業に挑戦しようとしていた。"
+    },
+    {
+      "name": "成長していた",
+      "startName": "Gyaoの社長就任",
+      "endName": "Gyaoの社長任期終了",
+      "type": "feeling",
+      "startDate": "2009-01-01",
+      "endDate": "2012-12-01",
+      "tagIds": [
+        "b20ee26b-5530-48c8-9c17-8d104458a706"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "Gyaoの代表取締役社長を務め、リーダーシップを発揮し、事業の成長を実感していた時期。"
+    },
+    {
+      "name": "挑戦していた",
+      "startName": "ヤフー副社長就任",
+      "endName": "副社長退任",
+      "type": "feeling",
+      "startDate": "2012-07-01",
+      "endDate": "2014-05-01",
+      "tagIds": [
+        "c914d809-3c36-4a88-9d85-68c44250ac05"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "ヤフーの副社長として新たな役割に挑戦し、事業戦略の策定に取り組んでいた。"
+    },
+    {
+      "name": "リーダーシップを発揮していた",
+      "startName": "ヤフーCEO就任",
+      "endName": "CEO就任期間終了",
+      "type": "feeling",
+      "startDate": "2018-06-01",
+      "endDate": "2023-04-01",
+      "tagIds": [
+        "9a3f731f-da18-4a3d-9d3f-763b7b7ea6d1"
+      ],
+      "strength": 5,
+      "row": 0,
+      "description": "ヤフーの代表取締役社長／CEOとして組織を牽引し、リーダーシップを発揮し続けていた期間。"
+    }
+  ]
+}

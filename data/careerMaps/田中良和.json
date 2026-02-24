@@ -1,0 +1,23 @@
+{
+  "personName": "田中良和",
+  "language": "ja",
+  "wikipediaUrl": "https://ja.wikipedia.org/wiki/%E7%94%B0%E4%B8%AD%E8%89%AF%E5%92%8C",
+  "wikipediaTitle": "田中良和",
+  "birthDate": "2000-01-01",
+  "events": [
+    {
+      "name": "燃え尽き症候群",
+      "startName": "燃え尽き",
+      "endName": "燃え尽き",
+      "type": "feeling",
+      "startDate": "2000-01-01",
+      "endDate": "2001-01-01",
+      "tagIds": [
+        "d7a7fbaa-6315-4692-a56a-0e212331f474"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "田中良和は、長期間の激しい活動の後、燃え尽き症候群の状態にあった。"
+    }
+  ]
+}

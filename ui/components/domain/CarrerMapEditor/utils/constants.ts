@@ -1,3 +1,5 @@
+import { tv } from "tailwind-variants"
+
 import type { ScaleDisplayConfig, TimelineConfig } from "./types"
 
 export type { ScaleDisplayConfig, TimelineConfig } from "./types"
@@ -8,6 +10,7 @@ export const DEFAULT_TIMELINE_CONFIG: TimelineConfig = {
   originDate: "2020-01-01",
   endDate: new Date().toISOString().split("T")[0],
   rowHeightInUnits: 1.2,
+  rowGapHeightInUnits: 0.3,
   headerHeightInUnits: 3,
   maxStrength: 5,
 }
@@ -45,3 +48,43 @@ export const SCALE_DISPLAY_CONFIG: ScaleDisplayConfig[] = [
 
 /** 導出: 1月あたりのpx幅 */
 export const SCALE_MONTH_WIDTH_PX = SCALE_DISPLAY_CONFIG.map(c => c.tickWidthPx / c.tickMonths)
+
+// イベントタイプ × 強さ別の色クラス (tailwind-variants)
+export const eventItemColors = tv({
+  base: "",
+  variants: {
+    eventType: {
+      working: "",
+      living: "",
+      feeling: "",
+    },
+    strength: {
+      1: "",
+      2: "",
+      3: "",
+      4: "",
+      5: "",
+    },
+  },
+  compoundVariants: [
+    { eventType: "working", strength: 1, class: "bg-blue-100 border-blue-300" },
+    { eventType: "working", strength: 2, class: "bg-blue-200 border-blue-400" },
+    { eventType: "working", strength: 3, class: "bg-blue-300 border-blue-500" },
+    { eventType: "working", strength: 4, class: "bg-blue-400 border-blue-600" },
+    { eventType: "working", strength: 5, class: "bg-blue-500 border-blue-700" },
+    { eventType: "living",  strength: 1, class: "bg-green-100 border-green-300" },
+    { eventType: "living",  strength: 2, class: "bg-green-200 border-green-400" },
+    { eventType: "living",  strength: 3, class: "bg-green-300 border-green-500" },
+    { eventType: "living",  strength: 4, class: "bg-green-400 border-green-600" },
+    { eventType: "living",  strength: 5, class: "bg-green-500 border-green-700" },
+    { eventType: "feeling", strength: 1, class: "bg-amber-100 border-amber-300" },
+    { eventType: "feeling", strength: 2, class: "bg-amber-200 border-amber-400" },
+    { eventType: "feeling", strength: 3, class: "bg-amber-300 border-amber-500" },
+    { eventType: "feeling", strength: 4, class: "bg-amber-400 border-amber-600" },
+    { eventType: "feeling", strength: 5, class: "bg-amber-500 border-amber-700" },
+  ],
+  defaultVariants: {
+    eventType: "working",
+    strength: 3,
+  },
+})

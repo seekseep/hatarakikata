@@ -2,12 +2,13 @@
 drop table if exists career_map_event_tag_attachments;
 drop table if exists career_map_event_tags;
 drop table if exists career_events;
+drop table if exists career_map_vectors;
 drop table if exists career_maps;
 drop table if exists users;
 
 -- Users
 create table users (
-  id uuid primary key references auth.users(id) on delete cascade,
+  id uuid primary key default gen_random_uuid(),
   name text
 );
 
@@ -24,7 +25,9 @@ create index career_maps_user_id_idx on career_maps(user_id);
 create table career_events (
   id uuid primary key default gen_random_uuid(),
   career_map_id uuid not null references career_maps(id) on delete cascade,
-  name text not null default '',
+  name text,
+  start_name text,
+  end_name text,
   type text not null default 'working' check (type in ('living', 'working', 'feeling')),
   start_date text not null,
   end_date text not null,

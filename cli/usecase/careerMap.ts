@@ -3,9 +3,14 @@ import { createEmbeddingOperation } from '@/infrastructure/server/ai/operation'
 import { upsertCareerMapVectorCommand } from '@/infrastructure/server/supabase/command'
 import { listAllCareerMapIdsQuery, listCareerEventsForVectorQuery } from '@/infrastructure/server/supabase/query'
 
-export const reindexAllCareerMapVectors = makeReindexAllCareerMapVectors({
-  listAllCareerMapIdsQuery,
-  listCareerEventsForVectorQuery,
-  createEmbeddingOperation,
-  upsertCareerMapVectorCommand,
-})
+export function createReindexAllCareerMapVectors(
+  onProgress?: (current: number, total: number, failed: number) => void
+) {
+  return makeReindexAllCareerMapVectors({
+    listAllCareerMapIdsQuery,
+    listCareerEventsForVectorQuery,
+    createEmbeddingOperation,
+    upsertCareerMapVectorCommand,
+    onProgress,
+  })
+}

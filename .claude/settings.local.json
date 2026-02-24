@@ -16,7 +16,10 @@
       "WebFetch(domain:toonformat.dev)",
       "Bash(git mv:*)",
       "WebFetch(domain:www.mackuntu.com)",
-      "Bash(xargs sed:*)"
+      "Bash(xargs sed:*)",
+      "Bash(git -C /Users/seekseep/Development/github.com/study-basic-hackathon/hatarakikata ls-files:*)",
+      "Bash(npx ts-node:*)",
+      "Bash(npm run generate-wikipedia-career:*)"
     ]
   }
 }

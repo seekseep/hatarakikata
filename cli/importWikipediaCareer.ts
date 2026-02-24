@@ -52,7 +52,7 @@ async function main() {
       console.log(`作成されたイベント数: ${result.data.events.length}`)
       console.log('イベント一覧:')
       for (const event of result.data.events) {
-        console.log(`  - ${event.name} (${event.type}) ${event.startDate} ~ ${event.endDate}`)
+        console.log(`  - ${event.name ?? event.startName} (${event.type}) ${event.startDate} ~ ${event.endDate}`)
       }
     } catch (error) {
       console.error(`Unexpected error (${personName}):`, error)

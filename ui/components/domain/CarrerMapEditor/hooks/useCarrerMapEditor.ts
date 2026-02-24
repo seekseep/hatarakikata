@@ -71,6 +71,10 @@ export type CarrerMapEditorState = {
   searchDialogOpen: boolean
   openSearchDialog: () => void
   closeSearchDialog: () => void
+
+  viewerCareerMapId: string | null
+  openViewer: (careerMapId: string) => void
+  closeViewer: () => void
 }
 
 export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMapEditorState {
@@ -90,6 +94,7 @@ export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMa
   const [dialogState, setDialogState] = useState<DialogState>({ open: false })
   const [generateDialogOpen, setGenerateDialogOpen] = useState(false)
   const [searchDialogOpen, setSearchDialogOpen] = useState(false)
+  const [viewerCareerMapId, setViewerCareerMapId] = useState<string | null>(null)
   const [error, setError] = useState<Error | undefined>(undefined)
   const [scale, setScale] = useState(SCALE_DEFAULT)
   const [selectedEventIds, setSelectedEventIds] = useState<Set<string>>(new Set())
@@ -281,6 +286,14 @@ export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMa
     setSearchDialogOpen(false)
   }, [])
 
+  const openViewer = useCallback((careerMapId: string) => {
+    setViewerCareerMapId(careerMapId)
+  }, [])
+
+  const closeViewer = useCallback(() => {
+    setViewerCareerMapId(null)
+  }, [])
+
   return {
     status,
     careerMapId,
@@ -309,5 +322,8 @@ export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMa
     searchDialogOpen,
     openSearchDialog,
     closeSearchDialog,
+    viewerCareerMapId,
+    openViewer,
+    closeViewer,
   }
 }

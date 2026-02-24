@@ -9,7 +9,7 @@ export const listCareerEventsByCareerMapIdQuery: ListCareerEventsByCareerMapIdQu
   const supabase = createSupabaseAdmin()
   const { data, error, count } = await supabase
     .from('career_events')
-    .select('id, career_map_id, name, type, start_date, end_date, strength, row, description, career_map_event_tag_attachments(career_map_event_tags(id, name))', { count: 'exact' })
+    .select('id, career_map_id, name, start_name, end_name, type, start_date, end_date, strength, row, description, career_map_event_tag_attachments(career_map_event_tags(id, name))', { count: 'exact' })
     .eq('career_map_id', careerMapId)
 
   if (error) return failAsExternalServiceError(error.message, error)

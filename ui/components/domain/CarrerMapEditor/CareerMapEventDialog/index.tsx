@@ -108,6 +108,7 @@ export default function CareerMapEventDialog() {
   } = useCareerMapEventDialogForm()
 
   const selectedType = form.watch("type")
+  const hasEndDate = form.watch("hasEndDate")
 
   return (
     <Dialog open={open} onClose={closeDialog} className="w-full max-w-md">
@@ -128,11 +129,26 @@ export default function CareerMapEventDialog() {
             <div className="w-7" />
           </div>
 
-          <TextField
-            name="name"
-            label="名前"
-            placeholder="例: 株式会社○○に入社"
-          />
+          {hasEndDate ? (
+            <>
+              <TextField
+                name="name"
+                label="期間名"
+                placeholder="例: 株式会社○○に在籍"
+              />
+              <TextField
+                name="endName"
+                label="終了名（任意）"
+                placeholder="例: 退社"
+              />
+            </>
+          ) : (
+            <TextField
+              name="startName"
+              label="名前"
+              placeholder="例: 株式会社○○に入社"
+            />
+          )}
 
           <div className="flex flex-col gap-1">
             <span className="text-sm font-medium">種類</span>
@@ -164,15 +180,27 @@ export default function CareerMapEventDialog() {
             rows={3}
           />
 
-          <div className="grid grid-cols-2 gap-3">
-            <MonthField
-              label="開始"
-              {...register("startMonth", { required: true })}
-            />
-            <MonthField
-              label="終了"
-              {...register("endMonth", { required: true })}
-            />
+          <div className="flex flex-col gap-2">
+            <div className={hasEndDate ? "grid grid-cols-2 gap-3" : ""}>
+              <MonthField
+                label="開始"
+                {...register("startMonth", { required: true })}
+              />
+              {hasEndDate && (
+                <MonthField
+                  label="終了"
+                  {...register("endMonth", { required: hasEndDate })}
+                />
+              )}
+            </div>
+            <label className="flex items-center gap-2 text-sm text-foreground/70 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                {...register("hasEndDate")}
+                className="rounded"
+              />
+              終了日を指定する
+            </label>
           </div>
 
           <StepField

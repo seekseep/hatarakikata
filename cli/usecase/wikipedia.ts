@@ -2,9 +2,11 @@ import { makeGenerateCareerFromWikipedia } from '@/core/application/usecase/care
 import { makeImportCareerData } from '@/core/application/usecase/careerMap/importCareerData'
 import { makeListCareerData } from '@/core/application/usecase/careerMap/listCareerData'
 import { generateCareerEventsFromBiography } from '@/infrastructure/server/ai/operation/generateCareerEventsFromBiography'
+import { saveWikipediaMarkdownCacheCommand } from '@/infrastructure/server/fs/command/wikipedia/saveWikipediaMarkdownCacheCommand'
 import { saveCareerDataCommand } from '@/infrastructure/server/fs/command/careerData/saveCareerDataCommand'
 import { listCareerDataQuery } from '@/infrastructure/server/fs/query/careerData/listCareerDataQuery'
 import { readCareerDataQuery } from '@/infrastructure/server/fs/query/careerData/readCareerDataQuery'
+import { readWikipediaMarkdownCacheQuery } from '@/infrastructure/server/fs/query/wikipedia/readWikipediaMarkdownCacheQuery'
 import { createCareerEventCommand } from '@/infrastructure/server/supabase/command/careerEvent/createCareerEventCommand'
 import { createCareerMapCommand } from '@/infrastructure/server/supabase/command/careerMap/createCareerMapCommand'
 import { createUserCommand } from '@/infrastructure/server/supabase/command/user/createUserCommand'
@@ -17,7 +19,9 @@ export const generateCareerFromWikipedia = makeGenerateCareerFromWikipedia({
   generateCareerEventsFromBiography,
   listCareerDataQuery,
   listCareerMapEventTagsQuery,
+  readWikipediaMarkdownCacheQuery,
   saveCareerDataCommand,
+  saveWikipediaMarkdownCacheCommand,
 })
 
 export const importCareerData = makeImportCareerData({
@@ -26,7 +30,6 @@ export const importCareerData = makeImportCareerData({
   createUserCommand,
   createCareerMapCommand,
   createCareerEventCommand,
-  listCareerMapEventTagsQuery,
 })
 
 export const listCareerData = makeListCareerData({

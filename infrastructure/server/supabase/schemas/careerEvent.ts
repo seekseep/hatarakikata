@@ -5,7 +5,9 @@ import { CareerMapEventTagRowSchema } from "./careerMapEventTag"
 export const CareerEventRowSchema = z.object({
   id: z.string(),
   career_map_id: z.string(),
-  name: z.string(),
+  name: z.string().nullable(),
+  start_name: z.string().nullable(),
+  end_name: z.string().nullable(),
   type: z.enum(["living", "working", "feeling"]),
   start_date: z.string(),
   end_date: z.string(),

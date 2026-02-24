@@ -2,9 +2,9 @@
 
 import { useCallback, useEffect, useMemo, useRef } from "react"
 
-import { useCareerMapEventTagsQuery } from "@/ui/hooks/careerMapEventTag"
+import type { CareerEvent } from "@/core/domain"
 
-import CareerMapEventCard from "./CareerMapEventCard"
+import CareerMapEventItem from "./CareerMapEventItem"
 import CarrerMapCanvasGrid from "./CarrerMapCanvasGrid"
 import CarrerMapCanvasItem from "./CarrerMapCanvasItem"
 import CarrerMapCanvasRuler from "./CarrerMapCanvasRuler"
@@ -15,17 +15,22 @@ import { computeCanvasWidth, eventToRect, xToDate, yToRow } from "./utils/timeli
 
 export default function CarrerMapCanvas() {
   const { events, careerMap, timelineConfig: config, scale, updateEvent, openEditDialog, openCreateDialog, selectedEventIds, selectEvent, clearSelection, deleteSelectedEvents } = useCarrerMapEditorContext()
-  const tagsQuery = useCareerMapEventTagsQuery()
-  const tagMap = useMemo(
-    () => new Map((tagsQuery.data?.items ?? []).map((t) => [t.id, t.name])),
-    [tagsQuery.data],
-  )
+
+  // Normalize PointEvents: keep endDate == startDate after DnD
+  const handleUpdateEvent = useCallback((updatedEvent: CareerEvent) => {
+    const original = events.find(e => e.id === updatedEvent.id)
+    if (original && original.startDate === original.endDate) {
+      updateEvent({ ...updatedEvent, endDate: updatedEvent.startDate })
+    } else {
+      updateEvent(updatedEvent)
+    }
+  }, [events, updateEvent])
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLDivElement>(null)
 
   const { dragState, previewRect, handlePointerDown: handleDragPointerDown, handlePointerMove: handleDragPointerMove, handlePointerUp: handleDragPointerUp } =
-    useDragInteraction(config, updateEvent)
+    useDragInteraction(config, handleUpdateEvent)
   const { handlePointerDown: handlePanPointerDown, handlePointerMove: handlePanPointerMove, handlePointerUp: handlePanPointerUp } =
     usePanInteraction(scrollRef, canvasRef, !!dragState)
 
@@ -120,11 +125,19 @@ export default function CarrerMapCanvas() {
           canvasHeight={canvasHeight}
         />
 
-        {/* Event cards */}
+        {/* Events */}
         {events.map((event) => {
           const rect = eventToRect(event, config)
           const isDragging = dragState?.eventId === event.id
-          const displayRect = isDragging && previewRect ? previewRect : rect
+          const isPoint = event.startDate === event.endDate
+
+          // For PointEvent: use a square container sized to one row height
+          const pointSize = config.rowHeightInUnits * config.unit
+          const pointRect = isPoint
+            ? { x: rect.x + config.unit / 2 - pointSize / 2, y: rect.y, width: pointSize, height: pointSize }
+            : rect
+          const displayRect = isDragging && previewRect ? previewRect : (isPoint ? pointRect : rect)
+
           return (
             <CarrerMapCanvasItem
               key={event.id}
@@ -133,9 +146,8 @@ export default function CarrerMapCanvas() {
               width={displayRect.width}
               height={displayRect.height}
             >
-              <CareerMapEventCard
+              <CareerMapEventItem
                 event={event}
-                tagNames={(event.tags ?? []).map((t) => t.name)}
                 isDragging={isDragging}
                 isSelected={selectedEventIds.has(event.id)}
                 onSelect={(e: React.MouseEvent) => selectEvent(event.id, e.shiftKey)}

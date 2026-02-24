@@ -1,0 +1,327 @@
+{
+  "personName": "孫正義",
+  "language": "ja",
+  "wikipediaUrl": "https://ja.wikipedia.org/wiki/%E5%AD%AB%E6%AD%A3%E7%BE%A9",
+  "wikipediaTitle": "孫正義",
+  "birthDate": "1957-08-01",
+  "events": [
+    {
+      "name": "佐賀県鳥栖市の朝鮮人集落で幼少期を過ごす",
+      "startName": "幼少期を過ごす",
+      "type": "working",
+      "startDate": "1957-08-11",
+      "endDate": "1963-08-11",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "孫正義は佐賀県鳥栖市の朝鮮人集落で幼少期を過ごした。貧しい環境の中で家族と共に生活した。"
+    },
+    {
+      "name": "北九州市立引野小学校に在籍",
+      "startName": "引野小学校在籍",
+      "type": "working",
+      "startDate": "1963-08-11",
+      "endDate": "1969-03-31",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "孫正義は北九州市立引野小学校に在籍していた。"
+    },
+    {
+      "name": "北九州市立引野中学校に在籍",
+      "startName": "引野中学校在籍",
+      "type": "working",
+      "startDate": "1969-04-01",
+      "endDate": "1972-03-31",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "孫正義は引野中学校に在籍し、基礎教育を修了した。"
+    },
+    {
+      "name": "福岡市立城南中学校に在籍",
+      "startName": "城南中学校在籍",
+      "type": "working",
+      "startDate": "1972-04-01",
+      "endDate": "1973-03-31",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "福岡市に転居後、城南中学校に通いながら学業に励んだ。"
+    },
+    {
+      "name": "久留米大学附設高等学校に在籍",
+      "startName": "久留米高等学校在籍",
+      "type": "working",
+      "startDate": "1973-04-01",
+      "endDate": "1974-02-28",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "1973年に久留米大学附設高校に入学し、学業を続けた。"
+    },
+    {
+      "name": "渡米しホーリー・ネームズ・カレッジに留学",
+      "startName": "米国留学",
+      "endName": "米国留学",
+      "type": "working",
+      "startDate": "1974-08-01",
+      "endDate": "1975-12-31",
+      "tagIds": [
+        "e4dea9fc-9b7b-440e-b588-f3d3ff81d455"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "孫正義は1974年8月に渡米し、ホーリー・ネームズ・カレッジの英語学校に入学した。その後、サンフランシスコの高校に編入した。"
+    },
+    {
+      "name": "カリフォルニア大学バークレー校に編入学",
+      "startName": "バークレー校在籍",
+      "endName": "バークレー校卒業",
+      "type": "working",
+      "startDate": "1977-09-01",
+      "endDate": "1980-03-31",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "孫正義は1977年にカリフォルニア大学バークレー校の経済学部に編入し、1980年に卒業した。"
+    },
+    {
+      "name": "米国でソフトウェア開発会社を設立",
+      "startName": "Unison World設立",
+      "type": "working",
+      "startDate": "1979-03-01",
+      "endDate": "1980-02-28",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "留学中の孫正義は、資金をもとに米国でソフトウェア開発会社を設立し、インベーダーゲーム機を販売した。"
+    },
+    {
+      "name": "日本に帰国し、ユニソン・ワールドを創立",
+      "startName": "ユニソン・ワールド創立",
+      "type": "working",
+      "startDate": "1980-03-01",
+      "endDate": "1981-05-01",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "孫正義は日本に帰国し、コンピュータ卸売事業のユニソン・ワールドを創立した。"
+    },
+    {
+      "name": "日本ソフトバンクを設立し、社長に就任",
+      "startName": "日本ソフトバンク設立",
+      "endName": "社長退任",
+      "type": "working",
+      "startDate": "1981-05-01",
+      "endDate": "1983-04-01",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "ユニソン・ワールドと経営総合研究所の資金調達を経て、日本ソフトバンクを設立し、代表取締役社長に就任した。"
+    },
+    {
+      "name": "ソフトバンクで事業拡大を図る",
+      "startName": "事業拡大期間",
+      "endName": "事業拡大期間",
+      "type": "working",
+      "startDate": "1986-01-01",
+      "endDate": "1990-12-31",
+      "tagIds": [
+        "15a7dff2-dcc7-4c05-8cf3-e91e0c17681d",
+        "c914d809-3c36-4a88-9d85-68c44250ac05"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "孫正義は1986年に再び社長に復帰し、通信事業を中心に事業拡大を進めた。"
+    },
+    {
+      "name": "生誕",
+      "type": "working",
+      "startDate": "1957-08-01",
+      "endDate": "1957-08-11",
+      "tagIds": [
+        "2f319ace-e0cc-4a6a-999a-51f4f03174fc"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "孫正義は1957年8月11日に佐賀県鳥栖市で生まれた。在日韓国人の二男として育ち、幼少期は鳥栖市の朝鮮人集落で過ごした。"
+    },
+    {
+      "name": "引野小学校卒業",
+      "type": "working",
+      "startDate": "1962-04-01",
+      "endDate": "1966-03-31",
+      "tagIds": [
+        "2f319ace-e0cc-4a6a-999a-51f4f03174fc"
+      ],
+      "strength": 2,
+      "row": 0,
+      "description": "北九州市八幡西区相生町に転居後、引野小学校を卒業した。"
+    },
+    {
+      "name": "城南中学校入学",
+      "type": "working",
+      "startDate": "1966-04-01",
+      "endDate": "1969-03-31",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5"
+      ],
+      "strength": 2,
+      "row": 0,
+      "description": "福岡市に転居し、城南中学校に入学した。"
+    },
+    {
+      "name": "米国語学研修",
+      "type": "working",
+      "startDate": "1974-07-01",
+      "endDate": "1974-07-31",
+      "tagIds": [
+        "e4dea9fc-9b7b-440e-b588-f3d3ff81d455"
+      ],
+      "strength": 2,
+      "row": 0,
+      "description": "高校休暇中に、アメリカ・カリフォルニア州で語学研修を行った。"
+    },
+    {
+      "name": "カリフォルニア大学バークレー校入学",
+      "type": "working",
+      "startDate": "1977-09-01",
+      "endDate": "1980-03-31",
+      "tagIds": [
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "経済学部に在籍し、1979年に卒業した。"
+    },
+    {
+      "name": "渡米",
+      "type": "working",
+      "startDate": "1974-02-01",
+      "endDate": "1974-02-28",
+      "tagIds": [
+        "e4dea9fc-9b7b-440e-b588-f3d3ff81d455"
+      ],
+      "strength": 2,
+      "row": 0,
+      "description": "高校時代の語学研修を経て、アメリカ・サンフランシスコに渡った。"
+    },
+    {
+      "name": "日本帰国",
+      "type": "working",
+      "startDate": "1980-03-01",
+      "endDate": "1980-03-31",
+      "tagIds": [
+        "2f319ace-e0cc-4a6a-999a-51f4f03174fc"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "米国留学を終え、日本へ帰国し、コンピュータ卸売事業「ユニソン・ワールド」を設立した。"
+    },
+    {
+      "name": "結婚",
+      "type": "working",
+      "startDate": "1984-01-01",
+      "endDate": "1984-01-01",
+      "tagIds": [
+        "33e521a9-fe4a-4892-b246-e893fcb13a8b"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "孫正義はこの時期に結婚したと推定される。"
+    },
+    {
+      "name": "起業への挑戦を続けていた",
+      "startName": "高校時代、脱藩に憧れ渡米",
+      "endName": "大学卒業後、アメリカで起業",
+      "type": "feeling",
+      "startDate": "1973-04-01",
+      "endDate": "1979-02-01",
+      "tagIds": [
+        "c914d809-3c36-4a88-9d85-68c44250ac05",
+        "b20ee26b-5530-48c8-9c17-8d104458a706"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "高校時代、脱藩に憧れて渡米し、その後大学を中退してアメリカに渡り、英語学校や短期留学を経験。困難を乗り越えながら、挑戦を続ける精神を持ち続けていた。"
+    },
+    {
+      "name": "起業と自己証明の心理",
+      "startName": "本名で起業を決意",
+      "endName": "親戚の反対を押し切り、実名を名乗る",
+      "type": "feeling",
+      "startDate": "1980-02-01",
+      "endDate": "1981-01-01",
+      "tagIds": [
+        "c914d809-3c36-4a88-9d85-68c44250ac05"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "在日韓国人であることを嫌がる家族や親戚の反対を受けても、自らの誇りとプライドを守るために本名を名乗る決意をし、自分の能力と意義を証明しようとする強い内面の心理状態があった。"
+    },
+    {
+      "name": "震災支援と道義的責任を感じていた",
+      "startName": "東日本大震災義援金を寄付",
+      "endName": "復興資金を全額寄付",
+      "type": "feeling",
+      "startDate": "2011-04-01",
+      "endDate": "2011-07-14",
+      "tagIds": [
+        "c914d809-3c36-4a88-9d85-68c44250ac05",
+        "7205ccb1-fc04-42b2-8f84-6b8305a7b6e1"
+      ],
+      "strength": 5,
+      "row": 0,
+      "description": "東日本大震災発生後、多額の義援金を個人として寄付し、広範な被災者支援や復興への責任と使命感を強く感じていた。"
+    },
+    {
+      "name": "再生可能エネルギー推進の思想に揺れる時期",
+      "startName": "脱原発・再エネ推進を表明",
+      "endName": "太陽光発電の普及とコスト意識の変化",
+      "type": "feeling",
+      "startDate": "2011-04-01",
+      "endDate": "2012-12-01",
+      "tagIds": [
+        "c914d809-3c36-4a88-9d85-68c44250ac05",
+        "d08e922a-78d0-4afd-86ca-029e64c5e1f5"
+      ],
+      "strength": 3,
+      "row": 0,
+      "description": "原発反対の信念とともに、再生可能エネルギー普及とコスト削減の精神の間で揺れ動く心理状態が続いた。"
+    },
+    {
+      "name": "未来に対する野望と高揚感",
+      "startName": "巨大投資とAIのビジョンを語る",
+      "endName": "世界を変える所存を示す",
+      "type": "feeling",
+      "startDate": "2024-01-01",
+      "endDate": "2024-12-31",
+      "tagIds": [
+        "c914d809-3c36-4a88-9d85-68c44250ac05",
+        "b20ee26b-5530-48c8-9c17-8d104458a706"
+      ],
+      "strength": 4,
+      "row": 0,
+      "description": "世界的AIや新技術への投資意欲と、未来を変えるという強い意志と高揚感に溢れた心理状態であった。"
+    }
+  ]
+}

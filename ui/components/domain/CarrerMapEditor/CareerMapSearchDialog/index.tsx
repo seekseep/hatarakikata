@@ -10,11 +10,16 @@ import { useSimilarCareerMapsQuery } from "@/ui/hooks/careerMap"
 import { useCarrerMapEditorContext } from "../hooks/CarrerMapEditorContext"
 
 export default function CareerMapSearchDialog() {
-  const { careerMapId, searchDialogOpen, closeSearchDialog } = useCarrerMapEditorContext()
+  const { careerMapId, searchDialogOpen, closeSearchDialog, openViewer } = useCarrerMapEditorContext()
   const similarQuery = useSimilarCareerMapsQuery(careerMapId, searchDialogOpen)
 
   const items = useMemo(() => similarQuery.data?.items ?? [], [similarQuery.data])
   const hasResults = items.length > 0
+
+  const handleOpenViewer = (id: string) => {
+    closeSearchDialog()
+    openViewer(id)
+  }
 
   return (
     <Dialog open={searchDialogOpen} onClose={closeSearchDialog} className="w-full max-w-lg">
@@ -52,9 +57,11 @@ export default function CareerMapSearchDialog() {
         {hasResults && (
           <div className="flex flex-col gap-3">
             {items.map((item) => (
-              <div
+              <button
                 key={item.id}
-                className="rounded-lg border border-foreground/10 px-4 py-3"
+                type="button"
+                className="rounded-lg border border-foreground/10 px-4 py-3 text-left hover:bg-foreground/5 transition-colors cursor-pointer w-full"
+                onClick={() => handleOpenViewer(item.id)}
               >
                 <div className="flex items-center justify-between">
                   <div className="text-sm font-semibold text-foreground/80">
@@ -76,7 +83,7 @@ export default function CareerMapSearchDialog() {
                     ))}
                   </div>
                 )}
-              </div>
+              </button>
             ))}
           </div>
         )}
