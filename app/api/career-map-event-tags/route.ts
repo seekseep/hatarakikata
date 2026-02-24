@@ -1,6 +1,6 @@
-import { toResponse } from '@/api/lib/response'
-import { getExecutor } from '@/api/service/auth'
-import { listCareerMapEventTags } from '@/api/usecase'
+import { toResponse } from '@/server/lib/response'
+import { getExecutor } from '@/server/service/auth'
+import { listCareerMapEventTags } from '@/server/usecase'
 
 export async function GET() {
   const executor = await getExecutor()

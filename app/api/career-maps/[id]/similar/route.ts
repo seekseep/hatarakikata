@@ -1,9 +1,9 @@
 import { NextRequest } from 'next/server'
 
-import { toResponse } from '@/api/lib/response'
-import { getIntParam } from '@/api/lib/searchParams'
-import { getExecutor } from '@/api/service/auth'
-import { getSimilarCareerMaps } from '@/api/usecase/careerMapVector'
+import { toResponse } from '@/server/lib/response'
+import { getIntParam } from '@/server/lib/searchParams'
+import { getExecutor } from '@/server/service/auth'
+import { getSimilarCareerMaps } from '@/server/usecase/careerMapVector'
 
 export async function GET(
   request: NextRequest,

@@ -1,7 +1,7 @@
 import { NextRequest } from 'next/server'
 
-import { toResponse } from '@/api/lib/response'
-import { reindexAllCareerMapVectors } from '@/api/usecase/careerMap'
+import { toResponse } from '@/server/lib/response'
+import { reindexAllCareerMapVectors } from '@/server/usecase/careerMap'
 import type { SystemExecutor } from '@/core/application/executor'
 import { failAsForbiddenError } from '@/core/util/appResult'
 

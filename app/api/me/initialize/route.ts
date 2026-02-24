@@ -1,6 +1,6 @@
-import { toResponse } from '@/api/lib/response'
-import { getExecutor } from '@/api/service/auth'
-import { initialize } from '@/api/usecase'
+import { toResponse } from '@/server/lib/response'
+import { getExecutor } from '@/server/service/auth'
+import { initialize } from '@/server/usecase'
 
 export async function POST() {
   const executor = await getExecutor()

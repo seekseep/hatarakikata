@@ -1,8 +1,8 @@
 import { NextRequest } from 'next/server'
 
-import { toResponse } from '@/api/lib/response'
-import { getExecutor } from '@/api/service/auth'
-import { generateCareerEvents } from '@/api/usecase'
+import { toResponse } from '@/server/lib/response'
+import { getExecutor } from '@/server/service/auth'
+import { generateCareerEvents } from '@/server/usecase'
 
 export const maxDuration = 60
 

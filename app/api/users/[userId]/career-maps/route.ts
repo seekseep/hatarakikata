@@ -1,5 +1,5 @@
-import { toResponse } from '@/api/lib/response'
-import { getExecutor } from '@/api/service/auth'
+import { toResponse } from '@/server/lib/response'
+import { getExecutor } from '@/server/service/auth'
 import { failAsForbiddenError } from '@/core/util/appResult'
 import { listCareerMapByUserIdQuery } from '@/infrastructure/server/supabase/query'
 
