@@ -1,0 +1,128 @@
+{
+  "personName": "梅田望夫",
+  "language": "ja",
+  "wikipediaUrl": "https://ja.wikipedia.org/wiki/%E6%A2%85%E7%94%B0%E6%9C%9B%E5%A4%AB",
+  "wikipediaTitle": "梅田望夫",
+  "birthDate": "1960-08-01",
+  "events": [
+    {
+      "name": "慶應義塾大学工学部在籍",
+      "type": "working",
+      "startDate": "1978-04-01",
+      "endDate": "1982-03-01",
+      "strength": 2,
+      "row": 0,
+      "description": "梅田望夫は慶應義塾大学工学部の電気工学科に在籍していた。",
+      "tagNames": [
+        "在学"
+      ]
+    },
+    {
+      "name": "東京大学大学院情報理工学系研究科修了",
+      "type": "working",
+      "startDate": "1984-04-01",
+      "endDate": "1986-03-01",
+      "strength": 2,
+      "row": 0,
+      "description": "梅田望夫は東京大学大学院情報理工学系研究科修士課程を修了した。",
+      "tagNames": [
+        "在学"
+      ]
+    },
+    {
+      "name": "アーサー・D・リトル入社",
+      "type": "working",
+      "startDate": "1994-01-01",
+      "endDate": "1997-01-01",
+      "strength": 3,
+      "row": 0,
+      "description": "梅田望夫はコンサルティング会社アーサー・D・リトルの日本法人に入社した。",
+      "tagNames": [
+        "在職"
+      ]
+    },
+    {
+      "name": "ミューズ・アソシエイツ創業",
+      "type": "working",
+      "startDate": "1997-01-01",
+      "endDate": "2010-06-01",
+      "strength": 4,
+      "row": 0,
+      "description": "梅田望夫はシリコンバレーでミューズ・アソシエイツを創業し、IT事業に関わった。",
+      "tagNames": [
+        "在職"
+      ]
+    },
+    {
+      "name": "リコーの社外取締役",
+      "type": "working",
+      "startDate": "2010-06-01",
+      "endDate": "2012-12-31",
+      "strength": 2,
+      "row": 0,
+      "description": "梅田望夫はリコーの社外取締役に就任した。",
+      "tagNames": [
+        "在職"
+      ]
+    },
+    {
+      "name": "東京都在住",
+      "startName": "東京都生まれ",
+      "endName": "東京都在住",
+      "type": "living",
+      "startDate": "1960-08-01",
+      "endDate": "1960-08-30",
+      "strength": 3,
+      "row": 0,
+      "description": "梅田望夫は1960年8月30日に東京都で生まれた。誕生からの短期間で東京都に在住していた状態を示す.",
+      "tagNames": [
+        "居住"
+      ]
+    },
+    {
+      "name": "仕事と研究の両立期",
+      "startName": "学びと勤務の開始",
+      "endName": "仕事と研究の両立",
+      "type": "feeling",
+      "startDate": "1990-01-01",
+      "endDate": "1994-12-01",
+      "strength": 3,
+      "row": 0,
+      "description": "アメリカ・シリコンバレーでIT事業に携わりながら、マネジメントやコンサルティングに取り組む中、自身の活動に意欲と期待を感じていた期間。",
+      "tagNames": [
+        "在学",
+        "在職"
+      ]
+    },
+    {
+      "name": "起業と海外活動の高まり",
+      "startName": "起業と活動拡大",
+      "endName": "国際的な活動",
+      "type": "feeling",
+      "startDate": "1997-01-01",
+      "endDate": "2006-03-28",
+      "strength": 4,
+      "row": 0,
+      "description": "シリコンバレーでの起業とソフトウェアの事業展開により、新たな挑戦への意欲と自信を持つようになった。国際社会での活動や受賞を通じて自己の成長を実感していた。",
+      "tagNames": [
+        "起業",
+        "挑戦"
+      ]
+    },
+    {
+      "name": "執筆と発信の心理的高揚",
+      "startName": "書籍執筆と発信",
+      "endName": "影響と自信の増加",
+      "type": "feeling",
+      "startDate": "2006-01-01",
+      "endDate": "2013-12-01",
+      "strength": 4,
+      "row": 0,
+      "description": "ウェブ進化論などの著作を通じて自身の考えを広く伝える喜びを感じ、社会への影響力に対して誇りと自信を持つようになった期間。",
+      "tagNames": [
+        "成長",
+        "挑戦"
+      ]
+    }
+  ]
+}

@@ -30,7 +30,7 @@ export const createCareerEventCommand: CreateCareerEventCommand = async (params)
     if (error) return failAsExternalServiceError(error.message, error)
 
     if (params.tags && params.tags.length > 0) {
-      const attachments = params.tags.map((tagId) => ({
+      const attachments = [...new Set(params.tags)].map((tagId) => ({
         career_event_id: data.id,
         career_map_event_tag_id: tagId,
       }))

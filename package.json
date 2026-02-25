@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "generate-wikipedia-career": "tsx cli/generateWikipediaCareer.ts",
-    "generate-wikipedia-career:it": "tsx cli/generateWikipediaCareer.ts --file cli/persons/it.txt",
+    "generate-wikipedia-career:all": "tsx cli/generateWikipediaCareer.ts --file data/peopleName.txt",
     "import-wikipedia-career": "tsx cli/importWikipediaCareer.ts",
     "reindex-vectors": "tsx cli/reindexVectors.ts"
   },

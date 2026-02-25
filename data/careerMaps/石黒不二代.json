@@ -1,0 +1,60 @@
+{
+  "personName": "石黒不二代",
+  "language": "ja",
+  "wikipediaUrl": "https://ja.wikipedia.org/wiki/%E7%9F%B3%E9%BB%92%E4%B8%8D%E4%BA%8C%E4%BB%A3",
+  "wikipediaTitle": "石黒不二代",
+  "birthDate": "1958-02-01",
+  "events": [
+    {
+      "name": "ネットイヤーグループ 代表取締役社長",
+      "type": "working",
+      "startDate": "2000-02-01",
+      "endDate": "2008-01-31",
+      "strength": 3,
+      "row": 0,
+      "description": "石黒不二代は2000年2月から2008年1月までネットイヤーグループの代表取締役社長兼CEOとして勤務し、デジタルマーケティング関連の事業を指揮した。",
+      "tagNames": [
+        "在職"
+      ]
+    },
+    {
+      "name": "生誕",
+      "type": "living",
+      "startDate": "1958-02-01",
+      "endDate": "1958-02-01",
+      "strength": 3,
+      "row": 0,
+      "description": "石黒不二代は1958年2月1日に愛知県で生まれた。",
+      "tagNames": [
+        "居住"
+      ]
+    },
+    {
+      "name": "アメリカへ留学",
+      "type": "living",
+      "startDate": "1992-01-01",
+      "endDate": "1992-12-01",
+      "strength": 4,
+      "row": 0,
+      "description": "石黒不二代は1992年にスタンフォード大学のMBAプログラムに子連れで留学していた。",
+      "tagNames": [
+        "留学",
+        "成長"
+      ]
+    },
+    {
+      "name": "社会への怒りを感じていた時期",
+      "startName": "1992年",
+      "endName": "1994年9月",
+      "type": "feeling",
+      "startDate": "1992-01-01",
+      "endDate": "1994-09-01",
+      "strength": 4,
+      "row": 0,
+      "description": "MBA取得を決意し、毎朝5時から受験勉強をしていた時期。子育てと仕事の両立に疲れながらも、次の人生のステップを模索していた心理状態。",
+      "tagNames": [
+        "燃え尽き"
+      ]
+    }
+  ]
+}

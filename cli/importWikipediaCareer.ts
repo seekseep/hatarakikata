@@ -39,7 +39,23 @@ async function main() {
     try {
       console.log(`\n${personName} のキャリアデータをDBにインポートします...`)
 
-      const result = await importCareerData({ personName }, executor)
+      let result = await importCareerData({ personName }, executor)
+
+      if (!result.success && result.error.type === 'ConflictError') {
+        const { overwrite } = await inquirer.prompt([
+          {
+            type: 'confirm',
+            name: 'overwrite',
+            message: `${result.error.message} 上書きしますか？`,
+            default: false,
+          },
+        ])
+        if (!overwrite) {
+          console.log(`スキップ: ${personName}`)
+          continue
+        }
+        result = await importCareerData({ personName, force: true }, executor)
+      }
 
       if (!result.success) {
         console.error(`Failed (${personName}):`, result.error.type, result.error.message)

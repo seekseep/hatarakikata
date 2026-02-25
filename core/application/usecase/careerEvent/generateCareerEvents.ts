@@ -88,20 +88,23 @@ export function makeGenerateCareerEvents({
 
     if (!generateResult.success) return generateResult
 
+    const tagIdByName = new Map(tags.map((t) => [t.name, t.id]))
     const tagNameById = new Map(tags.map((t) => [t.id, t.name]))
     const currentEventsById = new Map(
       (parameters.currentEvents ?? []).map((e) => [e.id, e])
     )
+    const resolveTagIds = (names: string[]): string[] =>
+      names.map((n) => tagIdByName.get(n)).filter((id): id is string => !!id)
 
     const resultActions: GenerateCareerEventsUsecaseAction[] = []
 
     for (const action of generateResult.data.actions) {
       if (action.type === "create") {
-        const { tagIds, ...rest } = action.payload
+        const { tagNames, ...rest } = action.payload
         const result = await createCareerEventCommand({
           careerMapId: parameters.careerMapId,
           ...rest,
-          tags: tagIds,
+          tags: resolveTagIds(tagNames),
         })
         if (!result.success) throw new Error(`Failed to create event: ${result.error.message}`)
         resultActions.push({ type: "create", event: result.data })
@@ -109,17 +112,18 @@ export function makeGenerateCareerEvents({
         const existing = currentEventsById.get(action.payload.id)
         if (!existing) continue // skip if event not found
 
-        const { id, tagIds, ...updates } = action.payload
+        const { id, tagNames, ...updates } = action.payload
+        const resolvedTagIds = tagNames !== undefined ? resolveTagIds(tagNames) : undefined
 
         await updateCareerEventCommand({
           id,
           ...updates,
-          ...(tagIds !== undefined ? { tags: tagIds } : {}),
+          ...(resolvedTagIds !== undefined ? { tags: resolvedTagIds } : {}),
         })
 
         // Merge existing event with updates for UI
-        const mergedTags = tagIds
-          ? tagIds.map((tid) => ({ id: tid, name: tagNameById.get(tid) ?? tid }))
+        const mergedTags = resolvedTagIds
+          ? resolvedTagIds.map((tid) => ({ id: tid, name: tagNameById.get(tid) ?? tid }))
           : existing.tags
 
         const mergedEvent: CareerEvent = {

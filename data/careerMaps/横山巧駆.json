@@ -1,0 +1,149 @@
+{
+  "personName": "横山巧駆",
+  "language": "ja",
+  "wikipediaUrl": null,
+  "wikipediaTitle": null,
+  "birthDate": "1993-09-30",
+  "events": [
+    {
+      "name": "サッカー選手として活動",
+      "type": "working",
+      "startDate": "2000-04-01",
+      "endDate": "2011-03-31",
+      "strength": 3,
+      "row": 1,
+      "description": "小学校1年生からサッカーを始め、高校2年生まで選手として活動した。",
+      "tagNames": ["在職", "挑戦"]
+    },
+    {
+      "name": "初めてHTMLを触る",
+      "type": "working",
+      "startDate": "2000-04-01",
+      "endDate": "2000-04-01",
+      "strength": 2,
+      "row": 2,
+      "description": "小学校1年生のころ、初めてHTMLに触れプログラミングの世界に関心を持ち始める。",
+      "tagNames": ["挑戦"]
+    },
+    {
+      "name": "母のECサイト運営を手伝う",
+      "type": "working",
+      "startDate": "2007-04-01",
+      "endDate": "2011-03-31",
+      "strength": 3,
+      "row": 2,
+      "description": "中学2年生から母親の仕事の手伝いとしてECサイトの運営に携わる。高校2年生頃まで継続した。",
+      "tagNames": ["副業", "在職"]
+    },
+    {
+      "name": "小学生へのサッカーコーチ",
+      "type": "working",
+      "startDate": "2011-04-01",
+      "endDate": "2015-03-31",
+      "strength": 3,
+      "row": 1,
+      "description": "高校3年生頃から専門学校3年生の終わりまで、小学生にサッカーを教えるコーチとして活動した。",
+      "tagNames": ["在職"]
+    },
+    {
+      "name": "白木屋でアルバイト",
+      "type": "working",
+      "startDate": "2013-04-01",
+      "endDate": "2015-03-31",
+      "strength": 2,
+      "row": 2,
+      "description": "専門学校2年生のときに居酒屋・白木屋でアルバイトを始めた。",
+      "tagNames": ["副業", "在職"]
+    },
+    {
+      "name": "スタートアップ立ち上げに参加",
+      "type": "working",
+      "startDate": "2015-04-01",
+      "endDate": "2019-04-30",
+      "strength": 4,
+      "row": 0,
+      "description": "専門学校4年生のはじめにスタートアップの立ち上げに参加し、創業期のメンバーとしてシステム開発に携わった。",
+      "tagNames": ["起業", "挑戦", "在職"]
+    },
+    {
+      "name": "フリーランスSEとして活動",
+      "type": "working",
+      "startDate": "2019-05-01",
+      "endDate": "2026-02-24",
+      "strength": 4,
+      "row": 0,
+      "description": "令和元年（2019年5月）よりフリーランスのシステムエンジニアとして独立。現在も活動中。",
+      "tagNames": ["フリーランス", "在職"]
+    },
+    {
+      "name": "瓜破小学校",
+      "type": "living",
+      "startDate": "2000-04-01",
+      "endDate": "2006-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "大阪市立瓜破小学校に通う。この時期にHTMLやサッカーと出会う。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "瓜破中学校",
+      "type": "living",
+      "startDate": "2006-04-01",
+      "endDate": "2009-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "大阪市立瓜破中学校に通う。中2から母のECサイト運営を手伝い始める。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "府立東住吉高校",
+      "type": "living",
+      "startDate": "2009-04-01",
+      "endDate": "2012-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "大阪府立東住吉高校に通う。高2までサッカーを続け、その後コーチへ転身。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "大阪情報コンピュータ専門学校",
+      "type": "living",
+      "startDate": "2012-04-01",
+      "endDate": "2016-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "大阪情報コンピュータ専門学校に4年間在籍。在学中にスタートアップ参加・バイト・コーチ活動を並行して行った。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "日本を変えるおとなになりたかった",
+      "type": "feeling",
+      "startDate": "2010-04-01",
+      "endDate": "2014-03-31",
+      "strength": 4,
+      "row": 4,
+      "description": "高校2年生から専門学校2年生頃まで、日本を変えるような大人になりたいという強い志を抱いていた。",
+      "tagNames": ["挑戦", "成長"]
+    },
+    {
+      "name": "自分の怒りの源泉への関心",
+      "type": "feeling",
+      "startDate": "2018-01-01",
+      "endDate": "2026-02-24",
+      "strength": 3,
+      "row": 4,
+      "description": "フリーランスとして独立する前頃から、自分の怒りがどこから来るのかという内省的な関心を持ち続けている。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "いけばなを始める",
+      "type": "living",
+      "startDate": "2023-10-01",
+      "endDate": "2026-02-24",
+      "strength": 2,
+      "row": 5,
+      "description": "30歳になる秋からいけばなを始める。",
+      "tagNames": ["挑戦"]
+    }
+  ]
+}

@@ -38,10 +38,6 @@ export function makeGetCareerMap({
     const careerMap = findCareerMapResult.data
     if (!careerMap) return failAsNotFoundError("Career map is not found")
 
-    if (careerMap.userId !== executor.user.id) {
-      return failAsForbiddenError("Forbidden")
-    }
-
     return succeed(careerMap)
   }
 }

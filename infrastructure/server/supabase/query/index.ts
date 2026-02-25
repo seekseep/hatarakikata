@@ -1,5 +1,5 @@
 export { findCareerEventQuery, listCareerEventsByCareerMapIdQuery, listCareerEventsForVectorQuery } from './careerEvent'
-export { findCareerMapQuery, listAllCareerMapIdsQuery, listCareerMapByUserIdQuery } from './careerMap'
+export { findCareerMapQuery, listAllCareerMapIdsQuery, listCareerMapByUserIdQuery, listCareerMapsExcludingUserQuery } from './careerMap'
 export { findCareerMapVectorQuery, matchCareerMapVectorsQuery } from './careerMapVector'
 export { findCareerMapEventTagsByIdsQuery, listCareerMapEventTagsQuery } from './careerMapEventTag'
 export { findUserByNameQuery, findUserQuery, listUserNamesQuery } from './user'

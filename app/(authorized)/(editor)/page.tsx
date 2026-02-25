@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 
 import Spinner from '@/ui/components/basic/Spinner'
-import CareerMapEditor from '@/ui/components/domain/CarrerMapEditor'
+import CareerMapEditor from '@/ui/components/domain/careerMap/CareerMapEditor'
 import { useCreateMyCareerMapMutation,useMyCareerMapsQuery } from '@/ui/hooks/careerMap'
 
 export default function HomePage() {

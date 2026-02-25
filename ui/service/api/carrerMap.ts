@@ -1,6 +1,7 @@
 import type { GetCareerMapParametersInput } from '@/core/application/usecase/careerMap/getCareerMap'
 import type { UpdateCareerMapParametersInput } from '@/core/application/usecase/careerMap/updateCareerMap'
 import type { CareerMap, PagedCareerMaps } from '@/core/domain'
+import type { PagedCarrerMapSummaries } from '@/core/domain/value/carrerMapSummary'
 
 import { apiFetch } from './client'
 
@@ -43,4 +44,12 @@ export type SimilarCareerMapsResponse = {
 export function listSimilarCareerMaps(input: { careerMapId: string; limit?: number }): Promise<SimilarCareerMapsResponse> {
   const limit = input.limit ?? 10
   return apiFetch<SimilarCareerMapsResponse>(`/api/career-maps/${input.careerMapId}/similar?limit=${limit}`)
+}
+
+export function listCarrerMapSummaries(input?: { limit?: number; offset?: number }): Promise<PagedCarrerMapSummaries> {
+  const params = new URLSearchParams()
+  if (input?.limit != null) params.set('limit', String(input.limit))
+  if (input?.offset != null) params.set('offset', String(input.offset))
+  const query = params.toString()
+  return apiFetch<PagedCarrerMapSummaries>(`/api/carrer-map-summaries${query ? `?${query}` : ''}`)
 }

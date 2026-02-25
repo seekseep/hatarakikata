@@ -35,7 +35,7 @@ export const updateCareerEventCommand: UpdateCareerEventCommand = async (paramet
     if (deleteError) return failAsExternalServiceError(deleteError.message, deleteError)
 
     if (parameters.tags.length > 0) {
-      const attachments = parameters.tags.map((tagId) => ({
+      const attachments = [...new Set(parameters.tags)].map((tagId) => ({
         career_event_id: parameters.id,
         career_map_event_tag_id: tagId,
       }))

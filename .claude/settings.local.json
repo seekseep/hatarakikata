@@ -19,7 +19,9 @@
       "Bash(xargs sed:*)",
       "Bash(git -C /Users/seekseep/Development/github.com/study-basic-hackathon/hatarakikata ls-files:*)",
       "Bash(npx ts-node:*)",
-      "Bash(npm run generate-wikipedia-career:*)"
+      "Bash(npm run generate-wikipedia-career:*)",
+      "Bash(python3:*)",
+      "Bash(curl:*)"
     ]
   }
 }

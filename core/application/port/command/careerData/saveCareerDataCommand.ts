@@ -6,8 +6,8 @@ import type { AppResult } from "@/core/util/appResult"
 export const CareerDataSchema = z.object({
   personName: z.string(),
   language: z.string(),
-  wikipediaUrl: z.string(),
-  wikipediaTitle: z.string(),
+  wikipediaUrl: z.string().nullable(),
+  wikipediaTitle: z.string().nullable(),
   birthDate: z.string().nullable(),
   events: z.array(GeneratedCareerEventParameterSchema),
 })

@@ -7,6 +7,7 @@ import {
   createMyCareerMap,
   getCareerMap,
   listCareerMapsByUserId,
+  listCarrerMapSummaries,
   listMyCareerMaps,
   listSimilarCareerMaps,
   updateCareerMap,
@@ -15,6 +16,7 @@ import {
 const CAREER_MAPS_QUERY_KEY = ['careerMaps'] as const
 const CAREER_MAP_QUERY_KEY = ['careerMap'] as const
 const SIMILAR_CAREER_MAPS_QUERY_KEY = ['similarCareerMaps'] as const
+const CARRER_MAP_SUMMARIES_QUERY_KEY = ['carrerMapSummaries'] as const
 
 export function useCareerMapsByUserIdQuery(userId: string | undefined) {
   return useQuery({
@@ -56,5 +58,13 @@ export function useSimilarCareerMapsQuery(careerMapId: string | undefined, enabl
     queryKey: [...SIMILAR_CAREER_MAPS_QUERY_KEY, careerMapId],
     queryFn: () => listSimilarCareerMaps({ careerMapId: careerMapId! }),
     enabled: !!careerMapId && enabled,
+  })
+}
+
+export function useCarrerMapSummariesQuery(enabled: boolean) {
+  return useQuery({
+    queryKey: [...CARRER_MAP_SUMMARIES_QUERY_KEY],
+    queryFn: () => listCarrerMapSummaries({ limit: 10 }),
+    enabled,
   })
 }

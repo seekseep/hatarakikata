@@ -64,6 +64,9 @@ export function makeImportCareerFromWikipedia({
     if (!tagResult.success) return tagResult
 
     const tags = tagResult.data.items.map((tag) => ({ id: tag.id, name: tag.name }))
+    const tagIdByName = new Map(tags.map((t) => [t.name, t.id]))
+    const resolveTagIds = (names: string[]): string[] =>
+      names.map((n) => tagIdByName.get(n)).filter((id): id is string => !!id)
 
     const biographyResult = await fetchWikipediaBiography({
       personName: parameters.personName,
@@ -114,11 +117,11 @@ export function makeImportCareerFromWikipedia({
 
     for (const action of createActions) {
       if (action.type === "create") {
-        const { tagIds, ...rest } = action.payload
+        const { tagNames, ...rest } = action.payload
         const result = await createCareerEventCommand({
           careerMapId,
           ...rest,
-          tags: tagIds,
+          tags: resolveTagIds(tagNames),
         })
         if (!result.success) throw new Error(`Failed to create event: ${result.error.message}`)
         createdEvents.push(result.data)

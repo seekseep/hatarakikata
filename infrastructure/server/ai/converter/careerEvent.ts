@@ -29,15 +29,12 @@ export function normalizeActions(
   fallbackDate: string,
   tags: { id: string; name: string }[]
 ): GenerateCareerEventAction[] {
-  const tagIdByName = new Map(tags.map((t) => [t.name, t.id]))
   const tagNameSet = new Set(tags.map((t) => t.name))
   const validTypes = ["living", "working", "feeling"] as const
 
-  const resolveTagIds = (rawTagNames: unknown): string[] => {
+  const normalizeTagNames = (rawTagNames: unknown): string[] => {
     if (!Array.isArray(rawTagNames)) return []
-    return rawTagNames
-      .filter((name): name is string => typeof name === "string" && tagNameSet.has(name))
-      .map((name) => tagIdByName.get(name)!)
+    return rawTagNames.filter((name): name is string => typeof name === "string" && tagNameSet.has(name))
   }
 
   return actions
@@ -57,7 +54,7 @@ export function normalizeActions(
             type: validTypes.includes(e.type) ? e.type : "working",
             startDate: ensureDate(e.startDate, fallbackDate),
             endDate: ensureDate(e.endDate, fallbackDate),
-            tagIds: resolveTagIds(e.tagNames),
+            tagNames: normalizeTagNames(e.tagNames),
             strength: Math.min(5, Math.max(1, Math.round(Number(e.strength) || 3))),
             row: typeof e.row === "number" && Number.isFinite(e.row) ? e.row : 0,
             description: e.description ?? null,
@@ -77,7 +74,7 @@ export function normalizeActions(
       if (e.startDate !== undefined) normalized.startDate = ensureDate(e.startDate, fallbackDate)
       if (e.endDate !== undefined) normalized.endDate = ensureDate(e.endDate, fallbackDate)
       if (e.tagNames !== undefined) {
-        normalized.tagIds = resolveTagIds(e.tagNames)
+        normalized.tagNames = normalizeTagNames(e.tagNames)
       }
       if (e.strength !== undefined) {
         normalized.strength = Math.min(5, Math.max(1, Math.round(Number(e.strength) || 3)))

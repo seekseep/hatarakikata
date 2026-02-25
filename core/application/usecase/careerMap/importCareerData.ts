@@ -2,13 +2,14 @@ import { v4 as uuidv4 } from "uuid"
 import { z } from "zod"
 
 import type { Executor } from "@/core/application/executor"
-import type { CreateCareerEventCommand, CreateCareerMapCommand, CreateUserCommand } from "@/core/application/port/command"
-import type { ListUserNamesQuery, ReadCareerDataQuery } from "@/core/application/port/query"
+import type { CreateCareerEventCommand, CreateCareerMapCommand, CreateUserCommand, DeleteUserCommand } from "@/core/application/port/command"
+import type { FindUserByNameQuery, ListCareerMapEventTagsQuery, ListUserNamesQuery, ReadCareerDataQuery } from "@/core/application/port/query"
 import type { CareerEvent } from "@/core/domain"
 import { type AppResult, failAsConflictError, failAsForbiddenError, failAsInvalidParametersError, succeed } from "@/core/util/appResult"
 
 const ImportCareerDataParametersSchema = z.object({
   personName: z.string().min(1),
+  force: z.boolean().default(false),
 })
 
 export type ImportCareerDataParametersInput = z.input<
@@ -29,17 +30,23 @@ export type ImportCareerDataUsecase = (
 export type MakeImportCareerDataDependencies = {
   readCareerDataQuery: ReadCareerDataQuery
   listUserNamesQuery: ListUserNamesQuery
+  findUserByNameQuery: FindUserByNameQuery
+  listCareerMapEventTagsQuery: ListCareerMapEventTagsQuery
   createUserCommand: CreateUserCommand
   createCareerMapCommand: CreateCareerMapCommand
   createCareerEventCommand: CreateCareerEventCommand
+  deleteUserCommand: DeleteUserCommand
 }
 
 export function makeImportCareerData({
   readCareerDataQuery,
   listUserNamesQuery,
+  findUserByNameQuery,
+  listCareerMapEventTagsQuery,
   createUserCommand,
   createCareerMapCommand,
   createCareerEventCommand,
+  deleteUserCommand,
 }: MakeImportCareerDataDependencies): ImportCareerDataUsecase {
   return async (input, executor) => {
     const validation = ImportCareerDataParametersSchema.safeParse(input)
@@ -54,11 +61,25 @@ export function makeImportCareerData({
     const existingUsers = await listUserNamesQuery()
     if (!existingUsers.success) return existingUsers
     if (existingUsers.data.names.includes(parameters.personName)) {
-      return failAsConflictError(`${parameters.personName} は既にインポート済みです`)
+      if (!parameters.force) {
+        return failAsConflictError(`${parameters.personName} は既にインポート済みです`)
+      }
+      const existingUser = await findUserByNameQuery(parameters.personName)
+      if (!existingUser.success) return existingUser
+      if (existingUser.data) {
+        const deleteResult = await deleteUserCommand({ id: existingUser.data.id })
+        if (!deleteResult.success) return deleteResult
+      }
     }
 
     const dataResult = await readCareerDataQuery(parameters.personName)
     if (!dataResult.success) return dataResult
+
+    const tagResult = await listCareerMapEventTagsQuery()
+    if (!tagResult.success) return tagResult
+    const tagIdByName = new Map(tagResult.data.items.map((t) => [t.name, t.id]))
+    const resolveTagIds = (names: string[]): string[] =>
+      names.map((n) => tagIdByName.get(n)).filter((id): id is string => !!id)
 
     const data = dataResult.data
 
@@ -74,11 +95,11 @@ export function makeImportCareerData({
     const createdEvents: CareerEvent[] = []
 
     for (const event of data.events) {
-      const { tagIds, ...rest } = event
+      const { tagNames, ...rest } = event
       const result = await createCareerEventCommand({
         careerMapId,
         ...rest,
-        tags: tagIds,
+        tags: resolveTagIds(tagNames),
       })
       if (!result.success) throw new Error(`Failed to create event: ${result.error.message}`)
       createdEvents.push(result.data)

@@ -1,0 +1,22 @@
+{
+  "personName": "小澤隆生",
+  "language": "ja",
+  "wikipediaUrl": "https://ja.wikipedia.org/wiki/Yahoo!%E3%82%B7%E3%83%A7%E3%83%83%E3%83%94%E3%83%B3%E3%82%B0",
+  "wikipediaTitle": "Yahoo!ショッピング",
+  "birthDate": "2013-10-07",
+  "events": [
+    {
+      "name": "燃え尽き",
+      "startName": "2013年10月7日",
+      "type": "feeling",
+      "startDate": "2013-10-07",
+      "endDate": "2013-10-07",
+      "strength": 3,
+      "row": 0,
+      "description": "2013年10月7日にYahoo!ショッピングのビジネスモデルの変革を発表し、即日実施したことで、挑戦からの一時的な燃え尽きの心理状態にあったと考えられる。",
+      "tagNames": [
+        "燃え尽き"
+      ]
+    }
+  ]
+}
