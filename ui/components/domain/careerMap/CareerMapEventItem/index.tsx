@@ -6,12 +6,22 @@ import { RiEditLine } from "react-icons/ri"
 import type { CareerEvent } from "@/core/domain"
 
 import type { DragMode } from "../hooks/useDragInteraction"
-import { eventItemColors } from "../utils/constants"
+import { eventCircleBorderColors, eventItemColors } from "../utils/constants"
 
 const HANDLE_SIZE = 8
 
+function calcAge(birthDate: string, targetDate: string): number {
+  const birth = new Date(birthDate)
+  const target = new Date(targetDate)
+  let age = target.getFullYear() - birth.getFullYear()
+  const m = target.getMonth() - birth.getMonth()
+  if (m < 0 || (m === 0 && target.getDate() < birth.getDate())) age--
+  return age
+}
+
 type CareerMapEventItemProps = {
   event: CareerEvent
+  birthDate: string
   isDragging: boolean
   isSelected: boolean
   readOnly?: boolean
@@ -23,6 +33,7 @@ type CareerMapEventItemProps = {
 
 export default function CareerMapEventItem({
   event,
+  birthDate,
   isDragging,
   isSelected,
   readOnly = false,
@@ -36,12 +47,7 @@ export default function CareerMapEventItem({
   const strength = Math.min(5, Math.max(1, event.strength ?? 3)) as 1 | 2 | 3 | 4 | 5
   const colorClasses = eventItemColors({ eventType, strength })
 
-  const circleBorderColorMap = {
-    working: { 1: "border-blue-300",  2: "border-blue-400",  3: "border-blue-500",  4: "border-blue-600",  5: "border-blue-700"  },
-    living:  { 1: "border-green-300", 2: "border-green-400", 3: "border-green-500", 4: "border-green-600", 5: "border-green-700" },
-    feeling: { 1: "border-amber-300", 2: "border-amber-400", 3: "border-amber-500", 4: "border-amber-600", 5: "border-amber-700" },
-  }
-  const circleBorderColor = circleBorderColorMap[eventType][strength]
+  const circleBorderColor = eventCircleBorderColors({ eventType, strength })
 
   const editButtonOffset = rowHeight ? rowHeight * 0.1 : 2
   const editButtonSize = rowHeight ? rowHeight - 2 * editButtonOffset : 20
@@ -75,7 +81,7 @@ export default function CareerMapEventItem({
         </div>
         <div
           className="absolute text-xs font-medium text-center text-foreground/80 whitespace-nowrap pointer-events-none"
-          style={{ top: "100%", left: "50%", transform: "translateX(-50%)", paddingTop: 2 }}
+          style={{ top: "100%", paddingTop: 2 }}
         >
           {event.startName ?? event.name}
         </div>
@@ -85,8 +91,15 @@ export default function CareerMapEventItem({
 
   const editInStartCircle = !readOnly && !!onEdit && !event.endName && !!event.startDate && !!event.startName
 
+  const startAge = calcAge(birthDate, event.startDate)
+  const endAge = calcAge(birthDate, event.endDate)
+
   return (
     <div className="w-full h-full relative group">
+      <div className="left-0 right-0 bottom-full absolute text-xs flex justify-between">
+        <div className="bg-gray-50 rounded sticky left-0 px-1">{startAge}歳</div>
+        <div className="bg-gray-50 rounded sticky right-0 px-1">{endAge}歳</div>
+      </div>
       <div
         className={[
           "w-full h-full rounded border select-none flex flex-col relative",
@@ -117,13 +130,13 @@ export default function CareerMapEventItem({
 
         <div
           className={[
-            "flex-1 px-2 py-1 overflow-hidden flex items-center justify-center",
+            "flex-1 px-2 py-1 overflow-x-clip flex items-center justify-center",
             readOnly ? "cursor-pointer" : "cursor-grab active:cursor-grabbing",
           ].filter(Boolean).join(" ")}
           onPointerDown={!readOnly && onDragStart ? (e) => onDragStart(e, "move") : undefined}
         >
           {event.name && (
-            <span className="text-xs font-medium truncate pointer-events-none select-none">
+            <span className="text-xs font-medium truncate pointer-events-none select-none sticky left-0 right-0 px-2">
               {event.name}
             </span>
           )}

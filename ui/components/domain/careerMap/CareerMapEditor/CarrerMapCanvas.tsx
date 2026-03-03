@@ -109,7 +109,7 @@ export default function CarrerMapCanvas() {
   }, [dragState, handleDragPointerUp, handlePanPointerUp, clearSelection, config, headerPx, openCreateDialog])
 
   return (
-    <div ref={scrollRef} className="w-full h-full overflow-auto relative">
+    <div ref={scrollRef} className="w-full h-full overflow-auto relative @container">
       <div
         ref={canvasRef}
         className="cursor-grab"
@@ -158,6 +158,7 @@ export default function CarrerMapCanvas() {
             >
               <CareerMapEventItem
                 event={event}
+                birthDate={careerMap.startDate}
                 isDragging={isDragging}
                 isSelected={selectedEventIds.has(event.id)}
                 rowHeight={rowHeight}

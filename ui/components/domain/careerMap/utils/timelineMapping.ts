@@ -1,7 +1,7 @@
 import type { CareerEvent, CareerMap } from "@/core/domain"
 
 import type { TimelineConfig } from "./constants"
-import { SCALE_DISPLAY_CONFIG, SCALE_MONTH_WIDTH_PX } from "./constants"
+import { DEFAULT_TIMELINE_CONFIG, SCALE_DISPLAY_CONFIG, SCALE_MONTH_WIDTH_PX } from "./constants"
 
 function daysInMonth(year: number, month: number): number {
   return new Date(year, month + 1, 0).getDate()
@@ -86,29 +86,20 @@ export function computeHeaderHeightInUnits(scale: number, rowHeightInUnits: numb
 export function buildTimelineConfig(startDate: string, endDate: string, scale: number): TimelineConfig {
   const originYear = startDate.slice(0, 4)
   const monthWidthPx = SCALE_MONTH_WIDTH_PX[scale - 1]
-  const rowHeightInUnits = 1.2
   return {
-    unit: 24,
-    monthWidthInUnits: monthWidthPx / 24,
+    ...DEFAULT_TIMELINE_CONFIG,
+    monthWidthInUnits: monthWidthPx / DEFAULT_TIMELINE_CONFIG.unit,
     originDate: `${originYear}-01-01`,
     endDate,
-    rowHeightInUnits,
-    rowGapHeightInUnits: 0.3,
-    headerHeightInUnits: computeHeaderHeightInUnits(scale, rowHeightInUnits),
-    maxStrength: 5,
+    headerHeightInUnits: computeHeaderHeightInUnits(scale, DEFAULT_TIMELINE_CONFIG.rowHeightInUnits),
   }
 }
 
 export function computeTimelineConfig(careerMap: CareerMap & { startDate: string }, _events: CareerEvent[]): TimelineConfig {
   const originYear = careerMap.startDate.slice(0, 4)
   return {
-    unit: 24,
-    monthWidthInUnits: 4,
+    ...DEFAULT_TIMELINE_CONFIG,
     originDate: `${originYear}-01-01`,
     endDate: careerMap.endDate,
-    rowHeightInUnits: 1.2,
-    rowGapHeightInUnits: 0.3,
-    headerHeightInUnits: 3,
-    maxStrength: 5,
   }
 }

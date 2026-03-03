@@ -45,7 +45,7 @@ export default function CareerMapViewCanvas({ careerMap, events, timelineConfig:
   const canvasHeight = Math.max(minContentHeight, maxEventBottom + rowHeight * 4)
 
   return (
-    <div ref={scrollRef} className="w-full h-full overflow-auto relative">
+    <div ref={scrollRef} className="w-full h-full overflow-auto relative @container">
       <div
         ref={canvasRef}
         className="cursor-grab"
@@ -87,6 +87,7 @@ export default function CareerMapViewCanvas({ careerMap, events, timelineConfig:
             >
               <CareerMapEventItem
                 event={event}
+                birthDate={careerMap.startDate}
                 isDragging={false}
                 isSelected={false}
                 readOnly

@@ -10,7 +10,7 @@ export const DEFAULT_TIMELINE_CONFIG: TimelineConfig = {
   originDate: "2020-01-01",
   endDate: new Date().toISOString().split("T")[0],
   rowHeightInUnits: 1.2,
-  rowGapHeightInUnits: 0.3,
+  rowGapHeightInUnits: 0.8,
   headerHeightInUnits: 3,
   maxStrength: 5,
 }
@@ -82,6 +82,45 @@ export const eventItemColors = tv({
     { eventType: "feeling", strength: 3, class: "bg-amber-300 border-amber-500" },
     { eventType: "feeling", strength: 4, class: "bg-amber-400 border-amber-600" },
     { eventType: "feeling", strength: 5, class: "bg-amber-500 border-amber-700" },
+  ],
+  defaultVariants: {
+    eventType: "working",
+    strength: 3,
+  },
+})
+
+export const eventCircleBorderColors = tv({
+  base: "",
+  variants: {
+    eventType: {
+      working: "",
+      living: "",
+      feeling: "",
+    },
+    strength: {
+      1: "",
+      2: "",
+      3: "",
+      4: "",
+      5: "",
+    },
+  },
+  compoundVariants: [
+    { eventType: "working", strength: 1, class: "border-blue-300" },
+    { eventType: "working", strength: 2, class: "border-blue-400" },
+    { eventType: "working", strength: 3, class: "border-blue-500" },
+    { eventType: "working", strength: 4, class: "border-blue-600" },
+    { eventType: "working", strength: 5, class: "border-blue-700" },
+    { eventType: "living",  strength: 1, class: "border-green-300" },
+    { eventType: "living",  strength: 2, class: "border-green-400" },
+    { eventType: "living",  strength: 3, class: "border-green-500" },
+    { eventType: "living",  strength: 4, class: "border-green-600" },
+    { eventType: "living",  strength: 5, class: "border-green-700" },
+    { eventType: "feeling", strength: 1, class: "border-amber-300" },
+    { eventType: "feeling", strength: 2, class: "border-amber-400" },
+    { eventType: "feeling", strength: 3, class: "border-amber-500" },
+    { eventType: "feeling", strength: 4, class: "border-amber-600" },
+    { eventType: "feeling", strength: 5, class: "border-amber-700" },
   ],
   defaultVariants: {
     eventType: "working",
