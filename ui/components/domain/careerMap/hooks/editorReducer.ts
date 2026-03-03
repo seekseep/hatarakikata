@@ -82,6 +82,9 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
     }
 
     case 'END_DRAG':
+      if (action.selectedEventIds && action.selectedEventIds.size > 0) {
+        return { ...state, mode: { type: 'selected', selectedEventIds: action.selectedEventIds } }
+      }
       return { ...state, mode: { type: 'idle' } }
 
     case 'ENTER_PLACEMENT':
@@ -107,5 +110,13 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
 
     case 'CLOSE_DIALOG':
       return { ...state, mode: { type: 'idle' } }
+
+    // --- Hover ---
+
+    case 'HOVER_EVENT':
+      return { ...state, hoveredEventId: action.eventId }
+
+    case 'UNHOVER_EVENT':
+      return { ...state, hoveredEventId: null }
   }
 }

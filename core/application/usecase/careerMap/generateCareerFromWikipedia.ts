@@ -77,7 +77,7 @@ export function makeGenerateCareerFromWikipedia({
     const cacheResult = await readWikipediaMarkdownCacheQuery(parameters.personName)
     if (!cacheResult.success) return cacheResult
 
-    let biography: { title: string; markdown: string; url: string }
+    let biography: { title: string; content: string; url: string }
 
     if (cacheResult.data !== null) {
       biography = cacheResult.data
@@ -96,7 +96,7 @@ export function makeGenerateCareerFromWikipedia({
 
     const generateResult = await generateCareerEventsFromBiography({
       personName: parameters.personName,
-      biographyMarkdown: biography.markdown,
+      biographyMarkdown: biography.content,
       birthDate: null,
       tags,
     })

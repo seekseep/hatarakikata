@@ -29,7 +29,7 @@ export type StartDragAction = { type: 'START_DRAG'; dragMode: DragMode; drag: Dr
 
 export type UpdateDragPreviewAction = { type: 'UPDATE_DRAG_PREVIEW'; rect: Rect; strength?: number }
 
-export type EndDragAction = { type: 'END_DRAG' }
+export type EndDragAction = { type: 'END_DRAG'; selectedEventIds?: Set<string> }
 
 export type EnterPlacementAction = { type: 'ENTER_PLACEMENT' }
 
@@ -46,6 +46,12 @@ export type OpenJsonImportDialogAction = { type: 'OPEN_JSON_IMPORT_DIALOG' }
 export type OpenViewerAction = { type: 'OPEN_VIEWER'; careerMapId: string }
 
 export type CloseDialogAction = { type: 'CLOSE_DIALOG' }
+
+// --- Hover Actions ---
+
+export type HoverEventAction = { type: 'HOVER_EVENT'; eventId: string }
+
+export type UnhoverEventAction = { type: 'UNHOVER_EVENT' }
 
 // --- Union ---
 
@@ -70,3 +76,5 @@ export type EditorAction =
   | OpenJsonImportDialogAction
   | OpenViewerAction
   | CloseDialogAction
+  | HoverEventAction
+  | UnhoverEventAction

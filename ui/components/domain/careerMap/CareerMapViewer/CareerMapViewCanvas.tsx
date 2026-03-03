@@ -80,6 +80,7 @@ export default function CareerMapViewCanvas({ careerMap, events, timelineConfig:
                 birthDate={careerMap.startDate}
                 isDragging={false}
                 isSelected={false}
+                isHovered={null}
                 readOnly
                 rowHeight={rowHeight}
                 onSelect={(e) => { e.stopPropagation(); onEventClick?.(event) }}

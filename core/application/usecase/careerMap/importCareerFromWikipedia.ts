@@ -76,7 +76,7 @@ export function makeImportCareerFromWikipedia({
 
     const generateResult = await generateCareerEventsFromBiography({
       personName: parameters.personName,
-      biographyMarkdown: biographyResult.data.markdown,
+      biographyMarkdown: biographyResult.data.content,
       birthDate: null,
       tags,
     })

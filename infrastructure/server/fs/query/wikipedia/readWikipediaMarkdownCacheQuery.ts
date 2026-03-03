@@ -16,10 +16,10 @@ export const readWikipediaMarkdownCacheQuery: ReadWikipediaMarkdownCacheQuery = 
       return succeed(null)
     }
 
-    const markdown = fs.readFileSync(mdPath, 'utf-8')
+    const content = fs.readFileSync(mdPath, 'utf-8')
     const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8')) as { title: string; url: string }
 
-    return succeed({ title: meta.title, markdown, url: meta.url })
+    return succeed({ title: meta.title, content, url: meta.url })
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error)
     return failAsExternalServiceError(message, error)

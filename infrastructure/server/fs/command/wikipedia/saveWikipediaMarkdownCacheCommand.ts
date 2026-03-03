@@ -16,7 +16,7 @@ export const saveWikipediaMarkdownCacheCommand: SaveWikipediaMarkdownCacheComman
     const mdPath = path.join(WIKIPEDIA_CACHE_DIR, `${safeName}.md`)
     const metaPath = path.join(WIKIPEDIA_CACHE_DIR, `${safeName}.json`)
 
-    fs.writeFileSync(mdPath, cache.markdown, 'utf-8')
+    fs.writeFileSync(mdPath, cache.content, 'utf-8')
     fs.writeFileSync(
       metaPath,
       JSON.stringify({ title: cache.title, url: cache.url }, null, 2),

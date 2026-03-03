@@ -14,12 +14,19 @@ export type CreatePrefill = {
 
 export type DragMode = "move" | "resize-start" | "resize-end" | "strength"
 
+export type DraggedEventInfo = {
+  eventId: string
+  startRect: Rect
+  originalEvent: CareerEvent
+}
+
 export type DragPayload = {
   eventId: string
   startPointerX: number
   startPointerY: number
   startRect: Rect
   originalEvent: CareerEvent
+  additionalEvents: DraggedEventInfo[]
 }
 
 // --- Editor Mode (discriminated union) ---
@@ -52,9 +59,11 @@ export type EditorMode =
 export type EditorState = {
   events: CareerEvent[]
   mode: EditorMode
+  hoveredEventId: string | null
 }
 
 export const initialEditorState: EditorState = {
   events: [],
   mode: { type: 'idle' },
+  hoveredEventId: null,
 }

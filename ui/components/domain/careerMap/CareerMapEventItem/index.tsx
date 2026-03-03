@@ -26,11 +26,14 @@ type CareerMapEventItemProps = {
   previewEndDate?: string
   isDragging: boolean
   isSelected: boolean
+  isHovered: boolean | null
   readOnly?: boolean
   rowHeight: number
   onSelect: (e: React.MouseEvent) => void
   onDragStart?: (e: PointerEvent, mode: DragMode) => void
   onEdit?: () => void
+  onPointerEnter?: () => void
+  onPointerLeave?: () => void
 }
 
 export default function CareerMapEventItem({
@@ -40,11 +43,14 @@ export default function CareerMapEventItem({
   previewEndDate,
   isDragging,
   isSelected,
+  isHovered,
   readOnly = false,
   rowHeight,
   onSelect,
   onDragStart,
   onEdit,
+  onPointerEnter,
+  onPointerLeave,
 }: CareerMapEventItemProps) {
   const circleSize = rowHeight * 0.6
   const eventType = (event.type ?? "working") as "working" | "living" | "feeling"
@@ -61,10 +67,10 @@ export default function CareerMapEventItem({
 
   if (isPoint) {
     return (
-      <div className="w-full h-full relative">
+      <div className="w-full h-full relative" onPointerEnter={onPointerEnter} onPointerLeave={onPointerLeave}>
         <div
           className={[
-            "w-full h-full rounded-full border-2 select-none relative group",
+            "w-full h-full rounded-full border-2 select-none relative",
             colorClasses,
             isDragging ? "opacity-70 shadow-lg z-50" : "",
             isSelected ? "ring-2 ring-primary-500" : "",
@@ -76,7 +82,10 @@ export default function CareerMapEventItem({
           {!readOnly && onEdit && (
             <button
               type="button"
-              className="absolute inset-0 z-20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer flex items-center justify-center hover:bg-black/20"
+              className={[
+                "absolute inset-0 z-20 rounded-full transition-opacity cursor-pointer flex items-center justify-center hover:bg-black/20",
+                isHovered === true ? "opacity-100" : "opacity-0",
+              ].join(" ")}
               onClick={(e) => { e.stopPropagation(); onEdit() }}
             >
               <RiEditLine className="w-3 h-3" />
@@ -103,12 +112,18 @@ export default function CareerMapEventItem({
   const endMonth = `${new Date(displayEndDate).getFullYear()}年${new Date(displayEndDate).getMonth() + 1}月`
 
   return (
-    <div className="w-full h-full relative group">
-      <div className="left-0 mb-0.75 right-0 bottom-full absolute text-xs flex justify-between opacity-0 group-hover:opacity-100 transition-opacity z-50">
+    <div className="w-full h-full relative" onPointerEnter={onPointerEnter} onPointerLeave={onPointerLeave}>
+      <div className={[
+        "left-0 mb-0.75 right-0 bottom-full absolute text-xs flex justify-between transition-opacity z-50",
+        isHovered === true ? "opacity-100" : "opacity-0",
+      ].join(" ")}>
         <div className="bg-gray-50 rounded sticky left-0 px-1">{startAge}歳</div>
         <div className="bg-gray-50 rounded sticky right-0 px-1">{endAge}歳</div>
       </div>
-      <div className="left-0 right-0 top-full absolute text-xs flex justify-between">
+      <div className={[
+        "left-0 right-0 top-full absolute text-xs flex justify-between transition-opacity",
+        isHovered === false ? "opacity-0" : "opacity-100",
+      ].join(" ")}>
         <div className="bg-gray-50 rounded sticky left-0 px-1 truncate">{startMonth}</div>
         <div className="bg-gray-50 rounded sticky right-0 px-1 truncate">{endMonth}</div>
       </div>
@@ -124,7 +139,10 @@ export default function CareerMapEventItem({
         {!editInStartCircle && !readOnly && onEdit && (
           <button
             type="button"
-            className="absolute z-20 rounded opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:bg-black/10 flex items-center justify-center"
+            className={[
+              "absolute z-20 rounded transition-opacity cursor-pointer hover:bg-black/10 flex items-center justify-center",
+              isHovered === true ? "opacity-100" : "opacity-0",
+            ].join(" ")}
             style={{ top: editButtonOffset, right: editButtonOffset, width: editButtonSize, height: editButtonSize }}
             onClick={(e) => { e.stopPropagation(); onEdit() }}
           >
@@ -180,7 +198,10 @@ export default function CareerMapEventItem({
       {editInStartCircle && (
         <button
           type="button"
-          className="absolute rounded-full opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer flex items-center justify-center hover:bg-black/20"
+          className={[
+            "absolute rounded-full transition-opacity cursor-pointer flex items-center justify-center hover:bg-black/20",
+            isHovered === true ? "opacity-100" : "opacity-0",
+          ].join(" ")}
           style={{ width: circleSize, height: circleSize, left: 0, top: "50%", transform: "translate(-50%, -50%)", zIndex: 51 }}
           onClick={(e) => { e.stopPropagation(); onEdit!() }}
         >

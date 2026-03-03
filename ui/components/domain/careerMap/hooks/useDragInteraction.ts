@@ -7,7 +7,7 @@ import type { CareerEvent } from "@/core/domain"
 import type { TimelineConfig } from "../utils/constants"
 import { dateToX, type Rect, xToDate, yToRow } from "../utils/timelineMapping"
 import type { EditorAction } from "./EditorAction"
-import type { DragMode, DragPayload } from "./EditorState"
+import type { DraggedEventInfo, DragMode, DragPayload } from "./EditorState"
 
 // --- Preview 計算（純粋関数） ---
 
@@ -132,38 +132,56 @@ export function computeCommittedEvent(
 
 // --- Hook ---
 
-type DragRef = {
+const DRAG_THRESHOLD = 3
+
+type PendingDragRef = {
+  phase: 'pending'
+  dragMode: DragMode
+  event: CareerEvent
+  rect: Rect
+  startX: number
+  startY: number
+  pointerId: number
+  additionalEvents: DraggedEventInfo[]
+}
+
+type ActiveDragRef = {
+  phase: 'dragging'
   dragMode: DragMode
   drag: DragPayload
 }
+
+type DragRefState = PendingDragRef | ActiveDragRef
 
 export function useDragInteraction(
   config: TimelineConfig,
   dispatch: React.Dispatch<EditorAction>,
   onUpdate: (event: CareerEvent) => void,
 ) {
-  const dragRef = useRef<DragRef | null>(null)
+  const dragRef = useRef<DragRefState | null>(null)
 
   const handleDragStart = useCallback((
     e: React.PointerEvent,
     dragMode: DragMode,
     event: CareerEvent,
     rect: Rect,
+    additionalEvents: DraggedEventInfo[] = [],
   ) => {
     e.preventDefault()
     e.stopPropagation()
     ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
 
-    const drag: DragPayload = {
-      eventId: event.id,
-      startPointerX: e.clientX,
-      startPointerY: e.clientY,
-      startRect: rect,
-      originalEvent: event,
+    dragRef.current = {
+      phase: 'pending',
+      dragMode,
+      event,
+      rect,
+      startX: e.clientX,
+      startY: e.clientY,
+      pointerId: e.pointerId,
+      additionalEvents,
     }
-    dragRef.current = { dragMode, drag }
-    dispatch({ type: 'START_DRAG', dragMode, drag, rect, strength: event.strength ?? 3 })
-  }, [dispatch])
+  }, [])
 
   const snapX = useCallback((x: number) => {
     return dateToX(xToDate(x, config), config)
@@ -173,6 +191,38 @@ export function useDragInteraction(
     const ref = dragRef.current
     if (!ref) return
 
+    if (ref.phase === 'pending') {
+      const dx = e.clientX - ref.startX
+      const dy = e.clientY - ref.startY
+      if (Math.abs(dx) < DRAG_THRESHOLD && Math.abs(dy) < DRAG_THRESHOLD) return
+
+      // Transition to actual drag
+      const drag: DragPayload = {
+        eventId: ref.event.id,
+        startPointerX: ref.startX,
+        startPointerY: ref.startY,
+        startRect: ref.rect,
+        originalEvent: ref.event,
+        additionalEvents: ref.additionalEvents,
+      }
+      dragRef.current = { phase: 'dragging', dragMode: ref.dragMode, drag }
+      dispatch({ type: 'START_DRAG', dragMode: ref.dragMode, drag, rect: ref.rect, strength: ref.event.strength ?? 3 })
+
+      // Compute preview for this move
+      if (ref.dragMode === "move") {
+        dispatch({ type: 'UPDATE_DRAG_PREVIEW', rect: computeMovePreview(drag, dx, dy, config, snapX) })
+      } else if (ref.dragMode === "resize-start") {
+        dispatch({ type: 'UPDATE_DRAG_PREVIEW', rect: computeResizeStartPreview(drag, dx, config, snapX) })
+      } else if (ref.dragMode === "resize-end") {
+        dispatch({ type: 'UPDATE_DRAG_PREVIEW', rect: computeResizeEndPreview(drag, dx, config, snapX) })
+      } else if (ref.dragMode === "strength") {
+        const { rect, strength } = computeStrengthPreview(drag, dy, config)
+        dispatch({ type: 'UPDATE_DRAG_PREVIEW', rect, strength })
+      }
+      return
+    }
+
+    // phase === 'dragging'
     const dx = e.clientX - ref.drag.startPointerX
     const dy = e.clientY - ref.drag.startPointerY
 
@@ -194,12 +244,41 @@ export function useDragInteraction(
 
     ;(e.target as HTMLElement).releasePointerCapture(e.pointerId)
 
+    if (ref.phase === 'pending') {
+      // No drag happened — clean up and let click handle selection
+      dragRef.current = null
+      return
+    }
+
+    // phase === 'dragging'
     const dx = e.clientX - ref.drag.startPointerX
     const dy = e.clientY - ref.drag.startPointerY
 
+    // Commit primary event
     onUpdate(computeCommittedEvent(ref.dragMode, ref.drag, dx, dy, config))
+
+    // Commit additional events (multi-drag, move only)
+    if (ref.dragMode === 'move' && ref.drag.additionalEvents.length > 0) {
+      for (const ae of ref.drag.additionalEvents) {
+        const aeDrag: DragPayload = {
+          eventId: ae.eventId,
+          startPointerX: ref.drag.startPointerX,
+          startPointerY: ref.drag.startPointerY,
+          startRect: ae.startRect,
+          originalEvent: ae.originalEvent,
+          additionalEvents: [],
+        }
+        onUpdate(computeCommittedEvent('move', aeDrag, dx, dy, config))
+      }
+    }
+
+    // Preserve selection after multi-drag
+    const selectedEventIds = ref.drag.additionalEvents.length > 0
+      ? new Set([ref.drag.eventId, ...ref.drag.additionalEvents.map(ae => ae.eventId)])
+      : undefined
+
     dragRef.current = null
-    dispatch({ type: 'END_DRAG' })
+    dispatch({ type: 'END_DRAG', selectedEventIds })
   }, [config, onUpdate, dispatch])
 
   return {

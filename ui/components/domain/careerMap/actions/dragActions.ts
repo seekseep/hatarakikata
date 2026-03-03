@@ -14,6 +14,6 @@ export function updateDragPreview(rect: Rect, strength?: number): UpdateDragPrev
   return { type: 'UPDATE_DRAG_PREVIEW', rect, strength }
 }
 
-export function endDrag(): EndDragAction {
-  return { type: 'END_DRAG' }
+export function endDrag(selectedEventIds?: Set<string>): EndDragAction {
+  return { type: 'END_DRAG', selectedEventIds }
 }

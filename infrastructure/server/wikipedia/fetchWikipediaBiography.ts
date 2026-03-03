@@ -1,5 +1,4 @@
 import axios from "axios"
-import TurndownService from "turndown"
 import wikipedia from "wikipedia"
 
 import type { FetchWikipediaBiographyOperation } from "@/core/application/port/operation/fetchWikipediaBiography"
@@ -19,15 +18,12 @@ export const fetchWikipediaBiography: FetchWikipediaBiographyOperation = async (
     }
 
     const page = await wikipedia.page(searchResults.results[0].title)
-    const html = await page.html()
     const url = page.fullurl
-
-    const turndownService = new TurndownService()
-    const markdown = turndownService.turndown(html)
+    const content = await page.content()
 
     return succeed({
       title: page.title,
-      markdown,
+      content,
       url,
     })
   } catch (error) {

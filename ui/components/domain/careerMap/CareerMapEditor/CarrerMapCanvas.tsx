@@ -11,7 +11,7 @@ import { SCALE_DISPLAY_CONFIG } from "../utils/constants"
 import { computeCanvasWidth, eventToRect, xToDate, yToRow } from "../utils/timelineMapping"
 
 export default function CarrerMapCanvas() {
-  const { state: { events, careerMap, timelineConfig: config, scale, mode }, dispatch, deleteEvent, handleDragStart, handleDragMove, handleDragEnd } = useCarrerMapEditorContext()
+  const { state: { events, careerMap, timelineConfig: config, scale, mode, hoveredEventId }, dispatch, deleteEvent, handleDragStart, handleDragMove, handleDragEnd } = useCarrerMapEditorContext()
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLDivElement>(null)
@@ -98,18 +98,22 @@ export default function CarrerMapCanvas() {
   }, [handleDragMove, isPlacement, headerPx, tickWidthPx, config, rowHeight])
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
-    if (!isPlacement || !placeholderRect) return
+    if (isPlacement) {
+      if (!placeholderRect) return
+      const startDate = xToDate(placeholderRect.x, config)
+      const endDate = xToDate(placeholderRect.x + placeholderRect.width, config)
+      const canvasEl = canvasRef.current
+      if (!canvasEl) return
+      const rect = canvasEl.getBoundingClientRect()
+      const canvasY = e.clientY - rect.top
+      const row = yToRow(canvasY, config)
 
-    const startDate = xToDate(placeholderRect.x, config)
-    const endDate = xToDate(placeholderRect.x + placeholderRect.width, config)
-    const canvasEl = canvasRef.current
-    if (!canvasEl) return
-    const rect = canvasEl.getBoundingClientRect()
-    const canvasY = e.clientY - rect.top
-    const row = yToRow(canvasY, config)
-
-    dispatch({ type: 'OPEN_CREATE_DIALOG', prefill: { row, startDate, endDate } })
-    setPlaceholderRect(null)
+      dispatch({ type: 'OPEN_CREATE_DIALOG', prefill: { row, startDate, endDate } })
+      setPlaceholderRect(null)
+      return
+    }
+    // Deselect when clicking empty canvas area
+    dispatch({ type: 'ENTER_IDLE' })
   }, [isPlacement, placeholderRect, config, dispatch])
 
   const handleCanvasPointerUp = useCallback((e: React.PointerEvent) => {
@@ -142,7 +146,11 @@ export default function CarrerMapCanvas() {
         {/* Events */}
         {events.map((event) => {
           const rect = eventToRect(event, config)
-          const isDragging = draggingEventId === event.id
+          const isPrimaryDragging = draggingEventId === event.id
+          const isAdditionalDragging = mode.type === 'dragging'
+            && mode.dragMode === 'move'
+            && mode.drag.additionalEvents.some(ae => ae.eventId === event.id)
+          const isDragging = isPrimaryDragging || isAdditionalDragging
           const isPoint = event.startDate === event.endDate
 
           // For PointEvent: use a square container sized to one row height
@@ -150,11 +158,36 @@ export default function CarrerMapCanvas() {
           const pointRect = isPoint
             ? { x: rect.x + config.unit / 2 - pointSize / 2, y: rect.y, width: pointSize, height: pointSize }
             : rect
-          const displayRect = isDragging && previewRect
-            ? (isPoint
+
+          let displayRect: { x: number; y: number; width: number; height: number }
+          if (isPrimaryDragging && previewRect) {
+            displayRect = isPoint
               ? { x: previewRect.x + config.unit / 2 - pointSize / 2, y: previewRect.y, width: pointSize, height: pointSize }
-              : previewRect)
-            : (isPoint ? pointRect : rect)
+              : previewRect
+          } else if (isAdditionalDragging && previewRect && mode.type === 'dragging') {
+            const ae = mode.drag.additionalEvents.find(ae => ae.eventId === event.id)!
+            const dx = previewRect.x - mode.drag.startRect.x
+            const dy = previewRect.y - mode.drag.startRect.y
+            const aeRect = { x: ae.startRect.x + dx, y: ae.startRect.y + dy, width: ae.startRect.width, height: ae.startRect.height }
+            displayRect = isPoint
+              ? { x: aeRect.x + config.unit / 2 - pointSize / 2, y: aeRect.y, width: pointSize, height: pointSize }
+              : aeRect
+          } else {
+            displayRect = isPoint ? pointRect : rect
+          }
+
+          // Preview dates for labels
+          let previewStartDate: string | undefined
+          let previewEndDate: string | undefined
+          if (isPrimaryDragging && previewRect) {
+            previewStartDate = xToDate(previewRect.x, config)
+            previewEndDate = xToDate(previewRect.x + previewRect.width, config)
+          } else if (isAdditionalDragging && previewRect && mode.type === 'dragging') {
+            const ae = mode.drag.additionalEvents.find(ae => ae.eventId === event.id)!
+            const dx = previewRect.x - mode.drag.startRect.x
+            previewStartDate = xToDate(ae.startRect.x + dx, config)
+            previewEndDate = xToDate(ae.startRect.x + ae.startRect.width + dx, config)
+          }
 
           return (
             <CarrerMapCanvasItem
@@ -167,14 +200,24 @@ export default function CarrerMapCanvas() {
               <CareerMapEventItem
                 event={event}
                 birthDate={careerMap!.startDate!}
-                previewStartDate={isDragging && previewRect ? xToDate(previewRect.x, config) : undefined}
-                previewEndDate={isDragging && previewRect ? xToDate(previewRect.x + previewRect.width, config) : undefined}
+                previewStartDate={previewStartDate}
+                previewEndDate={previewEndDate}
                 isDragging={isDragging}
                 isSelected={selectedEventIds.has(event.id)}
+                isHovered={hoveredEventId === null ? null : hoveredEventId === event.id}
                 rowHeight={rowHeight}
                 onSelect={(e: React.MouseEvent) => dispatch({ type: 'SELECT_EVENT', eventId: event.id, shiftKey: e.shiftKey })}
-                onDragStart={(e, dragMode) => handleDragStart(e, dragMode, event, rect)}
+                onDragStart={(e, dragMode) => {
+                  const additionalEvents = dragMode === 'move' && selectedEventIds.has(event.id) && selectedEventIds.size > 1
+                    ? events
+                        .filter(ev => selectedEventIds.has(ev.id) && ev.id !== event.id)
+                        .map(ev => ({ eventId: ev.id, startRect: eventToRect(ev, config), originalEvent: ev }))
+                    : []
+                  handleDragStart(e, dragMode, event, rect, additionalEvents)
+                }}
                 onEdit={() => dispatch({ type: 'OPEN_EDIT_DIALOG', event })}
+                onPointerEnter={() => dispatch({ type: 'HOVER_EVENT', eventId: event.id })}
+                onPointerLeave={() => dispatch({ type: 'UNHOVER_EVENT' })}
               />
             </CarrerMapCanvasItem>
           )

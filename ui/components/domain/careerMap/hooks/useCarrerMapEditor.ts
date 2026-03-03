@@ -17,7 +17,7 @@ import type { Rect } from "../utils/timelineMapping"
 import { computeHeaderHeightInUnits, computeTimelineConfig } from "../utils/timelineMapping"
 import type { EditorAction } from "./EditorAction"
 import { editorReducer } from "./editorReducer"
-import type { DragMode, EditorMode } from "./EditorState"
+import type { DraggedEventInfo, DragMode, EditorMode } from "./EditorState"
 import { initialEditorState } from "./EditorState"
 import { useDragInteraction } from "./useDragInteraction"
 
@@ -45,6 +45,7 @@ export type CarrerMapEditorStoreState = {
   timelineConfig: TimelineConfig
   error: Error | undefined
   scale: number
+  hoveredEventId: string | null
 }
 
 export type CarrerMapEditorStore = {
@@ -56,7 +57,7 @@ export type CarrerMapEditorStore = {
   createEventAsync: (payload: CareerEventPayload) => Promise<CareerEvent>
   updateEvent: (event: CareerEvent) => void
   deleteEvent: (eventId: string) => void
-  handleDragStart: (e: React.PointerEvent, dragMode: DragMode, event: CareerEvent, rect: Rect) => void
+  handleDragStart: (e: React.PointerEvent, dragMode: DragMode, event: CareerEvent, rect: Rect, additionalEvents?: DraggedEventInfo[]) => void
   handleDragMove: (e: React.PointerEvent) => void
   handleDragEnd: (e: React.PointerEvent) => void
 }
@@ -233,6 +234,7 @@ export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMa
       timelineConfig,
       error: aggregatedError,
       scale,
+      hoveredEventId: editorState.hoveredEventId,
     },
     dispatch,
     setScale,

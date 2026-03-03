@@ -17,7 +17,7 @@ export type FetchWikipediaBiographyOperationParameters = z.infer<
 
 export type FetchWikipediaBiographyOperationResult = {
   title: string
-  markdown: string
+  content: string
   url: string
 }
 
