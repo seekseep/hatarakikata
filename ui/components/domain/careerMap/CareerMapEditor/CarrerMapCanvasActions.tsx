@@ -21,7 +21,7 @@ const actionButton = tv({
 })
 
 export default function CarrerMapCanvasActions() {
-  const { openCreateDialog, openGenerateDialog, openSearchDialog, openJsonImportDialog } = useCarrerMapEditorContext()
+  const { dispatch } = useCarrerMapEditorContext()
   const [devMenuOpen, setDevMenuOpen] = useState(false)
   const devButtonRef = useRef<HTMLButtonElement>(null)
 
@@ -51,7 +51,7 @@ export default function CarrerMapCanvasActions() {
               <button
                 type="button"
                 className="w-full text-left px-4 py-2 text-sm hover:bg-foreground/5 transition-colors"
-                onClick={() => handleDevMenuItemClick(openJsonImportDialog)}
+                onClick={() => handleDevMenuItemClick(() => dispatch({ type: 'OPEN_JSON_IMPORT_DIALOG' }))}
               >
                 JSONイベントインポート
               </button>
@@ -59,20 +59,20 @@ export default function CarrerMapCanvasActions() {
           </>
         )}
       </div>
-      <button type="button" className={actionButton()} onClick={openSearchDialog}>
+      <button type="button" className={actionButton()} onClick={() => dispatch({ type: 'OPEN_SEARCH_DIALOG' })}>
         <RiSearchLine className="text-xl" />
       </button>
       <button
         type="button"
         className={actionButton()}
-        onClick={openGenerateDialog}
+        onClick={() => dispatch({ type: 'OPEN_GENERATE_DIALOG' })}
       >
         <RiSparklingLine className="text-xl" />
       </button>
       <button
         type="button"
         className={actionButton({ variant: "primary" })}
-        onClick={() => openCreateDialog()}>
+        onClick={() => dispatch({ type: 'ENTER_PLACEMENT' })}>
         <RiAddLine className="text-xl" />
       </button>
     </div>

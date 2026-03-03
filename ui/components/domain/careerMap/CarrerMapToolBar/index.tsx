@@ -6,7 +6,7 @@ import { useCarrerMapEditorContext } from "../hooks/CarrerMapEditorContext"
 import { SCALE_MAX,SCALE_MIN } from "../utils/constants"
 
 export default function CarrerMapToolBar() {
-  const { scale, setScale } = useCarrerMapEditorContext()
+  const { state: { scale }, setScale } = useCarrerMapEditorContext()
 
   return (
     <div className="absolute bottom-6 right-6 z-40 flex items-center gap-2 bg-white rounded-lg shadow-md border border-foreground/10 px-3 py-2">

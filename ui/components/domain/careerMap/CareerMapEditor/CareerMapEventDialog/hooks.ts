@@ -22,17 +22,17 @@ type FormValues = {
 
 export function useCareerMapEventDialogForm() {
   const {
-    careerMapId,
-    dialogState,
-    closeDialog,
+    state: { careerMapId, mode: editorMode },
+    dispatch,
     createEvent,
     updateEvent,
     deleteEvent,
   } = useCarrerMapEditorContext()
 
-  const open = dialogState.open
-  const mode = open ? dialogState.mode : "create"
-  const event = open && dialogState.mode === "edit" ? dialogState.event : undefined
+  const open = editorMode.type === 'create-dialog' || editorMode.type === 'edit-dialog'
+  const mode = editorMode.type === 'edit-dialog' ? "edit" : "create"
+  const event = editorMode.type === 'edit-dialog' ? editorMode.event : undefined
+  const closeDialog = () => dispatch({ type: 'CLOSE_DIALOG' })
 
   const form = useForm<FormValues>({
     defaultValues: {
@@ -75,7 +75,7 @@ export function useCareerMapEventDialogForm() {
         tags: (event.tags ?? []).map((t) => t.id),
       })
     } else if (open && mode === "create") {
-      const prefill = dialogState.mode === "create" ? dialogState.prefill : undefined
+      const prefill = editorMode.type === 'create-dialog' ? editorMode.prefill : undefined
       const hasEndDate = !!(prefill?.startDate && prefill?.endDate && prefill.startDate !== prefill.endDate)
       reset({
         name: "",
@@ -90,7 +90,7 @@ export function useCareerMapEventDialogForm() {
         tags: [],
       })
     }
-  }, [open, mode, event, reset, dialogState])
+  }, [open, mode, event, reset, editorMode])
 
   const onSubmit = handleSubmit((values: FormValues) => {
     const row = mode === "edit" && event ? event.row : 0

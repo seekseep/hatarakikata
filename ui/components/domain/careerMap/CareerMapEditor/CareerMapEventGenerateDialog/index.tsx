@@ -22,13 +22,12 @@ type FormValues = {
 
 export default function CareerMapEventGenerateDialog() {
   const {
-    careerMapId,
-    events,
-    addEvents,
+    state: { careerMapId, events, mode },
+    dispatch,
     updateEvent,
-    generateDialogOpen,
-    closeGenerateDialog,
   } = useCarrerMapEditorContext()
+  const generateDialogOpen = mode.type === 'generate-dialog'
+  const closeGenerateDialog = () => dispatch({ type: 'CLOSE_DIALOG' })
 
   const { register, handleSubmit, setValue, getValues, reset } = useForm<FormValues>({
     defaultValues: { input: "" },
@@ -69,7 +68,7 @@ export default function CareerMapEventGenerateDialog() {
         .filter((a) => a.type === "update")
         .map((a) => a.event)
 
-      if (createdEvents.length > 0) addEvents(createdEvents)
+      if (createdEvents.length > 0) dispatch({ type: 'ADD_EVENTS', events: createdEvents })
       for (const event of updatedEvents) updateEvent(event)
 
       reset()

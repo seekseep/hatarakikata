@@ -8,7 +8,6 @@ import CareerMapEventItem from "../CareerMapEventItem"
 import CarrerMapCanvasGrid from "../CarrerMapCanvasGrid"
 import CarrerMapCanvasItem from "../CarrerMapCanvasItem"
 import CarrerMapCanvasRuler from "../CarrerMapCanvasRuler"
-import { usePanInteraction } from "../hooks/usePanInteraction"
 import type { TimelineConfig } from "../utils/constants"
 import { computeCanvasWidth, eventToRect } from "../utils/timelineMapping"
 
@@ -22,10 +21,6 @@ type CareerMapViewCanvasProps = {
 
 export default function CareerMapViewCanvas({ careerMap, events, timelineConfig: config, scale, onEventClick }: CareerMapViewCanvasProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
-  const canvasRef = useRef<HTMLDivElement>(null)
-
-  const { handlePointerDown, handlePointerMove, handlePointerUp } =
-    usePanInteraction(scrollRef, canvasRef, false)
 
   const canvasWidth = computeCanvasWidth(config)
   const headerPx = config.headerHeightInUnits * config.unit
@@ -47,12 +42,7 @@ export default function CareerMapViewCanvas({ careerMap, events, timelineConfig:
   return (
     <div ref={scrollRef} className="w-full h-full overflow-auto relative @container">
       <div
-        ref={canvasRef}
-        className="cursor-grab"
         style={{ width: canvasWidth, minHeight: "100%", height: canvasHeight, position: "relative" }}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMove}
-        onPointerUp={handlePointerUp}
       >
         <CarrerMapCanvasRuler
           startDate={careerMap.startDate}

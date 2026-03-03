@@ -1,63 +1,24 @@
 "use client"
 
-import { useCallback, useReducer, useRef } from "react"
+import { useCallback, useRef } from "react"
 
 import type { CareerEvent } from "@/core/domain"
 
 import type { TimelineConfig } from "../utils/constants"
 import { dateToX, type Rect, xToDate, yToRow } from "../utils/timelineMapping"
-
-export type DragMode = "move" | "resize-start" | "resize-end" | "strength"
-
-type DragState = {
-  mode: DragMode
-  eventId: string
-  startPointerX: number
-  startPointerY: number
-  startRect: Rect
-  originalEvent: CareerEvent
-}
-
-// --- State & Action ---
-
-type State = {
-  dragState: DragState | null
-  previewRect: Rect | null
-  previewStrength: number | null
-}
-
-type Action =
-  | { type: "start"; dragState: DragState; rect: Rect; strength: number }
-  | { type: "preview"; rect: Rect; strength?: number }
-  | { type: "end" }
-
-const initialState: State = {
-  dragState: null,
-  previewRect: null,
-  previewStrength: null,
-}
-
-function reducer(state: State, action: Action): State {
-  switch (action.type) {
-    case "start":
-      return { dragState: action.dragState, previewRect: action.rect, previewStrength: action.strength }
-    case "preview":
-      return { ...state, previewRect: action.rect, previewStrength: action.strength ?? state.previewStrength }
-    case "end":
-      return initialState
-  }
-}
+import type { EditorAction } from "./EditorAction"
+import type { DragMode, DragPayload } from "./EditorState"
 
 // --- Preview 計算（純粋関数） ---
 
-function computeMovePreview(
-  dragState: DragState,
+export function computeMovePreview(
+  drag: DragPayload,
   dx: number,
   dy: number,
   config: TimelineConfig,
   snapX: (x: number) => number,
 ): Rect {
-  const { startRect, originalEvent } = dragState
+  const { startRect, originalEvent } = drag
   const rowHeight = config.rowHeightInUnits * config.unit
   const rowGapHeight = config.rowGapHeightInUnits * config.unit
   const rowStep = rowHeight + rowGapHeight
@@ -77,13 +38,13 @@ function computeMovePreview(
   }
 }
 
-function computeResizeStartPreview(
-  dragState: DragState,
+export function computeResizeStartPreview(
+  drag: DragPayload,
   dx: number,
   config: TimelineConfig,
   snapX: (x: number) => number,
 ): Rect {
-  const { startRect } = dragState
+  const { startRect } = drag
   const snappedX = snapX(startRect.x + dx)
   const endX = startRect.x + startRect.width
   return {
@@ -94,13 +55,13 @@ function computeResizeStartPreview(
   }
 }
 
-function computeResizeEndPreview(
-  dragState: DragState,
+export function computeResizeEndPreview(
+  drag: DragPayload,
   dx: number,
   config: TimelineConfig,
   snapX: (x: number) => number,
 ): Rect {
-  const { startRect } = dragState
+  const { startRect } = drag
   const snappedEndX = snapX(startRect.x + startRect.width + dx)
   return {
     x: startRect.x,
@@ -110,12 +71,12 @@ function computeResizeEndPreview(
   }
 }
 
-function computeStrengthPreview(
-  dragState: DragState,
+export function computeStrengthPreview(
+  drag: DragPayload,
   dy: number,
   config: TimelineConfig,
 ): { rect: Rect; strength: number } {
-  const { startRect, originalEvent } = dragState
+  const { startRect, originalEvent } = drag
   const rowHeight = config.rowHeightInUnits * config.unit
   const rowGapHeight = config.rowGapHeightInUnits * config.unit
   const rowStep = rowHeight + rowGapHeight
@@ -130,16 +91,17 @@ function computeStrengthPreview(
 
 // --- Commit 計算（純粋関数） ---
 
-function computeCommittedEvent(
-  dragState: DragState,
+export function computeCommittedEvent(
+  dragMode: DragMode,
+  drag: DragPayload,
   dx: number,
   dy: number,
   config: TimelineConfig,
 ): CareerEvent {
-  const { mode, originalEvent, startRect } = dragState
+  const { originalEvent, startRect } = drag
   const rowStep = (config.rowHeightInUnits + config.rowGapHeightInUnits) * config.unit
 
-  if (mode === "move") {
+  if (dragMode === "move") {
     const newStartX = startRect.x + dx
     const newEndX = newStartX + startRect.width
     return {
@@ -150,13 +112,13 @@ function computeCommittedEvent(
     }
   }
 
-  if (mode === "resize-start") {
+  if (dragMode === "resize-start") {
     const newWidth = Math.max(startRect.width - dx, config.unit)
     const newX = startRect.x + startRect.width - newWidth
     return { ...originalEvent, startDate: xToDate(newX, config) }
   }
 
-  if (mode === "resize-end") {
+  if (dragMode === "resize-end") {
     const newWidth = Math.max(startRect.width + dx, config.unit)
     return { ...originalEvent, endDate: xToDate(startRect.x + newWidth, config) }
   }
@@ -170,16 +132,21 @@ function computeCommittedEvent(
 
 // --- Hook ---
 
+type DragRef = {
+  dragMode: DragMode
+  drag: DragPayload
+}
+
 export function useDragInteraction(
   config: TimelineConfig,
+  dispatch: React.Dispatch<EditorAction>,
   onUpdate: (event: CareerEvent) => void,
 ) {
-  const [{ dragState, previewRect, previewStrength }, dispatch] = useReducer(reducer, initialState)
-  const dragStateRef = useRef<DragState | null>(null)
+  const dragRef = useRef<DragRef | null>(null)
 
-  const handlePointerDown = useCallback((
+  const handleDragStart = useCallback((
     e: React.PointerEvent,
-    mode: DragMode,
+    dragMode: DragMode,
     event: CareerEvent,
     rect: Rect,
   ) => {
@@ -187,61 +154,57 @@ export function useDragInteraction(
     e.stopPropagation()
     ;(e.target as HTMLElement).setPointerCapture(e.pointerId)
 
-    const state: DragState = {
-      mode,
+    const drag: DragPayload = {
       eventId: event.id,
       startPointerX: e.clientX,
       startPointerY: e.clientY,
       startRect: rect,
       originalEvent: event,
     }
-    dragStateRef.current = state
-    dispatch({ type: "start", dragState: state, rect, strength: event.strength ?? 3 })
-  }, [])
+    dragRef.current = { dragMode, drag }
+    dispatch({ type: 'START_DRAG', dragMode, drag, rect, strength: event.strength ?? 3 })
+  }, [dispatch])
 
   const snapX = useCallback((x: number) => {
     return dateToX(xToDate(x, config), config)
   }, [config])
 
-  const handlePointerMove = useCallback((e: React.PointerEvent) => {
-    const state = dragStateRef.current
-    if (!state) return
+  const handleDragMove = useCallback((e: React.PointerEvent) => {
+    const ref = dragRef.current
+    if (!ref) return
 
-    const dx = e.clientX - state.startPointerX
-    const dy = e.clientY - state.startPointerY
+    const dx = e.clientX - ref.drag.startPointerX
+    const dy = e.clientY - ref.drag.startPointerY
 
-    if (state.mode === "move") {
-      dispatch({ type: "preview", rect: computeMovePreview(state, dx, dy, config, snapX) })
-    } else if (state.mode === "resize-start") {
-      dispatch({ type: "preview", rect: computeResizeStartPreview(state, dx, config, snapX) })
-    } else if (state.mode === "resize-end") {
-      dispatch({ type: "preview", rect: computeResizeEndPreview(state, dx, config, snapX) })
-    } else if (state.mode === "strength") {
-      const { rect, strength } = computeStrengthPreview(state, dy, config)
-      dispatch({ type: "preview", rect, strength })
+    if (ref.dragMode === "move") {
+      dispatch({ type: 'UPDATE_DRAG_PREVIEW', rect: computeMovePreview(ref.drag, dx, dy, config, snapX) })
+    } else if (ref.dragMode === "resize-start") {
+      dispatch({ type: 'UPDATE_DRAG_PREVIEW', rect: computeResizeStartPreview(ref.drag, dx, config, snapX) })
+    } else if (ref.dragMode === "resize-end") {
+      dispatch({ type: 'UPDATE_DRAG_PREVIEW', rect: computeResizeEndPreview(ref.drag, dx, config, snapX) })
+    } else if (ref.dragMode === "strength") {
+      const { rect, strength } = computeStrengthPreview(ref.drag, dy, config)
+      dispatch({ type: 'UPDATE_DRAG_PREVIEW', rect, strength })
     }
-  }, [config, snapX])
+  }, [config, snapX, dispatch])
 
-  const handlePointerUp = useCallback((e: React.PointerEvent) => {
-    const state = dragStateRef.current
-    if (!state) return
+  const handleDragEnd = useCallback((e: React.PointerEvent) => {
+    const ref = dragRef.current
+    if (!ref) return
 
     ;(e.target as HTMLElement).releasePointerCapture(e.pointerId)
 
-    const dx = e.clientX - state.startPointerX
-    const dy = e.clientY - state.startPointerY
+    const dx = e.clientX - ref.drag.startPointerX
+    const dy = e.clientY - ref.drag.startPointerY
 
-    onUpdate(computeCommittedEvent(state, dx, dy, config))
-    dragStateRef.current = null
-    dispatch({ type: "end" })
-  }, [config, onUpdate])
+    onUpdate(computeCommittedEvent(ref.dragMode, ref.drag, dx, dy, config))
+    dragRef.current = null
+    dispatch({ type: 'END_DRAG' })
+  }, [config, onUpdate, dispatch])
 
   return {
-    dragState,
-    previewRect,
-    previewStrength,
-    handlePointerDown,
-    handlePointerMove,
-    handlePointerUp,
+    handleDragStart,
+    handleDragMove,
+    handleDragEnd,
   }
 }

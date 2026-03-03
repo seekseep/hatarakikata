@@ -1,38 +1,20 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useRef } from "react"
-
-import type { CareerEvent } from "@/core/domain"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 import CareerMapEventItem from "../CareerMapEventItem"
 import CarrerMapCanvasGrid from "../CarrerMapCanvasGrid"
 import CarrerMapCanvasItem from "../CarrerMapCanvasItem"
 import CarrerMapCanvasRuler from "../CarrerMapCanvasRuler"
 import { useCarrerMapEditorContext } from "../hooks/CarrerMapEditorContext"
-import { useDragInteraction } from "../hooks/useDragInteraction"
-import { usePanInteraction } from "../hooks/usePanInteraction"
+import { SCALE_DISPLAY_CONFIG } from "../utils/constants"
 import { computeCanvasWidth, eventToRect, xToDate, yToRow } from "../utils/timelineMapping"
 
 export default function CarrerMapCanvas() {
-  const { events, careerMap, timelineConfig: config, scale, updateEvent, openEditDialog, openCreateDialog, selectedEventIds, selectEvent, clearSelection, deleteSelectedEvents } = useCarrerMapEditorContext()
-
-  // Normalize PointEvents: keep endDate == startDate after DnD
-  const handleUpdateEvent = useCallback((updatedEvent: CareerEvent) => {
-    const original = events.find(e => e.id === updatedEvent.id)
-    if (original && original.startDate === original.endDate) {
-      updateEvent({ ...updatedEvent, endDate: updatedEvent.startDate })
-    } else {
-      updateEvent(updatedEvent)
-    }
-  }, [events, updateEvent])
+  const { state: { events, careerMap, timelineConfig: config, scale, mode }, dispatch, deleteEvent, handleDragStart, handleDragMove, handleDragEnd } = useCarrerMapEditorContext()
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLDivElement>(null)
-
-  const { dragState, previewRect, handlePointerDown: handleDragPointerDown, handlePointerMove: handleDragPointerMove, handlePointerUp: handleDragPointerUp } =
-    useDragInteraction(config, handleUpdateEvent)
-  const { handlePointerDown: handlePanPointerDown, handlePointerMove: handlePanPointerMove, handlePointerUp: handlePanPointerUp } =
-    usePanInteraction(scrollRef, canvasRef, !!dragState)
 
   const canvasWidth = computeCanvasWidth(config)
   const headerPx = config.headerHeightInUnits * config.unit
@@ -52,71 +34,97 @@ export default function CarrerMapCanvas() {
   const minContentHeight = headerPx + 600
   const canvasHeight = Math.max(minContentHeight, maxEventBottom + rowHeight * 4)
 
-  // Delete key handler
+  // --- Derived from mode ---
+  const isPlacement = mode.type === 'placement'
+  const selectedEventIds = useMemo(() => mode.type === 'selected' ? mode.selectedEventIds : new Set<string>(), [mode])
+  const draggingEventId = mode.type === 'dragging' ? mode.drag.eventId : null
+  const previewRect = mode.type === 'dragging' ? mode.previewRect : null
+
+  // --- Placement mode ---
+  const [placeholderRect, setPlaceholderRect] = useState<{ x: number; y: number; width: number; height: number } | null>(null)
+  const { tickWidthPx } = SCALE_DISPLAY_CONFIG[scale - 1]
+
+  // Keyboard handler
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
+        if (isPlacement) {
+          e.preventDefault()
+          dispatch({ type: 'ENTER_IDLE' })
+          setPlaceholderRect(null)
+          return
+        }
         if (selectedEventIds.size === 0) return
         e.preventDefault()
-        clearSelection()
+        dispatch({ type: 'ENTER_IDLE' })
         return
       }
       if (e.key === "Delete" || e.key === "Backspace") {
         if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return
         if (selectedEventIds.size === 0) return
         e.preventDefault()
-        deleteSelectedEvents()
+        for (const eventId of selectedEventIds) {
+          deleteEvent(eventId)
+        }
+        dispatch({ type: 'ENTER_IDLE' })
       }
     }
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [selectedEventIds, clearSelection, deleteSelectedEvents])
-
-  const handleCanvasPointerDown = useCallback((e: React.PointerEvent) => {
-    handlePanPointerDown(e)
-  }, [handlePanPointerDown])
+  }, [isPlacement, selectedEventIds, dispatch, deleteEvent])
 
   const handleCanvasPointerMove = useCallback((e: React.PointerEvent) => {
-    handleDragPointerMove(e)
-    handlePanPointerMove(e)
-  }, [handleDragPointerMove, handlePanPointerMove])
-
-  const handleCanvasPointerUp = useCallback((e: React.PointerEvent) => {
-    const wasDraggingEvent = !!dragState
-    handleDragPointerUp(e)
-    const wasPanning = handlePanPointerUp()
-
-    if (wasPanning || wasDraggingEvent) return
-
-    // Click on canvas background → clear selection & create event
-    clearSelection()
+    handleDragMove(e)
+    if (!isPlacement) return
 
     const canvasEl = canvasRef.current
     if (!canvasEl) return
-
     const rect = canvasEl.getBoundingClientRect()
     const canvasX = e.clientX - rect.left
     const canvasY = e.clientY - rect.top
 
-    if (canvasY <= headerPx) return
+    if (canvasY <= headerPx) {
+      setPlaceholderRect(null)
+      return
+    }
 
+    const snappedX = Math.floor(canvasX / tickWidthPx) * tickWidthPx
     const row = yToRow(canvasY, config)
-    const startDate = xToDate(canvasX, config)
-    const start = new Date(startDate)
-    const end = new Date(start.getFullYear(), start.getMonth() + 1, start.getDate())
-    const endDate = end.toISOString().split("T")[0]
-    openCreateDialog({ row, startDate, endDate })
-  }, [dragState, handleDragPointerUp, handlePanPointerUp, clearSelection, config, headerPx, openCreateDialog])
+    const rowGapHeight = config.rowGapHeightInUnits * config.unit
+    const rowStep = rowHeight + rowGapHeight
+    const rowY = headerPx + rowGapHeight + row * rowStep
+
+    setPlaceholderRect({ x: snappedX, y: rowY, width: tickWidthPx, height: rowHeight })
+  }, [handleDragMove, isPlacement, headerPx, tickWidthPx, config, rowHeight])
+
+  const handleCanvasClick = useCallback((e: React.MouseEvent) => {
+    if (!isPlacement || !placeholderRect) return
+
+    const startDate = xToDate(placeholderRect.x, config)
+    const endDate = xToDate(placeholderRect.x + placeholderRect.width, config)
+    const canvasEl = canvasRef.current
+    if (!canvasEl) return
+    const rect = canvasEl.getBoundingClientRect()
+    const canvasY = e.clientY - rect.top
+    const row = yToRow(canvasY, config)
+
+    dispatch({ type: 'OPEN_CREATE_DIALOG', prefill: { row, startDate, endDate } })
+    setPlaceholderRect(null)
+  }, [isPlacement, placeholderRect, config, dispatch])
+
+  const handleCanvasPointerUp = useCallback((e: React.PointerEvent) => {
+    handleDragEnd(e)
+  }, [handleDragEnd])
 
   return (
     <div ref={scrollRef} className="w-full h-full overflow-auto relative @container">
       <div
         ref={canvasRef}
-        className="cursor-grab"
+        className={isPlacement ? "cursor-crosshair" : undefined}
         style={{ width: canvasWidth, minHeight: "100%", height: canvasHeight, position: "relative" }}
-        onPointerDown={handleCanvasPointerDown}
         onPointerMove={handleCanvasPointerMove}
         onPointerUp={handleCanvasPointerUp}
+        onClick={handleCanvasClick}
       >
         <CarrerMapCanvasRuler
           startDate={careerMap!.startDate!}
@@ -134,7 +142,7 @@ export default function CarrerMapCanvas() {
         {/* Events */}
         {events.map((event) => {
           const rect = eventToRect(event, config)
-          const isDragging = dragState?.eventId === event.id
+          const isDragging = draggingEventId === event.id
           const isPoint = event.startDate === event.endDate
 
           // For PointEvent: use a square container sized to one row height
@@ -158,19 +166,27 @@ export default function CarrerMapCanvas() {
             >
               <CareerMapEventItem
                 event={event}
-                birthDate={careerMap.startDate}
+                birthDate={careerMap!.startDate!}
                 previewStartDate={isDragging && previewRect ? xToDate(previewRect.x, config) : undefined}
                 previewEndDate={isDragging && previewRect ? xToDate(previewRect.x + previewRect.width, config) : undefined}
                 isDragging={isDragging}
                 isSelected={selectedEventIds.has(event.id)}
                 rowHeight={rowHeight}
-                onSelect={(e: React.MouseEvent) => selectEvent(event.id, e.shiftKey)}
-                onDragStart={(e, mode) => handleDragPointerDown(e, mode, event, rect)}
-                onEdit={() => openEditDialog(event)}
+                onSelect={(e: React.MouseEvent) => dispatch({ type: 'SELECT_EVENT', eventId: event.id, shiftKey: e.shiftKey })}
+                onDragStart={(e, dragMode) => handleDragStart(e, dragMode, event, rect)}
+                onEdit={() => dispatch({ type: 'OPEN_EDIT_DIALOG', event })}
               />
             </CarrerMapCanvasItem>
           )
         })}
+
+        {/* Placement placeholder */}
+        {isPlacement && placeholderRect && (
+          <div
+            className="absolute rounded border-2 border-dashed border-primary-500 bg-primary-500/20 pointer-events-none"
+            style={{ left: placeholderRect.x, top: placeholderRect.y, width: placeholderRect.width, height: placeholderRect.height }}
+          />
+        )}
       </div>
     </div>
   )

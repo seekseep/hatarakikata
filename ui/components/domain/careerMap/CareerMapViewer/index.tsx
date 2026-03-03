@@ -12,7 +12,7 @@ import CareerMapEventDetailDialog from "./CareerMapEventDetailDialog"
 import CareerMapViewCanvas from "./CareerMapViewCanvas"
 import CarrerMapToolBar from "../CarrerMapToolBar"
 import { CarrerMapEditorContext } from "../hooks/CarrerMapEditorContext"
-import type { CarrerMapEditorState } from "../hooks/useCarrerMapEditor"
+import type { CarrerMapEditorStore } from "../hooks/useCarrerMapEditor"
 import { DEFAULT_TIMELINE_CONFIG, SCALE_DEFAULT, SCALE_MONTH_WIDTH_PX } from "../utils/constants"
 import { computeHeaderHeightInUnits, computeTimelineConfig } from "../utils/timelineMapping"
 
@@ -46,8 +46,8 @@ export default function CareerMapViewer({ careerMapId, onClose }: CareerMapViewe
 
   const isLoading = careerMapQuery.isLoading || careerEventsQuery.isLoading
 
-  // CarrerMapToolBar は scale/setScale のみ使うため最小限の値だけ提供
-  const viewerContextValue = { scale, setScale } as unknown as CarrerMapEditorState
+  // CarrerMapToolBar は state.scale / setScale のみ使うため最小限の値だけ提供
+  const viewerContextValue = { state: { scale }, setScale } as unknown as CarrerMapEditorStore
 
   return (
     <CarrerMapEditorContext.Provider value={viewerContextValue}>

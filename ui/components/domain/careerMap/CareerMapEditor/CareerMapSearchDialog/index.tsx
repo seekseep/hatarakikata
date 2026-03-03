@@ -10,7 +10,8 @@ import { useCarrerMapSummariesQuery, useSimilarCareerMapsQuery } from "@/ui/hook
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 
 export default function CareerMapSearchDialog() {
-  const { careerMapId, searchDialogOpen, closeSearchDialog, openViewer } = useCarrerMapEditorContext()
+  const { state: { careerMapId, mode }, dispatch } = useCarrerMapEditorContext()
+  const searchDialogOpen = mode.type === 'search-dialog'
   const similarQuery = useSimilarCareerMapsQuery(careerMapId, searchDialogOpen)
 
   const items = useMemo(() => similarQuery.data?.items ?? [], [similarQuery.data])
@@ -20,9 +21,10 @@ export default function CareerMapSearchDialog() {
   const summariesQuery = useCarrerMapSummariesQuery(searchDialogOpen && shouldShowList)
   const otherItems = useMemo(() => summariesQuery.data?.items ?? [], [summariesQuery.data])
 
+  const closeSearchDialog = () => dispatch({ type: 'CLOSE_DIALOG' })
+
   const handleOpenViewer = (id: string) => {
-    closeSearchDialog()
-    openViewer(id)
+    dispatch({ type: 'OPEN_VIEWER', careerMapId: id })
   }
 
   return (

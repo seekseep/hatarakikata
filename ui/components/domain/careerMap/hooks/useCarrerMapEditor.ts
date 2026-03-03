@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useMemo,useState } from "react"
+import { useCallback, useMemo, useReducer, useState } from "react"
 
 import type { CareerEvent, CareerEventPayload, CareerMap } from "@/core/domain"
 import type {
@@ -11,21 +11,20 @@ import type {
 } from "@/ui/hooks/careerEvent"
 import type { useCareerMapQuery, useUpdateCareerMapMutation } from "@/ui/hooks/careerMap"
 
-import { DEFAULT_TIMELINE_CONFIG, SCALE_DEFAULT,SCALE_MONTH_WIDTH_PX, type TimelineConfig } from "../utils/constants"
+import { addEvent, deleteEvent as deleteEventAction, replaceEvent, setEvents, updateEvent as updateEventAction } from "../actions/eventActions"
+import { DEFAULT_TIMELINE_CONFIG, SCALE_DEFAULT, SCALE_MONTH_WIDTH_PX, type TimelineConfig } from "../utils/constants"
+import type { Rect } from "../utils/timelineMapping"
 import { computeHeaderHeightInUnits, computeTimelineConfig } from "../utils/timelineMapping"
+import type { EditorAction } from "./EditorAction"
+import { editorReducer } from "./editorReducer"
+import type { DragMode, EditorMode } from "./EditorState"
+import { initialEditorState } from "./EditorState"
+import { useDragInteraction } from "./useDragInteraction"
 
 export type CarrerMapEditorStatus = 'loading' | 'required-start-date' | 'ready'
 
-export type CreatePrefill = {
-  row?: number
-  startDate: string
-  endDate: string
-}
-
-export type DialogState =
-  | { open: false }
-  | { open: true; mode: "create"; prefill?: CreatePrefill }
-  | { open: true; mode: "edit"; event: CareerEvent }
+// Re-export for consumers
+export type { CreatePrefill } from "./EditorState"
 
 export type UseCarrerMapEditorOptions = {
   careerMapId: string
@@ -37,52 +36,32 @@ export type UseCarrerMapEditorOptions = {
   deleteCareerEventMutation: ReturnType<typeof useDeleteCareerEventMutation>
 }
 
-export type CarrerMapEditorState = {
+export type CarrerMapEditorStoreState = {
   status: CarrerMapEditorStatus
   careerMapId: string
   careerMap: CareerMap | undefined
   events: CareerEvent[]
+  mode: EditorMode
   timelineConfig: TimelineConfig
   error: Error | undefined
-
   scale: number
+}
+
+export type CarrerMapEditorStore = {
+  state: CarrerMapEditorStoreState
+  dispatch: React.Dispatch<EditorAction>
   setScale: (scale: number) => void
-
-  selectedEventIds: Set<string>
-  selectEvent: (eventId: string, shiftKey: boolean) => void
-  clearSelection: () => void
-  deleteSelectedEvents: () => void
-
   updateCareerMap: (updates: Partial<Pick<CareerMap, "startDate">>) => void
   createEvent: (payload: CareerEventPayload) => void
   createEventAsync: (payload: CareerEventPayload) => Promise<CareerEvent>
-  addEvents: (events: CareerEvent[]) => void
   updateEvent: (event: CareerEvent) => void
   deleteEvent: (eventId: string) => void
-
-  dialogState: DialogState
-  openCreateDialog: (prefill?: CreatePrefill) => void
-  openEditDialog: (event: CareerEvent) => void
-  closeDialog: () => void
-
-  generateDialogOpen: boolean
-  openGenerateDialog: () => void
-  closeGenerateDialog: () => void
-
-  searchDialogOpen: boolean
-  openSearchDialog: () => void
-  closeSearchDialog: () => void
-
-  jsonImportDialogOpen: boolean
-  openJsonImportDialog: () => void
-  closeJsonImportDialog: () => void
-
-  viewerCareerMapId: string | null
-  openViewer: (careerMapId: string) => void
-  closeViewer: () => void
+  handleDragStart: (e: React.PointerEvent, dragMode: DragMode, event: CareerEvent, rect: Rect) => void
+  handleDragMove: (e: React.PointerEvent) => void
+  handleDragEnd: (e: React.PointerEvent) => void
 }
 
-export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMapEditorState {
+export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMapEditorStore {
   const {
     careerMapId,
     careerMapQuery,
@@ -94,57 +73,20 @@ export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMa
   } = options
 
   const careerMap = careerMapQuery.data
-  const [localEvents, setLocalEvents] = useState<CareerEvent[]>([])
-  const [prevQueryData, setPrevQueryData] = useState(careerEventsQuery.data)
-  const [dialogState, setDialogState] = useState<DialogState>({ open: false })
-  const [generateDialogOpen, setGenerateDialogOpen] = useState(false)
-  const [searchDialogOpen, setSearchDialogOpen] = useState(false)
-  const [jsonImportDialogOpen, setJsonImportDialogOpen] = useState(false)
-  const [viewerCareerMapId, setViewerCareerMapId] = useState<string | null>(null)
+
+  // --- Reducer ---
+  const [editorState, dispatch] = useReducer(editorReducer, initialEditorState)
+
+  // --- Independent state (orthogonal to mode) ---
   const [error, setError] = useState<Error | undefined>(undefined)
   const [scale, setScale] = useState(SCALE_DEFAULT)
-  const [selectedEventIds, setSelectedEventIds] = useState<Set<string>>(new Set())
+  const [prevQueryData, setPrevQueryData] = useState(careerEventsQuery.data)
 
-  const selectEvent = useCallback((eventId: string, shiftKey: boolean) => {
-    setSelectedEventIds((prev) => {
-      if (shiftKey) {
-        const next = new Set(prev)
-        if (next.has(eventId)) {
-          next.delete(eventId)
-        } else {
-          next.add(eventId)
-        }
-        return next
-      }
-      return new Set([eventId])
-    })
-  }, [])
-
-  const clearSelection = useCallback(() => {
-    setSelectedEventIds(new Set())
-  }, [])
-
-  const deleteSelectedEvents = useCallback(() => {
-    if (selectedEventIds.size === 0) return
-    for (const eventId of selectedEventIds) {
-      setLocalEvents((prev) => prev.filter((e) => e.id !== eventId))
-      deleteCareerEventMutation.mutate(
-        { id: eventId },
-        {
-          onError: (err) => {
-            setError(err instanceof Error ? err : new Error(String(err)))
-          },
-        },
-      )
-    }
-    setSelectedEventIds(new Set())
-  }, [selectedEventIds, deleteCareerEventMutation])
-
-  // Sync from server data (update during render instead of useEffect)
+  // Sync from server data (update during render)
   if (careerEventsQuery.data !== prevQueryData) {
     setPrevQueryData(careerEventsQuery.data)
     if (careerEventsQuery.data) {
-      setLocalEvents(careerEventsQuery.data.items)
+      dispatch(setEvents(careerEventsQuery.data.items))
     }
   }
 
@@ -160,7 +102,7 @@ export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMa
     if (status !== 'ready' || !careerMap?.startDate) return DEFAULT_TIMELINE_CONFIG
     const config = computeTimelineConfig(
       careerMap as CareerMap & { startDate: string },
-      localEvents,
+      editorState.events,
     )
     const monthWidthPx = SCALE_MONTH_WIDTH_PX[scale - 1]
     return {
@@ -168,7 +110,7 @@ export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMa
       monthWidthInUnits: monthWidthPx / config.unit,
       headerHeightInUnits: computeHeaderHeightInUnits(scale, config.rowHeightInUnits),
     }
-  }, [status, careerMap, localEvents, scale])
+  }, [status, careerMap, editorState.events, scale])
 
   // Aggregate errors
   const aggregatedError =
@@ -181,59 +123,53 @@ export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMa
     deleteCareerEventMutation.error ??
     undefined
 
-  // --- Handlers ---
+  // --- Side-effect handlers ---
 
-  const handleUpdateCareerMap = useCallback(
+  const updateCareerMap = useCallback(
     (updates: Partial<Pick<CareerMap, "startDate">>) => {
       setError(undefined)
       updateCareerMapMutation.mutate(
         { id: careerMapId, ...updates },
         {
-          onSuccess: () => {
-            careerMapQuery.refetch()
-          },
-          onError: (err) => {
-            setError(err instanceof Error ? err : new Error(String(err)))
-          },
+          onSuccess: () => { careerMapQuery.refetch() },
+          onError: (err) => { setError(err instanceof Error ? err : new Error(String(err))) },
         },
       )
     },
     [careerMapId, updateCareerMapMutation, careerMapQuery],
   )
 
-  const handleCreateEvent = useCallback(
+  const createEvent = useCallback(
     (payload: CareerEventPayload) => {
       const tempId = `temp-${Date.now()}-${Math.random().toString(36).slice(2)}`
       const tempEvent = { ...payload, id: tempId, tags: payload.tags.map((id) => ({ id, name: id })) } as CareerEvent
-      setLocalEvents((prev) => [...prev, tempEvent])
+      dispatch(addEvent(tempEvent))
       setError(undefined)
 
       createCareerEventMutation.mutate(payload, {
-        onSuccess: (created) => {
-          setLocalEvents((prev) => prev.map((e) => (e.id === tempId ? created : e)))
-        },
+        onSuccess: (created) => { dispatch(replaceEvent(tempId, created)) },
         onError: (err) => {
           setError(err instanceof Error ? err : new Error(String(err)))
-          setLocalEvents((prev) => prev.filter((e) => e.id !== tempId))
+          dispatch(deleteEventAction(tempId))
         },
       })
     },
     [createCareerEventMutation],
   )
 
-  const handleCreateEventAsync = useCallback(
+  const createEventAsync = useCallback(
     async (payload: CareerEventPayload): Promise<CareerEvent> => {
       const tempId = `temp-${Date.now()}-${Math.random().toString(36).slice(2)}`
       const tempEvent = { ...payload, id: tempId, tags: payload.tags.map((id) => ({ id, name: id })) } as CareerEvent
-      setLocalEvents((prev) => [...prev, tempEvent])
+      dispatch(addEvent(tempEvent))
       setError(undefined)
 
       try {
         const created = await createCareerEventMutation.mutateAsync(payload)
-        setLocalEvents((prev) => prev.map((e) => (e.id === tempId ? created : e)))
+        dispatch(replaceEvent(tempId, created))
         return created
       } catch (err) {
-        setLocalEvents((prev) => prev.filter((e) => e.id !== tempId))
+        dispatch(deleteEventAction(tempId))
         setError(err instanceof Error ? err : new Error(String(err)))
         throw err
       }
@@ -241,128 +177,72 @@ export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMa
     [createCareerEventMutation],
   )
 
-  const handleAddEvents = useCallback(
-    (events: CareerEvent[]) => {
-      setLocalEvents((prev) => [...prev, ...events])
-    },
-    [],
-  )
-
-  const handleUpdateEvent = useCallback(
+  const updateEvent = useCallback(
     (event: CareerEvent) => {
-      setLocalEvents((prev) => prev.map((e) => (e.id === event.id ? event : e)))
+      dispatch(updateEventAction(event))
       setError(undefined)
 
       const { id, tags, ...body } = event
       updateCareerEventMutation.mutate(
         { id, ...body, tags: tags.map((t) => t.id) },
         {
-          onError: (err) => {
-            setError(err instanceof Error ? err : new Error(String(err)))
-          },
+          onError: (err) => { setError(err instanceof Error ? err : new Error(String(err))) },
         },
       )
     },
     [updateCareerEventMutation],
   )
 
-  const handleDeleteEvent = useCallback(
+  const deleteEvent = useCallback(
     (eventId: string) => {
-      setLocalEvents((prev) => prev.filter((e) => e.id !== eventId))
+      dispatch(deleteEventAction(eventId))
       setError(undefined)
 
       deleteCareerEventMutation.mutate(
         { id: eventId },
         {
-          onError: (err) => {
-            setError(err instanceof Error ? err : new Error(String(err)))
-          },
+          onError: (err) => { setError(err instanceof Error ? err : new Error(String(err))) },
         },
       )
     },
     [deleteCareerEventMutation],
   )
 
-  // --- Dialog handlers ---
+  // --- Drag interaction ---
 
-  const openCreateDialog = useCallback((prefill?: CreatePrefill) => {
-    setDialogState({ open: true, mode: "create", prefill })
-  }, [])
+  // Normalize PointEvents: keep endDate == startDate after DnD
+  const dragUpdateEvent = useCallback((updatedEvent: CareerEvent) => {
+    const original = editorState.events.find(e => e.id === updatedEvent.id)
+    if (original && original.startDate === original.endDate) {
+      updateEvent({ ...updatedEvent, endDate: updatedEvent.startDate })
+    } else {
+      updateEvent(updatedEvent)
+    }
+  }, [editorState.events, updateEvent])
 
-  const openEditDialog = useCallback((event: CareerEvent) => {
-    setDialogState({ open: true, mode: "edit", event })
-  }, [])
-
-  const closeDialog = useCallback(() => {
-    setDialogState({ open: false })
-  }, [])
-
-  const openGenerateDialog = useCallback(() => {
-    setGenerateDialogOpen(true)
-  }, [])
-
-  const closeGenerateDialog = useCallback(() => {
-    setGenerateDialogOpen(false)
-  }, [])
-
-  const openSearchDialog = useCallback(() => {
-    setSearchDialogOpen(true)
-  }, [])
-
-  const closeSearchDialog = useCallback(() => {
-    setSearchDialogOpen(false)
-  }, [])
-
-  const openJsonImportDialog = useCallback(() => {
-    setJsonImportDialogOpen(true)
-  }, [])
-
-  const closeJsonImportDialog = useCallback(() => {
-    setJsonImportDialogOpen(false)
-  }, [])
-
-  const openViewer = useCallback((careerMapId: string) => {
-    setViewerCareerMapId(careerMapId)
-  }, [])
-
-  const closeViewer = useCallback(() => {
-    setViewerCareerMapId(null)
-  }, [])
+  const { handleDragStart, handleDragMove, handleDragEnd } =
+    useDragInteraction(timelineConfig, dispatch, dragUpdateEvent)
 
   return {
-    status,
-    careerMapId,
-    careerMap,
-    events: localEvents,
-    timelineConfig,
-    error: aggregatedError,
-    scale,
+    state: {
+      status,
+      careerMapId,
+      careerMap,
+      events: editorState.events,
+      mode: editorState.mode,
+      timelineConfig,
+      error: aggregatedError,
+      scale,
+    },
+    dispatch,
     setScale,
-    selectedEventIds,
-    selectEvent,
-    clearSelection,
-    deleteSelectedEvents,
-    updateCareerMap: handleUpdateCareerMap,
-    createEvent: handleCreateEvent,
-    createEventAsync: handleCreateEventAsync,
-    addEvents: handleAddEvents,
-    updateEvent: handleUpdateEvent,
-    deleteEvent: handleDeleteEvent,
-    dialogState,
-    openCreateDialog,
-    openEditDialog,
-    closeDialog,
-    generateDialogOpen,
-    openGenerateDialog,
-    closeGenerateDialog,
-    searchDialogOpen,
-    openSearchDialog,
-    closeSearchDialog,
-    jsonImportDialogOpen,
-    openJsonImportDialog,
-    closeJsonImportDialog,
-    viewerCareerMapId,
-    openViewer,
-    closeViewer,
+    updateCareerMap,
+    createEvent,
+    createEventAsync,
+    updateEvent,
+    deleteEvent,
+    handleDragStart,
+    handleDragMove,
+    handleDragEnd,
   }
 }

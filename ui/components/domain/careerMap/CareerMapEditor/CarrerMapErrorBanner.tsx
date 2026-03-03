@@ -3,7 +3,7 @@
 import { useCarrerMapEditorContext } from "../hooks/CarrerMapEditorContext"
 
 export default function CarrerMapErrorBanner() {
-  const { error } = useCarrerMapEditorContext()
+  const { state: { error } } = useCarrerMapEditorContext()
 
   if (!error) return null
 

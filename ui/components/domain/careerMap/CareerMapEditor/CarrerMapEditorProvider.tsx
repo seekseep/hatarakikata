@@ -1,10 +1,10 @@
 import type { ReactNode } from "react"
 
 import { CarrerMapEditorContext } from "../hooks/CarrerMapEditorContext"
-import type { CarrerMapEditorState } from "../hooks/useCarrerMapEditor"
+import type { CarrerMapEditorStore } from "../hooks/useCarrerMapEditor"
 
 type CarrerMapEditorProviderProps = {
-  value: CarrerMapEditorState
+  value: CarrerMapEditorStore
   children: ReactNode
 }
 

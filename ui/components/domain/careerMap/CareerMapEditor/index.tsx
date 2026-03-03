@@ -11,6 +11,8 @@ import {
 } from "@/ui/hooks/careerEvent"
 import { useCareerMapQuery, useUpdateCareerMapMutation } from "@/ui/hooks/careerMap"
 
+import CarrerMapToolBar from "../CarrerMapToolBar"
+import { useCarrerMapEditor } from "../hooks/useCarrerMapEditor"
 import CareerMapEventDialog from "./CareerMapEventDialog"
 import CareerMapEventGenerateDialog from "./CareerMapEventGenerateDialog"
 import CareerMapJsonImportDialog from "./CareerMapJsonImportDialog"
@@ -22,8 +24,6 @@ import CarrerMapEditorContainer from "./CarrerMapEditorContainer"
 import { CarrerMapEditorProvider } from "./CarrerMapEditorProvider"
 import CarrerMapErrorBanner from "./CarrerMapErrorBanner"
 import CarrerMapRequestBirthdayDialog from "./CarrerMapRequestBirthdayDialog"
-import CarrerMapToolBar from "../CarrerMapToolBar"
-import { useCarrerMapEditor } from "../hooks/useCarrerMapEditor"
 
 type CareerMapEditorProps = {
   careerMapId: string
@@ -50,17 +50,17 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
   return (
     <CarrerMapEditorProvider value={editor}>
       <CarrerMapEditorContainer>
-        {editor.status === 'loading' && (
+        {editor.state.status === 'loading' && (
           <div className="flex items-center justify-center w-full h-full">
             <Spinner />
           </div>
         )}
 
-        {editor.status === 'required-start-date' && (
+        {editor.state.status === 'required-start-date' && (
           <CarrerMapRequestBirthdayDialog />
         )}
 
-        {editor.status === 'ready' ? (
+        {editor.state.status === 'ready' ? (
           <>
             <CarrerMapCanvas />
             <CarrerMapCanvasActions />
@@ -78,9 +78,9 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
         <CareerMapJsonImportDialog />
       </CarrerMapEditorContainer>
 
-      <Drawer open={!!editor.viewerCareerMapId} onClose={editor.closeViewer}>
-        {editor.viewerCareerMapId && (
-          <CareerMapViewer careerMapId={editor.viewerCareerMapId} onClose={editor.closeViewer} />
+      <Drawer open={editor.state.mode.type === 'viewer'} onClose={() => editor.dispatch({ type: 'CLOSE_DIALOG' })}>
+        {editor.state.mode.type === 'viewer' && (
+          <CareerMapViewer careerMapId={editor.state.mode.careerMapId} onClose={() => editor.dispatch({ type: 'CLOSE_DIALOG' })} />
         )}
       </Drawer>
     </CarrerMapEditorProvider>

@@ -5,7 +5,7 @@ import { RiEditLine } from "react-icons/ri"
 
 import type { CareerEvent } from "@/core/domain"
 
-import type { DragMode } from "../hooks/useDragInteraction"
+import type { DragMode } from "../hooks/EditorState"
 import { eventCircleBorderColors, eventItemColors } from "../utils/constants"
 
 const HANDLE_SIZE = 8

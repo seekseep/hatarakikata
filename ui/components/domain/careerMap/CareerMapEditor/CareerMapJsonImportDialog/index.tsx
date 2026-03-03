@@ -21,7 +21,9 @@ const ImportEventSchema = careerEventPayloadBaseObject
 const ImportEventsSchema = z.array(ImportEventSchema)
 
 export default function CareerMapJsonImportDialog() {
-  const { careerMapId, jsonImportDialogOpen, closeJsonImportDialog, createEventAsync } = useCarrerMapEditorContext()
+  const { state: { careerMapId, mode }, dispatch, createEventAsync } = useCarrerMapEditorContext()
+  const jsonImportDialogOpen = mode.type === 'json-import-dialog'
+  const closeJsonImportDialog = () => dispatch({ type: 'CLOSE_DIALOG' })
   const [json, setJson] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
