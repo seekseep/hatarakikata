@@ -11,6 +11,7 @@ import {
 } from "@/ui/hooks/careerEvent"
 import { useCareerMapQuery, useUpdateCareerMapMutation } from "@/ui/hooks/careerMap"
 
+import { closeDialog } from "../actions/dialogActions"
 import CarrerMapToolBar from "../CarrerMapToolBar"
 import { useCarrerMapEditor } from "../hooks/useCarrerMapEditor"
 import CareerMapEventDialog from "./CareerMapEventDialog"
@@ -78,9 +79,9 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
         <CareerMapJsonImportDialog />
       </CarrerMapEditorContainer>
 
-      <Drawer open={editor.state.mode.type === 'viewer'} onClose={() => editor.dispatch({ type: 'CLOSE_DIALOG' })}>
+      <Drawer open={editor.state.mode.type === 'viewer'} onClose={() => editor.dispatch(closeDialog())}>
         {editor.state.mode.type === 'viewer' && (
-          <CareerMapViewer careerMapId={editor.state.mode.careerMapId} onClose={() => editor.dispatch({ type: 'CLOSE_DIALOG' })} />
+          <CareerMapViewer careerMapId={editor.state.mode.careerMapId} onClose={() => editor.dispatch(closeDialog())} />
         )}
       </Drawer>
     </CarrerMapEditorProvider>

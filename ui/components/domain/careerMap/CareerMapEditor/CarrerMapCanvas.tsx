@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
+import { openCreateDialog, openEditDialog } from "../actions/dialogActions"
+import { enterIdle, hoverEvent, selectEvent, unhoverEvent } from "../actions/modeActions"
 import CareerMapEventItem from "../CareerMapEventItem"
 import CarrerMapCanvasGrid from "../CarrerMapCanvasGrid"
 import CarrerMapCanvasItem from "../CarrerMapCanvasItem"
@@ -50,13 +52,13 @@ export default function CarrerMapCanvas() {
       if (e.key === "Escape") {
         if (isPlacement) {
           e.preventDefault()
-          dispatch({ type: 'ENTER_IDLE' })
+          dispatch(enterIdle())
           setPlaceholderRect(null)
           return
         }
         if (selectedEventIds.size === 0) return
         e.preventDefault()
-        dispatch({ type: 'ENTER_IDLE' })
+        dispatch(enterIdle())
         return
       }
       if (e.key === "Delete" || e.key === "Backspace") {
@@ -66,7 +68,7 @@ export default function CarrerMapCanvas() {
         for (const eventId of selectedEventIds) {
           deleteEvent(eventId)
         }
-        dispatch({ type: 'ENTER_IDLE' })
+        dispatch(enterIdle())
       }
     }
     window.addEventListener("keydown", handleKeyDown)
@@ -108,12 +110,12 @@ export default function CarrerMapCanvas() {
       const canvasY = e.clientY - rect.top
       const row = yToRow(canvasY, config)
 
-      dispatch({ type: 'OPEN_CREATE_DIALOG', prefill: { row, startDate, endDate } })
+      dispatch(openCreateDialog({ row, startDate, endDate }))
       setPlaceholderRect(null)
       return
     }
     // Deselect when clicking empty canvas area
-    dispatch({ type: 'ENTER_IDLE' })
+    dispatch(enterIdle())
   }, [isPlacement, placeholderRect, config, dispatch])
 
   const handleCanvasPointerUp = useCallback((e: React.PointerEvent) => {
@@ -206,7 +208,7 @@ export default function CarrerMapCanvas() {
                 isSelected={selectedEventIds.has(event.id)}
                 isHovered={hoveredEventId === null ? null : hoveredEventId === event.id}
                 rowHeight={rowHeight}
-                onSelect={(e: React.MouseEvent) => dispatch({ type: 'SELECT_EVENT', eventId: event.id, shiftKey: e.shiftKey })}
+                onSelect={(e: React.MouseEvent) => dispatch(selectEvent(event.id, e.shiftKey))}
                 onDragStart={(e, dragMode) => {
                   const additionalEvents = dragMode === 'move' && selectedEventIds.has(event.id) && selectedEventIds.size > 1
                     ? events
@@ -215,9 +217,9 @@ export default function CarrerMapCanvas() {
                     : []
                   handleDragStart(e, dragMode, event, rect, additionalEvents)
                 }}
-                onEdit={() => dispatch({ type: 'OPEN_EDIT_DIALOG', event })}
-                onPointerEnter={() => dispatch({ type: 'HOVER_EVENT', eventId: event.id })}
-                onPointerLeave={() => dispatch({ type: 'UNHOVER_EVENT' })}
+                onEdit={() => dispatch(openEditDialog(event))}
+                onPointerEnter={() => dispatch(hoverEvent(event.id))}
+                onPointerLeave={() => dispatch(unhoverEvent())}
               />
             </CarrerMapCanvasItem>
           )

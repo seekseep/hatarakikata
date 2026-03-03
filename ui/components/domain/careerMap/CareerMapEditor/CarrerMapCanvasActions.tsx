@@ -4,6 +4,8 @@ import { useRef, useState } from "react"
 import { RiAddLine, RiCodeLine, RiSearchLine, RiSparklingLine } from "react-icons/ri"
 import { tv } from "tailwind-variants"
 
+import { openGenerateDialog, openJsonImportDialog, openSearchDialog } from "../actions/dialogActions"
+import { enterPlacement } from "../actions/modeActions"
 import { useCarrerMapEditorContext } from "../hooks/CarrerMapEditorContext"
 
 const actionButton = tv({
@@ -51,7 +53,7 @@ export default function CarrerMapCanvasActions() {
               <button
                 type="button"
                 className="w-full text-left px-4 py-2 text-sm hover:bg-foreground/5 transition-colors"
-                onClick={() => handleDevMenuItemClick(() => dispatch({ type: 'OPEN_JSON_IMPORT_DIALOG' }))}
+                onClick={() => handleDevMenuItemClick(() => dispatch(openJsonImportDialog()))}
               >
                 JSONイベントインポート
               </button>
@@ -59,20 +61,20 @@ export default function CarrerMapCanvasActions() {
           </>
         )}
       </div>
-      <button type="button" className={actionButton()} onClick={() => dispatch({ type: 'OPEN_SEARCH_DIALOG' })}>
+      <button type="button" className={actionButton()} onClick={() => dispatch(openSearchDialog())}>
         <RiSearchLine className="text-xl" />
       </button>
       <button
         type="button"
         className={actionButton()}
-        onClick={() => dispatch({ type: 'OPEN_GENERATE_DIALOG' })}
+        onClick={() => dispatch(openGenerateDialog())}
       >
         <RiSparklingLine className="text-xl" />
       </button>
       <button
         type="button"
         className={actionButton({ variant: "primary" })}
-        onClick={() => dispatch({ type: 'ENTER_PLACEMENT' })}>
+        onClick={() => dispatch(enterPlacement())}>
         <RiAddLine className="text-xl" />
       </button>
     </div>

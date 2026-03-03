@@ -6,6 +6,7 @@ import type { CareerEvent } from "@/core/domain"
 
 import { SCALE_DISPLAY_CONFIG, type TimelineConfig } from "../utils/constants"
 import { type Rect, xToDate, yToRow } from "../utils/timelineMapping"
+import { endDrag, startDrag, updateDragPreview } from "../actions/dragActions"
 import type { EditorAction } from "./EditorAction"
 import type { DraggedEventInfo, DragMode, DragPayload } from "./EditorState"
 
@@ -213,18 +214,18 @@ export function useDragInteraction(
         additionalEvents: ref.additionalEvents,
       }
       dragRef.current = { phase: 'dragging', dragMode: ref.dragMode, drag }
-      dispatch({ type: 'START_DRAG', dragMode: ref.dragMode, drag, rect: ref.rect, strength: ref.event.strength ?? 3 })
+      dispatch(startDrag(ref.dragMode, drag, ref.rect, ref.event.strength ?? 3))
 
       // Compute preview for this move
       if (ref.dragMode === "move") {
-        dispatch({ type: 'UPDATE_DRAG_PREVIEW', rect: computeMovePreview(drag, dx, dy, config, snapX) })
+        dispatch(updateDragPreview(computeMovePreview(drag, dx, dy, config, snapX)))
       } else if (ref.dragMode === "resize-start") {
-        dispatch({ type: 'UPDATE_DRAG_PREVIEW', rect: computeResizeStartPreview(drag, dx, config, snapX) })
+        dispatch(updateDragPreview(computeResizeStartPreview(drag, dx, config, snapX)))
       } else if (ref.dragMode === "resize-end") {
-        dispatch({ type: 'UPDATE_DRAG_PREVIEW', rect: computeResizeEndPreview(drag, dx, config, snapX) })
+        dispatch(updateDragPreview(computeResizeEndPreview(drag, dx, config, snapX)))
       } else if (ref.dragMode === "strength") {
         const { rect, strength } = computeStrengthPreview(drag, dy, config)
-        dispatch({ type: 'UPDATE_DRAG_PREVIEW', rect, strength })
+        dispatch(updateDragPreview(rect, strength))
       }
       return
     }
@@ -234,14 +235,14 @@ export function useDragInteraction(
     const dy = e.clientY - ref.drag.startPointerY
 
     if (ref.dragMode === "move") {
-      dispatch({ type: 'UPDATE_DRAG_PREVIEW', rect: computeMovePreview(ref.drag, dx, dy, config, snapX) })
+      dispatch(updateDragPreview(computeMovePreview(ref.drag, dx, dy, config, snapX)))
     } else if (ref.dragMode === "resize-start") {
-      dispatch({ type: 'UPDATE_DRAG_PREVIEW', rect: computeResizeStartPreview(ref.drag, dx, config, snapX) })
+      dispatch(updateDragPreview(computeResizeStartPreview(ref.drag, dx, config, snapX)))
     } else if (ref.dragMode === "resize-end") {
-      dispatch({ type: 'UPDATE_DRAG_PREVIEW', rect: computeResizeEndPreview(ref.drag, dx, config, snapX) })
+      dispatch(updateDragPreview(computeResizeEndPreview(ref.drag, dx, config, snapX)))
     } else if (ref.dragMode === "strength") {
       const { rect, strength } = computeStrengthPreview(ref.drag, dy, config)
-      dispatch({ type: 'UPDATE_DRAG_PREVIEW', rect, strength })
+      dispatch(updateDragPreview(rect, strength))
     }
   }, [config, snapX, dispatch])
 
@@ -285,7 +286,7 @@ export function useDragInteraction(
       : undefined
 
     dragRef.current = null
-    dispatch({ type: 'END_DRAG', selectedEventIds })
+    dispatch(endDrag(selectedEventIds))
   }, [config, snapX, onUpdate, dispatch])
 
   return {

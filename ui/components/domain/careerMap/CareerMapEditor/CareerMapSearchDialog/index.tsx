@@ -7,6 +7,7 @@ import Dialog from "@/ui/components/basic/dialog/Dialog"
 import Spinner from "@/ui/components/basic/Spinner"
 import { useCarrerMapSummariesQuery, useSimilarCareerMapsQuery } from "@/ui/hooks/careerMap"
 
+import { closeDialog, openViewer } from "../../actions/dialogActions"
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 
 export default function CareerMapSearchDialog() {
@@ -21,10 +22,10 @@ export default function CareerMapSearchDialog() {
   const summariesQuery = useCarrerMapSummariesQuery(searchDialogOpen && shouldShowList)
   const otherItems = useMemo(() => summariesQuery.data?.items ?? [], [summariesQuery.data])
 
-  const closeSearchDialog = () => dispatch({ type: 'CLOSE_DIALOG' })
+  const closeSearchDialog = () => dispatch(closeDialog())
 
   const handleOpenViewer = (id: string) => {
-    dispatch({ type: 'OPEN_VIEWER', careerMapId: id })
+    dispatch(openViewer(id))
   }
 
   return (

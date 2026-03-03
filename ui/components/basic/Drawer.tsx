@@ -35,7 +35,7 @@ export default function Drawer({ open, onClose, children }: DrawerProps) {
       {/* Drawer panel */}
       <div
         className={[
-          "fixed top-0 right-0 z-9999 h-full w-full max-w-4xl bg-background shadow-2xl transition-transform duration-300",
+          "fixed top-0 right-0 z-9999 h-full w-full sm:max-w-md bg-background shadow-2xl transition-transform duration-300",
           open ? "translate-x-0" : "translate-x-full",
         ].join(" ")}
         role="dialog"

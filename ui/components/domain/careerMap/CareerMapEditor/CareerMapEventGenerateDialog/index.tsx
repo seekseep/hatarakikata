@@ -14,6 +14,8 @@ import ThinkingOverlay from "@/ui/components/basic/ThinkingOverlay"
 import { useGenerateCareerEventsMutation } from "@/ui/hooks/careerEvent"
 import { useSpeechRecognition } from "@/ui/hooks/useSpeechRecognition"
 
+import { closeDialog } from "../../actions/dialogActions"
+import { addEvents } from "../../actions/eventActions"
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 
 type FormValues = {
@@ -27,7 +29,7 @@ export default function CareerMapEventGenerateDialog() {
     updateEvent,
   } = useCarrerMapEditorContext()
   const generateDialogOpen = mode.type === 'generate-dialog'
-  const closeGenerateDialog = () => dispatch({ type: 'CLOSE_DIALOG' })
+  const closeGenerateDialog = () => dispatch(closeDialog())
 
   const { register, handleSubmit, setValue, getValues, reset } = useForm<FormValues>({
     defaultValues: { input: "" },
@@ -68,7 +70,7 @@ export default function CareerMapEventGenerateDialog() {
         .filter((a) => a.type === "update")
         .map((a) => a.event)
 
-      if (createdEvents.length > 0) dispatch({ type: 'ADD_EVENTS', events: createdEvents })
+      if (createdEvents.length > 0) dispatch(addEvents(createdEvents))
       for (const event of updatedEvents) updateEvent(event)
 
       reset()
