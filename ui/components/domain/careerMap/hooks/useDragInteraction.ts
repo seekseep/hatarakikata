@@ -4,8 +4,8 @@ import { useCallback, useRef } from "react"
 
 import type { CareerEvent } from "@/core/domain"
 
-import type { TimelineConfig } from "../utils/constants"
-import { dateToX, type Rect, xToDate, yToRow } from "../utils/timelineMapping"
+import { SCALE_DISPLAY_CONFIG, type TimelineConfig } from "../utils/constants"
+import { type Rect, xToDate, yToRow } from "../utils/timelineMapping"
 import type { EditorAction } from "./EditorAction"
 import type { DraggedEventInfo, DragMode, DragPayload } from "./EditorState"
 
@@ -97,13 +97,14 @@ export function computeCommittedEvent(
   dx: number,
   dy: number,
   config: TimelineConfig,
+  snapX: (x: number) => number,
 ): CareerEvent {
   const { originalEvent, startRect } = drag
   const rowStep = (config.rowHeightInUnits + config.rowGapHeightInUnits) * config.unit
 
   if (dragMode === "move") {
-    const newStartX = startRect.x + dx
-    const newEndX = newStartX + startRect.width
+    const newStartX = snapX(startRect.x + dx)
+    const newEndX = snapX(startRect.x + startRect.width + dx)
     return {
       ...originalEvent,
       startDate: xToDate(newStartX, config),
@@ -113,13 +114,16 @@ export function computeCommittedEvent(
   }
 
   if (dragMode === "resize-start") {
-    const newWidth = Math.max(startRect.width - dx, config.unit)
-    const newX = startRect.x + startRect.width - newWidth
+    const snappedX = snapX(startRect.x + dx)
+    const endX = startRect.x + startRect.width
+    const newWidth = Math.max(endX - snappedX, config.unit)
+    const newX = endX - newWidth
     return { ...originalEvent, startDate: xToDate(newX, config) }
   }
 
   if (dragMode === "resize-end") {
-    const newWidth = Math.max(startRect.width + dx, config.unit)
+    const snappedEndX = snapX(startRect.x + startRect.width + dx)
+    const newWidth = Math.max(snappedEndX - startRect.x, config.unit)
     return { ...originalEvent, endDate: xToDate(startRect.x + newWidth, config) }
   }
 
@@ -155,6 +159,7 @@ type DragRefState = PendingDragRef | ActiveDragRef
 
 export function useDragInteraction(
   config: TimelineConfig,
+  scale: number,
   dispatch: React.Dispatch<EditorAction>,
   onUpdate: (event: CareerEvent) => void,
 ) {
@@ -183,9 +188,11 @@ export function useDragInteraction(
     }
   }, [])
 
+  const snapPx = SCALE_DISPLAY_CONFIG[scale - 1].tickWidthPx / 4
+
   const snapX = useCallback((x: number) => {
-    return dateToX(xToDate(x, config), config)
-  }, [config])
+    return Math.round(x / snapPx) * snapPx
+  }, [snapPx])
 
   const handleDragMove = useCallback((e: React.PointerEvent) => {
     const ref = dragRef.current
@@ -255,7 +262,7 @@ export function useDragInteraction(
     const dy = e.clientY - ref.drag.startPointerY
 
     // Commit primary event
-    onUpdate(computeCommittedEvent(ref.dragMode, ref.drag, dx, dy, config))
+    onUpdate(computeCommittedEvent(ref.dragMode, ref.drag, dx, dy, config, snapX))
 
     // Commit additional events (multi-drag, move only)
     if (ref.dragMode === 'move' && ref.drag.additionalEvents.length > 0) {
@@ -268,7 +275,7 @@ export function useDragInteraction(
           originalEvent: ae.originalEvent,
           additionalEvents: [],
         }
-        onUpdate(computeCommittedEvent('move', aeDrag, dx, dy, config))
+        onUpdate(computeCommittedEvent('move', aeDrag, dx, dy, config, snapX))
       }
     }
 
@@ -279,7 +286,7 @@ export function useDragInteraction(
 
     dragRef.current = null
     dispatch({ type: 'END_DRAG', selectedEventIds })
-  }, [config, onUpdate, dispatch])
+  }, [config, snapX, onUpdate, dispatch])
 
   return {
     handleDragStart,

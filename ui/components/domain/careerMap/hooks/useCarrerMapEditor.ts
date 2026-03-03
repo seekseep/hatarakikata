@@ -222,7 +222,7 @@ export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMa
   }, [editorState.events, updateEvent])
 
   const { handleDragStart, handleDragMove, handleDragEnd } =
-    useDragInteraction(timelineConfig, dispatch, dragUpdateEvent)
+    useDragInteraction(timelineConfig, scale, dispatch, dragUpdateEvent)
 
   return {
     state: {
