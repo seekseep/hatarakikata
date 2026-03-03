@@ -1,4 +1,5 @@
 export * from './getCareerMap'
 export * from './getSimilarCareerMaps'
+export * from './readjustAllCareerMapRows'
 export * from './reindexAllCareerMapVectors'
 export * from './updateCareerMap'

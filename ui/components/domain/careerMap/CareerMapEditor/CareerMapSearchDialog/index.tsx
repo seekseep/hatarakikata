@@ -15,9 +15,9 @@ export default function CareerMapSearchDialog() {
 
   const items = useMemo(() => similarQuery.data?.items ?? [], [similarQuery.data])
   const hasResults = items.length > 0
-  const noSimilarResults = !similarQuery.isLoading && !similarQuery.isError && !hasResults
+  const shouldShowList = !similarQuery.isLoading && (similarQuery.isError || !hasResults)
 
-  const summariesQuery = useCarrerMapSummariesQuery(searchDialogOpen && noSimilarResults)
+  const summariesQuery = useCarrerMapSummariesQuery(searchDialogOpen && shouldShowList)
   const otherItems = useMemo(() => summariesQuery.data?.items ?? [], [summariesQuery.data])
 
   const handleOpenViewer = (id: string) => {
@@ -48,10 +48,6 @@ export default function CareerMapSearchDialog() {
           <div className="flex items-center justify-center py-8">
             <Spinner />
           </div>
-        )}
-
-        {similarQuery.isError && (
-          <p className="text-sm text-red-600">{String(similarQuery.error)}</p>
         )}
 
         {hasResults && (
@@ -88,9 +84,15 @@ export default function CareerMapSearchDialog() {
           </div>
         )}
 
-        {noSimilarResults && (
+        {shouldShowList && (
           <div className="flex flex-col gap-3">
-            <p className="text-sm text-foreground/60">似ているマップが見つかりませんでした。</p>
+            {similarQuery.isError && (
+              <p className="text-sm text-red-600">{String(similarQuery.error)}</p>
+            )}
+
+            {!similarQuery.isError && (
+              <p className="text-sm text-foreground/60">似ているマップが見つかりませんでした。</p>
+            )}
 
             <div className="flex flex-col gap-2">
               <p className="text-sm font-semibold text-foreground/80">他の人のマップ</p>

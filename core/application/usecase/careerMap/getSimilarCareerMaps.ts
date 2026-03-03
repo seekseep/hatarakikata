@@ -57,12 +57,10 @@ export function makeGetSimilarCareerMaps({
     const findResult = await findCareerMapVectorQuery(parameters.id)
     if (!findResult.success) return findResult
 
-    // ベクトルがなければ作成
-    let vector = findResult.data
+    // ベクトルがなければ空の結果を返す
+    const vector = findResult.data
     if (!vector) {
-      const createResult = await createCareerMapVectorOperation({ id: parameters.id })
-      if (!createResult.success) return createResult
-      vector = createResult.data
+      return succeed({ items: [], count: 0, offset: parameters.offset, limit: parameters.limit })
     }
 
     const { embedding, tagWeights } = vector
