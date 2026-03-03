@@ -22,6 +22,8 @@ function calcAge(birthDate: string, targetDate: string): number {
 type CareerMapEventItemProps = {
   event: CareerEvent
   birthDate: string
+  previewStartDate?: string
+  previewEndDate?: string
   isDragging: boolean
   isSelected: boolean
   readOnly?: boolean
@@ -34,6 +36,8 @@ type CareerMapEventItemProps = {
 export default function CareerMapEventItem({
   event,
   birthDate,
+  previewStartDate,
+  previewEndDate,
   isDragging,
   isSelected,
   readOnly = false,
@@ -91,14 +95,22 @@ export default function CareerMapEventItem({
 
   const editInStartCircle = !readOnly && !!onEdit && !event.endName && !!event.startDate && !!event.startName
 
-  const startAge = calcAge(birthDate, event.startDate)
-  const endAge = calcAge(birthDate, event.endDate)
+  const displayStartDate = previewStartDate ?? event.startDate
+  const displayEndDate = previewEndDate ?? event.endDate
+  const startAge = calcAge(birthDate, displayStartDate)
+  const endAge = calcAge(birthDate, displayEndDate)
+  const startMonth = `${new Date(displayStartDate).getFullYear()}年${new Date(displayStartDate).getMonth() + 1}月`
+  const endMonth = `${new Date(displayEndDate).getFullYear()}年${new Date(displayEndDate).getMonth() + 1}月`
 
   return (
     <div className="w-full h-full relative group">
-      <div className="left-0 right-0 bottom-full absolute text-xs flex justify-between">
+      <div className="left-0 mb-0.75 right-0 bottom-full absolute text-xs flex justify-between opacity-0 group-hover:opacity-100 transition-opacity z-50">
         <div className="bg-gray-50 rounded sticky left-0 px-1">{startAge}歳</div>
         <div className="bg-gray-50 rounded sticky right-0 px-1">{endAge}歳</div>
+      </div>
+      <div className="left-0 right-0 top-full absolute text-xs flex justify-between">
+        <div className="bg-gray-50 rounded sticky left-0 px-1">{startMonth}</div>
+        <div className="bg-gray-50 rounded sticky right-0 px-1">{endMonth}</div>
       </div>
       <div
         className={[
@@ -136,7 +148,7 @@ export default function CareerMapEventItem({
           onPointerDown={!readOnly && onDragStart ? (e) => onDragStart(e, "move") : undefined}
         >
           {event.name && (
-            <span className="text-xs font-medium truncate pointer-events-none select-none sticky left-0 right-0 px-2">
+            <span className="text-xs font-medium truncate pointer-events-none select-none sticky left-0 right-0 px-1">
               {event.name}
             </span>
           )}

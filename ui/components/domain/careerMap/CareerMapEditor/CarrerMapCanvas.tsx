@@ -159,6 +159,8 @@ export default function CarrerMapCanvas() {
               <CareerMapEventItem
                 event={event}
                 birthDate={careerMap.startDate}
+                previewStartDate={isDragging && previewRect ? xToDate(previewRect.x, config) : undefined}
+                previewEndDate={isDragging && previewRect ? xToDate(previewRect.x + previewRect.width, config) : undefined}
                 isDragging={isDragging}
                 isSelected={selectedEventIds.has(event.id)}
                 rowHeight={rowHeight}
