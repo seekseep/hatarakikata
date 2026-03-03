@@ -109,8 +109,8 @@ export default function CareerMapEventItem({
         <div className="bg-gray-50 rounded sticky right-0 px-1">{endAge}歳</div>
       </div>
       <div className="left-0 right-0 top-full absolute text-xs flex justify-between">
-        <div className="bg-gray-50 rounded sticky left-0 px-1">{startMonth}</div>
-        <div className="bg-gray-50 rounded sticky right-0 px-1">{endMonth}</div>
+        <div className="bg-gray-50 rounded sticky left-0 px-1 truncate">{startMonth}</div>
+        <div className="bg-gray-50 rounded sticky right-0 px-1 truncate">{endMonth}</div>
       </div>
       <div
         className={[
