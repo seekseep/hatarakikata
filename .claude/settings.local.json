@@ -21,7 +21,8 @@
       "Bash(npx ts-node:*)",
       "Bash(npm run generate-wikipedia-career:*)",
       "Bash(python3:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(npm run import-career-maps)"
     ]
   }
 }

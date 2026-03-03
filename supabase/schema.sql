@@ -1,4 +1,6 @@
 -- Drop tables (reverse dependency order)
+drop table if exists guides;
+drop table if exists career_questions;
 drop table if exists career_map_event_tag_attachments;
 drop table if exists career_map_event_tags;
 drop table if exists career_events;
@@ -53,6 +55,30 @@ create table career_map_event_tag_attachments (
 
 create index career_map_event_tag_attachments_career_event_id_idx on career_map_event_tag_attachments(career_event_id);
 create index career_map_event_tag_attachments_tag_id_idx on career_map_event_tag_attachments(career_map_event_tag_id);
+
+-- Career Questions
+create table career_questions (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references users(id) on delete cascade,
+  name text not null default '',
+  status text not null default 'open' check (status in ('open', 'closed')),
+  fields jsonb not null default '[]'::jsonb
+);
+
+create index career_questions_user_id_idx on career_questions(user_id);
+
+-- Guides
+create table guides (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references users(id) on delete cascade,
+  career_map_id uuid not null references career_maps(id) on delete cascade,
+  content text not null,
+  next_actions jsonb not null default '[]'::jsonb,
+  created_at timestamptz not null default now()
+);
+
+create index guides_user_id_idx on guides(user_id);
+create index guides_career_map_id_idx on guides(career_map_id);
 
 -- Vector search (pgvector)
 create extension if not exists vector;

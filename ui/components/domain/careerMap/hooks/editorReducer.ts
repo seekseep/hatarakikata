@@ -108,6 +108,9 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
     case 'OPEN_VIEWER':
       return { ...state, mode: { type: 'viewer', careerMapId: action.careerMapId } }
 
+    case 'OPEN_QUESTIONS_DRAWER':
+      return { ...state, mode: { type: 'questions-drawer' } }
+
     case 'CLOSE_DIALOG':
       return { ...state, mode: { type: 'idle' } }
 

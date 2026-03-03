@@ -19,6 +19,7 @@ import CareerMapEventGenerateDialog from "./CareerMapEventGenerateDialog"
 import CareerMapJsonImportDialog from "./CareerMapJsonImportDialog"
 import CareerMapSearchDialog from "./CareerMapSearchDialog"
 import CarrerMapCanvas from "./CarrerMapCanvas"
+import CareerQuestionDrawer from "./CareerQuestionDrawer"
 import CarrerMapCanvasActions from "./CarrerMapCanvasActions"
 import CarrerMapCanvasPlaceholder from "./CarrerMapCanvasPlaceholder"
 import CarrerMapEditorContainer from "./CarrerMapEditorContainer"
@@ -82,6 +83,12 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
       <Drawer open={editor.state.mode.type === 'viewer'} onClose={() => editor.dispatch(closeDialog())}>
         {editor.state.mode.type === 'viewer' && (
           <CareerMapViewer careerMapId={editor.state.mode.careerMapId} onClose={() => editor.dispatch(closeDialog())} />
+        )}
+      </Drawer>
+
+      <Drawer open={editor.state.mode.type === 'questions-drawer'} onClose={() => editor.dispatch(closeDialog())}>
+        {editor.state.mode.type === 'questions-drawer' && (
+          <CareerQuestionDrawer onClose={() => editor.dispatch(closeDialog())} />
         )}
       </Drawer>
     </CarrerMapEditorProvider>

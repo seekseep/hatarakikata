@@ -1,10 +1,10 @@
 "use client"
 
 import { useRef, useState } from "react"
-import { RiAddLine, RiCodeLine, RiSearchLine, RiSparklingLine } from "react-icons/ri"
+import { RiAddLine, RiChat3Line, RiCodeLine, RiSearchLine, RiSparklingLine } from "react-icons/ri"
 import { tv } from "tailwind-variants"
 
-import { openGenerateDialog, openJsonImportDialog, openSearchDialog } from "../actions/dialogActions"
+import { openGenerateDialog, openJsonImportDialog, openQuestionsDrawer, openSearchDialog } from "../actions/dialogActions"
 import { enterPlacement } from "../actions/modeActions"
 import { useCarrerMapEditorContext } from "../hooks/CarrerMapEditorContext"
 
@@ -61,6 +61,9 @@ export default function CarrerMapCanvasActions() {
           </>
         )}
       </div>
+      <button type="button" className={actionButton()} onClick={() => dispatch(openQuestionsDrawer())}>
+        <RiChat3Line className="text-xl" />
+      </button>
       <button type="button" className={actionButton()} onClick={() => dispatch(openSearchDialog())}>
         <RiSearchLine className="text-xl" />
       </button>

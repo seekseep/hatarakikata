@@ -41,6 +41,7 @@ export type GenerateDialogMode = { type: 'generate-dialog' }
 export type SearchDialogMode = { type: 'search-dialog' }
 export type JsonImportDialogMode = { type: 'json-import-dialog' }
 export type ViewerMode = { type: 'viewer'; careerMapId: string }
+export type QuestionsDrawerMode = { type: 'questions-drawer' }
 
 export type EditorMode =
   | IdleMode
@@ -53,6 +54,7 @@ export type EditorMode =
   | SearchDialogMode
   | JsonImportDialogMode
   | ViewerMode
+  | QuestionsDrawerMode
 
 // --- Editor State ---
 

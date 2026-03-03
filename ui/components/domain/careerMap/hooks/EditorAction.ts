@@ -45,6 +45,8 @@ export type OpenJsonImportDialogAction = { type: 'OPEN_JSON_IMPORT_DIALOG' }
 
 export type OpenViewerAction = { type: 'OPEN_VIEWER'; careerMapId: string }
 
+export type OpenQuestionsDrawerAction = { type: 'OPEN_QUESTIONS_DRAWER' }
+
 export type CloseDialogAction = { type: 'CLOSE_DIALOG' }
 
 // --- Hover Actions ---
@@ -75,6 +77,7 @@ export type EditorAction =
   | OpenSearchDialogAction
   | OpenJsonImportDialogAction
   | OpenViewerAction
+  | OpenQuestionsDrawerAction
   | CloseDialogAction
   | HoverEventAction
   | UnhoverEventAction

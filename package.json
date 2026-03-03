@@ -9,7 +9,8 @@
     "lint": "eslint",
     "generate-wikipedia-career": "tsx cli/generateWikipediaCareer.ts",
     "generate-wikipedia-career:all": "tsx cli/generateWikipediaCareer.ts --file data/peopleName.txt",
-    "import-wikipedia-career": "tsx cli/importWikipediaCareer.ts",
+    "import-career-maps": "tsx cli/importWikipediaCareer.ts",
+    "import-career-maps:all": "tsx cli/importWikipediaCareer.ts --all",
     "readjust-rows": "tsx cli/readjustRows.ts",
     "reindex-vectors": "tsx cli/reindexVectors.ts"
   },

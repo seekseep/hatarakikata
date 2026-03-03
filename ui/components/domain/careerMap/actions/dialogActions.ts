@@ -6,6 +6,7 @@ import type {
   OpenEditDialogAction,
   OpenGenerateDialogAction,
   OpenJsonImportDialogAction,
+  OpenQuestionsDrawerAction,
   OpenSearchDialogAction,
   OpenViewerAction,
 } from "../hooks/EditorAction"
@@ -33,6 +34,10 @@ export function openJsonImportDialog(): OpenJsonImportDialogAction {
 
 export function openViewer(careerMapId: string): OpenViewerAction {
   return { type: 'OPEN_VIEWER', careerMapId }
+}
+
+export function openQuestionsDrawer(): OpenQuestionsDrawerAction {
+  return { type: 'OPEN_QUESTIONS_DRAWER' }
 }
 
 export function closeDialog(): CloseDialogAction {

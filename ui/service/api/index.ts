@@ -1,5 +1,7 @@
 export * from './careerEvent'
 export * from './careerMapEventTag'
+export * from './careerQuestion'
 export * from './carrerMap'
 export * from './client'
+export * from './guide'
 export * from './user'
