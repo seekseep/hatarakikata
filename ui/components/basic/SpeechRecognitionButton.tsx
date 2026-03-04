@@ -1,4 +1,4 @@
-import { RiMic2Fill, RiMic2Line, RiStopFill } from "react-icons/ri"
+import { RiMic2Line, RiStopFill } from "react-icons/ri"
 
 type Props = {
   isListening: boolean

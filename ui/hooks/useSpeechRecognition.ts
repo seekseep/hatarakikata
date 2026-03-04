@@ -35,7 +35,13 @@ const BAR_COUNT = 16
 
 export function useSpeechRecognition(onResult: (text: string) => void) {
   const [isListening, setIsListening] = useState(false)
-  const [isSupported, setIsSupported] = useState(false)
+  const [isSupported] = useState(() => {
+    if (typeof window === "undefined") return false
+    return !!(
+      (window as unknown as Record<string, unknown>).SpeechRecognition ??
+      (window as unknown as Record<string, unknown>).webkitSpeechRecognition
+    )
+  })
   const [audioLevels, setAudioLevels] = useState<number[]>(() => new Array(BAR_COUNT).fill(0))
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null)
   const onResultRef = useRef(onResult)
@@ -47,10 +53,6 @@ export function useSpeechRecognition(onResult: (text: string) => void) {
   useEffect(() => {
     onResultRef.current = onResult
   }, [onResult])
-
-  useEffect(() => {
-    setIsSupported(createSpeechRecognition() !== null)
-  }, [])
 
   const stopAudio = useCallback(() => {
     cancelAnimationFrame(rafRef.current)

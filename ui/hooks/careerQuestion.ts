@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
-import type { CareerEvent, CareerQuestion } from '@/core/domain'
+import type { CareerQuestion } from '@/core/domain'
 import {
   answerQuestion,
   closeQuestion,

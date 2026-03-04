@@ -1,9 +1,9 @@
 import { NextRequest } from 'next/server'
 
-import { toResponse } from '@/server/lib/response'
-import { reindexAllCareerMapVectors } from '@/server/usecase/careerMap'
 import type { SystemExecutor } from '@/core/application/executor'
 import { failAsForbiddenError } from '@/core/util/appResult'
+import { toResponse } from '@/server/lib/response'
+import { reindexAllCareerMapVectors } from '@/server/usecase/careerMap'
 
 function isAuthorized(request: NextRequest) {
   const secret = process.env.CRON_SECRET

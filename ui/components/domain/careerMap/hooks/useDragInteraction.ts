@@ -4,9 +4,9 @@ import { useCallback, useRef } from "react"
 
 import type { CareerEvent } from "@/core/domain"
 
+import { endDrag, startDrag, updateDragPreview } from "../actions/dragActions"
 import { SCALE_DISPLAY_CONFIG, type TimelineConfig } from "../utils/constants"
 import { type Rect, xToDate, yToRow } from "../utils/timelineMapping"
-import { endDrag, startDrag, updateDragPreview } from "../actions/dragActions"
 import type { EditorAction } from "./EditorAction"
 import type { DraggedEventInfo, DragMode, DragPayload } from "./EditorState"
 

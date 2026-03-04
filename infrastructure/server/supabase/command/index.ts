@@ -1,7 +1,7 @@
 export { createAuthUserCommand } from './auth/createAuthUserCommand'
 export { createCareerEventCommand, deleteCareerEventCommand, updateCareerEventCommand } from './careerEvent'
+export { createCareerGuideCommand } from './careerGuide'
 export { createCareerMapCommand, deleteCareerMapCommand, updateCareerMapCommand } from './careerMap'
 export { createCareerMapVectorCommand, updateCareerMapVectorCommand, upsertCareerMapVectorCommand } from './careerMapVector'
 export { createCareerQuestionCommand, updateCareerQuestionCommand } from './careerQuestion'
-export { createCareerGuideCommand } from './careerGuide'
 export { createUserCommand, deleteUserCommand, updateUserCommand } from './user'

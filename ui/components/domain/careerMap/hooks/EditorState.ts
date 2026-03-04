@@ -1,7 +1,7 @@
 import type { CareerEvent, CareerQuestion } from "@/core/domain"
 
-import type { EditorAction } from "./EditorAction"
 import type { Rect } from "../utils/timelineMapping"
+import type { EditorAction } from "./EditorAction"
 
 // --- CreatePrefill (moved from useCarrerMapEditor.ts) ---
 

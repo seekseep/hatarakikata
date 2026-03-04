@@ -36,6 +36,5 @@ export const CareerEventSchema = CareerEventKeySchema.extend(careerEventPayloadB
 export type CareerEvent = z.infer<typeof CareerEventSchema>
 export type CareerEventPayload = z.infer<typeof CareerEventPayloadSchema>
 
-
 export const PagedCareerEventsSchema = createPagedItemsSchema(CareerEventSchema)
 export type PagedCareerEvents = z.infer<typeof PagedCareerEventsSchema>

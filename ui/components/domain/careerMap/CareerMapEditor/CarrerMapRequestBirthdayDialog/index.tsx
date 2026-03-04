@@ -8,9 +8,9 @@ import Dialog from "@/ui/components/basic/dialog/Dialog"
 
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 import { DEFAULT_YEAR_RANGE_START } from "./constants"
-import { stepIndicator } from "./styles"
 import DayStep from "./DayStep"
 import MonthStep from "./MonthStep"
+import { stepIndicator } from "./styles"
 import { Step } from "./types"
 import YearStep from "./YearStep"
 
