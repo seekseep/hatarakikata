@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
-import { useForm } from "react-hook-form"
+import { FormProvider, useForm } from "react-hook-form"
 
 import type { CareerQuestion } from "@/core/domain"
 import Button from "@/ui/components/basic/Button"
@@ -24,11 +24,22 @@ export default function CareerQuestionAnswerDialog({
   const { dispatch } = useCarrerMapEditorContext()
   const answerMutation = useAnswerQuestionMutation()
 
-  const { register, handleSubmit, reset, control } = useForm()
+  const methods = useForm()
+  const { handleSubmit, reset } = methods
 
   useEffect(() => {
     if (question) {
-      reset({})
+      const defaults: Record<string, unknown> = {}
+      for (const field of question.fields) {
+        if (field.default !== undefined) {
+          let value = field.default
+          if (field.type === "date" && typeof value === "string") {
+            value = value.slice(0, 7)
+          }
+          defaults[field.name] = value
+        }
+      }
+      reset(defaults)
     }
   }, [question, reset])
 
@@ -52,14 +63,14 @@ export default function CareerQuestionAnswerDialog({
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
           <h3 className="text-lg font-bold">回答する</h3>
 
-          {question.fields.map((field, i) => (
-            <ConditionAwareField
-              key={i}
-              field={field}
-              register={register}
-              control={control}
-            />
-          ))}
+          <FormProvider {...methods}>
+            {question.fields.map((field, i) => (
+              <ConditionAwareField
+                key={i}
+                field={field}
+              />
+            ))}
+          </FormProvider>
 
           <div className="flex gap-2 justify-end pt-2">
             <Button type="button" variant="ghost" size="medium" onClick={onClose}>

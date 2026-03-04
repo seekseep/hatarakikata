@@ -29,6 +29,8 @@ export const CareerQuestionFieldSchema = z.object({
   type: CareerQuestionFieldTypeSchema,
   options: z.array(z.string()).optional(),
   condition: CareerQuestionFieldConditionSchema.optional(),
+  default: z.unknown().optional(),
+  autoFocus: z.boolean().optional(),
 })
 export type CareerQuestionField = z.infer<typeof CareerQuestionFieldSchema>
 
@@ -45,6 +47,9 @@ export const CareerQuestionPayloadSchema = z.object({
   title: z.string(),
   status: CareerQuestionStatusSchema.default("open"),
   fields: z.array(CareerQuestionFieldSchema),
+  row: z.number().int().min(0).optional(),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
 })
 
 export const CareerQuestionSchema = CareerQuestionKeySchema.extend(

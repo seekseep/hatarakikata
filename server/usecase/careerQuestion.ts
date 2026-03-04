@@ -13,6 +13,7 @@ export const getQuestionsByUserId = makeGetQuestionsByUserId({
 export const initializeQuestionsForUser = makeInitializeQuestionsForUser({
   createCareerQuestionCommand,
   listCareerQuestionsByUserIdQuery,
+  listCareerMapByUserIdQuery,
 })
 
 export const answerQuestion = makeAnswerQuestion({

@@ -1,22 +1,24 @@
 "use client"
 
-import { useForm, useWatch } from "react-hook-form"
+import { useFormContext, useWatch } from "react-hook-form"
 
 import type { CareerQuestionField } from "@/core/domain"
+import CheckboxField from "@/ui/components/basic/field/CheckboxField"
+import MonthField from "@/ui/components/basic/field/MonthField"
+import RadioField from "@/ui/components/basic/field/RadioField"
+import SelectField from "@/ui/components/basic/field/SelectField"
+import TextField from "@/ui/components/basic/field/TextField"
 
 import { evaluateCondition } from "./utils"
 
 type ConditionAwareFieldProps = {
   field: CareerQuestionField
-  register: ReturnType<typeof useForm>["register"]
-  control: ReturnType<typeof useForm>["control"]
 }
 
 export default function ConditionAwareField({
   field,
-  register,
-  control,
 }: ConditionAwareFieldProps) {
+  const { control } = useFormContext()
   const values = useWatch({ control })
 
   if (field.condition && !evaluateCondition(field.condition, values)) {
@@ -28,83 +30,56 @@ export default function ConditionAwareField({
   switch (field.type) {
     case "text":
       return (
-        <div className="flex flex-col gap-1">
-          <label className="text-sm font-medium">{field.label}</label>
-          <input
-            type="text"
-            className="w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-            {...register(name)}
-          />
-        </div>
+        <TextField
+          name={name}
+          label={field.label}
+          autoFocus={field.autoFocus}
+        />
       )
     case "date":
       return (
-        <div className="flex flex-col gap-1">
-          <label className="text-sm font-medium">{field.label}</label>
-          <input
-            type="month"
-            className="w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-            {...register(name)}
-          />
-        </div>
+        <MonthField
+          name={name}
+          label={field.label}
+          autoFocus={field.autoFocus}
+        />
       )
     case "number":
       return (
-        <div className="flex flex-col gap-1">
-          <label className="text-sm font-medium">{field.label}</label>
-          <input
-            type="number"
-            className="w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-            {...register(name)}
-          />
-        </div>
+        <TextField
+          name={name}
+          label={field.label}
+          type="number"
+          autoFocus={field.autoFocus}
+        />
       )
     case "select":
       return (
-        <div className="flex flex-col gap-1">
-          <label className="text-sm font-medium">{field.label}</label>
-          <select
-            className="w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500"
-            {...register(name)}
-          >
-            <option value="">選択してください</option>
-            {field.options?.map((opt) => (
-              <option key={opt} value={opt}>
-                {opt}
-              </option>
-            ))}
-          </select>
-        </div>
+        <SelectField
+          name={name}
+          label={field.label}
+          options={[
+            { value: "", label: "選択してください" },
+            ...(field.options?.map((opt) => ({ value: opt, label: opt })) ?? []),
+          ]}
+          autoFocus={field.autoFocus}
+        />
       )
     case "radio":
       return (
-        <div className="flex flex-col gap-1">
-          <span className="text-sm font-medium">{field.label}</span>
-          <div className="flex gap-3">
-            {field.options?.map((opt) => (
-              <label key={opt} className="flex items-center gap-1.5 text-sm cursor-pointer">
-                <input
-                  type="radio"
-                  value={opt}
-                  {...register(name)}
-                  className="accent-primary-500"
-                />
-                {opt}
-              </label>
-            ))}
-          </div>
-        </div>
+        <RadioField
+          name={name}
+          label={field.label}
+          options={field.options?.map((opt) => ({ value: opt, label: opt })) ?? []}
+          autoFocus={field.autoFocus}
+        />
       )
     case "checkbox":
       return (
-        <label className="flex items-center gap-2 text-sm cursor-pointer">
-          <input
-            type="checkbox"
-            {...register(name)}
-            className="rounded accent-primary-500"
-          />
-          {field.label}
-        </label>
+        <CheckboxField
+          name={name}
+          label={field.label}
+        />
       )
     default:
       return null

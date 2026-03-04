@@ -25,6 +25,7 @@ import CareerGuidesDrawer from "./CareerGuidesDrawer"
 import CareerMapEventDialog from "./CareerMapEventDialog"
 import CareerMapEventGenerateDialog from "./CareerMapEventGenerateDialog"
 import CareerMapSearchDrawer from "./CareerMapSearchDrawer"
+import CareerQuestionAnswerDialog from "./CareerQuestionAnswerDialog"
 import CareerQuestionDrawer from "./CareerQuestionDrawer"
 import CarrerMapCanvas from "./CarrerMapCanvas"
 import CarrerMapCanvasActions from "./CarrerMapCanvasActions"
@@ -57,7 +58,8 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
   const needsQuestionInit =
     questionsQuery.error &&
     "status" in questionsQuery.error &&
-    (questionsQuery.error as { status: number }).status === 404
+    (questionsQuery.error as { status: number }).status === 404 &&
+    !!careerMapQuery.data?.startDate
 
   useEffect(() => {
     if (needsQuestionInit && !initQuestionsMutation.isPending) {
@@ -184,6 +186,13 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
           <CareerQuestionDrawer onClose={() => editor.dispatch(closeDialog())} />
         )}
       </Drawer>
+
+      {editor.state.mode.type === 'question-answer-dialog' && (
+        <CareerQuestionAnswerDialog
+          question={editor.state.mode.question}
+          onClose={() => editor.dispatch(closeDialog())}
+        />
+      )}
 
       <Drawer open={editor.state.mode.type === 'career-guides-drawer'} onClose={() => editor.dispatch(closeDialog())}>
         {editor.state.mode.type === 'career-guides-drawer' && (

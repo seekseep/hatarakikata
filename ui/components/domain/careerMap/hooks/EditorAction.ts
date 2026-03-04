@@ -1,4 +1,4 @@
-import type { CareerEvent } from "@/core/domain"
+import type { CareerEvent, CareerQuestion } from "@/core/domain"
 
 import type { Rect } from "../utils/timelineMapping"
 import type { CreatePrefill, DragMode, DragPayload } from "./EditorState"
@@ -57,6 +57,8 @@ export type OpenCareerGuidesDrawerAction = { type: 'OPEN_CAREER_GUIDES_DRAWER' }
 
 export type OpenCareerGuideDetailDrawerAction = { type: 'OPEN_CAREER_GUIDE_DETAIL_DRAWER'; guideId: string }
 
+export type OpenQuestionAnswerDialogAction = { type: 'OPEN_QUESTION_ANSWER_DIALOG'; question: CareerQuestion }
+
 export type CloseDialogAction = { type: 'CLOSE_DIALOG' }
 
 // --- Hover Actions ---
@@ -88,6 +90,7 @@ export type EditorAction =
   | OpenJsonImportDialogAction
   | OpenViewerAction
   | OpenQuestionsDrawerAction
+  | OpenQuestionAnswerDialogAction
   | OpenConfirmDialogAction
   | RequestCreateCareerGuideAction
   | OpenCareerGuidePromptDialogAction

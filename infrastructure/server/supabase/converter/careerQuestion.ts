@@ -10,5 +10,8 @@ export function careerQuestionRowToEntity(row: CareerQuestionRow): CareerQuestio
     title: row.title,
     status: row.status,
     fields: row.fields,
+    row: row.row ?? undefined,
+    startDate: row.start_date ?? undefined,
+    endDate: row.end_date ?? undefined,
   }
 }

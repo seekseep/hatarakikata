@@ -2,18 +2,30 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
-import { openCreateDialog, openEditDialog } from "../actions/dialogActions"
+import { useCareerQuestionsQuery } from "@/ui/hooks/careerQuestion"
+
+import { openCreateDialog, openEditDialog, openQuestionAnswerDialog } from "../actions/dialogActions"
 import { enterIdle, hoverEvent, selectEvent, unhoverEvent } from "../actions/modeActions"
 import CareerMapEventItem from "../CareerMapEventItem"
+import CareerQuestionPlaceholderItem from "../CareerQuestionPlaceholderItem"
 import CarrerMapCanvasGrid from "../CarrerMapCanvasGrid"
 import CarrerMapCanvasItem from "../CarrerMapCanvasItem"
 import CarrerMapCanvasRuler from "../CarrerMapCanvasRuler"
 import { useCarrerMapEditorContext } from "../hooks/CarrerMapEditorContext"
 import { SCALE_DISPLAY_CONFIG } from "../utils/constants"
-import { computeCanvasWidth, eventToRect, xToDate, yToRow } from "../utils/timelineMapping"
+import { computeCanvasWidth, eventToRect, questionToRect, xToDate, yToRow } from "../utils/timelineMapping"
 
 export default function CarrerMapCanvas() {
   const { state: { events, careerMap, timelineConfig: config, scale, mode, hoveredEventId }, dispatch, deleteEvent, handleDragStart, handleDragMove, handleDragEnd } = useCarrerMapEditorContext()
+
+  const questionsQuery = useCareerQuestionsQuery()
+  const openQuestionsWithPosition = useMemo(() =>
+    (questionsQuery.data ?? []).filter(
+      (q): q is typeof q & { startDate: string; endDate: string } =>
+        q.status === "open" && !!q.startDate && !!q.endDate
+    ),
+    [questionsQuery.data]
+  )
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLDivElement>(null)
@@ -30,8 +42,13 @@ export default function CarrerMapCanvas() {
       const bottom = rect.y + rect.height
       if (bottom > max) max = bottom
     }
+    for (const question of openQuestionsWithPosition) {
+      const rect = questionToRect(question, config)
+      const bottom = rect.y + rect.height
+      if (bottom > max) max = bottom
+    }
     return max
-  }, [events, config])
+  }, [events, config, openQuestionsWithPosition])
 
   const minContentHeight = headerPx + 600
   const canvasHeight = Math.max(minContentHeight, maxEventBottom + rowHeight * 4)
@@ -220,6 +237,25 @@ export default function CarrerMapCanvas() {
                 onEdit={() => dispatch(openEditDialog(event))}
                 onPointerEnter={() => dispatch(hoverEvent(event.id))}
                 onPointerLeave={() => dispatch(unhoverEvent())}
+              />
+            </CarrerMapCanvasItem>
+          )
+        })}
+
+        {/* Question placeholders */}
+        {openQuestionsWithPosition.map((question) => {
+          const rect = questionToRect(question, config)
+          return (
+            <CarrerMapCanvasItem
+              key={`question-${question.id}`}
+              x={rect.x}
+              y={rect.y}
+              width={rect.width}
+              height={rect.height}
+            >
+              <CareerQuestionPlaceholderItem
+                question={question}
+                onClick={() => dispatch(openQuestionAnswerDialog(question))}
               />
             </CarrerMapCanvasItem>
           )

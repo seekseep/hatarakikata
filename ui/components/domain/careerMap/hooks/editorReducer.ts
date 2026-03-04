@@ -111,6 +111,9 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
     case 'OPEN_QUESTIONS_DRAWER':
       return { ...state, mode: { type: 'questions-drawer' } }
 
+    case 'OPEN_QUESTION_ANSWER_DIALOG':
+      return { ...state, mode: { type: 'question-answer-dialog', question: action.question } }
+
     case 'OPEN_CONFIRM_DIALOG':
       return { ...state, mode: { type: 'confirm-dialog', message: action.message, confirmAction: action.confirmAction } }
 

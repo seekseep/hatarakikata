@@ -4,7 +4,7 @@ import clsx from "clsx"
 import { InputHTMLAttributes } from "react"
 import { FieldValues, Path, RegisterOptions, useFormContext } from "react-hook-form"
 
-type MonthFieldProps<T extends FieldValues = FieldValues> = Omit<
+type CheckboxFieldProps<T extends FieldValues = FieldValues> = Omit<
   InputHTMLAttributes<HTMLInputElement>,
   "name" | "type"
 > & {
@@ -13,32 +13,30 @@ type MonthFieldProps<T extends FieldValues = FieldValues> = Omit<
   rules?: RegisterOptions<T>
 }
 
-function MonthField<T extends FieldValues = FieldValues>({
+function CheckboxField<T extends FieldValues = FieldValues>({
   name,
   label,
   rules,
-  id,
   className,
   ...props
-}: MonthFieldProps<T>) {
+}: CheckboxFieldProps<T>) {
   const { register, formState: { errors } } = useFormContext<T>()
   const error = errors[name]
 
   return (
     <div className={clsx("flex flex-col gap-1", className)}>
-      <label htmlFor={id ?? name} className="text-sm font-medium">
+      <label className="flex items-center gap-2 text-sm cursor-pointer">
+        <input
+          type="checkbox"
+          className="h-4 w-4 rounded border-foreground/20 text-primary focus:ring-primary"
+          {...props}
+          {...register(name, rules as RegisterOptions<T, Path<T>>)}
+        />
         {label}
       </label>
-      <input
-        type="month"
-        id={id ?? name}
-        className="w-full rounded-lg border border-foreground/20 bg-background px-3 py-2 text-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500 disabled:opacity-50"
-        {...props}
-        {...register(name, rules as RegisterOptions<T, Path<T>>)}
-      />
       {error && <p className="text-xs text-red-500">{error.message as string}</p>}
     </div>
   )
 }
 
-export default MonthField
+export default CheckboxField

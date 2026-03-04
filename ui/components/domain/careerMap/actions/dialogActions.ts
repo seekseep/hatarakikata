@@ -1,4 +1,4 @@
-import type { CareerEvent } from "@/core/domain"
+import type { CareerEvent, CareerQuestion } from "@/core/domain"
 
 import type {
   CloseDialogAction,
@@ -11,6 +11,7 @@ import type {
   OpenCareerGuidePromptDialogAction,
   OpenCareerGuidesDrawerAction,
   OpenJsonImportDialogAction,
+  OpenQuestionAnswerDialogAction,
   OpenQuestionsDrawerAction,
   OpenSearchDrawerAction,
   OpenViewerAction,
@@ -44,6 +45,10 @@ export function openViewer(careerMapId: string, userName?: string): OpenViewerAc
 
 export function openQuestionsDrawer(): OpenQuestionsDrawerAction {
   return { type: 'OPEN_QUESTIONS_DRAWER' }
+}
+
+export function openQuestionAnswerDialog(question: CareerQuestion): OpenQuestionAnswerDialogAction {
+  return { type: 'OPEN_QUESTION_ANSWER_DIALOG', question }
 }
 
 export function openConfirmDialog(message: string, confirmAction: EditorAction): OpenConfirmDialogAction {

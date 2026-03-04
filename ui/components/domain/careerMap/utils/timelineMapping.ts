@@ -67,6 +67,21 @@ export function eventToRect(event: CareerEvent, config: TimelineConfig): Rect {
   return { x, y, width, height }
 }
 
+export function questionToRect(question: { startDate: string; endDate: string; row?: number }, config: TimelineConfig): Rect {
+  const x = dateToX(question.startDate, config)
+  const endX = dateToX(question.endDate, config)
+  const width = Math.max(endX - x, config.unit)
+
+  const row = question.row ?? 0
+  const rowHeight = config.rowHeightInUnits * config.unit
+  const rowGapHeight = config.rowGapHeightInUnits * config.unit
+  const rowStep = rowHeight + rowGapHeight
+  const headerPx = config.headerHeightInUnits * config.unit
+  const y = headerPx + rowGapHeight + row * rowStep
+
+  return { x, y, width, height: rowHeight }
+}
+
 export function computeCanvasWidth(config: TimelineConfig): number {
   return dateToX(config.endDate, config) + config.monthWidthInUnits * config.unit
 }

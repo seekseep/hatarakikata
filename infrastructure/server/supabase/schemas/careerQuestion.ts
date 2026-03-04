@@ -7,5 +7,8 @@ export const CareerQuestionRowSchema = z.object({
   title: z.string(),
   status: z.enum(["open", "closed"]),
   fields: z.any(),
+  row: z.number().nullable().optional(),
+  start_date: z.string().nullable().optional(),
+  end_date: z.string().nullable().optional(),
 })
 export type CareerQuestionRow = z.infer<typeof CareerQuestionRowSchema>

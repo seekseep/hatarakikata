@@ -4,19 +4,12 @@ import { RxCross2 } from "react-icons/rx"
 
 import type { CareerEvent } from "@/core/domain"
 import Dialog from "@/ui/components/basic/dialog/Dialog"
+import { strengthLabel, typeLabel } from "@/ui/constants"
 
 type Props = {
   event: CareerEvent | null
   onClose: () => void
 }
-
-const typeLabel: Record<string, string> = {
-  working: "仕事",
-  living: "生活",
-  feeling: "気持ち",
-}
-
-const strengthLabel = ["", "とても弱い", "弱い", "普通", "強い", "とても強い"] as const
 
 export default function CareerMapEventDetailDialog({ event, onClose }: Props) {
   if (!event) return null

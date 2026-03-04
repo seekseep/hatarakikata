@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback } from "react"
-import { useForm } from "react-hook-form"
+import { FormProvider, useForm } from "react-hook-form"
 import { RxCross2 } from "react-icons/rx"
 
 import Alert from "@/ui/components/basic/Alert"
@@ -31,9 +31,10 @@ export default function CareerMapEventGenerateDialog() {
   const generateDialogOpen = mode.type === 'generate-dialog'
   const closeGenerateDialog = () => dispatch(closeDialog())
 
-  const { register, handleSubmit, setValue, getValues, reset } = useForm<FormValues>({
+  const form = useForm<FormValues>({
     defaultValues: { input: "" },
   })
+  const { handleSubmit, setValue, getValues, reset } = form
 
   const generateMutation = useGenerateCareerEventsMutation()
 
@@ -89,6 +90,7 @@ export default function CareerMapEventGenerateDialog() {
     <Dialog open={generateDialogOpen} onClose={handleClose} className="w-full max-w-md">
       <div className="relative">
         {generateMutation.isPending && <ThinkingOverlay />}
+        <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <button
@@ -106,8 +108,9 @@ export default function CareerMapEventGenerateDialog() {
 
           <div>
             <TextAreaField
+              name="input"
               label="自由入力"
-              {...register("input", { required: true })}
+              rules={{ required: true }}
               rows={4}
               placeholder={nextQuestion ? `次の質問: ${nextQuestion}` : "例: 大学卒業後にIT企業に入社してPMになった"}
               disabled={generateMutation.isPending}
@@ -150,6 +153,7 @@ export default function CareerMapEventGenerateDialog() {
             </Button>
           </div>
         </form>
+        </FormProvider>
       </div>
     </Dialog>
   )

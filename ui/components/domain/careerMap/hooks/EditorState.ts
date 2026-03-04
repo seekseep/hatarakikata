@@ -1,4 +1,4 @@
-import type { CareerEvent } from "@/core/domain"
+import type { CareerEvent, CareerQuestion } from "@/core/domain"
 
 import type { EditorAction } from "./EditorAction"
 import type { Rect } from "../utils/timelineMapping"
@@ -43,6 +43,7 @@ export type SearchDrawerMode = { type: 'search-drawer' }
 export type JsonImportDialogMode = { type: 'json-import-dialog' }
 export type ViewerMode = { type: 'viewer'; careerMapId: string; userName?: string }
 export type QuestionsDrawerMode = { type: 'questions-drawer' }
+export type QuestionAnswerDialogMode = { type: 'question-answer-dialog'; question: CareerQuestion }
 export type ConfirmDialogMode = { type: 'confirm-dialog'; message: string; confirmAction: EditorAction }
 export type CareerGuidePromptDialogMode = { type: 'career-guide-prompt-dialog' }
 export type CareerGuidesDrawerMode = { type: 'career-guides-drawer' }
@@ -60,6 +61,7 @@ export type EditorMode =
   | JsonImportDialogMode
   | ViewerMode
   | QuestionsDrawerMode
+  | QuestionAnswerDialogMode
   | ConfirmDialogMode
   | CareerGuidePromptDialogMode
   | CareerGuidesDrawerMode

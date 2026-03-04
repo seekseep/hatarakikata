@@ -62,7 +62,10 @@ create table career_questions (
   name text not null default '',
   title text not null default '',
   status text not null default 'open' check (status in ('open', 'closed')),
-  fields jsonb not null default '[]'::jsonb
+  fields jsonb not null default '[]'::jsonb,
+  row integer,
+  start_date text,
+  end_date text
 );
 
 create index career_questions_user_id_idx on career_questions(user_id);

@@ -15,8 +15,11 @@ export const createCareerQuestionCommand: CreateCareerQuestionCommand = async (p
         title: params.title,
         status: params.status ?? 'open',
         fields: params.fields,
+        row: params.row ?? null,
+        start_date: params.startDate ?? null,
+        end_date: params.endDate ?? null,
       })
-      .select('id, user_id, name, title, status, fields')
+      .select('id, user_id, name, title, status, fields, row, start_date, end_date')
       .single()
 
     if (error) return failAsExternalServiceError(error.message, error)
