@@ -4,7 +4,16 @@ import { RxCross2 } from "react-icons/rx"
 
 import type { CareerEvent } from "@/core/domain"
 import Dialog from "@/ui/components/basic/dialog/Dialog"
-import { strengthLabel, typeLabel } from "@/ui/constants"
+import {
+  EVENT_TYPE_SHORT_LABEL_FEELING,
+  EVENT_TYPE_SHORT_LABEL_LIVING,
+  EVENT_TYPE_SHORT_LABEL_WORKING,
+  STRENGTH_LABEL_1,
+  STRENGTH_LABEL_2,
+  STRENGTH_LABEL_3,
+  STRENGTH_LABEL_4,
+  STRENGTH_LABEL_5,
+} from "@/ui/constants"
 
 type Props = {
   event: CareerEvent | null
@@ -37,7 +46,7 @@ export default function CareerMapEventDetailDialog({ event, onClose }: Props) {
         <div className="flex flex-col gap-3">
           <div className="flex gap-3">
             <span className="text-xs text-foreground/50 w-14 shrink-0 pt-0.5">種別</span>
-            <span className="text-xs">{typeLabel[event.type ?? "working"]}</span>
+            <span className="text-xs">{{ working: EVENT_TYPE_SHORT_LABEL_WORKING, living: EVENT_TYPE_SHORT_LABEL_LIVING, feeling: EVENT_TYPE_SHORT_LABEL_FEELING }[event.type ?? "working"]}</span>
           </div>
 
           <div className="flex gap-3">
@@ -47,7 +56,7 @@ export default function CareerMapEventDetailDialog({ event, onClose }: Props) {
 
           <div className="flex gap-3">
             <span className="text-xs text-foreground/50 w-14 shrink-0 pt-0.5">強さ</span>
-            <span className="text-xs">{strengthLabel[event.strength ?? 3]}</span>
+            <span className="text-xs">{[, STRENGTH_LABEL_1, STRENGTH_LABEL_2, STRENGTH_LABEL_3, STRENGTH_LABEL_4, STRENGTH_LABEL_5][event.strength ?? 3]}</span>
           </div>
 
           {event.tags.length > 0 && (

@@ -11,8 +11,14 @@ import StepField from "@/ui/components/basic/field/StepField"
 import TextAreaField from "@/ui/components/basic/field/TextAreaField"
 import TextField from "@/ui/components/basic/field/TextField"
 import ToggleButtonField from "@/ui/components/basic/field/ToggleButtonField"
-
-import { typeOptions } from "@/ui/constants"
+import {
+  EVENT_TYPE_FEELING,
+  EVENT_TYPE_LABEL_FEELING,
+  EVENT_TYPE_LABEL_LIVING,
+  EVENT_TYPE_LABEL_WORKING,
+  EVENT_TYPE_LIVING,
+  EVENT_TYPE_WORKING,
+} from "@/ui/constants"
 
 import { useCareerMapEventDialogForm } from "./hooks"
 import TagSelector from "./TagSelector"
@@ -62,14 +68,11 @@ export default function CareerMapEventDialog() {
           <ToggleButtonField
             name="type"
             label="種類"
-            options={typeOptions.map((opt) => ({
-              ...opt,
-              color: {
-                working: "bg-blue-100 border-blue-400 text-blue-800",
-                living: "bg-green-100 border-green-400 text-green-800",
-                feeling: "bg-amber-100 border-amber-400 text-amber-800",
-              }[opt.value],
-            }))}
+            options={[
+              { value: EVENT_TYPE_WORKING, label: EVENT_TYPE_LABEL_WORKING, color: "bg-blue-100 border-blue-400 text-blue-800" },
+              { value: EVENT_TYPE_LIVING, label: EVENT_TYPE_LABEL_LIVING, color: "bg-green-100 border-green-400 text-green-800" },
+              { value: EVENT_TYPE_FEELING, label: EVENT_TYPE_LABEL_FEELING, color: "bg-amber-100 border-amber-400 text-amber-800" },
+            ]}
           />
 
           <TextAreaField
