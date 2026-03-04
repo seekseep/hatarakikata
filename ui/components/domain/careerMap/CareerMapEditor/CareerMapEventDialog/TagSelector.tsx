@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { RxCross2 } from "react-icons/rx"
+import { RiCloseLine } from "react-icons/ri"
 
 import type { CareerMapEventTag } from "@/core/domain"
 import Spinner from "@/ui/components/basic/Spinner"
@@ -52,7 +52,7 @@ export default function TagSelector({
                   className="inline-flex items-center gap-1 rounded-full bg-primary-500 text-white px-2.5 py-0.5 text-sm transition-colors"
                 >
                   {tag.name}
-                  <RxCross2 size={12} />
+                  <RiCloseLine size={12} />
                 </button>
               ))}
             </div>

@@ -170,29 +170,17 @@ export default function CarrerMapCanvas() {
             && mode.dragMode === 'move'
             && mode.drag.additionalEvents.some(ae => ae.eventId === event.id)
           const isDragging = isPrimaryDragging || isAdditionalDragging
-          const isPoint = event.startDate === event.endDate
-
-          // For PointEvent: use a square container sized to one row height
-          const pointSize = config.rowHeightInUnits * config.unit
-          const pointRect = isPoint
-            ? { x: rect.x + config.unit / 2 - pointSize / 2, y: rect.y, width: pointSize, height: pointSize }
-            : rect
 
           let displayRect: { x: number; y: number; width: number; height: number }
           if (isPrimaryDragging && previewRect) {
-            displayRect = isPoint
-              ? { x: previewRect.x + config.unit / 2 - pointSize / 2, y: previewRect.y, width: pointSize, height: pointSize }
-              : previewRect
+            displayRect = previewRect
           } else if (isAdditionalDragging && previewRect && mode.type === 'dragging') {
             const ae = mode.drag.additionalEvents.find(ae => ae.eventId === event.id)!
             const dx = previewRect.x - mode.drag.startRect.x
             const dy = previewRect.y - mode.drag.startRect.y
-            const aeRect = { x: ae.startRect.x + dx, y: ae.startRect.y + dy, width: ae.startRect.width, height: ae.startRect.height }
-            displayRect = isPoint
-              ? { x: aeRect.x + config.unit / 2 - pointSize / 2, y: aeRect.y, width: pointSize, height: pointSize }
-              : aeRect
+            displayRect = { x: ae.startRect.x + dx, y: ae.startRect.y + dy, width: ae.startRect.width, height: ae.startRect.height }
           } else {
-            displayRect = isPoint ? pointRect : rect
+            displayRect = rect
           }
 
           // Preview dates for labels

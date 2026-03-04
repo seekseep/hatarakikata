@@ -40,16 +40,15 @@ export default function MeNamePage() {
   }
 
   return (
-    <div className="min-h-screen bg-foreground/5">
-      <div className="max-w-md mx-auto space-y-4 p-4">
+    <>
         <Breadcrumb items={[
           { label: 'ホーム', href: '/' },
           { label: 'マイページ', href: '/me' },
-          { label: '名前変更' },
+          { label: '名前' },
         ]} />
 
         <div className="text-2xl py-4">
-          名前変更
+          名前
         </div>
 
         <div className="rounded-lg bg-white p-6 shadow-sm space-y-6">
@@ -70,15 +69,12 @@ export default function MeNamePage() {
             />
             <Button
               type="submit"
-              className="w-full"
-              disabled={mutation.isPending}
-            >
+              disabled={mutation.isPending}>
               {mutation.isPending ? '変更中...' : '変更する'}
             </Button>
           </form>
           </FormProvider>
         </div>
-      </div>
-    </div>
+    </>
   )
 }

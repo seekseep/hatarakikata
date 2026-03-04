@@ -1,8 +1,10 @@
 "use client";
 
-import clsx from "clsx";
 import { SelectHTMLAttributes } from "react";
 import { FieldValues, Path, RegisterOptions, useFormContext } from "react-hook-form";
+
+import FieldContainer from "./FieldContainer";
+import FieldLabel from "./FieldLabel";
 
 type SelectFieldProps<T extends FieldValues = FieldValues> = Omit<
   SelectHTMLAttributes<HTMLSelectElement>,
@@ -27,10 +29,8 @@ function SelectField<T extends FieldValues = FieldValues>({
   const error = errors[name];
 
   return (
-    <div className={clsx("flex flex-col gap-1", className)}>
-      <label htmlFor={id ?? name} className="text-sm font-medium">
-        {label}
-      </label>
+    <FieldContainer className={className}>
+      <FieldLabel htmlFor={id ?? name}>{label}</FieldLabel>
       <select
         id={id ?? name}
         className="w-full rounded-md border border-foreground/20 bg-background px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary disabled:opacity-50"
@@ -44,7 +44,7 @@ function SelectField<T extends FieldValues = FieldValues>({
         ))}
       </select>
       {error && <p className="text-xs text-red-500">{error.message as string}</p>}
-    </div>
+    </FieldContainer>
   );
 }
 

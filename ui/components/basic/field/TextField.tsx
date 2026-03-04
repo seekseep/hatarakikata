@@ -2,13 +2,10 @@
 
 import { InputHTMLAttributes } from "react";
 import { FieldValues, Path,RegisterOptions, useFormContext } from "react-hook-form";
-import { tv } from "tailwind-variants";
 
 import Input from "../input/Input";
-
-const textField = tv({
-  base: "space-y-2",
-});
+import FieldContainer from "./FieldContainer";
+import FieldLabel from "./FieldLabel";
 
 type TextFieldProps<T extends FieldValues = FieldValues> = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -31,13 +28,11 @@ function TextField<T extends FieldValues = FieldValues>({
   const error = errors[name];
 
   return (
-    <div className={textField({ className })}>
-      <label htmlFor={id ?? name} className="text-sm font-medium block">
-        {label}
-      </label>
+    <FieldContainer className={className}>
+      <FieldLabel htmlFor={id ?? name}>{label}</FieldLabel>
       <Input id={id ?? name} {...props} {...register(name, rules as RegisterOptions<T, Path<T>>)} />
       {error && <p className="text-xs text-red-500">{error.message as string}</p>}
-    </div>
+    </FieldContainer>
   );
 }
 

@@ -42,13 +42,22 @@ export function normalizeActions(
     .map((action): GenerateCareerEventAction => {
       if (action.type === "create") {
         const e = action.payload ?? {}
+        const startDate = ensureDate(e.startDate, fallbackDate)
+        const rawEndDate = ensureDate(e.endDate, fallbackDate)
+        const endDate = rawEndDate !== startDate
+          ? rawEndDate
+          : (() => {
+              const d = new Date(startDate)
+              d.setMonth(d.getMonth() + 1)
+              return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-01`
+            })()
         return {
           type: "create",
           payload: {
             name: e.name || e.startName || "新しいイベント",
             type: validTypes.includes(e.type) ? e.type : "working",
-            startDate: ensureDate(e.startDate, fallbackDate),
-            endDate: ensureDate(e.endDate, fallbackDate),
+            startDate,
+            endDate,
             tagNames: normalizeTagNames(e.tagNames),
             strength: Math.min(5, Math.max(1, Math.round(Number(e.strength) || 3))),
             row: typeof e.row === "number" && Number.isFinite(e.row) ? e.row : 0,

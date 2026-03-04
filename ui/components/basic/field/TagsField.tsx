@@ -1,7 +1,9 @@
 "use client"
 
-import clsx from "clsx"
-import { RxCross2 } from "react-icons/rx"
+import { RiCloseLine } from "react-icons/ri"
+
+import FieldContainer from "./FieldContainer"
+import FieldLabel from "./FieldLabel"
 
 type TagsFieldProps = {
   label: string
@@ -23,8 +25,8 @@ export default function TagsField({
   }
 
   return (
-    <div className={clsx("flex flex-col gap-1", className)}>
-      <label className="text-sm font-medium">{label}</label>
+    <FieldContainer className={className}>
+      <FieldLabel>{label}</FieldLabel>
       {value.length > 0 && (
         <div className="flex flex-wrap gap-1">
           {value.map((tag, i) => (
@@ -39,13 +41,13 @@ export default function TagsField({
                 className="rounded-full hover:bg-foreground/20 p-0.5 transition-colors"
                 aria-label={`${tag}を削除`}
               >
-                <RxCross2 size={12} />
+                <RiCloseLine size={12} />
               </button>
             </span>
           ))}
         </div>
       )}
       {error && <p className="text-xs text-red-500">{error}</p>}
-    </div>
+    </FieldContainer>
   )
 }

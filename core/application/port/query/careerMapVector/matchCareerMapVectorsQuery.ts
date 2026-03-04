@@ -6,6 +6,7 @@ export const CareerMapVectorMatchSchema = z.object({
   careerMapId: z.string(),
   similarity: z.number(),
   tagWeights: z.record(z.string(), z.number()),
+  userName: z.string().nullable(),
 })
 
 export type CareerMapVectorMatch = z.infer<typeof CareerMapVectorMatchSchema>

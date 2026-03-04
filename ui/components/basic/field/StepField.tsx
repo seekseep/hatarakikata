@@ -1,8 +1,10 @@
 "use client"
 
-import clsx from "clsx"
 import { InputHTMLAttributes } from "react"
 import { FieldValues, Path, RegisterOptions, useFormContext } from "react-hook-form"
+
+import FieldContainer from "./FieldContainer"
+import FieldLabel from "./FieldLabel"
 
 type StepFieldProps<T extends FieldValues = FieldValues> = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -32,10 +34,8 @@ function StepField<T extends FieldValues = FieldValues>({
   const ticks = Array.from({ length: max - min + 1 }, (_, i) => min + i)
 
   return (
-    <div className={clsx("flex flex-col gap-1", className)}>
-      <label htmlFor={id ?? name} className="text-sm font-medium">
-        {label}
-      </label>
+    <FieldContainer className={className}>
+      <FieldLabel htmlFor={id ?? name}>{label}</FieldLabel>
       <input
         type="range"
         id={id ?? name}
@@ -52,7 +52,7 @@ function StepField<T extends FieldValues = FieldValues>({
         ))}
       </div>
       {error && <p className="text-xs text-red-500">{error.message as string}</p>}
-    </div>
+    </FieldContainer>
   )
 }
 

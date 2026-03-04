@@ -94,6 +94,7 @@ export function makeGetSimilarCareerMaps({
 
       return {
         id: match.careerMapId,
+        userName: match.userName ?? null,
         score: match.similarity,
         overlapTags: topOverlap.map((tagId) => ({ id: tagId, name: tagId })),
       }

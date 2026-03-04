@@ -25,7 +25,6 @@ export function computeMovePreview(
   const rowStep = rowHeight + rowGapHeight
 
   const snappedStartX = snapX(startRect.x + dx)
-  const snappedEndX = snapX(startRect.x + startRect.width + dx)
   const newRow = yToRow(startRect.y + dy, config)
   const rowTopPx = config.headerHeightInUnits * config.unit + rowGapHeight + newRow * rowStep
   const strength = originalEvent.strength ?? 3
@@ -34,7 +33,7 @@ export function computeMovePreview(
   return {
     x: snappedStartX,
     y: rowTopPx,
-    width: Math.max(snappedEndX - snappedStartX, config.unit),
+    width: startRect.width,
     height,
   }
 }
@@ -105,7 +104,7 @@ export function computeCommittedEvent(
 
   if (dragMode === "move") {
     const newStartX = snapX(startRect.x + dx)
-    const newEndX = snapX(startRect.x + startRect.width + dx)
+    const newEndX = newStartX + startRect.width
     return {
       ...originalEvent,
       startDate: xToDate(newStartX, config),

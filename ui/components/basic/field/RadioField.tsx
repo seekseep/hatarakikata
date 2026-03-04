@@ -1,8 +1,10 @@
 "use client"
 
-import clsx from "clsx"
 import { InputHTMLAttributes } from "react"
 import { FieldValues, Path, RegisterOptions, useFormContext } from "react-hook-form"
+
+import FieldContainer from "./FieldContainer"
+import FieldLabel from "./FieldLabel"
 
 type RadioFieldProps<T extends FieldValues = FieldValues> = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -26,8 +28,8 @@ function RadioField<T extends FieldValues = FieldValues>({
   const error = errors[name]
 
   return (
-    <div className={clsx("flex flex-col gap-1", className)}>
-      <span className="text-sm font-medium">{label}</span>
+    <FieldContainer className={className}>
+      <FieldLabel>{label}</FieldLabel>
       <div className="flex gap-3">
         {options.map((option) => (
           <label key={option.value} className="flex items-center gap-1.5 text-sm cursor-pointer">
@@ -43,7 +45,7 @@ function RadioField<T extends FieldValues = FieldValues>({
         ))}
       </div>
       {error && <p className="text-xs text-red-500">{error.message as string}</p>}
-    </div>
+    </FieldContainer>
   )
 }
 

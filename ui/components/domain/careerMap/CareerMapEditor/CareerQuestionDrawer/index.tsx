@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { RxCross2 } from "react-icons/rx"
+import { RiCloseLine } from "react-icons/ri"
 
 import type { CareerQuestion } from "@/core/domain"
 import Spinner from "@/ui/components/basic/Spinner"
@@ -50,7 +50,7 @@ export default function CareerQuestionDrawer({ onClose }: CareerQuestionDrawerPr
             className="rounded-full p-1 hover:bg-foreground/10 transition-colors"
             aria-label="閉じる"
           >
-            <RxCross2 size={20} />
+            <RiCloseLine size={20} />
           </button>
           <h2 className="text-lg font-bold">質問</h2>
           <div className="w-7" />
@@ -83,7 +83,7 @@ export default function CareerQuestionDrawer({ onClose }: CareerQuestionDrawerPr
                     disabled={closeMutation.isPending}
                     onClick={() => closeMutation.mutate(q.id)}
                   >
-                    <RxCross2 size={16} />
+                    <RiCloseLine size={16} />
                   </button>
                 </li>
               ))}

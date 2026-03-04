@@ -27,7 +27,12 @@
       "Bash(git -C /Users/seekseep/Development/github.com/study-basic-hackathon/hatarakikata show HEAD:core/domain/entity/careerEvent/index.ts)",
       "Bash(xargs basename -a)",
       "Bash(git -C /Users/seekseep/Development/github.com/study-basic-hackathon/hatarakikata diff core/domain/entity/careerEvent/index.ts)",
-      "Bash(npx next lint)"
+      "Bash(npx next lint)",
+      "Bash(sips -g all app/favicon.ico)",
+      "Bash(sips -s format png app/favicon.ico --out /tmp/favicon_tmp.png)",
+      "Bash(sips -s format png -s formatOptions rgba /tmp/favicon_tmp.png --out /tmp/favicon_rgba.png)",
+      "Bash(sips -s format ico /tmp/favicon_rgba.png --out app/favicon.ico)",
+      "Bash(sips -g space app/favicon.ico)"
     ]
   }
 }

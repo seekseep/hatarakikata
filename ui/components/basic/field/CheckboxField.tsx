@@ -1,8 +1,9 @@
 "use client"
 
-import clsx from "clsx"
 import { InputHTMLAttributes } from "react"
 import { FieldValues, Path, RegisterOptions, useFormContext } from "react-hook-form"
+
+import FieldContainer from "./FieldContainer"
 
 type CheckboxFieldProps<T extends FieldValues = FieldValues> = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -24,7 +25,7 @@ function CheckboxField<T extends FieldValues = FieldValues>({
   const error = errors[name]
 
   return (
-    <div className={clsx("flex flex-col gap-1", className)}>
+    <FieldContainer className={className}>
       <label className="flex items-center gap-2 text-sm cursor-pointer">
         <input
           type="checkbox"
@@ -35,7 +36,7 @@ function CheckboxField<T extends FieldValues = FieldValues>({
         {label}
       </label>
       {error && <p className="text-xs text-red-500">{error.message as string}</p>}
-    </div>
+    </FieldContainer>
   )
 }
 

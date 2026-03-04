@@ -13,10 +13,11 @@ export const matchCareerMapVectorsQuery: MatchCareerMapVectorsQuery = async (par
 
   if (error) return failAsExternalServiceError(error.message, error)
 
-  const rows = (data ?? []) as { career_map_id: string; similarity: number; tag_weights: Record<string, number> }[]
+  const rows = (data ?? []) as { career_map_id: string; similarity: number; tag_weights: Record<string, number>; user_name: string | null }[]
   return succeed(rows.map((row) => ({
     careerMapId: row.career_map_id,
     similarity: row.similarity,
     tagWeights: row.tag_weights ?? {},
+    userName: row.user_name ?? null,
   })))
 }

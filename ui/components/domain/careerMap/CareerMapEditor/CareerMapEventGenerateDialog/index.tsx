@@ -2,7 +2,7 @@
 
 import { useCallback } from "react"
 import { FormProvider, useForm } from "react-hook-form"
-import { RxCross2 } from "react-icons/rx"
+import { RiCloseLine } from "react-icons/ri"
 
 import Alert from "@/ui/components/basic/Alert"
 import AudioLevelMeter from "@/ui/components/basic/AudioLevelMeter"
@@ -100,7 +100,7 @@ export default function CareerMapEventGenerateDialog() {
               aria-label="閉じる"
               disabled={generateMutation.isPending}
             >
-              <RxCross2 size={20} />
+              <RiCloseLine size={20} />
             </button>
             <h2 className="text-lg font-bold">AIでイベントを生成</h2>
             <div className="w-7" />

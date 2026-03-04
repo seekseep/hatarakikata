@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { RxCross2 } from "react-icons/rx"
+import { RiCloseLine } from "react-icons/ri"
 import { z } from "zod"
 
 import { careerEventPayloadBaseObject } from "@/core/domain"
@@ -85,7 +85,7 @@ export default function ImportCareerMapDialog() {
             className="rounded-full p-1 hover:bg-foreground/10 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             aria-label="閉じる"
           >
-            <RxCross2 size={20} />
+            <RiCloseLine size={20} />
           </button>
           <h2 className="text-lg font-bold">JSONイベントインポート</h2>
           <div className="w-7" />

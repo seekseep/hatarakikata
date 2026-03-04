@@ -60,45 +60,6 @@ export default function CareerMapEventItem({
   const editButtonSize = rowHeight ? rowHeight - 2 * editButtonOffset : 20
   const editIconSize = editButtonSize * 0.6
 
-  const isPoint = !!event.startDate && event.startDate === event.endDate
-
-  if (isPoint) {
-    return (
-      <div className="w-full h-full relative" onPointerEnter={onPointerEnter} onPointerLeave={onPointerLeave}>
-        <div
-          className={[
-            "w-full h-full rounded-full border-2 select-none relative",
-            colorClasses,
-            isDragging ? "opacity-70 shadow-lg z-50" : "",
-            isSelected ? "ring-2 ring-primary-500" : "",
-            readOnly ? "cursor-pointer" : "cursor-grab active:cursor-grabbing",
-          ].filter(Boolean).join(" ")}
-          onClick={(e) => { e.stopPropagation(); onSelect(e) }}
-          onPointerDown={!readOnly && onDragStart ? (e) => onDragStart(e, "move") : undefined}
-        >
-          {!readOnly && onEdit && (
-            <button
-              type="button"
-              className={[
-                "absolute inset-0 z-20 rounded-full transition-opacity cursor-pointer flex items-center justify-center hover:bg-black/20",
-                isHovered === true ? "opacity-100" : "opacity-0",
-              ].join(" ")}
-              onClick={(e) => { e.stopPropagation(); onEdit() }}
-            >
-              <RiEditLine className="w-3 h-3" />
-            </button>
-          )}
-        </div>
-        <div
-          className="absolute text-xs font-medium text-center text-foreground/80 whitespace-nowrap pointer-events-none"
-          style={{ top: "100%", paddingTop: 2 }}
-        >
-          {event.name}
-        </div>
-      </div>
-    )
-  }
-
   const displayStartDate = previewStartDate ?? event.startDate
   const displayEndDate = previewEndDate ?? event.endDate
   const startAge = calcAge(birthDate, displayStartDate)

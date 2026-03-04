@@ -36,18 +36,6 @@ export const CareerEventSchema = CareerEventKeySchema.extend(careerEventPayloadB
 export type CareerEvent = z.infer<typeof CareerEventSchema>
 export type CareerEventPayload = z.infer<typeof CareerEventPayloadSchema>
 
-/** 点イベント（startDate === endDate） */
-export type PointCareerEvent = CareerEvent
-/** 期間イベント（startDate !== endDate） */
-export type DurationCareerEvent = CareerEvent
-
-export function isPointCareerEvent(event: CareerEvent): event is PointCareerEvent {
-  return event.startDate === event.endDate
-}
-
-export function isDurationCareerEvent(event: CareerEvent): event is DurationCareerEvent {
-  return event.startDate !== event.endDate
-}
 
 export const PagedCareerEventsSchema = createPagedItemsSchema(CareerEventSchema)
 export type PagedCareerEvents = z.infer<typeof PagedCareerEventsSchema>

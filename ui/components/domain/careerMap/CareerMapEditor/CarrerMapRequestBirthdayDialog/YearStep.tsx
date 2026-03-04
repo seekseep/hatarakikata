@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { IoChevronBack, IoChevronForward } from "react-icons/io5"
+import { RiArrowLeftSLine, RiArrowRightSLine } from "react-icons/ri"
 
 export default function YearStep({
   value,
@@ -27,7 +27,7 @@ export default function YearStep({
           onClick={() => setRangeStart((s) => s - 10)}
           className="rounded-lg px-3 py-1 text-lg hover:bg-foreground/5"
         >
-          <IoChevronBack />
+          <RiArrowLeftSLine />
         </button>
         <span className="text-sm font-medium text-foreground/60">
           {rangeStart} - {rangeStart + 9}
@@ -37,7 +37,7 @@ export default function YearStep({
           onClick={() => setRangeStart((s) => s + 10)}
           className="rounded-lg px-3 py-1 text-lg hover:bg-foreground/5"
         >
-          <IoChevronForward />
+          <RiArrowRightSLine />
         </button>
       </div>
       <div className="grid grid-cols-5 gap-2">

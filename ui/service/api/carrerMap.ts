@@ -32,6 +32,7 @@ export function updateCareerMap(input: UpdateCareerMapParametersInput): Promise<
 export type SimilarCareerMap = {
   id: string
   userId: string
+  userName: string | null
   score: number
   overlapTags: { id: string; name: string }[]
 }

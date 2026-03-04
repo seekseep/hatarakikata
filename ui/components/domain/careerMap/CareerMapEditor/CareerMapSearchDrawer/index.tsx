@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo } from "react"
-import { RxCross2 } from "react-icons/rx"
+import { RiCloseLine } from "react-icons/ri"
 
 import Spinner from "@/ui/components/basic/Spinner"
 import { useCarrerMapSummariesQuery, useSimilarCareerMapsQuery } from "@/ui/hooks/careerMap"
@@ -34,11 +34,10 @@ export default function CareerMapSearchDrawer({ onClose }: { onClose: () => void
           className="rounded-full p-1 hover:bg-foreground/10 transition-colors"
           aria-label="閉じる"
         >
-          <RxCross2 size={20} />
+          <RiCloseLine size={20} />
         </button>
         <div className="text-center">
-          <h2 className="text-lg font-bold">似ているマップを検索</h2>
-          <p className="text-xs text-foreground/60">タグ × 強さで類似度を計算しています</p>
+          <h2 className="text-lg font-bold">検索</h2>
         </div>
         <div className="w-7" />
       </div>
@@ -58,11 +57,15 @@ export default function CareerMapSearchDrawer({ onClose }: { onClose: () => void
                   key={item.id}
                   type="button"
                   className="rounded-lg border border-foreground/10 px-4 py-3 text-left hover:bg-foreground/5 transition-colors cursor-pointer w-full"
-                  onClick={() => handleOpenViewer(item.id)}
+                  onClick={() => handleOpenViewer(item.id, item.userName ?? undefined)}
                 >
                   <div className="flex items-center justify-between">
                     <div className="text-sm font-semibold text-foreground/80">
-                      Map ID: {item.id.slice(0, 8)}
+                      {item.userName ? (
+                        <span>{item.userName}</span>
+                      ) : (
+                        <span className="text-gray-500">不明</span>
+                      )}
                     </div>
                     <div className="text-sm text-foreground/70">
                       類似度: {(item.score * 100).toFixed(1)}%

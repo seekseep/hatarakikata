@@ -50,52 +50,50 @@ export default function MePage() {
   const isWithdrawPending = deleteMutation.isPending || logoutMutation.isPending
 
   return (
-    <div className="min-h-screen bg-foreground/5">
-      <div className="max-w-md mx-auto space-y-4 p-4">
-        <Breadcrumb items={[
-          { label: 'ホーム', href: '/' },
-          { label: 'マイページ' },
-        ]} />
+    <>
+      <Breadcrumb items={[
+        { label: 'ホーム', href: '/' },
+        { label: 'マイページ' },
+      ]} />
 
-        <div className="text-2xl py-4">
-          マイページ
-        </div>
+      <div className="text-2xl py-4">
+        マイページ
+      </div>
 
-        <div className="rounded-lg bg-white shadow-sm">
-          <MenuList>
-            <MenuListItemLink
-              to="/me/name"
-              primaryText="名前"
-              icon={<RiUserLine />}
-              secondaryText={currentUser?.name ?? '未設定'}
-            />
-            <MenuListItemLink
-              to="/me/email"
-              primaryText="メールアドレス"
-              icon={<RiMailLine />}
-              secondaryText={user?.email}
-            />
-            <MenuListItemLink
-              to="/me/password"
-              primaryText="パスワード"
-              icon={<RiLockPasswordLine />}
-              secondaryText="パスワードを変更できます"
-            />
-            <MenuListItemButton
-              onClick={handleSignOut}
-              disabled={logoutMutation.isPending}
-              icon={<RiLogoutBoxRLine />}
-              primaryText="サインアウト"
-              secondaryText="アカウントからサインアウトします"
-            />
-            <MenuListItemButton
-              onClick={() => setWithdrawDialogOpen(true)}
-              icon={<RiDeleteBinLine />}
-              primaryText="退会"
-              secondaryText="アカウントを削除します"
-            />
-          </MenuList>
-        </div>
+      <div className="rounded-lg bg-white shadow-sm">
+        <MenuList>
+          <MenuListItemLink
+            to="/me/name"
+            primaryText="名前"
+            icon={<RiUserLine />}
+            secondaryText={currentUser?.name ?? '未設定'}
+          />
+          <MenuListItemLink
+            to="/me/email"
+            primaryText="メールアドレス"
+            icon={<RiMailLine />}
+            secondaryText={user?.email}
+          />
+          <MenuListItemLink
+            to="/me/password"
+            primaryText="パスワード"
+            icon={<RiLockPasswordLine />}
+            secondaryText="パスワードを変更できます"
+          />
+          <MenuListItemButton
+            onClick={handleSignOut}
+            disabled={logoutMutation.isPending}
+            icon={<RiLogoutBoxRLine />}
+            primaryText="サインアウト"
+            secondaryText="アカウントからサインアウトします"
+          />
+          <MenuListItemButton
+            onClick={() => setWithdrawDialogOpen(true)}
+            icon={<RiDeleteBinLine />}
+            primaryText="退会"
+            secondaryText="アカウントを削除します"
+          />
+        </MenuList>
       </div>
 
       <ConfirmDialog
@@ -109,6 +107,6 @@ export default function MePage() {
         cancelLabel="キャンセル"
         disabled={isWithdrawPending}
       />
-    </div>
+    </>
   )
 }

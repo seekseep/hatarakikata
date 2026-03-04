@@ -1,11 +1,10 @@
 "use client"
 
 import { FormProvider } from "react-hook-form"
-import { RxCross2 } from "react-icons/rx"
+import { RiCloseLine } from "react-icons/ri"
 
 import Button from "@/ui/components/basic/Button"
 import Drawer from "@/ui/components/basic/Drawer"
-import CheckboxField from "@/ui/components/basic/field/CheckboxField"
 import MonthField from "@/ui/components/basic/field/MonthField"
 import StepField from "@/ui/components/basic/field/StepField"
 import TextAreaField from "@/ui/components/basic/field/TextAreaField"
@@ -38,8 +37,6 @@ export default function CareerMapEventDialog() {
     isLoadingTags,
   } = useCareerMapEventDialogForm()
 
-  const hasEndDate = form.watch("hasEndDate")
-
   return (
     <Drawer open={open} onClose={closeDialog}>
       <FormProvider {...form}>
@@ -51,7 +48,7 @@ export default function CareerMapEventDialog() {
               className="rounded-full p-1 hover:bg-foreground/10 transition-colors"
               aria-label="閉じる"
             >
-              <RxCross2 size={20} />
+              <RiCloseLine size={20} />
             </button>
             <h2 className="text-lg font-bold">
               {mode === "create" ? "イベントを追加" : "イベントを編集"}
@@ -62,7 +59,7 @@ export default function CareerMapEventDialog() {
           <TextField
             name="name"
             label="名前"
-            placeholder={hasEndDate ? "例: 株式会社○○に在籍" : "例: 結婚"}
+            placeholder="例: 株式会社○○に在籍"
           />
 
           <ToggleButtonField
@@ -81,24 +78,16 @@ export default function CareerMapEventDialog() {
             rows={3}
           />
 
-          <div className="flex flex-col gap-2">
-            <div className={hasEndDate ? "grid grid-cols-2 gap-3" : ""}>
-              <MonthField
-                name="startMonth"
-                label="開始"
-                rules={{ required: true }}
-              />
-              {hasEndDate && (
-                <MonthField
-                  name="endMonth"
-                  label="終了"
-                  rules={{ required: hasEndDate }}
-                />
-              )}
-            </div>
-            <CheckboxField
-              name="hasEndDate"
-              label="終了日を指定する"
+          <div className="grid grid-cols-2 gap-3">
+            <MonthField
+              name="startMonth"
+              label="開始"
+              rules={{ required: true }}
+            />
+            <MonthField
+              name="endMonth"
+              label="終了"
+              rules={{ required: true }}
             />
           </div>
 

@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo } from "react"
-import { RxCross2 } from "react-icons/rx"
+import { RiCloseLine } from "react-icons/ri"
 
 import Spinner from "@/ui/components/basic/Spinner"
 import { useMyCareerGuidesQuery } from "@/ui/hooks/careerGuide"
@@ -23,7 +23,7 @@ export default function CareerGuidesDrawer({ onClose }: { onClose: () => void })
           className="rounded-full p-1 hover:bg-foreground/10 transition-colors"
           aria-label="閉じる"
         >
-          <RxCross2 size={20} />
+          <RiCloseLine size={20} />
         </button>
         <h2 className="text-lg font-bold">ガイド一覧</h2>
         <div className="w-7" />

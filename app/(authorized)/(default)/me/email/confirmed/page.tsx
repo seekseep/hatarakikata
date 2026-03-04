@@ -5,8 +5,7 @@ import Breadcrumb from '@/ui/components/basic/Breadcrumb'
 
 export default function EmailConfirmedPage() {
   return (
-    <div className="min-h-screen bg-foreground/5">
-      <div className="max-w-md mx-auto space-y-4 p-4">
+    <>
         <Breadcrumb items={[
           { label: 'ホーム', href: '/' },
           { label: 'マイページ', href: '/me' },
@@ -25,7 +24,6 @@ export default function EmailConfirmedPage() {
             マイページに戻る
           </Link>
         </div>
-      </div>
-    </div>
+    </>
   )
 }

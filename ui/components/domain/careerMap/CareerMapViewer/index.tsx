@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { RxCross2 } from "react-icons/rx"
+import { RiCloseLine } from "react-icons/ri"
 
 import type { CareerEvent, CareerMap } from "@/core/domain"
 import Spinner from "@/ui/components/basic/Spinner"
@@ -63,7 +63,7 @@ export default function CareerMapViewer({ careerMapId, userName, onClose, onCrea
               className="rounded-full p-1 hover:bg-foreground/10 transition-colors"
               aria-label="閉じる"
             >
-              <RxCross2 size={20} />
+              <RiCloseLine size={20} />
             </button>
           )}
           <h2 className="text-sm font-semibold text-foreground/70">{userName ?? "キャリアマップ"}</h2>

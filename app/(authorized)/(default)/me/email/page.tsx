@@ -22,8 +22,7 @@ export default function MeEmailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-foreground/5">
-      <div className="max-w-md mx-auto space-y-4 p-4">
+    <>
         <Breadcrumb items={[
           { label: 'ホーム', href: '/' },
           { label: 'マイページ', href: '/me' },
@@ -62,16 +61,13 @@ export default function MeEmailPage() {
                 />
                 <Button
                   type="submit"
-                  className="w-full"
-                  disabled={mutation.isPending}
-                >
+                  disabled={mutation.isPending}>
                   {mutation.isPending ? '変更中...' : '変更する'}
                 </Button>
               </form>
             </FormProvider>
           )}
         </div>
-      </div>
-    </div>
+    </>
   )
 }

@@ -1,6 +1,6 @@
 "use client"
 
-import { RxCross2 } from "react-icons/rx"
+import { RiCloseLine } from "react-icons/ri"
 
 import type { CareerEvent } from "@/core/domain"
 import Dialog from "@/ui/components/basic/dialog/Dialog"
@@ -23,9 +23,8 @@ type Props = {
 export default function CareerMapEventDetailDialog({ event, onClose }: Props) {
   if (!event) return null
 
-  const isPoint = event.startDate === event.endDate
   const title = event.name
-  const dateRange = isPoint ? event.startDate : `${event.startDate} 〜 ${event.endDate}`
+  const dateRange = `${event.startDate} 〜 ${event.endDate}`
 
   return (
     <Dialog open={!!event} onClose={onClose} className="w-full max-w-sm">
@@ -37,7 +36,7 @@ export default function CareerMapEventDetailDialog({ event, onClose }: Props) {
             className="rounded-full p-1 hover:bg-foreground/10 transition-colors"
             aria-label="閉じる"
           >
-            <RxCross2 size={20} />
+            <RiCloseLine size={20} />
           </button>
           <h2 className="text-base font-bold">{title}</h2>
           <div className="w-7" />

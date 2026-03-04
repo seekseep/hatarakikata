@@ -59,13 +59,7 @@ export default function CareerMapViewCanvas({ careerMap, events, timelineConfig:
 
         {events.map((event) => {
           const rect = eventToRect(event, config)
-          const isPoint = event.startDate === event.endDate
-
-          const pointSize = config.rowHeightInUnits * config.unit
-          const pointRect = isPoint
-            ? { x: rect.x + config.unit / 2 - pointSize / 2, y: rect.y, width: pointSize, height: pointSize }
-            : rect
-          const displayRect = isPoint ? pointRect : rect
+          const displayRect = rect
 
           return (
             <CarrerMapCanvasItem

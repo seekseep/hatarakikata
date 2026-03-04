@@ -211,18 +211,8 @@ export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMa
 
   // --- Drag interaction ---
 
-  // Normalize PointEvents: keep endDate == startDate after DnD
-  const dragUpdateEvent = useCallback((updatedEvent: CareerEvent) => {
-    const original = editorState.events.find(e => e.id === updatedEvent.id)
-    if (original && original.startDate === original.endDate) {
-      updateEvent({ ...updatedEvent, endDate: updatedEvent.startDate })
-    } else {
-      updateEvent(updatedEvent)
-    }
-  }, [editorState.events, updateEvent])
-
   const { handleDragStart, handleDragMove, handleDragEnd } =
-    useDragInteraction(timelineConfig, scale, dispatch, dragUpdateEvent)
+    useDragInteraction(timelineConfig, scale, dispatch, updateEvent)
 
   return {
     state: {

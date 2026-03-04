@@ -31,7 +31,7 @@ create table career_events (
   name text not null,
   type text not null default 'working' check (type in ('living', 'working', 'feeling')),
   start_date text not null,
-  end_date text not null,
+  end_date text not null check (end_date != start_date),
   strength integer not null default 3 check (strength >= 1 and strength <= 5),
   row integer not null default 0,
   description text
@@ -103,14 +103,17 @@ create or replace function match_career_map_vectors(
   match_count int,
   exclude_career_map_id uuid
 )
-returns table (career_map_id uuid, similarity float, tag_weights jsonb)
+returns table (career_map_id uuid, similarity float, tag_weights jsonb, user_name text)
 language sql
 as $$
   select
     v.career_map_id,
     1 - (v.embedding <=> query_embedding) as similarity,
-    v.tag_weights
+    v.tag_weights,
+    u.name as user_name
   from career_map_vectors v
+  join career_maps cm on cm.id = v.career_map_id
+  join users u on u.id = cm.user_id
   where v.career_map_id != exclude_career_map_id
   order by v.embedding <=> query_embedding
   limit match_count;

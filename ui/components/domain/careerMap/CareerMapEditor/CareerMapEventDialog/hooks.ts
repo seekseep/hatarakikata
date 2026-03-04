@@ -13,7 +13,6 @@ type FormValues = {
   type: string
   startMonth: string
   endMonth: string
-  hasEndDate: boolean
   strength: number
   description: string
   tags: string[]
@@ -39,7 +38,6 @@ export function useCareerMapEventDialogForm() {
       type: "working",
       startMonth: "",
       endMonth: "",
-      hasEndDate: true,
       strength: 3,
       description: "",
       tags: [] as string[],
@@ -58,26 +56,22 @@ export function useCareerMapEventDialogForm() {
 
   useEffect(() => {
     if (open && mode === "edit" && event) {
-      const isPoint = event.startDate === event.endDate
       reset({
         name: event.name ?? "",
         type: event.type ?? "working",
         startMonth: toMonth(event.startDate),
         endMonth: toMonth(event.endDate),
-        hasEndDate: !isPoint,
         strength: event.strength ?? 3,
         description: event.description ?? "",
         tags: (event.tags ?? []).map((t) => t.id),
       })
     } else if (open && mode === "create") {
       const prefill = editorMode.type === 'create-dialog' ? editorMode.prefill : undefined
-      const hasEndDate = !!(prefill?.startDate && prefill?.endDate && prefill.startDate !== prefill.endDate)
       reset({
         name: "",
         type: "working",
         startMonth: toMonth(prefill?.startDate ?? ""),
         endMonth: toMonth(prefill?.endDate ?? ""),
-        hasEndDate,
         strength: 3,
         description: "",
         tags: [],
@@ -89,7 +83,7 @@ export function useCareerMapEventDialogForm() {
     const row = mode === "edit" && event ? event.row : 0
 
     const startDate = fromMonth(values.startMonth)
-    const endDate = values.hasEndDate ? fromMonth(values.endMonth) : startDate
+    const endDate = fromMonth(values.endMonth)
 
     const payload: CareerEventPayload = {
       careerMapId,

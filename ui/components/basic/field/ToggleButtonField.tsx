@@ -3,6 +3,9 @@
 import clsx from "clsx"
 import { FieldValues, Path, RegisterOptions, useFormContext, useWatch } from "react-hook-form"
 
+import FieldContainer from "./FieldContainer"
+import FieldLabel from "./FieldLabel"
+
 type Option = {
   value: string
   label: string
@@ -29,8 +32,8 @@ function ToggleButtonField<T extends FieldValues = FieldValues>({
   const error = errors[name]
 
   return (
-    <div className={clsx("flex flex-col gap-1", className)}>
-      <span className="text-sm font-medium">{label}</span>
+    <FieldContainer className={className}>
+      <FieldLabel>{label}</FieldLabel>
       <div className="flex gap-2">
         {options.map((option) => (
           <label
@@ -55,7 +58,7 @@ function ToggleButtonField<T extends FieldValues = FieldValues>({
         ))}
       </div>
       {error && <p className="text-xs text-red-500">{error.message as string}</p>}
-    </div>
+    </FieldContainer>
   )
 }
 

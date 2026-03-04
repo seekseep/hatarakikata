@@ -1,8 +1,10 @@
 "use client"
 
-import clsx from "clsx"
 import { InputHTMLAttributes } from "react"
 import { FieldValues, Path, RegisterOptions, useFormContext } from "react-hook-form"
+
+import FieldContainer from "./FieldContainer"
+import FieldLabel from "./FieldLabel"
 
 type MonthFieldProps<T extends FieldValues = FieldValues> = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -25,10 +27,8 @@ function MonthField<T extends FieldValues = FieldValues>({
   const error = errors[name]
 
   return (
-    <div className={clsx("flex flex-col gap-1", className)}>
-      <label htmlFor={id ?? name} className="text-sm font-medium">
-        {label}
-      </label>
+    <FieldContainer className={className}>
+      <FieldLabel htmlFor={id ?? name}>{label}</FieldLabel>
       <input
         type="month"
         id={id ?? name}
@@ -37,7 +37,7 @@ function MonthField<T extends FieldValues = FieldValues>({
         {...register(name, rules as RegisterOptions<T, Path<T>>)}
       />
       {error && <p className="text-xs text-red-500">{error.message as string}</p>}
-    </div>
+    </FieldContainer>
   )
 }
 
