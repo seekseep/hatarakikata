@@ -5,7 +5,7 @@ import { createSupabaseAdmin } from '../../client'
 import { careerEventRowToEntity } from '../../converter'
 import type { CareerEventWithTagsRow } from '../../schemas'
 
-const CAREER_EVENT_SELECT_WITH_TAGS = 'id, career_map_id, name, start_name, end_name, type, start_date, end_date, strength, row, description, career_map_event_tag_attachments(career_map_event_tags(id, name))'
+const CAREER_EVENT_SELECT_WITH_TAGS = 'id, career_map_id, name, type, start_date, end_date, strength, row, description, career_map_event_tag_attachments(career_map_event_tags(id, name))'
 
 export const createCareerEventCommand: CreateCareerEventCommand = async (params) => {
   try {
@@ -14,9 +14,7 @@ export const createCareerEventCommand: CreateCareerEventCommand = async (params)
       .from('career_events')
       .insert({
         career_map_id: params.careerMapId,
-        name: params.name ?? null,
-        start_name: params.startName ?? null,
-        end_name: params.endName ?? null,
+        name: params.name,
         type: params.type ?? 'working',
         start_date: params.startDate,
         end_date: params.endDate,

@@ -1,12 +1,13 @@
 -- Drop tables (reverse dependency order)
-drop table if exists guides;
-drop table if exists career_questions;
-drop table if exists career_map_event_tag_attachments;
-drop table if exists career_map_event_tags;
-drop table if exists career_events;
-drop table if exists career_map_vectors;
-drop table if exists career_maps;
-drop table if exists users;
+drop table if exists career_guides cascade;
+drop table if exists career_guides cascade;
+drop table if exists career_questions cascade;
+drop table if exists career_map_event_tag_attachments cascade;
+drop table if exists career_map_event_tags cascade;
+drop table if exists career_events cascade;
+drop table if exists career_map_vectors cascade;
+drop table if exists career_maps cascade;
+drop table if exists users cascade;
 
 -- Users
 create table users (
@@ -27,9 +28,7 @@ create index career_maps_user_id_idx on career_maps(user_id);
 create table career_events (
   id uuid primary key default gen_random_uuid(),
   career_map_id uuid not null references career_maps(id) on delete cascade,
-  name text,
-  start_name text,
-  end_name text,
+  name text not null,
   type text not null default 'working' check (type in ('living', 'working', 'feeling')),
   start_date text not null,
   end_date text not null,
@@ -61,24 +60,27 @@ create table career_questions (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references users(id) on delete cascade,
   name text not null default '',
+  title text not null default '',
   status text not null default 'open' check (status in ('open', 'closed')),
   fields jsonb not null default '[]'::jsonb
 );
 
 create index career_questions_user_id_idx on career_questions(user_id);
 
--- Guides
-create table guides (
+-- Career Guides
+create table career_guides (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references users(id) on delete cascade,
-  career_map_id uuid not null references career_maps(id) on delete cascade,
+  base_career_map_id uuid not null references career_maps(id) on delete cascade,
+  guide_career_map_id uuid not null references career_maps(id) on delete cascade,
   content text not null,
   next_actions jsonb not null default '[]'::jsonb,
   created_at timestamptz not null default now()
 );
 
-create index guides_user_id_idx on guides(user_id);
-create index guides_career_map_id_idx on guides(career_map_id);
+create index career_guides_user_id_idx on career_guides(user_id);
+create index career_guides_base_career_map_id_idx on career_guides(base_career_map_id);
+create index career_guides_guide_career_map_id_idx on career_guides(guide_career_map_id);
 
 -- Vector search (pgvector)
 create extension if not exists vector;

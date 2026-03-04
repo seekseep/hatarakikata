@@ -39,13 +39,23 @@ export type OpenEditDialogAction = { type: 'OPEN_EDIT_DIALOG'; event: CareerEven
 
 export type OpenGenerateDialogAction = { type: 'OPEN_GENERATE_DIALOG' }
 
-export type OpenSearchDialogAction = { type: 'OPEN_SEARCH_DIALOG' }
+export type OpenSearchDrawerAction = { type: 'OPEN_SEARCH_DRAWER' }
 
 export type OpenJsonImportDialogAction = { type: 'OPEN_JSON_IMPORT_DIALOG' }
 
-export type OpenViewerAction = { type: 'OPEN_VIEWER'; careerMapId: string }
+export type OpenViewerAction = { type: 'OPEN_VIEWER'; careerMapId: string; userName?: string }
 
 export type OpenQuestionsDrawerAction = { type: 'OPEN_QUESTIONS_DRAWER' }
+
+export type OpenConfirmDialogAction = { type: 'OPEN_CONFIRM_DIALOG'; message: string; confirmAction: EditorAction }
+
+export type RequestCreateCareerGuideAction = { type: 'REQUEST_CREATE_CAREER_GUIDE'; careerMapId: string }
+
+export type OpenCareerGuidePromptDialogAction = { type: 'OPEN_CAREER_GUIDE_PROMPT_DIALOG' }
+
+export type OpenCareerGuidesDrawerAction = { type: 'OPEN_CAREER_GUIDES_DRAWER' }
+
+export type OpenCareerGuideDetailDrawerAction = { type: 'OPEN_CAREER_GUIDE_DETAIL_DRAWER'; guideId: string }
 
 export type CloseDialogAction = { type: 'CLOSE_DIALOG' }
 
@@ -74,10 +84,15 @@ export type EditorAction =
   | OpenCreateDialogAction
   | OpenEditDialogAction
   | OpenGenerateDialogAction
-  | OpenSearchDialogAction
+  | OpenSearchDrawerAction
   | OpenJsonImportDialogAction
   | OpenViewerAction
   | OpenQuestionsDrawerAction
+  | OpenConfirmDialogAction
+  | RequestCreateCareerGuideAction
+  | OpenCareerGuidePromptDialogAction
+  | OpenCareerGuidesDrawerAction
+  | OpenCareerGuideDetailDrawerAction
   | CloseDialogAction
   | HoverEventAction
   | UnhoverEventAction

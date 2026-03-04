@@ -6,7 +6,7 @@ import { RiEditLine } from "react-icons/ri"
 import type { CareerEvent } from "@/core/domain"
 
 import type { DragMode } from "../hooks/EditorState"
-import { eventCircleBorderColors, eventItemColors } from "../utils/constants"
+import { eventItemColors } from "../utils/constants"
 
 const HANDLE_SIZE = 8
 
@@ -52,12 +52,9 @@ export default function CareerMapEventItem({
   onPointerEnter,
   onPointerLeave,
 }: CareerMapEventItemProps) {
-  const circleSize = rowHeight * 0.6
   const eventType = (event.type ?? "working") as "working" | "living" | "feeling"
   const strength = Math.min(5, Math.max(1, event.strength ?? 3)) as 1 | 2 | 3 | 4 | 5
   const colorClasses = eventItemColors({ eventType, strength })
-
-  const circleBorderColor = eventCircleBorderColors({ eventType, strength })
 
   const editButtonOffset = rowHeight ? rowHeight * 0.1 : 2
   const editButtonSize = rowHeight ? rowHeight - 2 * editButtonOffset : 20
@@ -96,13 +93,11 @@ export default function CareerMapEventItem({
           className="absolute text-xs font-medium text-center text-foreground/80 whitespace-nowrap pointer-events-none"
           style={{ top: "100%", paddingTop: 2 }}
         >
-          {event.startName ?? event.name}
+          {event.name}
         </div>
       </div>
     )
   }
-
-  const editInStartCircle = !readOnly && !!onEdit && !event.endName && !!event.startDate && !!event.startName
 
   const displayStartDate = previewStartDate ?? event.startDate
   const displayEndDate = previewEndDate ?? event.endDate
@@ -136,7 +131,7 @@ export default function CareerMapEventItem({
         ].filter(Boolean).join(" ")}
         onClick={(e) => { e.stopPropagation(); onSelect(e) }}
       >
-        {!editInStartCircle && !readOnly && onEdit && (
+        {!readOnly && onEdit && (
           <button
             type="button"
             className={[
@@ -165,11 +160,9 @@ export default function CareerMapEventItem({
           ].filter(Boolean).join(" ")}
           onPointerDown={!readOnly && onDragStart ? (e) => onDragStart(e, "move") : undefined}
         >
-          {event.name && (
-            <span className="text-xs font-medium truncate pointer-events-none select-none sticky left-0 right-0 px-1">
-              {event.name}
-            </span>
-          )}
+          <span className="text-xs font-medium truncate pointer-events-none select-none sticky left-0 right-0 px-1">
+            {event.name}
+          </span>
         </div>
 
         {!readOnly && onDragStart && (
@@ -188,49 +181,6 @@ export default function CareerMapEventItem({
           />
         )}
       </div>
-
-      {event.startName && (
-        <div
-          className={`absolute rounded-full border-2 bg-white pointer-events-none ${circleBorderColor}`}
-          style={{ width: circleSize, height: circleSize, left: 0, top: "50%", transform: "translate(-50%, -50%)", zIndex: 50 }}
-        />
-      )}
-      {editInStartCircle && (
-        <button
-          type="button"
-          className={[
-            "absolute rounded-full transition-opacity cursor-pointer flex items-center justify-center hover:bg-black/20",
-            isHovered === true ? "opacity-100" : "opacity-0",
-          ].join(" ")}
-          style={{ width: circleSize, height: circleSize, left: 0, top: "50%", transform: "translate(-50%, -50%)", zIndex: 51 }}
-          onClick={(e) => { e.stopPropagation(); onEdit!() }}
-        >
-          <RiEditLine style={{ width: circleSize * 0.55, height: circleSize * 0.55 }} />
-        </button>
-      )}
-      {event.endName && (
-        <div
-          className={`absolute rounded-full border-2 bg-white pointer-events-none ${circleBorderColor}`}
-          style={{ width: circleSize, height: circleSize, right: 0, top: "50%", transform: "translate(50%, -50%)", zIndex: 50 }}
-        />
-      )}
-
-      {event.startName && (
-        <span
-          className="absolute text-xs font-medium text-foreground/80 pointer-events-none whitespace-nowrap"
-          style={{ top: "100%", left: 0, transform: "translateX(-50%)", paddingTop: 2, zIndex: 60 }}
-        >
-          {event.startName}
-        </span>
-      )}
-      {event.endName && (
-        <span
-          className="absolute text-xs font-medium text-foreground/80 pointer-events-none whitespace-nowrap"
-          style={{ top: "100%", right: 0, transform: "translateX(50%)", paddingTop: 2, zIndex: 60 }}
-        >
-          {event.endName}
-        </span>
-      )}
     </div>
   )
 }

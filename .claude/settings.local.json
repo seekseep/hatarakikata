@@ -22,7 +22,12 @@
       "Bash(npm run generate-wikipedia-career:*)",
       "Bash(python3:*)",
       "Bash(curl:*)",
-      "Bash(npm run import-career-maps)"
+      "Bash(npm run import-career-maps)",
+      "Bash(node -e ':*)",
+      "Bash(git -C /Users/seekseep/Development/github.com/study-basic-hackathon/hatarakikata show HEAD:core/domain/entity/careerEvent/index.ts)",
+      "Bash(xargs basename -a)",
+      "Bash(git -C /Users/seekseep/Development/github.com/study-basic-hackathon/hatarakikata diff core/domain/entity/careerEvent/index.ts)",
+      "Bash(npx next lint)"
     ]
   }
 }

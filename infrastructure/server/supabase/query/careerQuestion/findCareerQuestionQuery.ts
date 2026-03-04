@@ -8,7 +8,7 @@ export const findCareerQuestionQuery: FindCareerQuestionQuery = async ({ id }) =
   const supabase = createSupabaseAdmin()
   const { data, error } = await supabase
     .from('career_questions')
-    .select('id, user_id, name, status, fields')
+    .select('id, user_id, name, title, status, fields')
     .eq('id', id)
     .maybeSingle()
 

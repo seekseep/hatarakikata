@@ -1,10 +1,13 @@
 "use client"
 
 import { useRef, useState } from "react"
-import { RiAddLine, RiChat3Line, RiCodeLine, RiSearchLine, RiSparklingLine } from "react-icons/ri"
+import { RiAddLine, RiChat3Line, RiCodeLine, RiFlagLine, RiSearchLine, RiSparklingLine } from "react-icons/ri"
 import { tv } from "tailwind-variants"
 
-import { openGenerateDialog, openJsonImportDialog, openQuestionsDrawer, openSearchDialog } from "../actions/dialogActions"
+import { useCareerQuestionsQuery } from "@/ui/hooks/careerQuestion"
+import { useMyCareerGuidesQuery } from "@/ui/hooks/careerGuide"
+
+import { openGenerateDialog, openCareerGuidePromptDialog, openCareerGuidesDrawer, openJsonImportDialog, openQuestionsDrawer, openSearchDrawer } from "../actions/dialogActions"
 import { enterPlacement } from "../actions/modeActions"
 import { useCarrerMapEditorContext } from "../hooks/CarrerMapEditorContext"
 
@@ -26,10 +29,22 @@ export default function CarrerMapCanvasActions() {
   const { dispatch } = useCarrerMapEditorContext()
   const [devMenuOpen, setDevMenuOpen] = useState(false)
   const devButtonRef = useRef<HTMLButtonElement>(null)
+  const questionsQuery = useCareerQuestionsQuery()
+  const openQuestionCount = (questionsQuery.data ?? []).filter((q) => q.status === "open").length
+  const careerGuidesQuery = useMyCareerGuidesQuery()
+  const guideCount = (careerGuidesQuery.data ?? []).length
 
   const handleDevMenuItemClick = (action: () => void) => {
     setDevMenuOpen(false)
     action()
+  }
+
+  const handleCareerGuideClick = () => {
+    if (guideCount > 0) {
+      dispatch(openCareerGuidesDrawer())
+    } else {
+      dispatch(openCareerGuidePromptDialog())
+    }
   }
 
   return (
@@ -61,10 +76,20 @@ export default function CarrerMapCanvasActions() {
           </>
         )}
       </div>
-      <button type="button" className={actionButton()} onClick={() => dispatch(openQuestionsDrawer())}>
-        <RiChat3Line className="text-xl" />
+      <div className="relative">
+        <button type="button" className={actionButton()} onClick={() => dispatch(openQuestionsDrawer())}>
+          <RiChat3Line className="text-xl" />
+        </button>
+        {openQuestionCount > 0 && (
+          <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center pointer-events-none">
+            {openQuestionCount}
+          </span>
+        )}
+      </div>
+      <button type="button" className={actionButton()} onClick={handleCareerGuideClick}>
+        <RiFlagLine className="text-xl" />
       </button>
-      <button type="button" className={actionButton()} onClick={() => dispatch(openSearchDialog())}>
+      <button type="button" className={actionButton()} onClick={() => dispatch(openSearchDrawer())}>
         <RiSearchLine className="text-xl" />
       </button>
       <button

@@ -99,17 +99,32 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
     case 'OPEN_GENERATE_DIALOG':
       return { ...state, mode: { type: 'generate-dialog' } }
 
-    case 'OPEN_SEARCH_DIALOG':
-      return { ...state, mode: { type: 'search-dialog' } }
+    case 'OPEN_SEARCH_DRAWER':
+      return { ...state, mode: { type: 'search-drawer' } }
 
     case 'OPEN_JSON_IMPORT_DIALOG':
       return { ...state, mode: { type: 'json-import-dialog' } }
 
     case 'OPEN_VIEWER':
-      return { ...state, mode: { type: 'viewer', careerMapId: action.careerMapId } }
+      return { ...state, mode: { type: 'viewer', careerMapId: action.careerMapId, userName: action.userName } }
 
     case 'OPEN_QUESTIONS_DRAWER':
       return { ...state, mode: { type: 'questions-drawer' } }
+
+    case 'OPEN_CONFIRM_DIALOG':
+      return { ...state, mode: { type: 'confirm-dialog', message: action.message, confirmAction: action.confirmAction } }
+
+    case 'REQUEST_CREATE_CAREER_GUIDE':
+      return { ...state, mode: { type: 'idle' } }
+
+    case 'OPEN_CAREER_GUIDE_PROMPT_DIALOG':
+      return { ...state, mode: { type: 'career-guide-prompt-dialog' } }
+
+    case 'OPEN_CAREER_GUIDES_DRAWER':
+      return { ...state, mode: { type: 'career-guides-drawer' } }
+
+    case 'OPEN_CAREER_GUIDE_DETAIL_DRAWER':
+      return { ...state, mode: { type: 'career-guide-detail-drawer', guideId: action.guideId } }
 
     case 'CLOSE_DIALOG':
       return { ...state, mode: { type: 'idle' } }

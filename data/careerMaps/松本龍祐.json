@@ -7,7 +7,6 @@
   "events": [
     {
       "name": "学業・職業在籍期間",
-      "startName": "学業・職業期間",
       "type": "working",
       "startDate": "1988-01-01",
       "endDate": "2023-12-31",
@@ -46,8 +45,6 @@
     },
     {
       "name": "高まりを感じていた時期",
-      "startName": "声優デビュー",
-      "endName": "声優としての基盤確立",
       "type": "feeling",
       "startDate": "1988-01-01",
       "endDate": "1990-12-01",
@@ -61,8 +58,6 @@
     },
     {
       "name": "モチベーションが高まった時期",
-      "startName": "ポケモン主役",
-      "endName": "長期のメインキャスト",
       "type": "feeling",
       "startDate": "1997-01-01",
       "endDate": "2002-12-01",
@@ -76,8 +71,6 @@
     },
     {
       "name": "社会や周囲に対する責任感を感じていた時期",
-      "startName": "クールジャパン・アンバサダー",
-      "endName": "海外に日本文化を発信",
       "type": "feeling",
       "startDate": "2019-10-21",
       "endDate": "2019-10-21",
@@ -90,8 +83,6 @@
     },
     {
       "name": "新たな独立と変化を迎えた時期",
-      "startName": "サンミュージック退所",
-      "endName": "フリーと株式会社設立",
       "type": "feeling",
       "startDate": "2015-01-05",
       "endDate": "2015-01-05",
@@ -105,8 +96,6 @@
     },
     {
       "name": "復帰と新たな挑戦を感じていた時期",
-      "startName": "株式会社Matsurica設立",
-      "endName": "社長として取り組む",
       "type": "feeling",
       "startDate": "2018-05-16",
       "endDate": "2018-05-16",

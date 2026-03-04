@@ -8,7 +8,7 @@ export const listCareerQuestionsByUserIdQuery: ListCareerQuestionsByUserIdQuery 
   const supabase = createSupabaseAdmin()
   const { data, error } = await supabase
     .from('career_questions')
-    .select('id, user_id, name, status, fields')
+    .select('id, user_id, name, title, status, fields')
     .eq('user_id', userId)
 
   if (error) return failAsExternalServiceError(error.message, error)

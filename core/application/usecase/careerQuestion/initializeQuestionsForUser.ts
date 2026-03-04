@@ -5,9 +5,10 @@ import { Executor } from "../../executor"
 import { CreateCareerQuestionCommand } from "../../port/command"
 import { ListCareerQuestionsByUserIdQuery } from "../../port/query"
 
-const INITIAL_QUESTIONS: { name: string; fields: CareerQuestionField[] }[] = [
+const INITIAL_QUESTIONS: { name: string; title: string; fields: CareerQuestionField[] }[] = [
   {
     name: "elementary_school",
+    title: "小学校",
     fields: [
       { name: "school_name", binding: "name", label: "小学校の名前", type: "text" },
       { name: "start_date", binding: "startDate", label: "入学年月", type: "date" },
@@ -17,6 +18,7 @@ const INITIAL_QUESTIONS: { name: string; fields: CareerQuestionField[] }[] = [
   },
   {
     name: "middle_school",
+    title: "中学校",
     fields: [
       { name: "school_name", binding: "name", label: "中学校の名前", type: "text" },
       { name: "start_date", binding: "startDate", label: "入学年月", type: "date" },
@@ -26,6 +28,7 @@ const INITIAL_QUESTIONS: { name: string; fields: CareerQuestionField[] }[] = [
   },
   {
     name: "high_school",
+    title: "高校",
     fields: [
       { name: "enrolled", binding: null, label: "高校に進学しましたか？", type: "radio", options: ["はい", "いいえ"] },
       { name: "category", binding: null, label: "種別", type: "select", options: ["普通科高校", "工業高校", "商業高校", "高等専門学校"], condition: { and: [{ name: "enrolled", value: "はい" }] } },
@@ -37,6 +40,7 @@ const INITIAL_QUESTIONS: { name: string; fields: CareerQuestionField[] }[] = [
   },
   {
     name: "university",
+    title: "大学・専門学校",
     fields: [
       { name: "enrolled", binding: null, label: "大学・専門学校等に進学しましたか？", type: "radio", options: ["はい", "いいえ"] },
       { name: "category", binding: null, label: "種別", type: "select", options: ["大学", "短期大学", "専門学校"], condition: { and: [{ name: "enrolled", value: "はい" }] } },
@@ -75,6 +79,7 @@ export function makeInitializeQuestionsForUser({
       const result = await createCareerQuestionCommand({
         userId: executor.user.id,
         name: q.name,
+        title: q.title,
         status: "open",
         fields: q.fields,
       })

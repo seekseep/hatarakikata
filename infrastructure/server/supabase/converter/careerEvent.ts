@@ -6,9 +6,7 @@ export function careerEventRowToEntity(row: CareerEventWithTagsRow): CareerEvent
   return {
     id: row.id,
     careerMapId: row.career_map_id,
-    name: row.name ?? undefined,
-    startName: row.start_name ?? undefined,
-    endName: row.end_name ?? undefined,
+    name: row.name ?? "",
     type: row.type,
     startDate: row.start_date,
     endDate: row.end_date,
@@ -26,9 +24,7 @@ export function careerEventEntityToRow(entity: CareerEvent): Record<string, unkn
   return {
     id: entity.id,
     career_map_id: entity.careerMapId,
-    name: entity.name ?? null,
-    start_name: entity.startName ?? null,
-    end_name: entity.endName ?? null,
+    name: entity.name,
     type: entity.type,
     start_date: entity.startDate,
     end_date: entity.endDate,

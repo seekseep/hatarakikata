@@ -22,7 +22,7 @@ export default function CareerMapEventDetailDialog({ event, onClose }: Props) {
   if (!event) return null
 
   const isPoint = event.startDate === event.endDate
-  const title = event.name ?? event.startName ?? ""
+  const title = event.name
   const dateRange = isPoint ? event.startDate : `${event.startDate} 〜 ${event.endDate}`
 
   return (

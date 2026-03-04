@@ -5,9 +5,7 @@ export const GenerateCareerEventQuestionSchema = z.object({
 })
 
 const generatedCareerEventParameterObject = z.object({
-  name: z.string().optional(),
-  startName: z.string().optional(),
-  endName: z.string().optional(),
+  name: z.string(),
   type: z.enum(["living", "working", "feeling"]).default("working"),
   startDate: z.string(),
   endDate: z.string(),
@@ -17,16 +15,11 @@ const generatedCareerEventParameterObject = z.object({
   description: z.string().nullable().default(null),
 })
 
-export const GeneratedCareerEventParameterSchema = generatedCareerEventParameterObject.refine(
-  (data) => !!(data.name || data.startName),
-  { message: "name または startName のどちらかは必須です" }
-)
+export const GeneratedCareerEventParameterSchema = generatedCareerEventParameterObject
 
 export const GeneratedCareerEventUpdateParameterSchema = z.object({
   id: z.string(),
   name: z.string().optional(),
-  startName: z.string().optional(),
-  endName: z.string().optional(),
   type: z.enum(["living", "working", "feeling"]).optional(),
   startDate: z.string().optional(),
   endDate: z.string().optional(),

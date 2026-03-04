@@ -67,8 +67,6 @@
     },
     {
       "name": "東京都在住",
-      "startName": "東京都生まれ",
-      "endName": "東京都在住",
       "type": "living",
       "startDate": "1960-08-01",
       "endDate": "1960-08-30",
@@ -81,8 +79,6 @@
     },
     {
       "name": "仕事と研究の両立期",
-      "startName": "学びと勤務の開始",
-      "endName": "仕事と研究の両立",
       "type": "feeling",
       "startDate": "1990-01-01",
       "endDate": "1994-12-01",
@@ -96,8 +92,6 @@
     },
     {
       "name": "起業と海外活動の高まり",
-      "startName": "起業と活動拡大",
-      "endName": "国際的な活動",
       "type": "feeling",
       "startDate": "1997-01-01",
       "endDate": "2006-03-28",
@@ -111,8 +105,6 @@
     },
     {
       "name": "執筆と発信の心理的高揚",
-      "startName": "書籍執筆と発信",
-      "endName": "影響と自信の増加",
       "type": "feeling",
       "startDate": "2006-01-01",
       "endDate": "2013-12-01",

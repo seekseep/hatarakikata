@@ -10,7 +10,7 @@ export const listCareerEventsForVectorQuery: ListCareerEventsForVectorQuery = as
     const supabase = createSupabaseAdmin()
     const { data, error } = await supabase
       .from('career_events')
-      .select('id, career_map_id, name, start_name, end_name, type, start_date, end_date, strength, row, description, career_map_event_tag_attachments(career_map_event_tags(id, name))')
+      .select('id, career_map_id, name, type, start_date, end_date, strength, row, description, career_map_event_tag_attachments(career_map_event_tags(id, name))')
       .eq('career_map_id', careerMapId)
 
     if (error) return failAsExternalServiceError(error.message, error)

@@ -1,5 +1,6 @@
 import type { CareerEvent } from "@/core/domain"
 
+import type { EditorAction } from "./EditorAction"
 import type { Rect } from "../utils/timelineMapping"
 
 // --- CreatePrefill (moved from useCarrerMapEditor.ts) ---
@@ -38,10 +39,14 @@ export type PlacementMode = { type: 'placement' }
 export type CreateDialogMode = { type: 'create-dialog'; prefill?: CreatePrefill }
 export type EditDialogMode = { type: 'edit-dialog'; event: CareerEvent }
 export type GenerateDialogMode = { type: 'generate-dialog' }
-export type SearchDialogMode = { type: 'search-dialog' }
+export type SearchDrawerMode = { type: 'search-drawer' }
 export type JsonImportDialogMode = { type: 'json-import-dialog' }
-export type ViewerMode = { type: 'viewer'; careerMapId: string }
+export type ViewerMode = { type: 'viewer'; careerMapId: string; userName?: string }
 export type QuestionsDrawerMode = { type: 'questions-drawer' }
+export type ConfirmDialogMode = { type: 'confirm-dialog'; message: string; confirmAction: EditorAction }
+export type CareerGuidePromptDialogMode = { type: 'career-guide-prompt-dialog' }
+export type CareerGuidesDrawerMode = { type: 'career-guides-drawer' }
+export type CareerGuideDetailDrawerMode = { type: 'career-guide-detail-drawer'; guideId: string }
 
 export type EditorMode =
   | IdleMode
@@ -51,10 +56,14 @@ export type EditorMode =
   | CreateDialogMode
   | EditDialogMode
   | GenerateDialogMode
-  | SearchDialogMode
+  | SearchDrawerMode
   | JsonImportDialogMode
   | ViewerMode
   | QuestionsDrawerMode
+  | ConfirmDialogMode
+  | CareerGuidePromptDialogMode
+  | CareerGuidesDrawerMode
+  | CareerGuideDetailDrawerMode
 
 // --- Editor State ---
 

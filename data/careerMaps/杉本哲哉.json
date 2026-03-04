@@ -19,7 +19,6 @@
     },
     {
       "name": "生誕",
-      "startName": "1967-08-19",
       "type": "living",
       "startDate": "1967-08-19",
       "endDate": "1967-08-19",
@@ -32,7 +31,6 @@
     },
     {
       "name": "神奈川県横浜市在住",
-      "startName": "1967-08-20",
       "type": "living",
       "startDate": "1967-08-20",
       "endDate": "2000-01-01",
@@ -45,8 +43,6 @@
     },
     {
       "name": "挑戦的な精神状態",
-      "startName": "早稲田大学入学",
-      "endName": "リクルート退社",
       "type": "feeling",
       "startDate": "1985-04-01",
       "endDate": "2000-03-01",
@@ -59,8 +55,6 @@
     },
     {
       "name": "社会の常識やライフスタイルを変えたい欲求",
-      "startName": "リクルート退社",
-      "endName": "リクルート退社",
       "type": "feeling",
       "startDate": "2000-04-01",
       "endDate": "2005-03-01",
@@ -73,8 +67,6 @@
     },
     {
       "name": "挑戦と成長の意欲",
-      "startName": "マクロミル設立",
-      "endName": "マクロミル上場",
       "type": "feeling",
       "startDate": "2000-01-01",
       "endDate": "2005-01-01",
@@ -88,8 +80,6 @@
     },
     {
       "name": "社会貢献と未来への希望",
-      "startName": "ベインキャピタルへ譲渡",
-      "endName": "現在の経営へのコミット",
       "type": "feeling",
       "startDate": "2015-01-01",
       "endDate": "2023-12-01",

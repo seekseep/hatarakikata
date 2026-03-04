@@ -55,7 +55,6 @@
     },
     {
       "name": "living",
-      "startName": "福岡県八女市生まれ",
       "type": "living",
       "startDate": "1972-10-01",
       "endDate": "1972-10-29",
@@ -68,7 +67,6 @@
     },
     {
       "name": "living",
-      "startName": "結婚歴あり",
       "type": "living",
       "startDate": "2000-01-01",
       "endDate": "2000-12-31",
@@ -81,7 +79,6 @@
     },
     {
       "name": "living",
-      "startName": "住居・生活状況",
       "type": "living",
       "startDate": "2013-03-27",
       "endDate": "2023-09-22",

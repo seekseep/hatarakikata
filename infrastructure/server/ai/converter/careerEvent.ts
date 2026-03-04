@@ -14,11 +14,11 @@ function escapeToonValue(value: string): string {
 
 export function formatEvents(events: CareerEvent[]): string {
   if (events.length === 0) return "(イベントなし)"
-  const header = `events[${events.length}]{id,name,startName,endName,type,startDate,endDate,strength,row,tags,description}:`
+  const header = `events[${events.length}]{id,name,type,startDate,endDate,strength,row,tags,description}:`
   const rows = events.map((e) => {
     const tags = e.tags?.length ? e.tags.map((t) => t.name).join(";") : ""
     const desc = e.description ? e.description.replace(/\s+/g, " ") : ""
-    return `  ${e.id},${escapeToonValue(e.name ?? "")},${escapeToonValue(e.startName ?? "")},${escapeToonValue(e.endName ?? "")},${e.type ?? "working"},${e.startDate},${e.endDate},${e.strength},${e.row},${escapeToonValue(tags)},${escapeToonValue(desc)}`
+    return `  ${e.id},${escapeToonValue(e.name)},${e.type ?? "working"},${e.startDate},${e.endDate},${e.strength},${e.row},${escapeToonValue(tags)},${escapeToonValue(desc)}`
   })
   return [header, ...rows].join("\n")
 }
@@ -42,15 +42,10 @@ export function normalizeActions(
     .map((action): GenerateCareerEventAction => {
       if (action.type === "create") {
         const e = action.payload ?? {}
-        const hasName = !!(e.name)
-        const hasStartName = !!(e.startName)
         return {
           type: "create",
           payload: {
-            ...(hasName ? { name: e.name } : {}),
-            ...(hasStartName ? { startName: e.startName } : {}),
-            ...(!hasName && !hasStartName ? { startName: "新しいイベント" } : {}),
-            ...(e.endName ? { endName: e.endName } : {}),
+            name: e.name || e.startName || "新しいイベント",
             type: validTypes.includes(e.type) ? e.type : "working",
             startDate: ensureDate(e.startDate, fallbackDate),
             endDate: ensureDate(e.endDate, fallbackDate),
@@ -66,8 +61,7 @@ export function normalizeActions(
       const e = action.payload ?? {}
       const normalized: GenerateCareerEventAction["payload"] = { id: e.id }
       if (e.name !== undefined) normalized.name = e.name
-      if (e.startName !== undefined) normalized.startName = e.startName
-      if (e.endName !== undefined) normalized.endName = e.endName
+      else if (e.startName !== undefined) normalized.name = e.startName
       if (e.type !== undefined) {
         normalized.type = validTypes.includes(e.type) ? e.type : undefined
       }

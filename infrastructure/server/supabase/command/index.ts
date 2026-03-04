@@ -3,5 +3,5 @@ export { createCareerEventCommand, deleteCareerEventCommand, updateCareerEventCo
 export { createCareerMapCommand, deleteCareerMapCommand, updateCareerMapCommand } from './careerMap'
 export { createCareerMapVectorCommand, updateCareerMapVectorCommand, upsertCareerMapVectorCommand } from './careerMapVector'
 export { createCareerQuestionCommand, updateCareerQuestionCommand } from './careerQuestion'
-export { createGuideCommand } from './guide'
+export { createCareerGuideCommand } from './careerGuide'
 export { createUserCommand, deleteUserCommand, updateUserCommand } from './user'

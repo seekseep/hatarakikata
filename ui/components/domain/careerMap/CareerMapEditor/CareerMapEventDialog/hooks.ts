@@ -10,8 +10,6 @@ import { fromMonth,toMonth } from "./utils"
 
 type FormValues = {
   name: string
-  startName: string
-  endName: string
   type: string
   startMonth: string
   endMonth: string
@@ -38,8 +36,6 @@ export function useCareerMapEventDialogForm() {
   const form = useForm<FormValues>({
     defaultValues: {
       name: "",
-      startName: "",
-      endName: "",
       type: "working",
       startMonth: "",
       endMonth: "",
@@ -65,8 +61,6 @@ export function useCareerMapEventDialogForm() {
       const isPoint = event.startDate === event.endDate
       reset({
         name: event.name ?? "",
-        startName: event.startName ?? (isPoint ? (event.name ?? "") : ""),
-        endName: event.endName ?? "",
         type: event.type ?? "working",
         startMonth: toMonth(event.startDate),
         endMonth: toMonth(event.endDate),
@@ -80,8 +74,6 @@ export function useCareerMapEventDialogForm() {
       const hasEndDate = !!(prefill?.startDate && prefill?.endDate && prefill.startDate !== prefill.endDate)
       reset({
         name: "",
-        startName: "",
-        endName: "",
         type: "working",
         startMonth: toMonth(prefill?.startDate ?? ""),
         endMonth: toMonth(prefill?.endDate ?? ""),
@@ -101,9 +93,7 @@ export function useCareerMapEventDialogForm() {
 
     const payload: CareerEventPayload = {
       careerMapId,
-      ...(values.hasEndDate
-        ? { name: values.name, startName: values.startName || undefined, endName: values.endName || undefined }
-        : { startName: values.startName, name: undefined, endName: undefined }),
+      name: values.name,
       type: values.type as CareerEventType,
       startDate,
       endDate,

@@ -12,10 +12,11 @@ export const createCareerQuestionCommand: CreateCareerQuestionCommand = async (p
       .insert({
         user_id: params.userId,
         name: params.name,
+        title: params.title,
         status: params.status ?? 'open',
         fields: params.fields,
       })
-      .select('id, user_id, name, status, fields')
+      .select('id, user_id, name, title, status, fields')
       .single()
 
     if (error) return failAsExternalServiceError(error.message, error)

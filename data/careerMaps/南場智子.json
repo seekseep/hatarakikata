@@ -115,7 +115,6 @@
     },
     {
       "name": "結婚",
-      "startName": "結婚",
       "type": "living",
       "startDate": "1990-01-01",
       "endDate": "1999-12-01",
@@ -128,7 +127,6 @@
     },
     {
       "name": "夫の看病期間",
-      "startName": "夫の看病期間",
       "type": "living",
       "startDate": "2008-05-01",
       "endDate": "2011-05-01",
@@ -141,7 +139,6 @@
     },
     {
       "name": "デジタル臨時行政調査会構成員就任",
-      "startName": "デジタル庁の活動開始",
       "type": "living",
       "startDate": "2021-11-16",
       "endDate": "2021-11-16",
@@ -154,7 +151,6 @@
     },
     {
       "name": "挑戦への情熱を持ち続けていた時期",
-      "startName": "挑戦への情熱",
       "type": "feeling",
       "startDate": "1988-01-01",
       "endDate": "1996-12-31",
@@ -168,7 +164,6 @@
     },
     {
       "name": "起業への意欲が高まっていた時期",
-      "startName": "起業意欲",
       "type": "feeling",
       "startDate": "1996-01-01",
       "endDate": "1999-02-28",
@@ -182,7 +177,6 @@
     },
     {
       "name": "実行者としての決意をした時期",
-      "startName": "決意",
       "type": "feeling",
       "startDate": "1999-03-01",
       "endDate": "2004-08-31",
@@ -196,7 +190,6 @@
     },
     {
       "name": "社会への貢献意識が高まっていた時期",
-      "startName": "社会貢献志向",
       "type": "feeling",
       "startDate": "2005-01-01",
       "endDate": "2024-11-01",
@@ -210,7 +203,6 @@
     },
     {
       "name": "成功と挑戦を両立している時期",
-      "startName": "成功と挑戦",
       "type": "feeling",
       "startDate": "2011-01-01",
       "endDate": "2024-11-01",

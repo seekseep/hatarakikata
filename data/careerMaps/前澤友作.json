@@ -44,8 +44,6 @@
     },
     {
       "name": "民間日本人として宇宙旅行",
-      "startName": "ISS打ち上げ",
-      "endName": "帰還",
       "type": "living",
       "startDate": "2021-12-08",
       "endDate": "2021-12-20",
@@ -59,8 +57,6 @@
     },
     {
       "name": "人生に対する情熱を持ち続けていた",
-      "startName": "挑戦への情熱",
-      "endName": "挑戦への情熱",
       "type": "feeling",
       "startDate": "1993-05-01",
       "endDate": "1998-04-01",
@@ -73,8 +69,6 @@
     },
     {
       "name": "事業に対して前向きな心理状態を持っていた",
-      "startName": "起業志向",
-      "endName": "起業志向",
       "type": "feeling",
       "startDate": "1995-01-01",
       "endDate": "1998-04-01",
@@ -87,8 +81,6 @@
     },
     {
       "name": "芸術・文化への関心を持ち続けていた",
-      "startName": "芸術文化への関心",
-      "endName": "芸術文化への関心",
       "type": "feeling",
       "startDate": "1998-05-01",
       "endDate": "2018-12-01",
@@ -101,8 +93,6 @@
     },
     {
       "name": "成功を目指す高いモチベーション",
-      "startName": "成功への意欲",
-      "endName": "成功への意欲",
       "type": "feeling",
       "startDate": "2004-12-01",
       "endDate": "2006-12-01",
@@ -115,8 +105,6 @@
     },
     {
       "name": "新たな挑戦に対してワクワクしていた",
-      "startName": "革新的挑戦",
-      "endName": "革新的挑戦",
       "type": "feeling",
       "startDate": "2018-06-17",
       "endDate": "2018-06-17",
@@ -129,8 +117,6 @@
     },
     {
       "name": "社会への貢献を意識していた",
-      "startName": "社会への意識",
-      "endName": "社会への意識",
       "type": "feeling",
       "startDate": "2011-01-01",
       "endDate": "2020-12-01",
@@ -143,8 +129,6 @@
     },
     {
       "name": "未来の宇宙や社会に対する願いを持ち続けていた",
-      "startName": "平和と未来の願望",
-      "endName": "平和と未来の願望",
       "type": "feeling",
       "startDate": "2021-12-08",
       "endDate": "2021-12-20",

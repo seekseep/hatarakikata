@@ -7,6 +7,7 @@ export function careerQuestionRowToEntity(row: CareerQuestionRow): CareerQuestio
     id: row.id,
     userId: row.user_id,
     name: row.name,
+    title: row.title,
     status: row.status,
     fields: row.fields,
   }

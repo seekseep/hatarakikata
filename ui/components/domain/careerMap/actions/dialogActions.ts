@@ -2,13 +2,19 @@ import type { CareerEvent } from "@/core/domain"
 
 import type {
   CloseDialogAction,
+  EditorAction,
+  OpenConfirmDialogAction,
   OpenCreateDialogAction,
   OpenEditDialogAction,
   OpenGenerateDialogAction,
+  OpenCareerGuideDetailDrawerAction,
+  OpenCareerGuidePromptDialogAction,
+  OpenCareerGuidesDrawerAction,
   OpenJsonImportDialogAction,
   OpenQuestionsDrawerAction,
-  OpenSearchDialogAction,
+  OpenSearchDrawerAction,
   OpenViewerAction,
+  RequestCreateCareerGuideAction,
 } from "../hooks/EditorAction"
 import type { CreatePrefill } from "../hooks/EditorState"
 
@@ -24,20 +30,40 @@ export function openGenerateDialog(): OpenGenerateDialogAction {
   return { type: 'OPEN_GENERATE_DIALOG' }
 }
 
-export function openSearchDialog(): OpenSearchDialogAction {
-  return { type: 'OPEN_SEARCH_DIALOG' }
+export function openSearchDrawer(): OpenSearchDrawerAction {
+  return { type: 'OPEN_SEARCH_DRAWER' }
 }
 
 export function openJsonImportDialog(): OpenJsonImportDialogAction {
   return { type: 'OPEN_JSON_IMPORT_DIALOG' }
 }
 
-export function openViewer(careerMapId: string): OpenViewerAction {
-  return { type: 'OPEN_VIEWER', careerMapId }
+export function openViewer(careerMapId: string, userName?: string): OpenViewerAction {
+  return { type: 'OPEN_VIEWER', careerMapId, userName }
 }
 
 export function openQuestionsDrawer(): OpenQuestionsDrawerAction {
   return { type: 'OPEN_QUESTIONS_DRAWER' }
+}
+
+export function openConfirmDialog(message: string, confirmAction: EditorAction): OpenConfirmDialogAction {
+  return { type: 'OPEN_CONFIRM_DIALOG', message, confirmAction }
+}
+
+export function requestCreateCareerGuide(careerMapId: string): RequestCreateCareerGuideAction {
+  return { type: 'REQUEST_CREATE_CAREER_GUIDE', careerMapId }
+}
+
+export function openCareerGuidePromptDialog(): OpenCareerGuidePromptDialogAction {
+  return { type: 'OPEN_CAREER_GUIDE_PROMPT_DIALOG' }
+}
+
+export function openCareerGuidesDrawer(): OpenCareerGuidesDrawerAction {
+  return { type: 'OPEN_CAREER_GUIDES_DRAWER' }
+}
+
+export function openCareerGuideDetailDrawer(guideId: string): OpenCareerGuideDetailDrawerAction {
+  return { type: 'OPEN_CAREER_GUIDE_DETAIL_DRAWER', guideId }
 }
 
 export function closeDialog(): CloseDialogAction {

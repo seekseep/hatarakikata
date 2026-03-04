@@ -44,8 +44,6 @@
     },
     {
       "name": "社会への怒りを感じていた時期",
-      "startName": "1992年",
-      "endName": "1994年9月",
       "type": "feeling",
       "startDate": "1992-01-01",
       "endDate": "1994-09-01",

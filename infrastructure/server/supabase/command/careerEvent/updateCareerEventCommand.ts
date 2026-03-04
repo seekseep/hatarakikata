@@ -7,9 +7,7 @@ export const updateCareerEventCommand: UpdateCareerEventCommand = async (paramet
   const supabase = createSupabaseAdmin()
   const updateData: Record<string, unknown> = {}
   if (parameters.careerMapId !== undefined) updateData.career_map_id = parameters.careerMapId
-  if (parameters.name !== undefined) updateData.name = parameters.name ?? null
-  if (parameters.startName !== undefined) updateData.start_name = parameters.startName ?? null
-  if (parameters.endName !== undefined) updateData.end_name = parameters.endName ?? null
+  if (parameters.name !== undefined) updateData.name = parameters.name
   if (parameters.type !== undefined) updateData.type = parameters.type
   if (parameters.startDate !== undefined) updateData.start_date = parameters.startDate
   if (parameters.endDate !== undefined) updateData.end_date = parameters.endDate

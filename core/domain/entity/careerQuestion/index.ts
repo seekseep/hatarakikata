@@ -42,6 +42,7 @@ export const CareerQuestionKeySchema = z.object({
 export const CareerQuestionPayloadSchema = z.object({
   userId: z.string(),
   name: z.string(),
+  title: z.string(),
   status: CareerQuestionStatusSchema.default("open"),
   fields: z.array(CareerQuestionFieldSchema),
 })

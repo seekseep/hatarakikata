@@ -51,31 +51,11 @@ export default function CareerMapEventDialog() {
             <div className="w-7" />
           </div>
 
-          {hasEndDate ? (
-            <>
-              <TextField
-                name="name"
-                label="期間名"
-                placeholder="例: 株式会社○○に在籍"
-              />
-              <TextField
-                name="startName"
-                label="開始名（任意）"
-                placeholder="例: 入社"
-              />
-              <TextField
-                name="endName"
-                label="終了名（任意）"
-                placeholder="例: 退社"
-              />
-            </>
-          ) : (
-            <TextField
-              name="startName"
-              label="名前"
-              placeholder="例: 株式会社○○に入社"
-            />
-          )}
+          <TextField
+            name="name"
+            label="名前"
+            placeholder={hasEndDate ? "例: 株式会社○○に在籍" : "例: 結婚"}
+          />
 
           <div className="flex flex-col gap-1">
             <span className="text-sm font-medium">種類</span>

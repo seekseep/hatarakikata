@@ -7,8 +7,6 @@
   "events": [
     {
       "name": "京都府京都市出身",
-      "startName": "1966-06-19",
-      "endName": "1966-06-19",
       "type": "working",
       "startDate": "1966-06-19",
       "endDate": "1966-06-19",
@@ -22,8 +20,6 @@
     },
     {
       "name": "アメリカ移住",
-      "startName": "3歳",
-      "endName": "アメリカ移住",
       "type": "working",
       "startDate": "1969-06-19",
       "endDate": "1969-06-19",
@@ -37,8 +33,6 @@
     },
     {
       "name": "日本との交流",
-      "startName": "1980年代初頭",
-      "endName": "1990年代初頭",
       "type": "working",
       "startDate": "1980-01-01",
       "endDate": "1990-01-01",
@@ -132,8 +126,6 @@
     },
     {
       "name": "燃え尽き症候群",
-      "startName": "MITメディアラボ辞任直後",
-      "endName": "2020年頃",
       "type": "feeling",
       "startDate": "2019-09-01",
       "endDate": "2020-12-01",
@@ -146,8 +138,6 @@
     },
     {
       "name": "社会的な批判を受け不安を感じていた時期",
-      "startName": "2019年後半",
-      "endName": "2022年前半",
       "type": "feeling",
       "startDate": "2019-09-01",
       "endDate": "2022-06-01",
@@ -160,8 +150,6 @@
     },
     {
       "name": "自身の使命感と挑戦意欲が高まった時期",
-      "startName": "2022年以降",
-      "endName": "現在",
       "type": "feeling",
       "startDate": "2022-07-01",
       "endDate": "2023-12-01",

@@ -6,9 +6,10 @@ type DrawerProps = {
   open: boolean
   onClose: () => void
   children: ReactNode
+  fullWidth?: boolean
 }
 
-export default function Drawer({ open, onClose, children }: DrawerProps) {
+export default function Drawer({ open, onClose, children, fullWidth }: DrawerProps) {
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === "Escape") onClose()
   }, [onClose])
@@ -35,7 +36,7 @@ export default function Drawer({ open, onClose, children }: DrawerProps) {
       {/* Drawer panel */}
       <div
         className={[
-          "fixed top-0 right-0 z-9999 h-full w-full sm:max-w-md bg-background shadow-2xl transition-transform duration-300",
+          `fixed top-0 right-0 z-9999 h-full ${fullWidth ? "w-[calc(100%-3rem)]" : "w-full sm:max-w-md"} bg-background shadow-2xl transition-transform duration-300`,
           open ? "translate-x-0" : "translate-x-full",
         ].join(" ")}
         role="dialog"

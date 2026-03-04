@@ -55,7 +55,6 @@
     },
     {
       "name": "生誕",
-      "startName": "1965年3月11日",
       "type": "living",
       "startDate": "1965-03-11",
       "endDate": "1965-03-11",
@@ -68,7 +67,6 @@
     },
     {
       "name": "アメリカ滞在",
-      "startName": "7歳の時に家族とアメリカへ渡米",
       "type": "living",
       "startDate": "1972-03-11",
       "endDate": "1974-03-11",
@@ -81,7 +79,6 @@
     },
     {
       "name": "帰国",
-      "startName": "帰国",
       "type": "living",
       "startDate": "1974-03-12",
       "endDate": "1974-03-12",
@@ -94,7 +91,6 @@
     },
     {
       "name": "中学時代",
-      "startName": "岡山白陵中学入学",
       "type": "living",
       "startDate": "1977-04-01",
       "endDate": "1983-03-31",
@@ -108,7 +104,6 @@
     },
     {
       "name": "高校卒業",
-      "startName": "兵庫県立明石高等学校卒業",
       "type": "living",
       "startDate": "1983-04-01",
       "endDate": "1983-03-31",
@@ -122,7 +117,6 @@
     },
     {
       "name": "大学入学",
-      "startName": "一橋大学商学部入学",
       "type": "living",
       "startDate": "1984-04-01",
       "endDate": "1988-03-31",
@@ -135,7 +129,6 @@
     },
     {
       "name": "東京での生活",
-      "startName": "東京移住",
       "type": "living",
       "startDate": "1988-04-01",
       "endDate": "1993-03-31",
@@ -148,7 +141,6 @@
     },
     {
       "name": "米国留学",
-      "startName": "ハーバードMBA留学",
       "type": "living",
       "startDate": "1991-04-01",
       "endDate": "1993-03-31",
@@ -161,7 +153,6 @@
     },
     {
       "name": "神戸に帰郷",
-      "startName": "帰郷",
       "type": "living",
       "startDate": "1993-04-01",
       "endDate": "1995-03-31",

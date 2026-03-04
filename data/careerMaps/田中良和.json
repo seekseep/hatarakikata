@@ -7,8 +7,6 @@
   "events": [
     {
       "name": "燃え尽き症候群",
-      "startName": "燃え尽き",
-      "endName": "燃え尽き",
       "type": "feeling",
       "startDate": "2000-01-01",
       "endDate": "2001-01-01",

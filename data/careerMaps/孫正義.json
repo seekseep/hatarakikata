@@ -7,7 +7,6 @@
   "events": [
     {
       "name": "佐賀県鳥栖市の朝鮮人集落で幼少期を過ごす",
-      "startName": "幼少期を過ごす",
       "type": "working",
       "startDate": "1957-08-11",
       "endDate": "1963-08-11",
@@ -20,7 +19,6 @@
     },
     {
       "name": "北九州市立引野小学校に在籍",
-      "startName": "引野小学校在籍",
       "type": "working",
       "startDate": "1963-08-11",
       "endDate": "1969-03-31",
@@ -33,7 +31,6 @@
     },
     {
       "name": "北九州市立引野中学校に在籍",
-      "startName": "引野中学校在籍",
       "type": "working",
       "startDate": "1969-04-01",
       "endDate": "1972-03-31",
@@ -46,7 +43,6 @@
     },
     {
       "name": "福岡市立城南中学校に在籍",
-      "startName": "城南中学校在籍",
       "type": "working",
       "startDate": "1972-04-01",
       "endDate": "1973-03-31",
@@ -59,7 +55,6 @@
     },
     {
       "name": "久留米大学附設高等学校に在籍",
-      "startName": "久留米高等学校在籍",
       "type": "working",
       "startDate": "1973-04-01",
       "endDate": "1974-02-28",
@@ -72,8 +67,6 @@
     },
     {
       "name": "渡米しホーリー・ネームズ・カレッジに留学",
-      "startName": "米国留学",
-      "endName": "米国留学",
       "type": "working",
       "startDate": "1974-08-01",
       "endDate": "1975-12-31",
@@ -86,8 +79,6 @@
     },
     {
       "name": "カリフォルニア大学バークレー校に編入学",
-      "startName": "バークレー校在籍",
-      "endName": "バークレー校卒業",
       "type": "working",
       "startDate": "1977-09-01",
       "endDate": "1980-03-31",
@@ -100,7 +91,6 @@
     },
     {
       "name": "米国でソフトウェア開発会社を設立",
-      "startName": "Unison World設立",
       "type": "working",
       "startDate": "1979-03-01",
       "endDate": "1980-02-28",
@@ -113,7 +103,6 @@
     },
     {
       "name": "日本に帰国し、ユニソン・ワールドを創立",
-      "startName": "ユニソン・ワールド創立",
       "type": "working",
       "startDate": "1980-03-01",
       "endDate": "1981-05-01",
@@ -126,8 +115,6 @@
     },
     {
       "name": "日本ソフトバンクを設立し、社長に就任",
-      "startName": "日本ソフトバンク設立",
-      "endName": "社長退任",
       "type": "working",
       "startDate": "1981-05-01",
       "endDate": "1983-04-01",
@@ -140,8 +127,6 @@
     },
     {
       "name": "ソフトバンクで事業拡大を図る",
-      "startName": "事業拡大期間",
-      "endName": "事業拡大期間",
       "type": "working",
       "startDate": "1986-01-01",
       "endDate": "1990-12-31",
@@ -251,8 +236,6 @@
     },
     {
       "name": "起業への挑戦を続けていた",
-      "startName": "高校時代、脱藩に憧れ渡米",
-      "endName": "大学卒業後、アメリカで起業",
       "type": "feeling",
       "startDate": "1973-04-01",
       "endDate": "1979-02-01",
@@ -266,8 +249,6 @@
     },
     {
       "name": "起業と自己証明の心理",
-      "startName": "本名で起業を決意",
-      "endName": "親戚の反対を押し切り、実名を名乗る",
       "type": "feeling",
       "startDate": "1980-02-01",
       "endDate": "1981-01-01",
@@ -280,8 +261,6 @@
     },
     {
       "name": "震災支援と道義的責任を感じていた",
-      "startName": "東日本大震災義援金を寄付",
-      "endName": "復興資金を全額寄付",
       "type": "feeling",
       "startDate": "2011-04-01",
       "endDate": "2011-07-14",
@@ -295,8 +274,6 @@
     },
     {
       "name": "再生可能エネルギー推進の思想に揺れる時期",
-      "startName": "脱原発・再エネ推進を表明",
-      "endName": "太陽光発電の普及とコスト意識の変化",
       "type": "feeling",
       "startDate": "2011-04-01",
       "endDate": "2012-12-01",
@@ -310,8 +287,6 @@
     },
     {
       "name": "未来に対する野望と高揚感",
-      "startName": "巨大投資とAIのビジョンを語る",
-      "endName": "世界を変える所存を示す",
       "type": "feeling",
       "startDate": "2024-01-01",
       "endDate": "2024-12-31",

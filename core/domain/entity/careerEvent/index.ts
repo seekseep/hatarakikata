@@ -11,9 +11,7 @@ export const CareerEventKeySchema = z.object({
 
 export const careerEventPayloadBaseObject = z.object({
   careerMapId: z.string(),
-  name: z.string().optional(),
-  startName: z.string().optional(),
-  endName: z.string().optional(),
+  name: z.string(),
   type: CareerEventTypeSchema.default("working"),
   startDate: z.string(),
   endDate: z.string(),
@@ -23,10 +21,7 @@ export const careerEventPayloadBaseObject = z.object({
   description: z.string().nullable().default(null),
 })
 
-export const CareerEventPayloadBaseSchema = careerEventPayloadBaseObject.refine(
-  (data) => !!(data.name || data.startName),
-  { message: "name または startName のどちらかは必須です" }
-)
+export const CareerEventPayloadBaseSchema = careerEventPayloadBaseObject
 
 export const CareerEventPayloadSchema = CareerEventPayloadBaseSchema
 
@@ -37,17 +32,14 @@ export const CareerEventTagSchema = z.object({
 
 export const CareerEventSchema = CareerEventKeySchema.extend(careerEventPayloadBaseObject.shape).extend({
   tags: z.array(CareerEventTagSchema),
-}).refine(
-  (data) => !!(data.name || data.startName),
-  { message: "name または startName のどちらかは必須です" }
-)
+})
 export type CareerEvent = z.infer<typeof CareerEventSchema>
 export type CareerEventPayload = z.infer<typeof CareerEventPayloadSchema>
 
-/** 点イベント（startDate === endDate）: startName が必須 */
-export type PointCareerEvent = Omit<CareerEvent, 'name' | 'endName'> & { startName: string }
-/** 期間イベント（startDate !== endDate）: name が必須 */
-export type DurationCareerEvent = Omit<CareerEvent, 'startName'> & { name: string }
+/** 点イベント（startDate === endDate） */
+export type PointCareerEvent = CareerEvent
+/** 期間イベント（startDate !== endDate） */
+export type DurationCareerEvent = CareerEvent
 
 export function isPointCareerEvent(event: CareerEvent): event is PointCareerEvent {
   return event.startDate === event.endDate
