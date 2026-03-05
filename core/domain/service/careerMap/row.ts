@@ -11,7 +11,7 @@ function hasRowOverlap(
   rowB: number,
   strengthB: number
 ): boolean {
-  return rowA < rowB + strengthB && rowB < rowA + strengthA
+  return rowA < rowB + (strengthB + 1) && rowB < rowA + (strengthA + 1)
 }
 
 /**

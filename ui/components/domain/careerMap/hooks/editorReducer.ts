@@ -118,7 +118,7 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
       return { ...state, mode: { type: 'confirm-dialog', message: action.message, confirmAction: action.confirmAction } }
 
     case 'REQUEST_CREATE_CAREER_GUIDE':
-      return { ...state, mode: { type: 'idle' } }
+      return { ...state, mode: { type: 'creating-career-guide', baseCareerMapId: action.careerMapId } }
 
     case 'OPEN_CAREER_GUIDE_PROMPT_DIALOG':
       return { ...state, mode: { type: 'career-guide-prompt-dialog' } }
@@ -128,6 +128,9 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
 
     case 'OPEN_CAREER_GUIDE_DETAIL_DRAWER':
       return { ...state, mode: { type: 'career-guide-detail-drawer', guideId: action.guideId } }
+
+    case 'ENTER_REQUIRED_START_DATE':
+      return { ...state, mode: { type: 'required-start-date' } }
 
     case 'CLOSE_DIALOG':
       return { ...state, mode: { type: 'idle' } }

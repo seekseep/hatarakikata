@@ -48,6 +48,8 @@ export type ConfirmDialogMode = { type: 'confirm-dialog'; message: string; confi
 export type CareerGuidePromptDialogMode = { type: 'career-guide-prompt-dialog' }
 export type CareerGuidesDrawerMode = { type: 'career-guides-drawer' }
 export type CareerGuideDetailDrawerMode = { type: 'career-guide-detail-drawer'; guideId: string }
+export type CreatingCareerGuideMode = { type: 'creating-career-guide'; baseCareerMapId: string }
+export type RequiredStartDateMode = { type: 'required-start-date' }
 
 export type EditorMode =
   | IdleMode
@@ -66,6 +68,8 @@ export type EditorMode =
   | CareerGuidePromptDialogMode
   | CareerGuidesDrawerMode
   | CareerGuideDetailDrawerMode
+  | CreatingCareerGuideMode
+  | RequiredStartDateMode
 
 // --- Editor State ---
 

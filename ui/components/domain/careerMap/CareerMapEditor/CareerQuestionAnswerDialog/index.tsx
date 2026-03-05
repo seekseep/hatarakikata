@@ -13,11 +13,13 @@ import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 import ConditionAwareField from "./ConditionAwareField"
 
 type CareerQuestionAnswerDialogProps = {
+  open: boolean
   question: CareerQuestion | null
   onClose: () => void
 }
 
 export default function CareerQuestionAnswerDialog({
+  open,
   question,
   onClose,
 }: CareerQuestionAnswerDialogProps) {
@@ -58,7 +60,7 @@ export default function CareerQuestionAnswerDialog({
   })
 
   return (
-    <Dialog open={!!question} onClose={onClose} className="w-full max-w-md">
+    <Dialog open={open} onClose={onClose} className="w-full max-w-md">
       {question && (
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
           <h3 className="text-lg font-bold">回答する</h3>
@@ -82,7 +84,7 @@ export default function CareerQuestionAnswerDialog({
               size="medium"
               disabled={answerMutation.isPending}
             >
-              {answerMutation.isPending ? "送信中..." : "送信"}
+              {answerMutation.isPending ? "回答中..." : "回答する"}
             </Button>
           </div>
         </form>

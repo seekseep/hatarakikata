@@ -1,47 +1,35 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { RiCloseLine } from "react-icons/ri"
 
 import type { CareerQuestion } from "@/core/domain"
+import Drawer from "@/ui/components/basic/Drawer"
 import Spinner from "@/ui/components/basic/Spinner"
 import {
   useCareerQuestionsQuery,
   useCloseQuestionMutation,
-  useInitializeQuestionsMutation,
 } from "@/ui/hooks/careerQuestion"
 
 import CareerQuestionAnswerDialog from "../CareerQuestionAnswerDialog"
 
 type CareerQuestionDrawerProps = {
+  open: boolean
   onClose: () => void
 }
 
-export default function CareerQuestionDrawer({ onClose }: CareerQuestionDrawerProps) {
+export default function CareerQuestionDrawer({ open, onClose }: CareerQuestionDrawerProps) {
   const questionsQuery = useCareerQuestionsQuery()
-  const initMutation = useInitializeQuestionsMutation()
   const closeMutation = useCloseQuestionMutation()
   const [selectedQuestion, setSelectedQuestion] = useState<CareerQuestion | null>(null)
-
-  // 404 → auto-initialize
-  const needsInit =
-    questionsQuery.error &&
-    "status" in questionsQuery.error &&
-    (questionsQuery.error as { status: number }).status === 404
-
-  useEffect(() => {
-    if (needsInit && !initMutation.isPending) {
-      initMutation.mutate()
-    }
-  }, [needsInit]) // eslint-disable-line react-hooks/exhaustive-deps
 
   const questions = questionsQuery.data ?? []
   const openQuestions = questions.filter((q) => q.status === "open")
 
-  const isLoading = questionsQuery.isLoading || initMutation.isPending
+  const isLoading = questionsQuery.isLoading
 
   return (
-    <>
+    <Drawer open={open} onClose={onClose}>
       <div className="flex flex-col h-full">
         <div className="flex items-center justify-between p-4 border-b border-foreground/10">
           <button
@@ -93,9 +81,10 @@ export default function CareerQuestionDrawer({ onClose }: CareerQuestionDrawerPr
       </div>
 
       <CareerQuestionAnswerDialog
+        open={selectedQuestion !== null}
         question={selectedQuestion}
         onClose={() => setSelectedQuestion(null)}
       />
-    </>
+    </Drawer>
   )
 }

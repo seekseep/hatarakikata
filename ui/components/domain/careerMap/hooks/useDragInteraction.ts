@@ -5,14 +5,14 @@ import { useCallback, useRef } from "react"
 import type { CareerEvent } from "@/core/domain"
 
 import { endDrag, startDrag, updateDragPreview } from "../actions/dragActions"
+import { DRAG_THRESHOLD } from "../constants"
+import type { DragRefState } from "../types"
 import { SCALE_DISPLAY_CONFIG, type TimelineConfig } from "../utils/constants"
-import { type Rect, xToDate, yToRow } from "../utils/timelineMapping"
+import { computeHeight, computeRowY, type Rect, xToDate, yToRow } from "../utils/timelineMapping"
 import type { EditorAction } from "./EditorAction"
 import type { DraggedEventInfo, DragMode, DragPayload } from "./EditorState"
 
-// --- Preview 計算（純粋関数） ---
-
-export function computeMovePreview(
+function computeMovePreview(
   drag: DragPayload,
   dx: number,
   dy: number,
@@ -20,25 +20,20 @@ export function computeMovePreview(
   snapX: (x: number) => number,
 ): Rect {
   const { startRect, originalEvent } = drag
-  const rowHeight = config.rowHeightInUnits * config.unit
-  const rowGapHeight = config.rowGapHeightInUnits * config.unit
-  const rowStep = rowHeight + rowGapHeight
 
   const snappedStartX = snapX(startRect.x + dx)
   const newRow = yToRow(startRect.y + dy, config)
-  const rowTopPx = config.headerHeightInUnits * config.unit + rowGapHeight + newRow * rowStep
   const strength = originalEvent.strength ?? 3
-  const height = strength * rowHeight + (strength - 1) * rowGapHeight
 
   return {
     x: snappedStartX,
-    y: rowTopPx,
+    y: computeRowY(newRow, config),
     width: startRect.width,
-    height,
+    height: computeHeight(strength, config),
   }
 }
 
-export function computeResizeStartPreview(
+function computeResizeStartPreview(
   drag: DragPayload,
   dx: number,
   config: TimelineConfig,
@@ -55,7 +50,7 @@ export function computeResizeStartPreview(
   }
 }
 
-export function computeResizeEndPreview(
+function computeResizeEndPreview(
   drag: DragPayload,
   dx: number,
   config: TimelineConfig,
@@ -71,27 +66,22 @@ export function computeResizeEndPreview(
   }
 }
 
-export function computeStrengthPreview(
+function computeStrengthPreview(
   drag: DragPayload,
   dy: number,
   config: TimelineConfig,
 ): { rect: Rect; strength: number } {
   const { startRect, originalEvent } = drag
-  const rowHeight = config.rowHeightInUnits * config.unit
-  const rowGapHeight = config.rowGapHeightInUnits * config.unit
-  const rowStep = rowHeight + rowGapHeight
+  const rowStep = (config.rowHeightInUnits + config.rowGapHeightInUnits) * config.unit
 
   const currentStrength = originalEvent.strength ?? 3
   const strengthDelta = dy / rowStep
   const strength = Math.round(Math.min(config.maxStrength, Math.max(1, currentStrength + strengthDelta)))
-  const height = strength * rowHeight + (strength - 1) * rowGapHeight
 
-  return { rect: { x: startRect.x, y: startRect.y, width: startRect.width, height }, strength }
+  return { rect: { x: startRect.x, y: startRect.y, width: startRect.width, height: computeHeight(strength, config) }, strength }
 }
 
-// --- Commit 計算（純粋関数） ---
-
-export function computeCommittedEvent(
+function computeCommittedEvent(
   dragMode: DragMode,
   drag: DragPayload,
   dx: number,
@@ -136,27 +126,6 @@ export function computeCommittedEvent(
 
 // --- Hook ---
 
-const DRAG_THRESHOLD = 3
-
-type PendingDragRef = {
-  phase: 'pending'
-  dragMode: DragMode
-  event: CareerEvent
-  rect: Rect
-  startX: number
-  startY: number
-  pointerId: number
-  additionalEvents: DraggedEventInfo[]
-}
-
-type ActiveDragRef = {
-  phase: 'dragging'
-  dragMode: DragMode
-  drag: DragPayload
-}
-
-type DragRefState = PendingDragRef | ActiveDragRef
-
 export function useDragInteraction(
   config: TimelineConfig,
   scale: number,
@@ -194,6 +163,25 @@ export function useDragInteraction(
     return Math.round(x / snapPx) * snapPx
   }, [snapPx])
 
+  const dispatchPreview = useCallback((dragMode: DragMode, drag: DragPayload, dx: number, dy: number) => {
+    switch (dragMode) {
+      case "move":
+        dispatch(updateDragPreview(computeMovePreview(drag, dx, dy, config, snapX)))
+        break
+      case "resize-start":
+        dispatch(updateDragPreview(computeResizeStartPreview(drag, dx, config, snapX)))
+        break
+      case "resize-end":
+        dispatch(updateDragPreview(computeResizeEndPreview(drag, dx, config, snapX)))
+        break
+      case "strength": {
+        const { rect, strength } = computeStrengthPreview(drag, dy, config)
+        dispatch(updateDragPreview(rect, strength))
+        break
+      }
+    }
+  }, [config, snapX, dispatch])
+
   const handleDragMove = useCallback((e: React.PointerEvent) => {
     const ref = dragRef.current
     if (!ref) return
@@ -215,17 +203,7 @@ export function useDragInteraction(
       dragRef.current = { phase: 'dragging', dragMode: ref.dragMode, drag }
       dispatch(startDrag(ref.dragMode, drag, ref.rect, ref.event.strength ?? 3))
 
-      // Compute preview for this move
-      if (ref.dragMode === "move") {
-        dispatch(updateDragPreview(computeMovePreview(drag, dx, dy, config, snapX)))
-      } else if (ref.dragMode === "resize-start") {
-        dispatch(updateDragPreview(computeResizeStartPreview(drag, dx, config, snapX)))
-      } else if (ref.dragMode === "resize-end") {
-        dispatch(updateDragPreview(computeResizeEndPreview(drag, dx, config, snapX)))
-      } else if (ref.dragMode === "strength") {
-        const { rect, strength } = computeStrengthPreview(drag, dy, config)
-        dispatch(updateDragPreview(rect, strength))
-      }
+      dispatchPreview(ref.dragMode, drag, dx, dy)
       return
     }
 
@@ -233,17 +211,8 @@ export function useDragInteraction(
     const dx = e.clientX - ref.drag.startPointerX
     const dy = e.clientY - ref.drag.startPointerY
 
-    if (ref.dragMode === "move") {
-      dispatch(updateDragPreview(computeMovePreview(ref.drag, dx, dy, config, snapX)))
-    } else if (ref.dragMode === "resize-start") {
-      dispatch(updateDragPreview(computeResizeStartPreview(ref.drag, dx, config, snapX)))
-    } else if (ref.dragMode === "resize-end") {
-      dispatch(updateDragPreview(computeResizeEndPreview(ref.drag, dx, config, snapX)))
-    } else if (ref.dragMode === "strength") {
-      const { rect, strength } = computeStrengthPreview(ref.drag, dy, config)
-      dispatch(updateDragPreview(rect, strength))
-    }
-  }, [config, snapX, dispatch])
+    dispatchPreview(ref.dragMode, ref.drag, dx, dy)
+  }, [dispatch, dispatchPreview])
 
   const handleDragEnd = useCallback((e: React.PointerEvent) => {
     const ref = dragRef.current

@@ -7,7 +7,7 @@ import { RiEditLine } from "react-icons/ri"
 import type { CareerEvent } from "@/core/domain"
 
 import type { DragMode } from "../hooks/EditorState"
-import { eventItemColors } from "../utils/constants"
+import { eventItemColors } from "../variants"
 
 const HANDLE_SIZE = 8
 
@@ -58,7 +58,7 @@ export default function CareerMapEventItem({
   const colorClasses = eventItemColors({ eventType, strength })
 
   const editButtonOffset = rowHeight ? rowHeight * 0.1 : 2
-  const editButtonSize = rowHeight ? rowHeight - 2 * editButtonOffset : 20
+  const editButtonSize = rowHeight * 2.5
   const editIconSize = editButtonSize * 0.6
 
   const displayStartDate = previewStartDate ?? event.startDate
@@ -86,9 +86,9 @@ export default function CareerMapEventItem({
       </div>
       <div
         className={clsx(
-          "w-full h-full rounded border select-none flex flex-col relative",
+          "w-full h-full rounded select-none flex flex-col relative",
           colorClasses,
-          { "opacity-70 shadow-lg z-50": isDragging, "ring-2 ring-primary-500 border-primary-500": isSelected },
+          { "opacity-70 shadow-lg z-50": isDragging, "ring-2 ring-primary-500 z-40": isSelected },
         )}
         onClick={(e) => { e.stopPropagation(); onSelect(e) }}
       >
@@ -121,7 +121,7 @@ export default function CareerMapEventItem({
           )}
           onPointerDown={!readOnly && onDragStart ? (e) => onDragStart(e, "move") : undefined}
         >
-          <span className="text-xs font-medium truncate pointer-events-none select-none sticky left-0 right-0 px-1">
+          <span className="text-sm font-medium truncate pointer-events-none select-none sticky left-0 right-0 px-1">
             {event.name}
           </span>
         </div>

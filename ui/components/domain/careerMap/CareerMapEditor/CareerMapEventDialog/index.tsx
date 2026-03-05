@@ -22,9 +22,13 @@ import {
 import { useCareerMapEventDialogForm } from "./hooks"
 import TagSelector from "./TagSelector"
 
-export default function CareerMapEventDialog() {
+type CareerMapEventDialogProps = {
+  open: boolean
+  onClose: () => void
+}
+
+export default function CareerMapEventDialog({ open, onClose }: CareerMapEventDialogProps) {
   const {
-    open,
     mode,
     event,
     closeDialog,
@@ -35,7 +39,7 @@ export default function CareerMapEventDialog() {
     setTags,
     availableTags,
     isLoadingTags,
-  } = useCareerMapEventDialogForm()
+  } = useCareerMapEventDialogForm(open, onClose)
 
   return (
     <Drawer open={open} onClose={closeDialog}>

@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form"
 import type { CareerEventPayload, CareerEventType } from "@/core/domain"
 import { useCareerMapEventTagsQuery } from "@/ui/hooks/careerMapEventTag"
 
-import { closeDialog } from "../../actions/dialogActions"
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 import { fromMonth,toMonth } from "./utils"
 
@@ -18,19 +17,18 @@ type FormValues = {
   tags: string[]
 }
 
-export function useCareerMapEventDialogForm() {
+export function useCareerMapEventDialogForm(propOpen: boolean, propOnClose: () => void) {
   const {
     state: { careerMapId, mode: editorMode },
-    dispatch,
     createEvent,
     updateEvent,
     deleteEvent,
   } = useCarrerMapEditorContext()
 
-  const open = editorMode.type === 'create-dialog' || editorMode.type === 'edit-dialog'
+  const open = propOpen
   const mode = editorMode.type === 'edit-dialog' ? "edit" : "create"
   const event = editorMode.type === 'edit-dialog' ? editorMode.event : undefined
-  const close = () => dispatch(closeDialog())
+  const close = propOnClose
 
   const form = useForm<FormValues>({
     defaultValues: {
@@ -114,7 +112,6 @@ export function useCareerMapEventDialogForm() {
   }
 
   return {
-    open,
     mode,
     event,
     closeDialog: close,

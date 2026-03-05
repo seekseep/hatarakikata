@@ -10,7 +10,6 @@ import Dialog from "@/ui/components/basic/dialog/Dialog"
 import Spinner from "@/ui/components/basic/Spinner"
 import { useCareerMapEventTagsQuery } from "@/ui/hooks/careerMapEventTag"
 
-import { closeDialog } from "../../actions/dialogActions"
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 
 const ImportEventSchema = careerEventPayloadBaseObject
@@ -21,10 +20,13 @@ const ImportEventSchema = careerEventPayloadBaseObject
 
 const ImportEventsSchema = z.array(ImportEventSchema)
 
-export default function ImportCareerMapDialog() {
-  const { state: { careerMapId, mode }, dispatch, createEventAsync } = useCarrerMapEditorContext()
-  const jsonImportDialogOpen = mode.type === 'json-import-dialog'
-  const closeJsonImportDialog = () => dispatch(closeDialog())
+type ImportCareerMapDialogProps = {
+  open: boolean
+  onClose: () => void
+}
+
+export default function ImportCareerMapDialog({ open: jsonImportDialogOpen, onClose: closeJsonImportDialog }: ImportCareerMapDialogProps) {
+  const { state: { careerMapId }, createEventAsync } = useCarrerMapEditorContext()
   const [json, setJson] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)

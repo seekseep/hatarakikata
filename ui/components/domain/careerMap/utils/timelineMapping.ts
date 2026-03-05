@@ -49,37 +49,40 @@ export function xToDate(x: number, config: TimelineConfig): string {
 
 export type Rect = { x: number; y: number; width: number; height: number }
 
-export function eventToRect(event: CareerEvent, config: TimelineConfig): Rect {
-  const x = dateToX(event.startDate, config)
-  const endX = dateToX(event.endDate, config)
-  const width = Math.max(endX - x, config.unit)
+export function computeWidth(startDate: string, endDate: string, config: TimelineConfig): number {
+  const x = dateToX(startDate, config)
+  const endX = dateToX(endDate, config)
+  return Math.max(endX - x, config.unit)
+}
 
-  const row = event.row ?? 0
+export function computeRowY(row: number, config: TimelineConfig): number {
   const rowHeight = config.rowHeightInUnits * config.unit
   const rowGapHeight = config.rowGapHeightInUnits * config.unit
   const rowStep = rowHeight + rowGapHeight
   const headerPx = config.headerHeightInUnits * config.unit
-  const y = headerPx + rowGapHeight + row * rowStep
+  return headerPx + rowGapHeight + row * rowStep
+}
 
-  const strength = event.strength ?? 3
-  const height = strength * rowHeight + (strength - 1) * rowGapHeight
+export function computeHeight(strength: number, config: TimelineConfig): number {
+  const rowHeight = config.rowHeightInUnits * config.unit
+  const rowGapHeight = config.rowGapHeightInUnits * config.unit
+  return (strength + 1) * rowHeight + strength * rowGapHeight
+}
 
+export function computeEventRect(event: CareerEvent, config: TimelineConfig): Rect {
+  const x = dateToX(event.startDate, config)
+  const width = computeWidth(event.startDate, event.endDate, config)
+  const y = computeRowY(event.row ?? 0, config)
+  const height = computeHeight(event.strength, config)
   return { x, y, width, height }
 }
 
-export function questionToRect(question: { startDate: string; endDate: string; row?: number }, config: TimelineConfig): Rect {
+export function computeQuestionRect(question: { startDate: string; endDate: string; row?: number }, config: TimelineConfig): Rect {
   const x = dateToX(question.startDate, config)
-  const endX = dateToX(question.endDate, config)
-  const width = Math.max(endX - x, config.unit)
-
-  const row = question.row ?? 0
-  const rowHeight = config.rowHeightInUnits * config.unit
-  const rowGapHeight = config.rowGapHeightInUnits * config.unit
-  const rowStep = rowHeight + rowGapHeight
-  const headerPx = config.headerHeightInUnits * config.unit
-  const y = headerPx + rowGapHeight + row * rowStep
-
-  return { x, y, width, height: rowHeight }
+  const width = computeWidth(question.startDate, question.endDate, config)
+  const y = computeRowY(question.row ?? 0, config)
+  const height = computeHeight(1, config)
+  return { x, y, width, height }
 }
 
 export function computeCanvasWidth(config: TimelineConfig): number {
@@ -94,8 +97,8 @@ export function yToRow(y: number, config: TimelineConfig): number {
 }
 
 export function computeHeaderHeightInUnits(scale: number, rowHeightInUnits: number): number {
-  const { tickMonths } = SCALE_DISPLAY_CONFIG[scale - 1]
-  return tickMonths < 12 ? rowHeightInUnits * 2 : rowHeightInUnits
+  const { headerRows } = SCALE_DISPLAY_CONFIG[scale - 1]
+  return rowHeightInUnits * headerRows
 }
 
 export function buildTimelineConfig(startDate: string, endDate: string, scale: number): TimelineConfig {
@@ -126,12 +129,12 @@ export function computeMaxEventBottom(
 ): number {
   let max = 0
   for (const event of events) {
-    const rect = eventToRect(event, config)
+    const rect = computeEventRect(event, config)
     const bottom = rect.y + rect.height
     if (bottom > max) max = bottom
   }
   for (const question of questions) {
-    const rect = questionToRect(question, config)
+    const rect = computeQuestionRect(question, config)
     const bottom = rect.y + rect.height
     if (bottom > max) max = bottom
   }
@@ -153,14 +156,9 @@ export function computePlaceholderRect(
   tickWidthPx: number,
   config: TimelineConfig,
 ): Rect {
-  const rowHeight = config.rowHeightInUnits * config.unit
-  const rowGapHeight = config.rowGapHeightInUnits * config.unit
-  const headerPx = config.headerHeightInUnits * config.unit
-  const rowStep = rowHeight + rowGapHeight
   const row = yToRow(canvasY, config)
-  const rowY = headerPx + rowGapHeight + row * rowStep
-
-  const snappedX = Math.floor(canvasX / tickWidthPx) * tickWidthPx
-
-  return { x: snappedX, y: rowY, width: tickWidthPx, height: rowHeight }
+  const y = computeRowY(row, config)
+  const x = Math.floor(canvasX / tickWidthPx) * tickWidthPx
+  const height = computeHeight(1, config)
+  return { x, y, width: tickWidthPx, height }
 }

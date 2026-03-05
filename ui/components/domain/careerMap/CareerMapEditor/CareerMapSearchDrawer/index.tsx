@@ -3,22 +3,22 @@
 import { useMemo } from "react"
 import { RiCloseLine } from "react-icons/ri"
 
+import Drawer from "@/ui/components/basic/Drawer"
 import Spinner from "@/ui/components/basic/Spinner"
 import { useCarrerMapSummariesQuery, useSimilarCareerMapsQuery } from "@/ui/hooks/careerMap"
 
 import { openViewer } from "../../actions/dialogActions"
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 
-export default function CareerMapSearchDrawer({ onClose }: { onClose: () => void }) {
-  const { state: { careerMapId, mode }, dispatch } = useCarrerMapEditorContext()
-  const isOpen = mode.type === 'search-drawer'
-  const similarQuery = useSimilarCareerMapsQuery(careerMapId, isOpen)
+export default function CareerMapSearchDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const { state: { careerMapId }, dispatch } = useCarrerMapEditorContext()
+  const similarQuery = useSimilarCareerMapsQuery(careerMapId, open)
 
   const items = useMemo(() => similarQuery.data?.items ?? [], [similarQuery.data])
   const hasResults = items.length > 0
   const shouldShowList = !similarQuery.isLoading && (similarQuery.isError || !hasResults)
 
-  const summariesQuery = useCarrerMapSummariesQuery(isOpen && shouldShowList)
+  const summariesQuery = useCarrerMapSummariesQuery(open && shouldShowList)
   const otherItems = useMemo(() => summariesQuery.data?.items ?? [], [summariesQuery.data])
 
   const handleOpenViewer = (id: string, userName?: string) => {
@@ -26,6 +26,7 @@ export default function CareerMapSearchDrawer({ onClose }: { onClose: () => void
   }
 
   return (
+    <Drawer open={open} onClose={onClose}>
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-between px-4 py-3 border-b border-foreground/10">
         <button
@@ -138,5 +139,6 @@ export default function CareerMapSearchDrawer({ onClose }: { onClose: () => void
         </div>
       </div>
     </div>
+    </Drawer>
   )
 }

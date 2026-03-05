@@ -25,7 +25,7 @@ export default function CarrerMapToolBar() {
         step={1}
         value={SCALE_MAX + SCALE_MIN - scale}
         onChange={(e) => setScale(SCALE_MAX + SCALE_MIN - Number(e.target.value))}
-        className="w-24"
+        className="w-24 accent-primary-600"
       />
       <button
         type="button"

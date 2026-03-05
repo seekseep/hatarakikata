@@ -14,7 +14,11 @@ import { stepIndicator } from "./styles"
 import { Step } from "./types"
 import YearStep from "./YearStep"
 
-export default function CarrerMapRequestBirthdayDialog() {
+type CarrerMapRequestBirthdayDialogProps = {
+  open: boolean
+}
+
+export default function CarrerMapRequestBirthdayDialog({ open }: CarrerMapRequestBirthdayDialogProps) {
   const { updateCareerMap } = useCarrerMapEditorContext()
   const [step, setStep] = useState<Step>("year")
   const [year, setYear] = useState<number | null>(null)
@@ -53,7 +57,7 @@ export default function CarrerMapRequestBirthdayDialog() {
   const stepLabel = step === "year" ? "年" : step === "month" ? "月" : "日"
 
   return (
-    <Dialog open={true} onClose={() => {}} className="w-full max-w-sm">
+    <Dialog open={open} onClose={() => {}} className="w-full max-w-sm">
       <div className="flex flex-col gap-4">
         <h2 className="text-lg font-bold">生年月日を選択してください</h2>
 

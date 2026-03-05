@@ -1,29 +1,28 @@
 "use client"
 
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect } from "react"
 
-import Drawer from "@/ui/components/basic/Drawer"
 import Spinner from "@/ui/components/basic/Spinner"
-import CareerMapViewer from "@/ui/components/domain/careerMap/CareerMapViewer"
 import {
   useCareerEventsByCareerMapIdQuery,
   useCreateCareerEventMutation,
   useDeleteCareerEventMutation,
   useUpdateCareerEventMutation,
 } from "@/ui/hooks/careerEvent"
-import { useCreateCareerGuideMutation, useMyCareerGuidesQuery } from "@/ui/hooks/careerGuide"
 import { useCareerMapQuery, useUpdateCareerMapMutation } from "@/ui/hooks/careerMap"
 import { useCareerQuestionsQuery, useInitializeQuestionsMutation } from "@/ui/hooks/careerQuestion"
 
 import { closeDialog, openConfirmDialog, openSearchDrawer, requestCreateCareerGuide } from "../actions/dialogActions"
 import CarrerMapToolBar from "../CarrerMapToolBar"
 import { useCarrerMapEditor } from "../hooks/useCarrerMapEditor"
+import CareerGuideCreatingDialog from "./CareerGuideCreatingDialog"
 import CareerGuideDetailDrawer from "./CareerGuideDetailDrawer"
 import CareerGuidePromptDialog from "./CareerGuidePromptDialog"
 import CareerGuidesDrawer from "./CareerGuidesDrawer"
 import CareerMapEventDialog from "./CareerMapEventDialog"
 import CareerMapEventGenerateDialog from "./CareerMapEventGenerateDialog"
 import CareerMapSearchDrawer from "./CareerMapSearchDrawer"
+import CareerMapViewerDrawer from "./CareerMapViewerDrawer"
 import CareerQuestionAnswerDialog from "./CareerQuestionAnswerDialog"
 import CareerQuestionDrawer from "./CareerQuestionDrawer"
 import CarrerMapCanvas from "./CarrerMapCanvas"
@@ -47,10 +46,6 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
   const createCareerEventMutation = useCreateCareerEventMutation()
   const updateCareerEventMutation = useUpdateCareerEventMutation()
   const deleteCareerEventMutation = useDeleteCareerEventMutation()
-
-  const createCareerGuideMutation = useCreateCareerGuideMutation()
-  const careerGuidesQuery = useMyCareerGuidesQuery()
-  const [isCreatingCareerGuide, setIsCreatingCareerGuide] = useState(false)
 
   const questionsQuery = useCareerQuestionsQuery()
   const initQuestionsMutation = useInitializeQuestionsMutation()
@@ -77,35 +72,10 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
     deleteCareerEventMutation,
   })
 
-  const handleCreateCareerGuide = useCallback((baseCareerMapId: string) => {
-    editor.dispatch(closeDialog())
-    setIsCreatingCareerGuide(true)
-    createCareerGuideMutation.mutate(
-      {
-        baseCareerMapId,
-        guideCareerMapId: careerMapId,
-      },
-      {
-        onSuccess: () => {
-          careerGuidesQuery.refetch()
-          setIsCreatingCareerGuide(false)
-        },
-        onError: () => {
-          setIsCreatingCareerGuide(false)
-        },
-      },
-    )
-  }, [editor, createCareerGuideMutation, careerGuidesQuery, careerMapId])
-
   const handleConfirmAction = useCallback(() => {
     if (editor.state.mode.type !== 'confirm-dialog') return
-    const action = editor.state.mode.confirmAction
-    if (action.type === 'REQUEST_CREATE_CAREER_GUIDE') {
-      handleCreateCareerGuide(action.careerMapId)
-      return
-    }
-    editor.dispatch(action)
-  }, [editor, handleCreateCareerGuide])
+    editor.dispatch(editor.state.mode.confirmAction)
+  }, [editor])
 
   return (
     <CarrerMapEditorProvider value={editor}>
@@ -114,10 +84,6 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
           <div className="flex items-center justify-center w-full h-full">
             <Spinner />
           </div>
-        )}
-
-        {editor.state.status === 'required-start-date' && (
-          <CarrerMapRequestBirthdayDialog />
         )}
 
         {editor.state.status === 'ready' ? (
@@ -129,85 +95,86 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
         ) : (
           <CarrerMapCanvasPlaceholder />
         )}
-
-        {isCreatingCareerGuide && (
-          <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-background/80">
-            <Spinner />
-            <p className="mt-3 text-sm text-foreground/70">ガイドを作成中</p>
-          </div>
-        )}
-
-        <CarrerMapErrorBanner />
-
-        <CareerMapEventDialog />
-        <CareerMapEventGenerateDialog />
-        <ImportCareerMapDialog />
       </CarrerMapEditorContainer>
 
-      <Drawer open={editor.state.mode.type === 'viewer'} onClose={() => editor.dispatch(closeDialog())} fullWidth>
-        {editor.state.mode.type === 'viewer' && (
-          <CareerMapViewer
-            careerMapId={editor.state.mode.careerMapId}
-            userName={editor.state.mode.userName}
-            onClose={() => editor.dispatch(closeDialog())}
-            onCreateCareerGuide={() => editor.dispatch(
-              openConfirmDialog(
-                "このキャリアマップをもとにガイドを作成しますか？",
-                requestCreateCareerGuide(editor.state.mode.type === 'viewer' ? editor.state.mode.careerMapId : ''),
-              )
-            )}
-          />
+      <CarrerMapErrorBanner />
+
+      <CareerMapViewerDrawer
+        open={editor.state.mode.type === 'viewer'}
+        careerMapId={editor.state.mode.type === 'viewer' ? editor.state.mode.careerMapId : ''}
+        userName={editor.state.mode.type === 'viewer' ? editor.state.mode.userName : undefined}
+        onClose={() => editor.dispatch(closeDialog())}
+        onCreateCareerGuide={() => editor.dispatch(
+          openConfirmDialog(
+            "このキャリアマップをもとにガイドを作成しますか？",
+            requestCreateCareerGuide(editor.state.mode.type === 'viewer' ? editor.state.mode.careerMapId : ''),
+          )
         )}
-      </Drawer>
+      />
 
-      {editor.state.mode.type === 'confirm-dialog' && (
-        <ConfirmDialog
-          message={editor.state.mode.message}
-          onCancel={() => editor.dispatch(closeDialog())}
-          onConfirm={handleConfirmAction}
-        />
-      )}
+      <CarrerMapRequestBirthdayDialog
+        open={editor.state.mode.type === 'required-start-date'}
+      />
 
-      {editor.state.mode.type === 'career-guide-prompt-dialog' && (
-        <CareerGuidePromptDialog
-          onClose={() => editor.dispatch(closeDialog())}
-          onSearch={() => editor.dispatch(openSearchDrawer())}
-        />
-      )}
+      <CareerMapEventDialog
+        open={editor.state.mode.type === 'create-dialog' || editor.state.mode.type === 'edit-dialog'}
+        onClose={() => editor.dispatch(closeDialog())}
+      />
+      <CareerMapEventGenerateDialog
+        open={editor.state.mode.type === 'generate-dialog'}
+        onClose={() => editor.dispatch(closeDialog())}
+      />
+      <ImportCareerMapDialog
+        open={editor.state.mode.type === 'json-import-dialog'}
+        onClose={() => editor.dispatch(closeDialog())}
+      />
 
-      <Drawer open={editor.state.mode.type === 'search-drawer'} onClose={() => editor.dispatch(closeDialog())}>
-        {editor.state.mode.type === 'search-drawer' && (
-          <CareerMapSearchDrawer onClose={() => editor.dispatch(closeDialog())} />
-        )}
-      </Drawer>
+      <ConfirmDialog
+        open={editor.state.mode.type === 'confirm-dialog'}
+        message={editor.state.mode.type === 'confirm-dialog' ? editor.state.mode.message : ''}
+        onCancel={() => editor.dispatch(closeDialog())}
+        onConfirm={handleConfirmAction}
+      />
 
-      <Drawer open={editor.state.mode.type === 'questions-drawer'} onClose={() => editor.dispatch(closeDialog())}>
-        {editor.state.mode.type === 'questions-drawer' && (
-          <CareerQuestionDrawer onClose={() => editor.dispatch(closeDialog())} />
-        )}
-      </Drawer>
+      <CareerGuidePromptDialog
+        open={editor.state.mode.type === 'career-guide-prompt-dialog'}
+        onClose={() => editor.dispatch(closeDialog())}
+        onSearch={() => editor.dispatch(openSearchDrawer())}
+      />
 
-      {editor.state.mode.type === 'question-answer-dialog' && (
-        <CareerQuestionAnswerDialog
-          question={editor.state.mode.question}
-          onClose={() => editor.dispatch(closeDialog())}
-        />
-      )}
+      <CareerQuestionAnswerDialog
+        open={editor.state.mode.type === 'question-answer-dialog'}
+        question={editor.state.mode.type === 'question-answer-dialog' ? editor.state.mode.question : null}
+        onClose={() => editor.dispatch(closeDialog())}
+      />
 
-      <Drawer open={editor.state.mode.type === 'career-guides-drawer'} onClose={() => editor.dispatch(closeDialog())}>
-        {editor.state.mode.type === 'career-guides-drawer' && (
-          <CareerGuidesDrawer onClose={() => editor.dispatch(closeDialog())} />
-        )}
-      </Drawer>
+      <CareerMapSearchDrawer
+        open={editor.state.mode.type === 'search-drawer'}
+        onClose={() => editor.dispatch(closeDialog())}
+      />
 
-      <Drawer open={editor.state.mode.type === 'career-guide-detail-drawer'} onClose={() => editor.dispatch(closeDialog())} fullWidth>
-        {editor.state.mode.type === 'career-guide-detail-drawer' && (
-          <CareerGuideDetailDrawer
-            guideId={editor.state.mode.guideId}
-            onBack={() => editor.dispatch(closeDialog())}
-          />
-        )}
-      </Drawer>
+      <CareerQuestionDrawer
+        open={editor.state.mode.type === 'questions-drawer'}
+        onClose={() => editor.dispatch(closeDialog())}
+      />
+
+      <CareerGuidesDrawer
+        open={editor.state.mode.type === 'career-guides-drawer'}
+        onClose={() => editor.dispatch(closeDialog())}
+      />
+
+      <CareerGuideDetailDrawer
+        open={editor.state.mode.type === 'career-guide-detail-drawer'}
+        guideId={editor.state.mode.type === 'career-guide-detail-drawer' ? editor.state.mode.guideId : ''}
+        onBack={() => editor.dispatch(closeDialog())}
+      />
+
+      <CareerGuideCreatingDialog
+        open={editor.state.mode.type === 'creating-career-guide'}
+        baseCareerMapId={editor.state.mode.type === 'creating-career-guide' ? editor.state.mode.baseCareerMapId : ''}
+        guideCareerMapId={careerMapId}
+        onClose={() => editor.dispatch(closeDialog())}
+      />
     </CarrerMapEditorProvider>
   )
 }

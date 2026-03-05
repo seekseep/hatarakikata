@@ -9,7 +9,7 @@ import CareerQuestionPlaceholderItem from "../../CareerQuestionPlaceholderItem"
 import CarrerMapCanvasGrid from "../../CarrerMapCanvasGrid"
 import CarrerMapCanvasItem from "../../CarrerMapCanvasItem"
 import CarrerMapCanvasRuler from "../../CarrerMapCanvasRuler"
-import { eventToRect, questionToRect } from "../../utils/timelineMapping"
+import { computeEventRect, computeQuestionRect } from "../../utils/timelineMapping"
 import { computeEventDisplayRect, computeEventPreviewDates } from "./helpers"
 import { useCarrerMapCanvas } from "./hooks"
 
@@ -63,7 +63,7 @@ export default function CarrerMapCanvas() {
 
         {/* Events */}
         {events.map((event) => {
-          const rect = eventToRect(event, config)
+          const rect = computeEventRect(event, config)
           const displayRect = computeEventDisplayRect(event.id, rect, mode, previewRect)
           const isDragging = rect !== displayRect
           const { previewStartDate, previewEndDate } = computeEventPreviewDates(event.id, mode, previewRect, config)
@@ -90,7 +90,7 @@ export default function CarrerMapCanvas() {
                   const additionalEvents = dragMode === 'move' && selectedEventIds.has(event.id) && selectedEventIds.size > 1
                     ? events
                         .filter(ev => selectedEventIds.has(ev.id) && ev.id !== event.id)
-                        .map(ev => ({ eventId: ev.id, startRect: eventToRect(ev, config), originalEvent: ev }))
+                        .map(ev => ({ eventId: ev.id, startRect: computeEventRect(ev, config), originalEvent: ev }))
                     : []
                   handleDragStart(e, dragMode, event, rect, additionalEvents)
                 }}
@@ -104,7 +104,7 @@ export default function CarrerMapCanvas() {
 
         {/* Question placeholders */}
         {openQuestionsWithPosition.map((question) => {
-          const rect = questionToRect(question, config)
+          const rect = computeQuestionRect(question, config)
           return (
             <CarrerMapCanvasItem
               key={`question-${question.id}`}

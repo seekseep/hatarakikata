@@ -18,4 +18,6 @@ export type ScaleDisplayConfig = {
   groupMonths: number
   /** 目盛り1つ分の幅（px） */
   tickWidthPx: number
+  /** ヘッダーが占める行数 */
+  headerRows: number
 }

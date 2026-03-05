@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useMemo, useReducer, useState } from "react"
+import { useCallback, useEffect, useMemo, useReducer, useState } from "react"
 
 import type { CareerEvent, CareerEventPayload, CareerMap } from "@/core/domain"
 import type {
@@ -21,7 +21,11 @@ import type { DraggedEventInfo, DragMode, EditorMode } from "./EditorState"
 import { initialEditorState } from "./EditorState"
 import { useDragInteraction } from "./useDragInteraction"
 
-export type CarrerMapEditorStatus = 'loading' | 'required-start-date' | 'ready'
+export type CarrerMapEditorStatus = 'loading' | 'ready' | 'error'
+
+function isNotFound(error: unknown): boolean {
+  return !!error && typeof error === 'object' && 'status' in error && (error as { status: number }).status === 404
+}
 
 // Re-export for consumers
 export type { CreatePrefill } from "./EditorState"
@@ -94,9 +98,19 @@ export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMa
   // Derive status
   const status: CarrerMapEditorStatus = useMemo(() => {
     if (careerMapQuery.isLoading || careerEventsQuery.isLoading) return 'loading'
-    if (!careerMap?.startDate) return 'required-start-date'
+    const mapError = careerMapQuery.error
+    const eventsError = careerEventsQuery.error
+    if (mapError && !isNotFound(mapError)) return 'error'
+    if (eventsError && !isNotFound(eventsError)) return 'error'
     return 'ready'
-  }, [careerMapQuery.isLoading, careerEventsQuery.isLoading, careerMap?.startDate])
+  }, [careerMapQuery.isLoading, careerEventsQuery.isLoading, careerMapQuery.error, careerEventsQuery.error])
+
+  // Auto-transition to required-start-date mode
+  useEffect(() => {
+    if (status === 'ready' && !careerMap?.startDate && editorState.mode.type === 'idle') {
+      dispatch({ type: 'ENTER_REQUIRED_START_DATE' })
+    }
+  }, [status, careerMap?.startDate, editorState.mode.type])
 
   // Compute timeline config
   const timelineConfig = useMemo(() => {

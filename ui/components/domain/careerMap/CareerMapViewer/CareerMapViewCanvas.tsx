@@ -9,7 +9,7 @@ import CarrerMapCanvasGrid from "../CarrerMapCanvasGrid"
 import CarrerMapCanvasItem from "../CarrerMapCanvasItem"
 import CarrerMapCanvasRuler from "../CarrerMapCanvasRuler"
 import type { TimelineConfig } from "../utils/constants"
-import { computeCanvasWidth, eventToRect } from "../utils/timelineMapping"
+import { computeCanvasWidth, computeEventRect } from "../utils/timelineMapping"
 
 type CareerMapViewCanvasProps = {
   careerMap: CareerMap & { startDate: string }
@@ -29,7 +29,7 @@ export default function CareerMapViewCanvas({ careerMap, events, timelineConfig:
   const maxEventBottom = useMemo(() => {
     let max = 0
     for (const event of events) {
-      const rect = eventToRect(event, config)
+      const rect = computeEventRect(event, config)
       const bottom = rect.y + rect.height
       if (bottom > max) max = bottom
     }
@@ -58,7 +58,7 @@ export default function CareerMapViewCanvas({ careerMap, events, timelineConfig:
         />
 
         {events.map((event) => {
-          const rect = eventToRect(event, config)
+          const rect = computeEventRect(event, config)
           const displayRect = rect
 
           return (

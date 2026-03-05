@@ -3,18 +3,20 @@
 import { useMemo } from "react"
 import { RiCloseLine } from "react-icons/ri"
 
+import Drawer from "@/ui/components/basic/Drawer"
 import Spinner from "@/ui/components/basic/Spinner"
 import { useMyCareerGuidesQuery } from "@/ui/hooks/careerGuide"
 
 import { openCareerGuideDetailDrawer } from "../actions/dialogActions"
 import { useCarrerMapEditorContext } from "../hooks/CarrerMapEditorContext"
 
-export default function CareerGuidesDrawer({ onClose }: { onClose: () => void }) {
+export default function CareerGuidesDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { dispatch } = useCarrerMapEditorContext()
   const careerGuidesQuery = useMyCareerGuidesQuery()
   const guides = useMemo(() => careerGuidesQuery.data ?? [], [careerGuidesQuery.data])
 
   return (
+    <Drawer open={open} onClose={onClose}>
     <div className="flex flex-col h-full">
       <div className="flex items-center justify-between px-4 py-3 border-b border-foreground/10">
         <button
@@ -65,5 +67,6 @@ export default function CareerGuidesDrawer({ onClose }: { onClose: () => void })
         </div>
       </div>
     </div>
+    </Drawer>
   )
 }

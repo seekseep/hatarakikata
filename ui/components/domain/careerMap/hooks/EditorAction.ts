@@ -59,6 +59,8 @@ export type OpenCareerGuideDetailDrawerAction = { type: 'OPEN_CAREER_GUIDE_DETAI
 
 export type OpenQuestionAnswerDialogAction = { type: 'OPEN_QUESTION_ANSWER_DIALOG'; question: CareerQuestion }
 
+export type EnterRequiredStartDateAction = { type: 'ENTER_REQUIRED_START_DATE' }
+
 export type CloseDialogAction = { type: 'CLOSE_DIALOG' }
 
 // --- Hover Actions ---
@@ -96,6 +98,7 @@ export type EditorAction =
   | OpenCareerGuidePromptDialogAction
   | OpenCareerGuidesDrawerAction
   | OpenCareerGuideDetailDrawerAction
+  | EnterRequiredStartDateAction
   | CloseDialogAction
   | HoverEventAction
   | UnhoverEventAction

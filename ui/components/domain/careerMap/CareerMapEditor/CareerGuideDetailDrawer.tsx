@@ -4,13 +4,16 @@ import { RiArrowLeftLine, RiExternalLinkLine } from "react-icons/ri"
 import ReactMarkdown from "react-markdown"
 
 import type { CareerGuideNextAction } from "@/core/domain"
+import Drawer from "@/ui/components/basic/Drawer"
 import Spinner from "@/ui/components/basic/Spinner"
 import { useCareerGuideQuery } from "@/ui/hooks/careerGuide"
 
 export default function CareerGuideDetailDrawer({
+  open,
   guideId,
   onBack,
 }: {
+  open: boolean
   guideId: string
   onBack: () => void
 }) {
@@ -18,6 +21,7 @@ export default function CareerGuideDetailDrawer({
   const guide = guideQuery.data
 
   return (
+    <Drawer open={open} onClose={onBack} fullWidth>
     <div className="flex flex-col h-full">
       <div className="flex items-center gap-2 px-4 py-3 border-b border-foreground/10 shrink-0">
         <button
@@ -73,5 +77,6 @@ export default function CareerGuideDetailDrawer({
         )}
       </div>
     </div>
+    </Drawer>
   )
 }

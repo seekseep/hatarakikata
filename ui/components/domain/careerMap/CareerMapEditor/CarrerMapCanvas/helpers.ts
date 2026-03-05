@@ -1,7 +1,7 @@
 import type { EditorMode } from "../../hooks/EditorState"
+import type { TimelineConfig } from "../../utils/constants"
 import type { Rect } from "../../utils/timelineMapping"
 import { xToDate } from "../../utils/timelineMapping"
-import type { TimelineConfig } from "../../utils/constants"
 
 export function computeEventDisplayRect(
   eventId: string,
@@ -16,11 +16,11 @@ export function computeEventDisplayRect(
 
   // Additional dragging event (multi-select move)
   if (mode.dragMode === 'move') {
-    const ae = mode.drag.additionalEvents.find(ae => ae.eventId === eventId)
-    if (ae) {
+    const additionalEvent = mode.drag.additionalEvents.find(e => e.eventId === eventId)
+    if (additionalEvent) {
       const dx = previewRect.x - mode.drag.startRect.x
       const dy = previewRect.y - mode.drag.startRect.y
-      return { x: ae.startRect.x + dx, y: ae.startRect.y + dy, width: ae.startRect.width, height: ae.startRect.height }
+      return { x: additionalEvent.startRect.x + dx, y: additionalEvent.startRect.y + dy, width: additionalEvent.startRect.width, height: additionalEvent.startRect.height }
     }
   }
 
@@ -47,12 +47,12 @@ export function computeEventPreviewDates(
 
   // Additional dragging event (multi-select move)
   if (mode.dragMode === 'move') {
-    const ae = mode.drag.additionalEvents.find(ae => ae.eventId === eventId)
-    if (ae) {
+    const additionalEvent = mode.drag.additionalEvents.find(e => e.eventId === eventId)
+    if (additionalEvent) {
       const dx = previewRect.x - mode.drag.startRect.x
       return {
-        previewStartDate: xToDate(ae.startRect.x + dx, config),
-        previewEndDate: xToDate(ae.startRect.x + ae.startRect.width + dx, config),
+        previewStartDate: xToDate(additionalEvent.startRect.x + dx, config),
+        previewEndDate: xToDate(additionalEvent.startRect.x + additionalEvent.startRect.width + dx, config),
       }
     }
   }
