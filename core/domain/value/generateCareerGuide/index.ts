@@ -6,7 +6,7 @@ export const GeneratedCareerGuideSectionSchema = z.object({
 })
 
 export const GeneratedCareerGuideActionSchema = z.object({
-  type: z.enum(["learning", "job-change"]).default("learning"),
+  type: z.enum(["job-change", "course", "book", "community", "app"]).default("book"),
   title: z.string(),
   description: z.string(),
   url: z.string(),

@@ -12,7 +12,7 @@ import {
 import { useCareerMapQuery, useUpdateCareerMapMutation } from "@/ui/hooks/careerMap"
 import { useCareerQuestionsQuery, useInitializeQuestionsMutation } from "@/ui/hooks/careerQuestion"
 
-import { closeDialog, openConfirmDialog, openSearchDrawer, requestCreateCareerGuide } from "../actions/dialogActions"
+import { closeDialog, openCareerGuideDetailDrawer, openConfirmDialog, openSearchDrawer, requestCreateCareerGuide } from "../actions/dialogActions"
 import CarrerMapToolBar from "../CarrerMapToolBar"
 import { useCarrerMapEditor } from "../hooks/useCarrerMapEditor"
 import CareerGuideCreatingDialog from "./CareerGuideCreatingDialog"
@@ -175,6 +175,7 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
         baseCareerMapId={editor.state.mode.type === 'creating-career-guide' ? editor.state.mode.baseCareerMapId : ''}
         guideCareerMapId={careerMapId}
         onClose={() => editor.dispatch(closeDialog())}
+        onCreated={(guideId) => editor.dispatch(openCareerGuideDetailDrawer(guideId))}
       />
     </CarrerMapEditorProvider>
   )

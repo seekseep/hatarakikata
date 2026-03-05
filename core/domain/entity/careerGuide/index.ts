@@ -1,6 +1,6 @@
 import z from "zod"
 
-export const CareerGuideNextActionTypeSchema = z.enum(["job-change", "learning"])
+export const CareerGuideNextActionTypeSchema = z.enum(["job-change", "course", "book", "community", "app"])
 export type CareerGuideNextActionType = z.infer<typeof CareerGuideNextActionTypeSchema>
 
 export const CareerGuideNextActionSchema = z.object({

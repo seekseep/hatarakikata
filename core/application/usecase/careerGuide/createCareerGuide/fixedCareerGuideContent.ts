@@ -39,28 +39,34 @@ ${userName}さんのキャリア戦略を参考に、具体的な行動に落と
 export function getFixedCareerGuideNextActions(): CareerGuideNextAction[] {
   return [
     {
-      type: "learning",
-      title: "書籍『LIFE SHIFT』で人生100年時代のキャリア戦略を学ぶ",
-      description: "リンダ・グラットン著のベストセラー。マルチステージのキャリア設計や、無形資産（スキル・人脈・健康）への投資の重要性が具体的に解説されています。キャリアの「掛け合わせ」を考える土台になる一冊です。",
-      url: "https://www.amazon.co.jp/dp/4492533877",
+      type: "job-change",
+      title: "ビズリーチで自分の市場価値を確認する",
+      description: "登録するだけでスカウトが届くため、今の自分のスキルが転職市場でどう評価されるかを客観的に把握できます。「掛け合わせの強み」をプロフィールに書いて反応を見てみましょう。",
+      url: "https://www.bizreach.jp/",
     },
     {
-      type: "learning",
+      type: "course",
       title: "Udemyで「異業種転職・キャリアチェンジ」のスキルを身につける",
       description: "プログラミング・データ分析・デザインなど、今の仕事と掛け合わせる新しいスキルをオンラインで学べます。セール時は1,500円〜で受講可能。まずは興味のある分野の入門コースから始めてみましょう。",
       url: "https://www.udemy.com/courses/search/?q=%E3%82%AD%E3%83%A3%E3%83%AA%E3%82%A2%E3%83%81%E3%82%A7%E3%83%B3%E3%82%B8",
     },
     {
-      type: "learning",
-      title: "書籍『苦しかったときの話をしようか』で自分の強みを発見する",
-      description: "USJ再建で知られる森岡毅氏が、就活生の娘に向けて書いたキャリア戦略本。自分の「好き」を軸にしたキャリア設計の方法論が、ワークシート形式で実践的にまとめられています。",
-      url: "https://www.amazon.co.jp/dp/4478107823",
+      type: "book",
+      title: "書籍『LIFE SHIFT』で人生100年時代のキャリア戦略を学ぶ",
+      description: "リンダ・グラットン著のベストセラー。マルチステージのキャリア設計や、無形資産（スキル・人脈・健康）への投資の重要性が具体的に解説されています。キャリアの「掛け合わせ」を考える土台になる一冊です。",
+      url: "https://www.amazon.co.jp/dp/4492533877",
     },
     {
-      type: "job-change",
-      title: "ビズリーチで自分の市場価値を確認する",
-      description: "登録するだけでスカウトが届くため、今の自分のスキルが転職市場でどう評価されるかを客観的に把握できます。「掛け合わせの強み」をプロフィールに書いて反応を見てみましょう。",
-      url: "https://www.bizreach.jp/",
+      type: "community",
+      title: "connpassでキャリア系の勉強会・イベントに参加する",
+      description: "異業種の人と交流できる勉強会やLT会が多数開催されています。自分の分野以外の視点を得られるだけでなく、新しい人脈づくりにも最適です。",
+      url: "https://connpass.com/",
+    },
+    {
+      type: "app",
+      title: "Notionでキャリアの棚卸しを始める",
+      description: "自分のスキル・経験・強みをNotionで整理してみましょう。テンプレートも豊富で、キャリアマップや自己分析シートを作成するのに最適なツールです。",
+      url: "https://www.notion.so/",
     },
   ]
 }

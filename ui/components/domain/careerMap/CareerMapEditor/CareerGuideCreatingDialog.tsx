@@ -12,6 +12,7 @@ type CareerGuideCreatingDialogProps = {
   baseCareerMapId: string
   guideCareerMapId: string
   onClose: () => void
+  onCreated: (guideId: string) => void
 }
 
 export default function CareerGuideCreatingDialog({
@@ -19,6 +20,7 @@ export default function CareerGuideCreatingDialog({
   baseCareerMapId,
   guideCareerMapId,
   onClose,
+  onCreated,
 }: CareerGuideCreatingDialogProps) {
   const createMutation = useCreateCareerGuideMutation()
   const careerGuidesQuery = useMyCareerGuidesQuery()
@@ -30,9 +32,9 @@ export default function CareerGuideCreatingDialog({
       createMutation.mutate(
         { baseCareerMapId, guideCareerMapId },
         {
-          onSuccess: () => {
+          onSuccess: (data) => {
             careerGuidesQuery.refetch()
-            onClose()
+            onCreated(data.id)
           },
         },
       )

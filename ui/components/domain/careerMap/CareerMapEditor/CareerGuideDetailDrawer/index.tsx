@@ -1,12 +1,13 @@
 "use client"
 
-import { RiArrowLeftLine, RiExternalLinkLine } from "react-icons/ri"
-import ReactMarkdown from "react-markdown"
+import { RiArrowLeftLine } from "react-icons/ri"
 
-import type { CareerGuideNextAction } from "@/core/domain"
 import Drawer from "@/ui/components/basic/Drawer"
+import MarkdownRenderer from "@/ui/components/basic/MarkdownRenderer"
 import Spinner from "@/ui/components/basic/Spinner"
 import { useCareerGuideQuery } from "@/ui/hooks/careerGuide"
+
+import CareerGuideNextActionLink from "./CareerGuideNextActionLink"
 
 export default function CareerGuideDetailDrawer({
   open,
@@ -44,32 +45,13 @@ export default function CareerGuideDetailDrawer({
 
         {guide && (
           <div className="p-6 max-w-2xl mx-auto w-full">
-            <div className="prose prose-sm max-w-none">
-              <ReactMarkdown>{guide.content}</ReactMarkdown>
-            </div>
+            <MarkdownRenderer>{guide.content}</MarkdownRenderer>
 
             <div className="mt-8 border-t border-foreground/10 pt-6">
               <h3 className="text-base font-bold mb-4">取るべきアクション</h3>
               <div className="flex flex-col gap-3">
-                {guide.nextActions.map((action: CareerGuideNextAction, index: number) => (
-                  <a
-                    key={index}
-                    href={action.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-start gap-3 rounded-lg border border-foreground/10 px-4 py-3 hover:bg-foreground/5 transition-colors"
-                  >
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs px-2 py-0.5 rounded-full bg-foreground/5 text-foreground/60">
-                          {action.type === "learning" ? "学習" : "転職"}
-                        </span>
-                        <span className="text-sm font-semibold text-foreground/80">{action.title}</span>
-                      </div>
-                      <p className="text-xs text-foreground/60 mt-1">{action.description}</p>
-                    </div>
-                    <RiExternalLinkLine className="text-foreground/40 shrink-0 mt-1" size={16} />
-                  </a>
+                {guide.nextActions.map((action, index) => (
+                  <CareerGuideNextActionLink key={index} action={action} />
                 ))}
               </div>
             </div>

@@ -83,7 +83,7 @@ export function makeCreateCareerGuide({
 
     const content = sectionsToMarkdown(guideResult.data.content.sections)
     const nextActions = guideResult.data.actions.map((a) => ({
-      type: a.type as "learning" | "job-change",
+      type: a.type as "job-change" | "course" | "book" | "community" | "app",
       title: a.title,
       description: a.description,
       url: a.url,
