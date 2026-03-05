@@ -1,5 +1,6 @@
 "use client"
 
+import clsx from "clsx"
 import type { PointerEvent } from "react"
 import { RiEditLine } from "react-icons/ri"
 
@@ -69,36 +70,35 @@ export default function CareerMapEventItem({
 
   return (
     <div className="w-full h-full relative" onPointerEnter={onPointerEnter} onPointerLeave={onPointerLeave}>
-      <div className={[
-        "left-0 mb-0.75 right-0 bottom-full absolute text-xs flex justify-between transition-opacity z-50",
-        isHovered === true ? "opacity-100" : "opacity-0",
-      ].join(" ")}>
-        <div className="bg-gray-50 rounded sticky left-0 px-1">{startAge}歳</div>
-        <div className="bg-gray-50 rounded sticky right-0 px-1">{endAge}歳</div>
-      </div>
-      <div className={[
-        "left-0 right-0 top-full absolute text-xs flex justify-between transition-opacity",
-        isHovered === false ? "opacity-0" : "opacity-100",
-      ].join(" ")}>
+      <div className={clsx(
+        "left-0 right-0 bottom-full absolute text-xs flex justify-between transition",
+        { "opacity-0": isHovered === false, "opacity-100": isHovered !== false, "text-gray-400": isHovered !== true, "text-gray-700": isHovered === true },
+      )}>
         <div className="bg-gray-50 rounded sticky left-0 px-1 truncate">{startMonth}</div>
         <div className="bg-gray-50 rounded sticky right-0 px-1 truncate">{endMonth}</div>
       </div>
+      <div className={clsx(
+        "left-0 mb-0.75 right-0 top-full absolute text-xs flex justify-between transition z-50",
+        { "opacity-100": isHovered === true, "opacity-0": isHovered !== true, "text-gray-700": isHovered === true, "text-gray-400": isHovered !== true },
+      )}>
+        <div className="bg-gray-50 rounded sticky left-0 px-1">{startAge}歳</div>
+        <div className="bg-gray-50 rounded sticky right-0 px-1">{endAge}歳</div>
+      </div>
       <div
-        className={[
+        className={clsx(
           "w-full h-full rounded border select-none flex flex-col relative",
           colorClasses,
-          isDragging ? "opacity-70 shadow-lg z-50" : "",
-          isSelected ? "ring-2 ring-primary-500 border-primary-500" : "",
-        ].filter(Boolean).join(" ")}
+          { "opacity-70 shadow-lg z-50": isDragging, "ring-2 ring-primary-500 border-primary-500": isSelected },
+        )}
         onClick={(e) => { e.stopPropagation(); onSelect(e) }}
       >
         {!readOnly && onEdit && (
           <button
             type="button"
-            className={[
+            className={clsx(
               "absolute z-20 rounded transition-opacity cursor-pointer hover:bg-black/10 flex items-center justify-center",
-              isHovered === true ? "opacity-100" : "opacity-0",
-            ].join(" ")}
+              { "opacity-100": isHovered === true, "opacity-0": isHovered !== true },
+            )}
             style={{ top: editButtonOffset, right: editButtonOffset, width: editButtonSize, height: editButtonSize }}
             onClick={(e) => { e.stopPropagation(); onEdit() }}
           >
@@ -115,10 +115,10 @@ export default function CareerMapEventItem({
         )}
 
         <div
-          className={[
+          className={clsx(
             "flex-1 px-2 py-1 overflow-x-clip flex items-center justify-center",
             readOnly ? "cursor-pointer" : "cursor-grab active:cursor-grabbing",
-          ].filter(Boolean).join(" ")}
+          )}
           onPointerDown={!readOnly && onDragStart ? (e) => onDragStart(e, "move") : undefined}
         >
           <span className="text-xs font-medium truncate pointer-events-none select-none sticky left-0 right-0 px-1">
