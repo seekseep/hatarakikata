@@ -1,45 +1,64 @@
+import { z } from "zod"
+
 import { CareerQuestion } from "@/core/domain"
 import { QUESTION_BUILDERS } from "@/core/domain/service/careerQuestion/builder"
-import { AppResult, failAsForbiddenError, failAsInvalidParametersError, succeed } from "@/core/util/appResult"
+import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError, succeed } from "@/core/util/appResult"
 
 import { Executor } from "../../executor"
 import { CreateCareerQuestionCommand } from "../../port/command"
-import { ListCareerMapByUserIdQuery, ListCareerQuestionsByUserIdQuery } from "../../port/query"
+import { FindCareerMapQuery, ListCareerQuestionsByCareerMapIdQuery } from "../../port/query"
+
+const InitializeQuestionsParametersSchema = z.object({
+  careerMapId: z.string(),
+})
+
+export type InitializeQuestionsParametersInput = z.input<typeof InitializeQuestionsParametersSchema>
 
 export type InitializeQuestionsForUser = (
+  input: InitializeQuestionsParametersInput,
   executor: Executor
 ) => Promise<AppResult<CareerQuestion[]>>
 
 export type MakeInitializeQuestionsForUserDependencies = {
   createCareerQuestionCommand: CreateCareerQuestionCommand
-  listCareerQuestionsByUserIdQuery: ListCareerQuestionsByUserIdQuery
-  listCareerMapByUserIdQuery: ListCareerMapByUserIdQuery
+  listCareerQuestionsByCareerMapIdQuery: ListCareerQuestionsByCareerMapIdQuery
+  findCareerMapQuery: FindCareerMapQuery
 }
 
 export function makeInitializeQuestionsForUser({
   createCareerQuestionCommand,
-  listCareerQuestionsByUserIdQuery,
-  listCareerMapByUserIdQuery,
+  listCareerQuestionsByCareerMapIdQuery,
+  findCareerMapQuery,
 }: MakeInitializeQuestionsForUserDependencies): InitializeQuestionsForUser {
-  return async (executor) => {
+  return async (input, executor) => {
+    const validation = InitializeQuestionsParametersSchema.safeParse(input)
+    if (!validation.success)
+      return failAsInvalidParametersError(validation.error.message, validation.error)
+
     if (executor.type !== "user" || executor.userType !== "general")
       return failAsForbiddenError("Forbidden")
 
-    const existingResult = await listCareerQuestionsByUserIdQuery({ userId: executor.user.id })
+    const { careerMapId } = validation.data
+
+    const careerMapResult = await findCareerMapQuery({ id: careerMapId })
+    if (!careerMapResult.success) return careerMapResult
+    if (!careerMapResult.data) return failAsNotFoundError("Career map not found")
+    if (careerMapResult.data.userId !== executor.user.id)
+      return failAsForbiddenError("Forbidden")
+
+    const careerMap = careerMapResult.data
+
+    const existingResult = await listCareerQuestionsByCareerMapIdQuery({ careerMapId })
     if (!existingResult.success) return existingResult
     if (existingResult.data.length > 0)
-      return failAsInvalidParametersError("Questions already initialized for this user")
-
-    const careerMapsResult = await listCareerMapByUserIdQuery({ userId: executor.user.id })
-    if (!careerMapsResult.success) return careerMapsResult
-    const careerMap = careerMapsResult.data.items[0]
+      return failAsInvalidParametersError("Questions already initialized for this career map")
 
     const createdQuestions: CareerQuestion[] = []
     for (const builder of QUESTION_BUILDERS) {
       const questionData = builder({ user: executor.user, careerMap })
 
       const result = await createCareerQuestionCommand({
-        userId: executor.user.id,
+        careerMapId,
         name: questionData.name,
         title: questionData.title,
         status: "open",

@@ -5,7 +5,7 @@ import type { CareerQuestionRow } from "../schemas"
 export function careerQuestionRowToEntity(row: CareerQuestionRow): CareerQuestion {
   return {
     id: row.id,
-    userId: row.user_id,
+    careerMapId: row.career_map_id,
     name: row.name,
     title: row.title,
     status: row.status,

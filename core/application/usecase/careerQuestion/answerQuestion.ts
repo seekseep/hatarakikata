@@ -6,7 +6,7 @@ import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNo
 import { Executor } from "../../executor"
 import { CreateCareerEventCommand } from "../../port/command"
 import { UpdateCareerQuestionCommand } from "../../port/command"
-import { FindCareerQuestionQuery, ListCareerMapByUserIdQuery } from "../../port/query"
+import { FindCareerMapQuery, FindCareerQuestionQuery } from "../../port/query"
 
 const AnswerQuestionParametersSchema = CareerQuestionKeySchema.extend({
   answer: z.record(z.string(), z.unknown()),
@@ -23,7 +23,7 @@ export type MakeAnswerQuestionDependencies = {
   findCareerQuestionQuery: FindCareerQuestionQuery
   updateCareerQuestionCommand: UpdateCareerQuestionCommand
   createCareerEventCommand: CreateCareerEventCommand
-  listCareerMapByUserIdQuery: ListCareerMapByUserIdQuery
+  findCareerMapQuery: FindCareerMapQuery
 }
 
 // CareerEvent 作成パラメータを生成する関数型
@@ -64,7 +64,7 @@ export function makeAnswerQuestion({
   findCareerQuestionQuery,
   updateCareerQuestionCommand,
   createCareerEventCommand,
-  listCareerMapByUserIdQuery,
+  findCareerMapQuery,
 }: MakeAnswerQuestionDependencies): AnswerQuestion {
   return async (input, executor) => {
     const validation = AnswerQuestionParametersSchema.safeParse(input)
@@ -83,21 +83,18 @@ export function makeAnswerQuestion({
 
     const question = findResult.data
 
-    // Authorization
-    if (question.userId !== executor.user.id)
+    // Authorization: verify the career map belongs to the user
+    const careerMapResult = await findCareerMapQuery({ id: question.careerMapId })
+    if (!careerMapResult.success) return careerMapResult
+    if (!careerMapResult.data) return failAsNotFoundError("Career map not found")
+    if (careerMapResult.data.userId !== executor.user.id)
       return failAsForbiddenError("Forbidden")
 
     // Question must be open
     if (question.status !== "open")
       return failAsInvalidParametersError("Question is already closed")
 
-    // Get the user's career map
-    const careerMapsResult = await listCareerMapByUserIdQuery({ userId: executor.user.id })
-    if (!careerMapsResult.success) return careerMapsResult
-    if (careerMapsResult.data.items.length === 0)
-      return failAsNotFoundError("No career map found for user")
-
-    const careerMapId = careerMapsResult.data.items[0].id
+    const careerMapId = question.careerMapId
 
     // name に基づいてハンドラーを選択
     const creator = CAREER_EVENT_CREATORS[question.name] ?? defaultCareerEventCreator

@@ -5,7 +5,7 @@ import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNo
 
 import { Executor } from "../../executor"
 import { UpdateCareerQuestionCommand } from "../../port/command"
-import { FindCareerQuestionQuery } from "../../port/query"
+import { FindCareerMapQuery, FindCareerQuestionQuery } from "../../port/query"
 
 const CloseQuestionParametersSchema = CareerQuestionKeySchema
 
@@ -19,11 +19,13 @@ export type CloseQuestion = (
 export type MakeCloseQuestionDependencies = {
   findCareerQuestionQuery: FindCareerQuestionQuery
   updateCareerQuestionCommand: UpdateCareerQuestionCommand
+  findCareerMapQuery: FindCareerMapQuery
 }
 
 export function makeCloseQuestion({
   findCareerQuestionQuery,
   updateCareerQuestionCommand,
+  findCareerMapQuery,
 }: MakeCloseQuestionDependencies): CloseQuestion {
   return async (input, executor) => {
     const validation = CloseQuestionParametersSchema.safeParse(input)
@@ -41,7 +43,11 @@ export function makeCloseQuestion({
 
     const question = findResult.data
 
-    if (question.userId !== executor.user.id)
+    // Authorization: verify the career map belongs to the user
+    const careerMapResult = await findCareerMapQuery({ id: question.careerMapId })
+    if (!careerMapResult.success) return careerMapResult
+    if (!careerMapResult.data) return failAsNotFoundError("Career map not found")
+    if (careerMapResult.data.userId !== executor.user.id)
       return failAsForbiddenError("Forbidden")
 
     if (question.status !== "open")

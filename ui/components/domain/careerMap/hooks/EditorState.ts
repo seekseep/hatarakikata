@@ -75,12 +75,14 @@ export type EditorMode =
 
 export type EditorState = {
   events: CareerEvent[]
+  questions: CareerQuestion[]
   mode: EditorMode
   hoveredEventId: string | null
 }
 
 export const initialEditorState: EditorState = {
   events: [],
+  questions: [],
   mode: { type: 'idle' },
   hoveredEventId: null,
 }

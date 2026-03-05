@@ -63,6 +63,18 @@ export type EnterRequiredStartDateAction = { type: 'ENTER_REQUIRED_START_DATE' }
 
 export type CloseDialogAction = { type: 'CLOSE_DIALOG' }
 
+// --- Question Actions ---
+
+export type SetQuestionsAction = { type: 'SET_QUESTIONS'; questions: CareerQuestion[] }
+
+export type StartProcessQuestionAction = { type: 'START_PROCESS_QUESTION'; questionId: string }
+
+export type RevertProcessQuestionAction = { type: 'REVERT_PROCESS_QUESTION'; questionId: string }
+
+export type AnswerQuestionAction = { type: 'ANSWER_QUESTION'; questionId: string }
+
+export type CloseQuestionAction = { type: 'CLOSE_QUESTION'; questionId: string }
+
 // --- Hover Actions ---
 
 export type HoverEventAction = { type: 'HOVER_EVENT'; eventId: string }
@@ -100,5 +112,10 @@ export type EditorAction =
   | OpenCareerGuideDetailDrawerAction
   | EnterRequiredStartDateAction
   | CloseDialogAction
+  | SetQuestionsAction
+  | StartProcessQuestionAction
+  | RevertProcessQuestionAction
+  | AnswerQuestionAction
+  | CloseQuestionAction
   | HoverEventAction
   | UnhoverEventAction

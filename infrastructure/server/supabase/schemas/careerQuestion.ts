@@ -2,7 +2,7 @@ import { z } from "zod"
 
 export const CareerQuestionRowSchema = z.object({
   id: z.string(),
-  user_id: z.string(),
+  career_map_id: z.string(),
   name: z.string(),
   title: z.string(),
   status: z.enum(["open", "closed"]),

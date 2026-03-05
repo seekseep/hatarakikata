@@ -2,8 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
-import { useCareerQuestionsQuery } from "@/ui/hooks/careerQuestion"
-
 import { openCreateDialog } from "../../actions/dialogActions"
 import { enterIdle } from "../../actions/modeActions"
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
@@ -11,27 +9,41 @@ import { SCALE_DISPLAY_CONFIG } from "../../utils/constants"
 import { computeCanvasHeight, computeCanvasWidth, computeMaxEventBottom, computePlaceholderRect, xToDate, yToRow } from "../../utils/timelineMapping"
 
 export function useCarrerMapCanvas() {
-  const { state: { events, careerMap, timelineConfig: config, scale, mode, hoveredEventId }, dispatch, deleteEvent, handleDragStart, handleDragMove, handleDragEnd } = useCarrerMapEditorContext()
+  const {
+    state: {
+      events,
+      careerMap,
+      questions,
+      timeline,
+      scale,
+      mode,
+      hoveredEventId
+    },
+    dispatch,
+    deleteEvent,
+    handleDragStart,
+    handleDragMove,
+    handleDragEnd
+  } = useCarrerMapEditorContext()
 
-  const questionsQuery = useCareerQuestionsQuery()
   const openQuestionsWithPosition = useMemo(() =>
-    (questionsQuery.data ?? []).filter(
+    questions.filter(
       (q): q is typeof q & { startDate: string; endDate: string } =>
-        q.status === "open" && !!q.startDate && !!q.endDate
+        q.status !== "closed" && !!q.startDate && !!q.endDate
     ),
-    [questionsQuery.data]
+    [questions]
   )
 
   const scrollRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLDivElement>(null)
 
-  const canvasWidth = computeCanvasWidth(config)
-  const headerPx = config.headerHeightInUnits * config.unit
-  const rowHeight = config.rowHeightInUnits * config.unit
+  const canvasWidth = computeCanvasWidth(timeline)
+  const headerPx = timeline.headerHeightInUnits * timeline.unit
+  const rowHeight = timeline.rowHeightInUnits * timeline.unit
 
   const maxEventBottom = useMemo(() =>
-    computeMaxEventBottom(events, openQuestionsWithPosition, config),
-    [events, config, openQuestionsWithPosition]
+    computeMaxEventBottom(events, openQuestionsWithPosition, timeline),
+    [events, timeline, openQuestionsWithPosition]
   )
 
   const canvasHeight = computeCanvasHeight(headerPx, maxEventBottom, rowHeight)
@@ -89,19 +101,19 @@ export function useCarrerMapCanvas() {
       return
     }
 
-    setPlaceholderRect(computePlaceholderRect(canvasX, canvasY, tickWidthPx, config))
-  }, [handleDragMove, isPlacement, headerPx, tickWidthPx, config])
+    setPlaceholderRect(computePlaceholderRect(canvasX, canvasY, tickWidthPx, timeline))
+  }, [handleDragMove, isPlacement, headerPx, tickWidthPx, timeline])
 
   const handleCanvasClick = useCallback((e: React.MouseEvent) => {
     if (isPlacement) {
       if (!placeholderRect) return
-      const startDate = xToDate(placeholderRect.x, config)
-      const endDate = xToDate(placeholderRect.x + placeholderRect.width, config)
+      const startDate = xToDate(placeholderRect.x, timeline)
+      const endDate = xToDate(placeholderRect.x + placeholderRect.width, timeline)
       const canvasEl = canvasRef.current
       if (!canvasEl) return
       const rect = canvasEl.getBoundingClientRect()
       const canvasY = e.clientY - rect.top
-      const row = yToRow(canvasY, config)
+      const row = yToRow(canvasY, timeline)
 
       dispatch(openCreateDialog({ row, startDate, endDate }))
       setPlaceholderRect(null)
@@ -109,7 +121,7 @@ export function useCarrerMapCanvas() {
     }
     // Deselect when clicking empty canvas area
     dispatch(enterIdle())
-  }, [isPlacement, placeholderRect, config, dispatch])
+  }, [isPlacement, placeholderRect, timeline, dispatch])
 
   const handleCanvasPointerUp = useCallback((e: React.PointerEvent) => {
     handleDragEnd(e)
@@ -119,7 +131,7 @@ export function useCarrerMapCanvas() {
     // State
     events,
     careerMap,
-    config,
+    timeline,
     scale,
     mode,
     hoveredEventId,

@@ -47,8 +47,8 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
   const updateCareerEventMutation = useUpdateCareerEventMutation()
   const deleteCareerEventMutation = useDeleteCareerEventMutation()
 
-  const questionsQuery = useCareerQuestionsQuery()
-  const initQuestionsMutation = useInitializeQuestionsMutation()
+  const questionsQuery = useCareerQuestionsQuery(careerMapId)
+  const initQuestionsMutation = useInitializeQuestionsMutation(careerMapId)
 
   const needsQuestionInit =
     questionsQuery.error &&
@@ -66,6 +66,7 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
     careerMapId,
     careerMapQuery,
     careerEventsQuery,
+    questionsQuery,
     updateCareerMapMutation,
     createCareerEventMutation,
     updateCareerEventMutation,

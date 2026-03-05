@@ -9,6 +9,7 @@ import Dialog from "@/ui/components/basic/dialog/Dialog"
 import { useAnswerQuestionMutation } from "@/ui/hooks/careerQuestion"
 
 import { addEvent } from "../../actions/eventActions"
+import { answerQuestion, revertProcessQuestion, startProcessQuestion } from "../../actions/questionActions"
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 import ConditionAwareField from "./ConditionAwareField"
 
@@ -24,7 +25,7 @@ export default function CareerQuestionAnswerDialog({
   onClose,
 }: CareerQuestionAnswerDialogProps) {
   const { dispatch } = useCarrerMapEditorContext()
-  const answerMutation = useAnswerQuestionMutation()
+  const answerMutation = useAnswerQuestionMutation(question?.careerMapId ?? '')
 
   const methods = useForm()
   const { handleSubmit, reset } = methods
@@ -48,12 +49,17 @@ export default function CareerQuestionAnswerDialog({
   const onSubmit = handleSubmit((data) => {
     if (!question) return
 
+    dispatch(startProcessQuestion(question.id))
     answerMutation.mutate(
       { id: question.id, answer: data },
       {
         onSuccess: (event) => {
           dispatch(addEvent(event))
+          dispatch(answerQuestion(question.id))
           onClose()
+        },
+        onError: () => {
+          dispatch(revertProcessQuestion(question.id))
         },
       },
     )

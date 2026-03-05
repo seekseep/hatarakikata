@@ -5,13 +5,10 @@ import { RiCloseLine } from "react-icons/ri"
 
 import type { CareerQuestion } from "@/core/domain"
 import Drawer from "@/ui/components/basic/Drawer"
-import Spinner from "@/ui/components/basic/Spinner"
-import {
-  useCareerQuestionsQuery,
-  useCloseQuestionMutation,
-} from "@/ui/hooks/careerQuestion"
 
+import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 import CareerQuestionAnswerDialog from "../CareerQuestionAnswerDialog"
+import CareerQuestionItem from "./CareerQuestionItem"
 
 type CareerQuestionDrawerProps = {
   open: boolean
@@ -19,14 +16,10 @@ type CareerQuestionDrawerProps = {
 }
 
 export default function CareerQuestionDrawer({ open, onClose }: CareerQuestionDrawerProps) {
-  const questionsQuery = useCareerQuestionsQuery()
-  const closeMutation = useCloseQuestionMutation()
+  const { state: { questions } } = useCarrerMapEditorContext()
   const [selectedQuestion, setSelectedQuestion] = useState<CareerQuestion | null>(null)
 
-  const questions = questionsQuery.data ?? []
-  const openQuestions = questions.filter((q) => q.status === "open")
-
-  const isLoading = questionsQuery.isLoading
+  const openQuestions = questions.filter((q) => q.status !== "closed")
 
   return (
     <Drawer open={open} onClose={onClose}>
@@ -45,35 +38,18 @@ export default function CareerQuestionDrawer({ open, onClose }: CareerQuestionDr
         </div>
 
         <div className="flex-1 overflow-y-auto">
-          {isLoading ? (
-            <div className="flex items-center justify-center py-12">
-              <Spinner />
-            </div>
-          ) : openQuestions.length === 0 ? (
+          {openQuestions.length === 0 ? (
             <p className="text-sm text-foreground/50 text-center py-12">
               未回答の質問はありません
             </p>
           ) : (
             <ul className="flex flex-col py-4">
               {openQuestions.map((q) => (
-                <li key={q.id} className="flex gap-2 border-b border-b-foreground/5">
-                  <div className="grow">
-                    <button
-                      className="font-medium hover:underline pl-4 pr-2 py-3 cursor-pointer hover:text-primary-500"
-                      onClick={() => setSelectedQuestion(q)}>
-                      {q.title}
-                    </button>
-                  </div>
-                  <button
-                    type="button"
-                    className="p-1.5 w-12 flex items-center justify-center hover:bg-foreground/10 transition-colors text-foreground/40 hover:text-foreground/70"
-                    aria-label="質問を閉じる"
-                    disabled={closeMutation.isPending}
-                    onClick={() => closeMutation.mutate(q.id)}
-                  >
-                    <RiCloseLine size={16} />
-                  </button>
-                </li>
+                <CareerQuestionItem
+                  key={q.id}
+                  question={q}
+                  onSelect={setSelectedQuestion}
+                />
               ))}
             </ul>
           )}

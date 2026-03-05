@@ -135,6 +135,43 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
     case 'CLOSE_DIALOG':
       return { ...state, mode: { type: 'idle' } }
 
+    // --- Question mutations ---
+
+    case 'SET_QUESTIONS':
+      return { ...state, questions: action.questions }
+
+    case 'START_PROCESS_QUESTION':
+      return {
+        ...state,
+        questions: state.questions.map(q =>
+          q.id === action.questionId ? { ...q, status: 'processing' as const } : q
+        ),
+      }
+
+    case 'REVERT_PROCESS_QUESTION':
+      return {
+        ...state,
+        questions: state.questions.map(q =>
+          q.id === action.questionId ? { ...q, status: 'open' as const } : q
+        ),
+      }
+
+    case 'ANSWER_QUESTION':
+      return {
+        ...state,
+        questions: state.questions.map(q =>
+          q.id === action.questionId ? { ...q, status: 'closed' as const } : q
+        ),
+      }
+
+    case 'CLOSE_QUESTION':
+      return {
+        ...state,
+        questions: state.questions.map(q =>
+          q.id === action.questionId ? { ...q, status: 'closed' as const } : q
+        ),
+      }
+
     // --- Hover ---
 
     case 'HOVER_EVENT':

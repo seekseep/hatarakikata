@@ -3,5 +3,5 @@ export { findCareerGuideQuery, listCareerGuidesByUserIdQuery } from './careerGui
 export { findCareerMapQuery, listAllCareerMapIdsQuery, listCareerMapByUserIdQuery, listCareerMapsExcludingUserQuery } from './careerMap'
 export { findCareerMapEventTagsByIdsQuery, listCareerMapEventTagsQuery } from './careerMapEventTag'
 export { findCareerMapVectorQuery, matchCareerMapVectorsQuery } from './careerMapVector'
-export { findCareerQuestionQuery,listCareerQuestionsByUserIdQuery } from './careerQuestion'
+export { findCareerQuestionQuery, listCareerQuestionsByCareerMapIdQuery } from './careerQuestion'
 export { findUserByNameQuery, findUserQuery, listUserNamesQuery } from './user'

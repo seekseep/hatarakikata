@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useReducer, useState } from "react"
 
-import type { CareerEvent, CareerEventPayload, CareerMap } from "@/core/domain"
+import type { CareerEvent, CareerEventPayload, CareerMap, CareerQuestion } from "@/core/domain"
 import type {
   useCareerEventsByCareerMapIdQuery,
   useCreateCareerEventMutation,
@@ -10,8 +10,10 @@ import type {
   useUpdateCareerEventMutation,
 } from "@/ui/hooks/careerEvent"
 import type { useCareerMapQuery, useUpdateCareerMapMutation } from "@/ui/hooks/careerMap"
+import type { useCareerQuestionsQuery } from "@/ui/hooks/careerQuestion"
 
 import { addEvent, deleteEvent as deleteEventAction, replaceEvent, setEvents, updateEvent as updateEventAction } from "../actions/eventActions"
+import { setQuestions } from "../actions/questionActions"
 import { DEFAULT_TIMELINE_CONFIG, SCALE_DEFAULT, SCALE_MONTH_WIDTH_PX, type TimelineConfig } from "../utils/constants"
 import type { Rect } from "../utils/timelineMapping"
 import { computeHeaderHeightInUnits, computeTimelineConfig } from "../utils/timelineMapping"
@@ -34,6 +36,7 @@ export type UseCarrerMapEditorOptions = {
   careerMapId: string
   careerMapQuery: ReturnType<typeof useCareerMapQuery>
   careerEventsQuery: ReturnType<typeof useCareerEventsByCareerMapIdQuery>
+  questionsQuery: ReturnType<typeof useCareerQuestionsQuery>
   updateCareerMapMutation: ReturnType<typeof useUpdateCareerMapMutation>
   createCareerEventMutation: ReturnType<typeof useCreateCareerEventMutation>
   updateCareerEventMutation: ReturnType<typeof useUpdateCareerEventMutation>
@@ -45,8 +48,9 @@ export type CarrerMapEditorStoreState = {
   careerMapId: string
   careerMap: CareerMap | undefined
   events: CareerEvent[]
+  questions: CareerQuestion[]
   mode: EditorMode
-  timelineConfig: TimelineConfig
+  timeline: TimelineConfig
   error: Error | undefined
   scale: number
   hoveredEventId: string | null
@@ -71,6 +75,7 @@ export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMa
     careerMapId,
     careerMapQuery,
     careerEventsQuery,
+    questionsQuery,
     updateCareerMapMutation,
     createCareerEventMutation,
     updateCareerEventMutation,
@@ -85,13 +90,22 @@ export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMa
   // --- Independent state (orthogonal to mode) ---
   const [error, setError] = useState<Error | undefined>(undefined)
   const [scale, setScale] = useState(SCALE_DEFAULT)
-  const [prevQueryData, setPrevQueryData] = useState(careerEventsQuery.data)
+  const [prevEventsData, setPrevEventsData] = useState(careerEventsQuery.data)
+  const [prevQuestionsData, setPrevQuestionsData] = useState(questionsQuery.data)
 
-  // Sync from server data (update during render)
-  if (careerEventsQuery.data !== prevQueryData) {
-    setPrevQueryData(careerEventsQuery.data)
+  // Sync events from server data (update during render)
+  if (careerEventsQuery.data !== prevEventsData) {
+    setPrevEventsData(careerEventsQuery.data)
     if (careerEventsQuery.data) {
       dispatch(setEvents(careerEventsQuery.data.items))
+    }
+  }
+
+  // Sync questions from server data (update during render)
+  if (questionsQuery.data !== prevQuestionsData) {
+    setPrevQuestionsData(questionsQuery.data)
+    if (questionsQuery.data) {
+      dispatch(setQuestions(questionsQuery.data))
     }
   }
 
@@ -234,8 +248,9 @@ export function useCarrerMapEditor(options: UseCarrerMapEditorOptions): CarrerMa
       careerMapId,
       careerMap,
       events: editorState.events,
+      questions: editorState.questions,
       mode: editorState.mode,
-      timelineConfig,
+      timeline: timelineConfig,
       error: aggregatedError,
       scale,
       hoveredEventId: editorState.hoveredEventId,

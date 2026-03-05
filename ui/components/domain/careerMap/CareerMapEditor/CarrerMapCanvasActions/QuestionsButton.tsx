@@ -2,16 +2,13 @@
 
 import { RiChat3Line } from "react-icons/ri"
 
-import { useCareerQuestionsQuery } from "@/ui/hooks/careerQuestion"
-
 import { openQuestionsDrawer } from "../../actions/dialogActions"
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 import ActionButton from "./ActionButton"
 
 export default function QuestionsButton() {
-  const { dispatch } = useCarrerMapEditorContext()
-  const questionsQuery = useCareerQuestionsQuery()
-  const openQuestionCount = (questionsQuery.data ?? []).filter((q) => q.status === "open").length
+  const { dispatch, state: { questions } } = useCarrerMapEditorContext()
+  const openQuestionCount = questions.filter((q) => q.status === "open").length
 
   return (
     <ActionButton

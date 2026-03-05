@@ -10,7 +10,7 @@ export const createCareerQuestionCommand: CreateCareerQuestionCommand = async (p
     const { data, error } = await supabase
       .from('career_questions')
       .insert({
-        user_id: params.userId,
+        career_map_id: params.careerMapId,
         name: params.name,
         title: params.title,
         status: params.status ?? 'open',
@@ -19,7 +19,7 @@ export const createCareerQuestionCommand: CreateCareerQuestionCommand = async (p
         start_date: params.startDate ?? null,
         end_date: params.endDate ?? null,
       })
-      .select('id, user_id, name, title, status, fields, row, start_date, end_date')
+      .select('id, career_map_id, name, title, status, fields, row, start_date, end_date')
       .single()
 
     if (error) return failAsExternalServiceError(error.message, error)

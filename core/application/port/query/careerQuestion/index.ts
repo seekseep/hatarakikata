@@ -1,2 +1,2 @@
 export * from './findCareerQuestionQuery'
-export * from './listCareerQuestionsByUserIdQuery'
+export * from './listCareerQuestionsByCareerMapIdQuery'

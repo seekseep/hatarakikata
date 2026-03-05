@@ -34,7 +34,7 @@ export const CareerQuestionFieldSchema = z.object({
 })
 export type CareerQuestionField = z.infer<typeof CareerQuestionFieldSchema>
 
-export const CareerQuestionStatusSchema = z.enum(["open", "closed"])
+export const CareerQuestionStatusSchema = z.enum(["open", "processing", "closed"])
 export type CareerQuestionStatus = z.infer<typeof CareerQuestionStatusSchema>
 
 export const CareerQuestionKeySchema = z.object({
@@ -42,7 +42,7 @@ export const CareerQuestionKeySchema = z.object({
 })
 
 export const CareerQuestionPayloadSchema = z.object({
-  userId: z.string(),
+  careerMapId: z.string(),
   name: z.string(),
   title: z.string(),
   status: CareerQuestionStatusSchema.default("open"),

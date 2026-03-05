@@ -1,29 +1,31 @@
 import { makeAnswerQuestion } from '@/core/application/usecase/careerQuestion/answerQuestion'
 import { makeCloseQuestion } from '@/core/application/usecase/careerQuestion/closeQuestion'
-import { makeGetQuestionsByUserId } from '@/core/application/usecase/careerQuestion/getQuestionsByUserId'
+import { makeGetQuestionsByCareerMapId } from '@/core/application/usecase/careerQuestion/getQuestionsByCareerMapId'
 import { makeInitializeQuestionsForUser } from '@/core/application/usecase/careerQuestion/initializeQuestionsForUser'
 import { createCareerEventCommand } from '@/infrastructure/server/supabase/command'
 import { createCareerQuestionCommand, updateCareerQuestionCommand } from '@/infrastructure/server/supabase/command'
-import { findCareerQuestionQuery, listCareerMapByUserIdQuery,listCareerQuestionsByUserIdQuery } from '@/infrastructure/server/supabase/query'
+import { findCareerMapQuery, findCareerQuestionQuery, listCareerQuestionsByCareerMapIdQuery } from '@/infrastructure/server/supabase/query'
 
-export const getQuestionsByUserId = makeGetQuestionsByUserId({
-  listCareerQuestionsByUserIdQuery,
+export const getQuestionsByCareerMapId = makeGetQuestionsByCareerMapId({
+  listCareerQuestionsByCareerMapIdQuery,
+  findCareerMapQuery,
 })
 
 export const initializeQuestionsForUser = makeInitializeQuestionsForUser({
   createCareerQuestionCommand,
-  listCareerQuestionsByUserIdQuery,
-  listCareerMapByUserIdQuery,
+  listCareerQuestionsByCareerMapIdQuery,
+  findCareerMapQuery,
 })
 
 export const answerQuestion = makeAnswerQuestion({
   findCareerQuestionQuery,
   updateCareerQuestionCommand,
   createCareerEventCommand,
-  listCareerMapByUserIdQuery,
+  findCareerMapQuery,
 })
 
 export const closeQuestion = makeCloseQuestion({
   findCareerQuestionQuery,
   updateCareerQuestionCommand,
+  findCareerMapQuery,
 })
