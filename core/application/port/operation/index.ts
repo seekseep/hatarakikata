@@ -1,6 +1,6 @@
 export * from './createAuthUser'
 export * from './createEmbedding'
-export * from './fetchWikipediaBiography'
+
 export * from './generateCareerEvents'
 export * from './generateCareerEventsFromBiography'
 export * from './generateCareerGuide'

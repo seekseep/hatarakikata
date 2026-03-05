@@ -1,0 +1,307 @@
+{
+  "personName": "松本拓也",
+  "language": "ja",
+  "birthDate": "1988-07-15",
+  "events": [
+    {
+      "name": "工場での幼少期",
+      "type": "living",
+      "startDate": "1988-07-15",
+      "endDate": "2000-12-31",
+      "strength": 4,
+      "row": 5,
+      "description": "父が経営するマツモト工業の工場に隣接した家で育つ。ものづくりの精神、失敗と改善、限られた資源での創意工夫を肌で感じた。",
+      "tagNames": ["生活基盤", "親の影響"]
+    },
+    {
+      "name": "広島市立宮島小学校",
+      "type": "living",
+      "startDate": "1994-04-01",
+      "endDate": "2000-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "成績優秀だが教科書の内容だけでは満足しない。常に疑問符を持ち歩く少年として過ごす。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "発明工作教室への参加",
+      "type": "living",
+      "startDate": "1999-09-01",
+      "endDate": "2000-03-31",
+      "strength": 3,
+      "row": 5,
+      "description": "6年生の時に参加。電子工作を通じて、自分で作る喜びと試行錯誤の大切さを学ぶ。自己認識の形成に大きく寄与。",
+      "tagNames": ["成長", "挑戦"]
+    },
+    {
+      "name": "父の機械投資を目撃",
+      "type": "feeling",
+      "startDate": "2001-04-01",
+      "endDate": "2003-03-31",
+      "strength": 3,
+      "row": 4,
+      "description": "中学時代に父・隆司がCNC機械に投資する決定を見て、技術投資による人生変化の意味を理解する。",
+      "tagNames": ["親の影響", "成長"]
+    },
+    {
+      "name": "広島市立翠町中学校",
+      "type": "living",
+      "startDate": "2001-04-01",
+      "endDate": "2003-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "通常の学業に加え、新しい技術への興味が深まる時期。親の経営判断の重さを理解し始める。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "ロボコンとの出会い",
+      "type": "living",
+      "startDate": "2002-09-01",
+      "endDate": "2003-03-31",
+      "strength": 4,
+      "row": 5,
+      "description": "中学2年生の時、NHK全国高等専門学校ロボットコンテスト（ロボコン）の存在を知る。機械、電子回路、チームワークが結合した瞬間。",
+      "tagNames": ["成長", "挑戦"]
+    },
+    {
+      "name": "科学部での活動",
+      "type": "living",
+      "startDate": "2001-04-01",
+      "endDate": "2003-03-31",
+      "strength": 3,
+      "row": 5,
+      "description": "科学部に入部し、顧問の古田先生と電子工作を学ぶ。なぜそうなるのかを考える姿勢を育てられる。",
+      "tagNames": ["成長", "技術"]
+    },
+    {
+      "name": "広島県立広島商工高等学校 電気科",
+      "type": "living",
+      "startDate": "2004-04-01",
+      "endDate": "2006-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "電気科を選択。回路設計、電子工学、プログラミングの基礎を学ぶ。教科書の外での実践を常に求める。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "ロボコン広島地区大会 予選敗退",
+      "type": "working",
+      "startDate": "2005-06-01",
+      "endDate": "2005-09-30",
+      "strength": 3,
+      "row": 1,
+      "description": "高2の時、自作ロボット「ナビゲーター01」がモータの駆動に失敗。失敗原因を分析し改善する経験を得る。",
+      "tagNames": ["挑戦", "失敗から学ぶ"]
+    },
+    {
+      "name": "ロボコン広島地区大会 優勝",
+      "type": "working",
+      "startDate": "2005-10-01",
+      "endDate": "2006-03-31",
+      "strength": 3,
+      "row": 1,
+      "description": "翌年の大会で見事に地区大会優勝。技術力、創意工夫、チームワーク、失敗からの学習が結合した成功体験。",
+      "tagNames": ["成長", "成功"]
+    },
+    {
+      "name": "バンド『Metallic Dreams』結成",
+      "type": "living",
+      "startDate": "2005-04-01",
+      "endDate": "2006-03-31",
+      "strength": 2,
+      "row": 5,
+      "description": "高2の時、友人・竹中翔太の勧誘でバンドを結成。ベーシストとして活動し、ロボコンとの両立を実現。",
+      "tagNames": ["生活", "挑戦"]
+    },
+    {
+      "name": "広島大学工学部情報工学科 進学",
+      "type": "living",
+      "startDate": "2007-04-01",
+      "endDate": "2011-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "東京ではなく広島での進学を選択。実家通学で朝は大学講義、夕方は工場での独自プロジェクトという生活。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "山田研究室への配属と論文研究",
+      "type": "working",
+      "startDate": "2009-04-01",
+      "endDate": "2011-03-31",
+      "strength": 3,
+      "row": 0,
+      "description": "大学3年生から准教授・山田正之の研究室に配属。複数の自律移動ロボットの群集制御に関する研究に従事。",
+      "tagNames": ["在学", "技術"]
+    },
+    {
+      "name": "起業家育成サークル『Startup Lab Hiroshima』参加",
+      "type": "living",
+      "startDate": "2010-09-01",
+      "endDate": "2011-03-31",
+      "strength": 3,
+      "row": 5,
+      "description": "大学4年生の時に参加。代表の野田圭介から起業家としての適性を指摘され、ビジネスプランコンテスト優勝。",
+      "tagNames": ["成長", "挑戦"]
+    },
+    {
+      "name": "バンド『Hybrid Logic』での活動継続",
+      "type": "living",
+      "startDate": "2007-04-01",
+      "endDate": "2011-03-31",
+      "strength": 2,
+      "row": 5,
+      "description": "大学時代も竹中翔太とバンドを続ける。エレクトリックミュージックと従来のロックの融合を目指す。",
+      "tagNames": ["生活"]
+    },
+    {
+      "name": "StormWare Inc. 入社",
+      "type": "working",
+      "startDate": "2011-04-01",
+      "endDate": "2014-03-31",
+      "strength": 3,
+      "row": 0,
+      "description": "福岡のソフトウェア開発企業に入社。ソフトウェアエンジニア、その後プロジェクトリーダーに昇進。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "『Factory Intelligence 2.0』プロジェクト成功",
+      "type": "working",
+      "startDate": "2012-01-01",
+      "endDate": "2014-03-31",
+      "strength": 3,
+      "row": 0,
+      "description": "15名のチームを率いてプロジェクトリーダーに昇進。顧客の生産効率を平均23%向上させた大きな成功。",
+      "tagNames": ["成功", "リーダーシップ"]
+    },
+    {
+      "name": "渡辺CEOからの経営指導",
+      "type": "feeling",
+      "startDate": "2011-04-01",
+      "endDate": "2014-03-31",
+      "strength": 3,
+      "row": 4,
+      "description": "StormWareのCEO・渡辺賢人から月1回の食事を通じ事業計画、資金調達、組織文化などを学ぶ。起業への確信を深める。",
+      "tagNames": ["成長", "メンタリング"]
+    },
+    {
+      "name": "NextGen Technologies 入社（CTO就任）",
+      "type": "working",
+      "startDate": "2014-04-01",
+      "endDate": "2016-05-31",
+      "strength": 3,
+      "row": 0,
+      "description": "福岡のAIベースのビジネス分析ツール企業にCTOとして入社。全社技術戦略の策定と組織構築を担当。",
+      "tagNames": ["在職", "昇進"]
+    },
+    {
+      "name": "技術基盤刷新プロジェクト",
+      "type": "working",
+      "startDate": "2014-04-01",
+      "endDate": "2016-05-31",
+      "strength": 3,
+      "row": 0,
+      "description": "マイクロサービスアーキテクチャへの移行、クラウドインフラ最適化、CI/CDパイプライン構築を推進。",
+      "tagNames": ["成長", "技術"]
+    },
+    {
+      "name": "加藤由美子との出会いと事実婚",
+      "type": "living",
+      "startDate": "2014-04-01",
+      "endDate": "2026-03-05",
+      "strength": 4,
+      "row": 5,
+      "description": "NextGenの顧客企業でプロジェクトマネージャーとして働く由美子と出会う。2015年に事実婚を選択。人生の揺るがない基盤となる。",
+      "tagNames": ["生活", "パートナー"]
+    },
+    {
+      "name": "Kaizoku Technologies 起業",
+      "type": "working",
+      "startDate": "2016-05-01",
+      "endDate": "2026-03-05",
+      "strength": 4,
+      "row": 1,
+      "description": "加藤由美子とともに起業。会社名『Kaizoku Technologies』（改造工学）。地方発スタートアップで社会課題解決を目指す。",
+      "tagNames": ["起業", "CEO"]
+    },
+    {
+      "name": "MakeFit プロダクト開発・初期営業",
+      "type": "working",
+      "startDate": "2016-05-01",
+      "endDate": "2017-12-31",
+      "strength": 3,
+      "row": 1,
+      "description": "中小製造業向けのAIベース生産最適化プラットフォーム『MakeFit』を開発。父の工場での初導入成功で営業加速。",
+      "tagNames": ["起業", "成長"]
+    },
+    {
+      "name": "シリーズA資金調達（5000万円）",
+      "type": "working",
+      "startDate": "2017-07-01",
+      "endDate": "2018-12-31",
+      "strength": 3,
+      "row": 1,
+      "description": "VCファンド『West Japan Ventures』から5000万円を調達。エンジニアと営業チームの採用加速。",
+      "tagNames": ["起業", "成長"]
+    },
+    {
+      "name": "福岡本社継続と地方特化戦略",
+      "type": "feeling",
+      "startDate": "2017-07-01",
+      "endDate": "2018-12-31",
+      "strength": 3,
+      "row": 4,
+      "description": "東京移転の選択肢を検討するも福岡に留まることを決定。地方の製造業支援に特化という人生テーマの選択。",
+      "tagNames": ["戦略", "価値観"]
+    },
+    {
+      "name": "シリーズB資金調達（1億2000万円）",
+      "type": "working",
+      "startDate": "2018-01-01",
+      "endDate": "2020-03-31",
+      "strength": 2,
+      "row": 1,
+      "description": "国内大手VC『Japan Digital Innovation』からシリーズBで1億2000万円を調達。全国規模での営業展開加速。",
+      "tagNames": ["起業", "成長"]
+    },
+    {
+      "name": "組織文化構築への取り組み",
+      "type": "feeling",
+      "startDate": "2018-01-01",
+      "endDate": "2020-03-31",
+      "strength": 3,
+      "row": 4,
+      "description": "従業員40名超の段階で組織課題が顕在化。経営コンサルタントを招聘しビジョン、ミッション、バリュー再定義。",
+      "tagNames": ["成長", "課題解決"]
+    },
+    {
+      "name": "SupplyLink プロダクト開発",
+      "type": "working",
+      "startDate": "2020-04-01",
+      "endDate": "2021-12-31",
+      "strength": 3,
+      "row": 1,
+      "description": "COVID-19パンデミアの影響で新規プロダクト開発を決定。複数企業のサプライチェーンをつなぐプラットフォーム『SupplyLink』をローンチ。",
+      "tagNames": ["成長", "新規事業"]
+    },
+    {
+      "name": "GreenFlow プロダクト開発",
+      "type": "working",
+      "startDate": "2024-01-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 2,
+      "description": "サステナビリティ実現のデジタルプラットフォーム企業へのシフト。カーボンニュートラル達成を支援するプラットフォーム『GreenFlow』を開発。",
+      "tagNames": ["起業", "成長"]
+    },
+    {
+      "name": "現在のリーダーシップと課題",
+      "type": "feeling",
+      "startDate": "2023-01-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 4,
+      "description": "従業員120名超の企業へ成長。達成感、未達成感、責任感、確信が混在する複雑な心持ちで新たな課題に向き合う。",
+      "tagNames": ["成長", "リーダーシップ"]
+    }
+  ]
+}

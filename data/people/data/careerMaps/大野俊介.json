@@ -1,0 +1,247 @@
+{
+  "personName": "大野俊介",
+  "language": "ja",
+  "birthDate": "1981-01-01",
+  "events": [
+    {
+      "name": "テキストサイト『夜明け前』立ち上げ",
+      "type": "living",
+      "startDate": "1999-09-01",
+      "endDate": "2001-12-31",
+      "strength": 3,
+      "row": 5,
+      "description": "高校時代、友人たちとテキストサイトを創設。Perlで簡易CMSを自作し、月間5000UU達成。Web黎明期の創造的体験。",
+      "tagNames": ["テキストサイト", "Perl", "創造", "Web黎明期"]
+    },
+    {
+      "name": "バンド活動『ナイトランナーズ』",
+      "type": "living",
+      "startDate": "2000-04-01",
+      "endDate": "2003-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "高校から大学初期、ベーシストとしてバンド活動。文化祭での受賞経験。論理と感性の融合を学ぶ。",
+      "tagNames": ["音楽", "協調", "感性"]
+    },
+    {
+      "name": "2ちゃんねる深化とコミュニティ参加",
+      "type": "living",
+      "startDate": "2000-06-01",
+      "endDate": "2016-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "2ちゃんねるの初期段階からアクティブ参加。プログラミング技術板での知見共有。匿名コミュニティでの学習。",
+      "tagNames": ["2ちゃんねる", "コミュニティ", "知識共有"]
+    },
+    {
+      "name": "Perl言語でCGI開発開始",
+      "type": "working",
+      "startDate": "1998-11-01",
+      "endDate": "2003-03-31",
+      "strength": 4,
+      "row": 0,
+      "description": "高校2年からPerl独学開始。大学進学後も継続。テキスト処理とWeb開発の基礎を習得。プラットフォームエンジニアへの第一歩。",
+      "tagNames": ["Perl", "CGI", "プログラミング開始"]
+    },
+    {
+      "name": "大学入学（早稲田大学・社会学部）",
+      "type": "living",
+      "startDate": "2000-04-01",
+      "endDate": "2004-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "社会学部在籍。メディア論など、社会的視点とテクノロジーの交点を学習。講義よりコンピュータ室での実践を優先。",
+      "tagNames": ["大学", "社会学", "学び"]
+    },
+    {
+      "name": "両親の離婚",
+      "type": "feeling",
+      "startDate": "2004-03-01",
+      "endDate": "2004-05-31",
+      "strength": 3,
+      "row": 4,
+      "description": "大学卒業時、両親が離婚。父親の出版業での激変を目撃。人生の変化への適応力を内面化。",
+      "tagNames": ["家族", "変化"]
+    },
+    {
+      "name": "PHP言語への転換",
+      "type": "working",
+      "startDate": "2001-06-01",
+      "endDate": "2007-09-30",
+      "strength": 3,
+      "row": 1,
+      "description": "Web制作会社時代、PerlからPHP5へ移行。MySQL連携の実装。言語乗り換えの経験値を獲得。",
+      "tagNames": ["PHP", "MySQL", "言語転換"]
+    },
+    {
+      "name": "Web制作会社入社（デジタルクリエーション八王子）",
+      "type": "working",
+      "startDate": "2004-04-01",
+      "endDate": "2007-09-30",
+      "strength": 2,
+      "row": 0,
+      "description": "最初の正社員職。コーポレートサイト開発で実務経験を積む。20名規模の組織で現実のプロジェクト管理を学ぶ。",
+      "tagNames": ["Web制作", "実務", "成長"]
+    },
+    {
+      "name": "千代子（前妻）との結婚",
+      "type": "feeling",
+      "startDate": "2006-03-01",
+      "endDate": "2012-04-30",
+      "strength": 2,
+      "row": 4,
+      "description": "大学後輩・千代子と結婚（24歳時）。Webデザイナーとの職業的相補関係。バツイチへの前段。",
+      "tagNames": ["結婚", "家族"]
+    },
+    {
+      "name": "受託開発会社へ転職（フューチャーシステムズ）",
+      "type": "working",
+      "startDate": "2007-10-01",
+      "endDate": "2012-08-31",
+      "strength": 3,
+      "row": 0,
+      "description": "金融機関・官公庁向けのシステム開発。複雑な要件下での高品質コード実装。管理職経験の起点。",
+      "tagNames": ["受託開発", "PHP", "Ruby移行"]
+    },
+    {
+      "name": "Ruby on Rails導入と習得",
+      "type": "working",
+      "startDate": "2008-01-01",
+      "endDate": "2012-08-31",
+      "strength": 3,
+      "row": 1,
+      "description": "会社がRails2.0を本格導入。MVC、ORM、TDD文化を習得。言語進化の加速期。",
+      "tagNames": ["Ruby", "Rails", "フレームワーク"]
+    },
+    {
+      "name": "千代子との離婚",
+      "type": "feeling",
+      "startDate": "2010-03-01",
+      "endDate": "2012-04-30",
+      "strength": 3,
+      "row": 4,
+      "description": "仕事のストレス、思想的相違、子どもに関する意見対立。8年間の婚姻を終了。複雑な人生経験へ。",
+      "tagNames": ["離婚", "転機"]
+    },
+    {
+      "name": "スタートアップ『ルナテック』入社（CTO級）",
+      "type": "working",
+      "startDate": "2012-09-01",
+      "endDate": "2015-06-30",
+      "strength": 3,
+      "row": 0,
+      "description": "8名のスタートアップでプロダクト開発主導。Rails3.2での最適化、Go言語への先行投資。起業家的経験。",
+      "tagNames": ["スタートアップ", "Go言語", "CTO"]
+    },
+    {
+      "name": "美咲（現妻）との再婚",
+      "type": "feeling",
+      "startDate": "2013-09-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 4,
+      "description": "営業職・渡辺美咲と結婚（2013年秋）。2014年11月に長女・美結誕生。新しい人生の出発。",
+      "tagNames": ["再婚", "新生活"]
+    },
+    {
+      "name": "千代子との隠し子・健介の存在判明",
+      "type": "feeling",
+      "startDate": "2013-09-01",
+      "endDate": "2013-12-31",
+      "strength": 2,
+      "row": 4,
+      "description": "前妻との間に隠し子がいたことが発覚（健介、生年2013年）。複雑な家族形態の開始。月1回の面会開始。",
+      "tagNames": ["家族", "複雑性"]
+    },
+    {
+      "name": "Go言語本格的な活用",
+      "type": "working",
+      "startDate": "2013-10-01",
+      "endDate": "2026-03-05",
+      "strength": 4,
+      "row": 1,
+      "description": "Google Go（Golang）を発見・学習。マイクロサービス時代の到来を予見。C言語レベルのパフォーマンス＋高級言語。プラットフォームエンジニアの専門領域確立。",
+      "tagNames": ["Go", "マイクロサービス", "スケーラビリティ"]
+    },
+    {
+      "name": "フリーランス期間（プラットフォームエンジニア活動）",
+      "type": "working",
+      "startDate": "2015-07-01",
+      "endDate": "2015-12-31",
+      "strength": 2,
+      "row": 2,
+      "description": "ルナテック退職後、複数のスタートアップでGoベースの案件受託。自分の専門領域を統合。在宅で子育てと両立。",
+      "tagNames": ["フリーランス", "Go"]
+    },
+    {
+      "name": "SkyTech入社（CTO）",
+      "type": "working",
+      "startDate": "2016-01-01",
+      "endDate": "2020-10-31",
+      "strength": 3,
+      "row": 0,
+      "description": "データ分析プラットフォーム企業でCTO。Go+Node.js+Reactスタック。エンジニア文化の醸成、マイクロサービス導入の中心。",
+      "tagNames": ["CTO", "マイクロサービス", "チームビルディング"]
+    },
+    {
+      "name": "長女・美結誕生、次女・由衣誕生",
+      "type": "living",
+      "startDate": "2014-11-01",
+      "endDate": "2017-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "2014年11月長女美結（現11歳）、2017年3月次女由衣（現8歳）誕生。育児と仕事の両立。",
+      "tagNames": ["育児", "家族"]
+    },
+    {
+      "name": "大規模レガシーシステムのマイグレーション主導",
+      "type": "working",
+      "startDate": "2020-10-01",
+      "endDate": "2023-01-31",
+      "strength": 4,
+      "row": 2,
+      "description": "パンデックスでのCOBOLメインフレーム→Goマイクロサービス移行。25年間の技術進化の集大成。5000名以上の大企業でのシステム設計。",
+      "tagNames": ["大企業", "マイグレーション", "レガシー"]
+    },
+    {
+      "name": "過労とキャリア転換の危機",
+      "type": "feeling",
+      "startDate": "2022-09-01",
+      "endDate": "2023-02-28",
+      "strength": 3,
+      "row": 4,
+      "description": "月80時間超過勤務。身体と精神の疲弊。父親の助言で人生の優先順位を再考。大企業でのキャリアを終焉させる決断。",
+      "tagNames": ["転機", "反省"]
+    },
+    {
+      "name": "フリーランスへの回帰（プラットフォームエンジニア顧問）",
+      "type": "working",
+      "startDate": "2023-02-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 2,
+      "description": "複数企業顧問として週20時間程度。時間の自由度回復。年収600万程度だが、人生バランスの再構築。",
+      "tagNames": ["フリーランス", "ワークライフバランス"]
+    },
+    {
+      "name": "技術哲学の深化と発信",
+      "type": "feeling",
+      "startDate": "2023-06-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 4,
+      "description": "個人ブログで『技術者の人生論』を執筆。25年の技術進化と複雑な人生経験を統合。エンジニアリングの本質を問い直す。",
+      "tagNames": ["哲学", "発信"]
+    },
+    {
+      "name": "現在（2026年3月）：44歳、人生の折返し",
+      "type": "feeling",
+      "startDate": "2026-03-05",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 4,
+      "description": "長女美結11歳、次女由衣8歳、前妻との子健介12歳。「複雑な家族形態」を「マイクロサービスアーキテクチャ」として理解。変化への適応力が人生の軸。",
+      "tagNames": ["現在", "省察"]
+    }
+  ]
+}

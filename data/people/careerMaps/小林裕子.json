@@ -1,0 +1,377 @@
+{
+  "personName": "小林裕子",
+  "language": "ja",
+  "birthDate": "1983-07-14",
+  "events": [
+    {
+      "name": "京都で知識人家族に育つ",
+      "type": "living",
+      "startDate": "1983-07-14",
+      "endDate": "1993-01-01",
+      "strength": 4,
+      "row": 3,
+      "description": "理学部教授の父、翻訳家の母のもとで知的環境に育つ。毎月京都大学図書館への家族ツアーが恒例。",
+      "tagNames": ["成長", "在学"]
+    },
+    {
+      "name": "算数オリンピック全国算数オリンピック参加",
+      "type": "living",
+      "startDate": "1991-01-01",
+      "endDate": "1991-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "小学4年時に全国算数オリンピック予選に参加。入賞まで一歩。論理的思考への動機付けに。",
+      "tagNames": ["挑戦", "成長"]
+    },
+    {
+      "name": "数学サークル開始",
+      "type": "living",
+      "startDate": "1992-01-01",
+      "endDate": "1995-01-01",
+      "strength": 2,
+      "row": 5,
+      "description": "京都大学の大学院生による数学サークルで週1回、幾何学の初歩を学ぶ。同年代にない数学的基礎を構築。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "テニススクール入門",
+      "type": "living",
+      "startDate": "1994-01-01",
+      "endDate": "2000-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "小学5年からテニスを開始。6年までに地方大会準優勝。身体を通じた戦略思考を習得。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "全国科学オリンピック物理部門入賞",
+      "type": "living",
+      "startDate": "1996-01-01",
+      "endDate": "1996-12-31",
+      "strength": 2,
+      "row": 3,
+      "description": "中学時代に全国科学オリンピック物理部門に参加。近畿大会で3位入賞、全国大会出場経験を獲得。",
+      "tagNames": ["挑戦"]
+    },
+    {
+      "name": "テニス部地区優勝",
+      "type": "living",
+      "startDate": "1996-01-01",
+      "endDate": "1997-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "中学テニス部に所属。地区予選で女子シングル優勝。努力が具体的な結果に反映される実感を獲得。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "京都府立紫野高等学校進学",
+      "type": "living",
+      "startDate": "1997-04-01",
+      "endDate": "2000-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "理系進学コースで数学と物理を最難関レベルで学習。吉田和彦教授から強い影響を受ける。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "テニス部ベスト8入賞",
+      "type": "living",
+      "startDate": "1998-01-01",
+      "endDate": "1999-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "全国高等学校テニス選手権の近畿予選でベスト8に入賞。運動能力と学習の両立を実践。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "京都大学工学部推薦入学決定",
+      "type": "living",
+      "startDate": "1999-01-01",
+      "endDate": "2000-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "センター試験で高得点。京都大学工学部情報学科への推薦入学決定。物理か情報学かの選択で情報学を選ぶ。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "テニス部退部・学習集中",
+      "type": "living",
+      "startDate": "1999-04-01",
+      "endDate": "2000-03-31",
+      "strength": 2,
+      "row": 5,
+      "description": "高3で大学での物理的基礎を深めるためテニス部を戦略的に退部。身体知を学習に統合する判断。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "京都大学工学部情報学科在学",
+      "type": "living",
+      "startDate": "2000-04-01",
+      "endDate": "2002-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "自宅から大学に通学。分散システムの障害耐性をテーマに研究開始。本質を問う思考を継承。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "大学院情報学研究科進学",
+      "type": "living",
+      "startDate": "2002-04-01",
+      "endDate": "2006-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "修士課程で大規模分散システムの一貫性制御を研究。国際学会に論文3本投稿、2本がアクセプト。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "マッキンゼーインターンシップ・アドバイザリー参加",
+      "type": "working",
+      "startDate": "2004-01-01",
+      "endDate": "2006-03-31",
+      "strength": 2,
+      "row": 0,
+      "description": "修士課程と並行して、マッキンゼーのプロジェクトに年数回参加。ベンチャー企業アドバイザリーボードにも参加。",
+      "tagNames": ["副業", "在学"]
+    },
+    {
+      "name": "マッキンゼー・アンド・カンパニー東京オフィス入社",
+      "type": "working",
+      "startDate": "2006-04-01",
+      "endDate": "2010-10-31",
+      "strength": 3,
+      "row": 0,
+      "description": "日本の大手戦略コンサルティングファームの最初期女性シニアコンサルタント。4年間で女性エンジニア・コンサルタントとしての地位確立。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "東京一人暮らし開始",
+      "type": "living",
+      "startDate": "2006-04-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 5,
+      "description": "港区青山でのマンション購入。親への経済的依存から脱却。親との心理的距離が徐々に拡大。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "田中健司と恋人関係開始",
+      "type": "feeling",
+      "startDate": "2007-01-01",
+      "endDate": "2010-11-30",
+      "strength": 3,
+      "row": 4,
+      "description": "マッキンゼーの同期男性コンサルタント・田中健司との関係が深まる。技術と経営を理解する共通点。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "結婚式・新婚生活開始",
+      "type": "feeling",
+      "startDate": "2010-11-01",
+      "endDate": "2012-12-31",
+      "strength": 3,
+      "row": 4,
+      "description": "田中健司と結婚。京都の料亭で披露宴。東京・渋谷でのマンションで新婚生活開始。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "テックホライズンエンジニアリング・ディレクター転職",
+      "type": "working",
+      "startDate": "2010-11-01",
+      "endDate": "2013-07-31",
+      "strength": 3,
+      "row": 1,
+      "description": "シリコンバレー的テック企業への転職。15名のエンジニアチームをマネジメント。実践的なシステムづくりを開始。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "長女乃美出産",
+      "type": "living",
+      "startDate": "2012-01-01",
+      "endDate": "2012-01-31",
+      "strength": 3,
+      "row": 5,
+      "description": "長女・小林乃美が誕生。育児と仕事の両立が当初から厳しい課題となる。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "シンガポール駐在準備",
+      "type": "living",
+      "startDate": "2013-01-01",
+      "endDate": "2013-07-31",
+      "strength": 2,
+      "row": 5,
+      "description": "3歳の娘とのシンガポール駐在を決定。夫は東京-シンガポール間の二重生活を選択。人生最大の転機へ。",
+      "tagNames": ["挑戦"]
+    },
+    {
+      "name": "シンガポール開発拠点立ち上げ・マネジメント",
+      "type": "working",
+      "startDate": "2013-08-01",
+      "endDate": "2016-01-31",
+      "strength": 4,
+      "row": 1,
+      "description": "アジア地域の開発拠点を統括。現地採用エンジニアと日本出向者の混成チーム率いる。売上3倍以上に拡大。アジア開発統括マネージャーに昇進。",
+      "tagNames": ["在職", "成長", "挑戦"]
+    },
+    {
+      "name": "シンガポール多文化経験・視野拡大",
+      "type": "feeling",
+      "startDate": "2013-08-01",
+      "endDate": "2016-01-31",
+      "strength": 3,
+      "row": 4,
+      "description": "多民族社会での生活。異文化背景のエンジニアとの協働。日本的マネジメントの相対化が起こり、自己確認の時期となる。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "家族関係の綻び・葛藤深化",
+      "type": "feeling",
+      "startDate": "2014-01-01",
+      "endDate": "2015-12-31",
+      "strength": 3,
+      "row": 4,
+      "description": "長女との親子時間が限定的。夫との月1-2回の再会がビジネスパートナー的に。プロフェッショナルと母親の自己の乖離が深刻化。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "東京帰還・Executive Vice President昇進",
+      "type": "working",
+      "startDate": "2016-01-01",
+      "endDate": "2018-06-30",
+      "strength": 3,
+      "row": 2,
+      "description": "アジア太平洋地域統括マネージャー兼Executive Vice President。年収2000万円超。経営幹部への道が見える。",
+      "tagNames": ["在職"]
+    },
+    {
+      "name": "娘の帰国子女適応問題・家族危機",
+      "type": "living",
+      "startDate": "2016-04-01",
+      "endDate": "2018-12-31",
+      "strength": 3,
+      "row": 5,
+      "description": "長女が東京小学校での日本語適応に困難。同時に夫のCOO職での期待が実現せず。月10日程度の在宅で育児代替が常態化。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "カップルセラピー開始・修復の試み",
+      "type": "feeling",
+      "startDate": "2017-06-01",
+      "endDate": "2018-06-30",
+      "strength": 2,
+      "row": 4,
+      "description": "夫との関係修復を試みる。セラピストから仕事への依存と家族コミットメント不足を指摘される。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "CTOへの職位変更・家族時間確保の約束",
+      "type": "working",
+      "startDate": "2018-07-01",
+      "endDate": "2018-12-31",
+      "strength": 2,
+      "row": 2,
+      "description": "Executive Vice Presidentから新設CTOへ。経営重責から逃れつつも技術的リーダーシップ発揮。毎週日曜日の家族タイムを約束。",
+      "tagNames": ["在職"]
+    },
+    {
+      "name": "修復の限界・関係冷却",
+      "type": "feeling",
+      "startDate": "2018-07-01",
+      "endDate": "2019-04-30",
+      "strength": 3,
+      "row": 4,
+      "description": "修復の試みが根本的に失敗。人生観の乖離。女性・母親としての社会的圧力が関係を破壊。娘の不適応深刻化。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "協議離婚成立",
+      "type": "feeling",
+      "startDate": "2019-05-01",
+      "endDate": "2019-11-30",
+      "strength": 4,
+      "row": 4,
+      "description": "弁護士交渉を経て協議離婚成立。親権は共同親権制度採用。自己の人生観を改めて問い直す最大の転機。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "父の脳梗塞・親の高齢化",
+      "type": "living",
+      "startDate": "2019-10-01",
+      "endDate": "2024-12-31",
+      "strength": 3,
+      "row": 5,
+      "description": "父が脳梗塞で入院。完全な回復は困難。母は76歳。長期的には京都への回帰を視野に入れ始める。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "テックホライズンリモートワーク革命対応",
+      "type": "working",
+      "startDate": "2020-01-01",
+      "endDate": "2021-12-31",
+      "strength": 2,
+      "row": 2,
+      "description": "COVID-19パンデミック。リモートワーク革命に対応。新CEOが就任。女性エンジニア支援を含む責務が拡大。",
+      "tagNames": ["在職"]
+    },
+    {
+      "name": "女性エンジニア支援プログラム立案・実行",
+      "type": "working",
+      "startDate": "2022-01-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 2,
+      "description": "女性エンジニア支援プログラムを主導。メンターシップ、キャリア開発、仕事と家庭両立モデル構築。業界的な注目を集める。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "親の介護と東京-京都の二重生活",
+      "type": "living",
+      "startDate": "2023-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 5,
+      "description": "父の再度の脳梗塞入院。京都への一時的な滞在と東京での責務を月単位で切り替える。言語以上のコミュニケーション。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "父・小林敏彦の逝去",
+      "type": "feeling",
+      "startDate": "2024-01-01",
+      "endDate": "2024-12-31",
+      "strength": 4,
+      "row": 4,
+      "description": "父が87歳で静かに逝去。全国の研究者が弔問。自分たちが何を残すべきかという問いが深まる。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "テックホライズン上場セレモニー登壇",
+      "type": "working",
+      "startDate": "2025-01-01",
+      "endDate": "2025-12-31",
+      "strength": 3,
+      "row": 2,
+      "description": "テックホライズンが東証に上場。経営陣の一人として登壇。女性エンジニア経営者の先駆者としての地位確立。",
+      "tagNames": ["在職"]
+    },
+    {
+      "name": "娘との関係修復・成長期サポート",
+      "type": "living",
+      "startDate": "2020-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 5,
+      "description": "離婚後、複雑だった娘との関係が修復段階へ。高校2年の乃美は理系進学を予定し、母のキャリアをロールモデルとして見つめる。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "キャリアの次のステップ模索・成功の再定義",
+      "type": "feeling",
+      "startDate": "2024-01-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 4,
+      "description": "42歳。新しい形の成功の定義を探り中。心から大切なものの優先、不完全さの受容、次世代への遺産の考察が深まる。",
+      "tagNames": ["成長"]
+    }
+  ]
+}

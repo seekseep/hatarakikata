@@ -1,0 +1,237 @@
+{
+  "personName": "伊藤正樹",
+  "language": "ja",
+  "birthDate": "1985-04-12",
+  "events": [
+    {
+      "name": "親の期待の内面化",
+      "type": "feeling",
+      "startDate": "1985-04-12",
+      "endDate": "1991-04-12",
+      "strength": 3,
+      "row": 4,
+      "description": "幼少期に父の人生論を深く内面化。社会への奉仕と完璧性への強迫観念が形成される。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "豊玉第三小学校在学",
+      "type": "living",
+      "startDate": "1991-04-01",
+      "endDate": "1997-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "学年トップクラスの成績を取得。理性的で感情的にならない優秀な子どもとして評価される。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "物理学への知的興奮",
+      "type": "feeling",
+      "startDate": "1992-01-01",
+      "endDate": "1997-12-31",
+      "strength": 3,
+      "row": 4,
+      "description": "祖父から『子どもでもわかる相対性理論』をもらい、物理学への純粋な知的興奮が芽生える。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "鉄道ファンクラブへの没入",
+      "type": "living",
+      "startDate": "1998-04-01",
+      "endDate": "2000-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "中学1年生から鉄道の技術に夢中になる。複雑なシステム理解能力を習得する。",
+      "tagNames": ["趣味"]
+    },
+    {
+      "name": "麻布中学校在学",
+      "type": "living",
+      "startDate": "1998-04-01",
+      "endDate": "2000-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "麻布中学合格による親の承認。山田先生との出会いで疑問を持つことの大切さを学ぶ。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "麻布高校在学",
+      "type": "living",
+      "startDate": "2000-04-01",
+      "endDate": "2003-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "田中先生による大学レベルの物理教育。高2でLinux習得。自分の興味に従う可能性を発見。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "親の期待と個人的興味の分岐",
+      "type": "feeling",
+      "startDate": "2001-01-01",
+      "endDate": "2003-03-31",
+      "strength": 3,
+      "row": 4,
+      "description": "素粒子物理学への純粋な興味と、親が期待する『社会に貢献する道』の間の矛盾が顕在化。",
+      "tagNames": ["成長", "挑戦"]
+    },
+    {
+      "name": "東京大学理科一類合格",
+      "type": "living",
+      "startDate": "2003-01-01",
+      "endDate": "2003-03-31",
+      "strength": 4,
+      "row": 3,
+      "description": "親の期待通りに東京大学理科一類に合格。親の期待に最適化された人生であることに気づく。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "東京大学での素粒子物理研究",
+      "type": "working",
+      "startDate": "2003-04-01",
+      "endDate": "2004-12-31",
+      "strength": 3,
+      "row": 0,
+      "description": "長倉新八教授の研究室で素粒子物理学の最先端研究に従事。知的興奮を経験。",
+      "tagNames": ["成長", "挑戦"]
+    },
+    {
+      "name": "情報工学への転向",
+      "type": "working",
+      "startDate": "2005-01-01",
+      "endDate": "2007-03-31",
+      "strength": 3,
+      "row": 0,
+      "description": "素粒子物理から情報工学にシフト。親の期待『安定した職』と自分の知的興奮の折り合いをつける。",
+      "tagNames": ["挑戦"]
+    },
+    {
+      "name": "NTT通信新卒入社",
+      "type": "working",
+      "startDate": "2007-04-01",
+      "endDate": "2009-12-31",
+      "strength": 3,
+      "row": 0,
+      "description": "大手通信企業への入社。完璧な業務遂行で評価される一方、知的興奮の欠落を感じ始める。",
+      "tagNames": ["在職"]
+    },
+    {
+      "name": "妻・鈴木咲良との出会いと結婚",
+      "type": "living",
+      "startDate": "2008-06-01",
+      "endDate": "2009-09-30",
+      "strength": 3,
+      "row": 5,
+      "description": "同期の営業職女性・咲良との出会い。内面の閉塞感を見抜かれ、初めて自分の正体が問われる。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "係長職への昇進",
+      "type": "working",
+      "startDate": "2010-01-01",
+      "endDate": "2014-12-31",
+      "strength": 2,
+      "row": 0,
+      "description": "部下管理職へ昇進。部下のメンタルヘルス休職事件で、自分の人生観が他者に悪影響を及ぼすことに気づく。",
+      "tagNames": ["在職"]
+    },
+    {
+      "name": "システムアーキテクチャの専門家化",
+      "type": "working",
+      "startDate": "2012-01-01",
+      "endDate": "2015-12-31",
+      "strength": 3,
+      "row": 1,
+      "description": "大規模システムの再設計でマイクロサービスアーキテクチャを導入。知的興奮の再発見。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "父の心筋梗塞と人生の有限性の認識",
+      "type": "feeling",
+      "startDate": "2016-01-01",
+      "endDate": "2016-12-31",
+      "strength": 4,
+      "row": 4,
+      "description": "父の心筋梗塞が人生の有限性を突きつけ、自分の人生選択を根本から問い直す契機となる。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "部長職への昇進",
+      "type": "working",
+      "startDate": "2018-03-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 2,
+      "description": "組織における最高のキャリアトラックに到達。親の期待は完全に達成されるが、個人的充足感の空虚感が深まる。",
+      "tagNames": ["在職"]
+    },
+    {
+      "name": "心理カウンセリングの開始",
+      "type": "feeling",
+      "startDate": "2016-06-01",
+      "endDate": "2017-12-31",
+      "strength": 3,
+      "row": 4,
+      "description": "初めてカウンセリングを受講。完璧性の追求が親の期待の内面化であることに気づく。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "COVID-19パンデミック中の過度な勤務と家族の疎遠化",
+      "type": "feeling",
+      "startDate": "2020-03-01",
+      "endDate": "2020-12-31",
+      "strength": 3,
+      "row": 4,
+      "description": "危機管理で連日10時間以上勤務。子どもから『お父さんはいつ家にいるの？』と問われ、自分の人生の代償に気づく。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "昇進拒否と人生の見直し決定",
+      "type": "feeling",
+      "startDate": "2022-09-01",
+      "endDate": "2023-12-31",
+      "strength": 4,
+      "row": 4,
+      "description": "さらなる昇進を拒否し、初めて『自分の人生を取り戻す』という選択を明確にする。",
+      "tagNames": ["挑戦"]
+    },
+    {
+      "name": "東京大学大学院への特別聴講生入学",
+      "type": "working",
+      "startDate": "2023-04-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 1,
+      "description": "40年後に大学の講義室に戻る。量子場の理論と宇宙物理学を再学習。自分の知的興奮の部分的回復。",
+      "tagNames": ["成長", "挑戦"]
+    },
+    {
+      "name": "親友との対話と喪失感の言語化",
+      "type": "feeling",
+      "startDate": "2024-01-01",
+      "endDate": "2024-12-31",
+      "strength": 3,
+      "row": 4,
+      "description": "京都大学の教授である親友との飲み会で素粒子物理からの離別の喪失感を初めて言語化。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "家族との関係の再構築",
+      "type": "living",
+      "startDate": "2024-01-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 5,
+      "description": "完璧な父親像を放棄。健太郎や美咲とプログラミング学習など知識共有の喜びを体験。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "キャリアの安定化と人生の再定義",
+      "type": "feeling",
+      "startDate": "2025-01-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 4,
+      "description": "仕事・家族・知的興奮の三者の不完全な調整の中に真の自由を見出し始める。残された人生の意味を再構築。",
+      "tagNames": ["成長"]
+    }
+  ]
+}

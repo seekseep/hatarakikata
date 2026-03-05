@@ -1,0 +1,277 @@
+{
+  "personName": "佐藤美咲",
+  "language": "ja",
+  "birthDate": "2001-07-15",
+  "events": [
+    {
+      "name": "本棚との出会い",
+      "type": "living",
+      "startDate": "2003-07-15",
+      "endDate": "2007-03-31",
+      "strength": 3,
+      "row": 5,
+      "description": "家のリビングに床から天井までの本棚があり、幼少期から大量の物語に触れた。5歳までに1000冊以上を読む。",
+      "tagNames": ["成長", "読書"]
+    },
+    {
+      "name": "小学校入学・読書活動開始",
+      "type": "living",
+      "startDate": "2007-04-01",
+      "endDate": "2013-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "玉川小学校に入学。図書室に入り浸り、学年推薦図書を全て読了。国語と図工が得意科目。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "家庭科でのノート制作",
+      "type": "living",
+      "startDate": "2009-01-01",
+      "endDate": "2009-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "3年生の時、母のための料理ノートを手作り。32ページのノートに知識と想いが詰まった作品。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "ポスター制作と抽象的デザインの発見",
+      "type": "living",
+      "startDate": "2011-01-01",
+      "endDate": "2011-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "5年生の美術で「世界平和」をテーマにした抽象的で洗練されたポスターを制作。学校に1年間掲示。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "初めてのパソコンとウェブ世界への没入",
+      "type": "living",
+      "startDate": "2012-01-01",
+      "endDate": "2013-03-31",
+      "strength": 3,
+      "row": 5,
+      "description": "6年生の時に祖父母がパソコンをプレゼント。ウェブサイトの色使い、配置、美しさに魅了される。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "Pinterestで美的分析を開始",
+      "type": "living",
+      "startDate": "2012-06-01",
+      "endDate": "2013-03-31",
+      "strength": 2,
+      "row": 5,
+      "description": "小学6年生の時、Pinterestで美しいデザインを収集・分析することを趣味に。親友と美的議論を交わす。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "中学校入学・文芸部でのデザイン開始",
+      "type": "living",
+      "startDate": "2013-04-01",
+      "endDate": "2016-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "松沢中学校に入学。文芸部に入部し、2年生からInDesignでの出版誌デザインを担当。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "親との「自分探し」の対話",
+      "type": "feeling",
+      "startDate": "2013-10-01",
+      "endDate": "2014-12-31",
+      "strength": 3,
+      "row": 4,
+      "description": "中1秋、母に「何がしたいか分からない」と打ち明ける。母の『自分で見つけるもの』という言葉が人生の転機。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "SNSでのデザイン論発信開始",
+      "type": "living",
+      "startDate": "2014-11-01",
+      "endDate": "2016-03-31",
+      "strength": 2,
+      "row": 5,
+      "description": "中2でInstagramアカウント『@misaki.design』を開設。デザイン理論を発信し、中3でフォロワーが300に。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "京都修学旅行と空間デザインの啓蒙",
+      "type": "living",
+      "startDate": "2015-01-01",
+      "endDate": "2015-12-31",
+      "strength": 3,
+      "row": 5,
+      "description": "3年生の京都修学旅行で、寺院の空間デザインに心を奪われる。デザインが人間行動をコントロール する力を認識。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "高校入学・情報デザイン部での活動",
+      "type": "living",
+      "startDate": "2016-04-01",
+      "endDate": "2019-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "新宿高校に進学。情報デザイン部に入部し、文化祭ポスターの完成度で部員が20名に増加。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "HTMLとCSSの基礎学習",
+      "type": "working",
+      "startDate": "2017-04-01",
+      "endDate": "2019-03-31",
+      "strength": 3,
+      "row": 0,
+      "description": "高2から情報科学の教員・佐藤健一がHTMLとCSSを指導。構造と表現の分離の美しさに心が響く。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "クリエイティブラボ東京でのインターンシップ",
+      "type": "working",
+      "startDate": "2017-06-01",
+      "endDate": "2017-08-31",
+      "strength": 3,
+      "row": 0,
+      "description": "高2の夏、月2回・3ヶ月間のインターン。メンター高坂麗奈からUI/UX設計の本質を学ぶ。",
+      "tagNames": ["インターン", "成長"]
+    },
+    {
+      "name": "デザイン理論コラムの執筆業務開始",
+      "type": "working",
+      "startDate": "2017-11-01",
+      "endDate": "2019-03-31",
+      "strength": 2,
+      "row": 0,
+      "description": "高3秋、月刊誌『デザインの力』のコラム執筆依頼を受ける。月1回・2000字で月3000円の報酬。",
+      "tagNames": ["副業", "成長"]
+    },
+    {
+      "name": "早稲田大学人間科学部社会学科に入学",
+      "type": "living",
+      "startDate": "2019-04-01",
+      "endDate": "2023-03-31",
+      "strength": 4,
+      "row": 3,
+      "description": "大学進学。親の期待ではなく自分の興味に従い社会学を専攻。父のシンガポール赴任で家族構成が変化。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "社会学的思考の深化",
+      "type": "feeling",
+      "startDate": "2019-04-01",
+      "endDate": "2023-03-31",
+      "strength": 3,
+      "row": 4,
+      "description": "大学での社会学学習を通じて、テクノロジーが社会に与える影響を学問的に深掘り。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "Designlyでの長期インターンシップ開始",
+      "type": "working",
+      "startDate": "2020-12-01",
+      "endDate": "2023-03-31",
+      "strength": 4,
+      "row": 0,
+      "description": "大2冬より週3日、1年以上のインターン。JavaScriptとReactを学び、フロントエンド開発の実務経験。",
+      "tagNames": ["インターン", "成長"]
+    },
+    {
+      "name": "デザイン合宿での伝統工芸研究",
+      "type": "living",
+      "startDate": "2021-07-01",
+      "endDate": "2021-08-31",
+      "strength": 2,
+      "row": 5,
+      "description": "大2の夏、親友・石井美優と京都での5日間デザイン合宿。伝統工芸からUI/UXへの応用を研究。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "ポッドキャスト出演・業界での認知拡大",
+      "type": "living",
+      "startDate": "2021-10-01",
+      "endDate": "2021-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "大3時、『テックキャリアメディア』のポッドキャストにゲスト出演。「Z世代エンジニアの代表的な声」として話題に。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "Designlyへの新卒採用（キャリア採用枠）",
+      "type": "working",
+      "startDate": "2023-04-01",
+      "endDate": "2026-03-05",
+      "strength": 4,
+      "row": 0,
+      "description": "大3秋の就職活動を経て、Designlyに正社員入社。初年度はフロントエンドリードとして活動。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "アクセシビリティ対応プロジェクト主導",
+      "type": "working",
+      "startDate": "2023-04-01",
+      "endDate": "2023-12-31",
+      "strength": 3,
+      "row": 0,
+      "description": "社会人初年度、WCAG 2.1 AA対応を主導。テクノロジーの社会的責任を具体的に経験。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "倫理的プロダクト設計ワークショップの開催",
+      "type": "working",
+      "startDate": "2024-01-01",
+      "endDate": "2024-02-29",
+      "strength": 2,
+      "row": 0,
+      "description": "社内でダークパターン、アルゴリズムバイアスについてのワークショップを開催。企業文化に影響。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "CPO候補への抜擢・給与大幅上昇",
+      "type": "working",
+      "startDate": "2024-07-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 0,
+      "description": "社員1年目でCPO（チーフプロダクトオフィサー）候補に抜擢。給与は500万円に上昇。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "ユーザーサーチプログラムの立ち上げ",
+      "type": "working",
+      "startDate": "2024-10-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 0,
+      "description": "月1回のユーザーインタビュープログラムを企画・実施。定性と定量データの橋渡しを実現。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "同僚との短期交際経験",
+      "type": "feeling",
+      "startDate": "2024-07-01",
+      "endDate": "2024-09-30",
+      "strength": 1,
+      "row": 4,
+      "description": "デザイナー同僚との3ヶ月交際。知的対話から始まるが、感情的深さの相違で終了。",
+      "tagNames": []
+    },
+    {
+      "name": "noteで長編記事『フロントエンドエンジニアのキャリア設計』を公開",
+      "type": "living",
+      "startDate": "2024-01-01",
+      "endDate": "2024-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "2万字超の記事を公開。『翻訳能力』『倫理的判断力』の重要性を主張。複数企業から講演依頼。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "『Women in Tech Tokyo』での講演登壇",
+      "type": "living",
+      "startDate": "2025-01-01",
+      "endDate": "2025-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "初の講演会で約200名（主に女性エンジニア）に『デザイナー的思考を持つエンジニア』について講演。",
+      "tagNames": ["成長"]
+    }
+  ]
+}

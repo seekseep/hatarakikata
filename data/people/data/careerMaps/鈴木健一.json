@@ -1,0 +1,247 @@
+{
+  "personName": "鈴木健一",
+  "language": "ja",
+  "birthDate": "1995-07-14",
+  "events": [
+    {
+      "name": "公文教室開始",
+      "type": "living",
+      "startDate": "2001-04-01",
+      "endDate": "2010-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "小学1年生から中学卒業まで週1回の公文通学。与えられたタスクをこなす習慣が身につく。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "将棋道場入門",
+      "type": "living",
+      "startDate": "2003-06-01",
+      "endDate": "2010-12-31",
+      "strength": 3,
+      "row": 5,
+      "description": "小学4年生から週末に将棋道場で修行。論理的思考と先読み能力を養う。少年大会で3位入賞。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "初めてのパソコン体験",
+      "type": "living",
+      "startDate": "2003-07-01",
+      "endDate": "2003-12-31",
+      "strength": 3,
+      "row": 5,
+      "description": "父親が持ち帰ったNEC製パソコンでMS-DOSのゲーム『ウィザードリィ』に没頭。BASIC言語で簡単なプログラムを作成。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "中学受験合格",
+      "type": "living",
+      "startDate": "2007-02-01",
+      "endDate": "2007-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "埼玉県内の進学校に合格。家族で天ぷらそばで合格を祝う。通学時間が片道40分に。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "コンピュータクラブ活動",
+      "type": "living",
+      "startDate": "2007-04-01",
+      "endDate": "2010-03-31",
+      "strength": 2,
+      "row": 5,
+      "description": "中学でコンピュータクラブに入部。石田由里と協力してテクノロジーの両翼として活動。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "情報オリンピック出場",
+      "type": "living",
+      "startDate": "2012-10-01",
+      "endDate": "2012-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "高校3年生で情報オリンピック県予選に出場。本選出場権を獲得。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "パソコン部設立・部長就任",
+      "type": "living",
+      "startDate": "2010-04-01",
+      "endDate": "2013-03-31",
+      "strength": 3,
+      "row": 5,
+      "description": "高校でパソコン部を新設し部長に。学園祭でのゲーム展が500名以上の来場者を獲得。リーダーシップを発揮。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "東京大学工学部合格",
+      "type": "living",
+      "startDate": "2013-03-01",
+      "endDate": "2013-04-01",
+      "strength": 4,
+      "row": 3,
+      "description": "東京大学工学部情報工学科に合格。親から『この家の誇りだ』と言われる。親元を離れ一人暮らしを開始。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "大学研究室配属・卒業論文執筆",
+      "type": "living",
+      "startDate": "2015-04-01",
+      "endDate": "2017-03-31",
+      "strength": 3,
+      "row": 5,
+      "description": "大学3年から田中隆志教授の研究室に配属。マイクロサービスアーキテクチャの研究で論文投稿・受理。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "安藤由美との交際開始",
+      "type": "living",
+      "startDate": "2015-04-01",
+      "endDate": "2020-01-31",
+      "strength": 2,
+      "row": 5,
+      "description": "大学4年時に横浜国立大学出身の由美と出会い交際開始。技術的完璧さ vs ユーザー満足度についての対話を重ねる。",
+      "tagNames": ["趣味"]
+    },
+    {
+      "name": "日本ユニシス入社",
+      "type": "working",
+      "startDate": "2017-04-01",
+      "endDate": "2020-08-31",
+      "strength": 3,
+      "row": 0,
+      "description": "大手SIer・日本ユニシスに新人として入社。金融システム部門で銀行向けシステム開発に従事。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "父親の膵臓がん診断",
+      "type": "feeling",
+      "startDate": "2018-03-01",
+      "endDate": "2018-10-31",
+      "strength": 4,
+      "row": 4,
+      "description": "父親が膵臓がんと診断される。27歳で初めて『親の死』というリアルな脅威に直面。人生観が揺さぶられる。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "安藤由美と結婚",
+      "type": "living",
+      "startDate": "2019-09-01",
+      "endDate": "2020-01-31",
+      "strength": 3,
+      "row": 5,
+      "description": "安藤由美にプロポーズ。2020年1月に結婚式。都内のマンション（品川区）に転居し共同生活開始。",
+      "tagNames": ["趣味"]
+    },
+    {
+      "name": "SIer時代の違和感の深化",
+      "type": "feeling",
+      "startDate": "2017-04-01",
+      "endDate": "2020-06-30",
+      "strength": 3,
+      "row": 4,
+      "description": "SIer時代を通じて『安定』と『やりがい』のバランスについての違和感が蓄積。イノベーション不在への問い。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "Web系転職活動",
+      "type": "working",
+      "startDate": "2020-06-01",
+      "endDate": "2020-09-01",
+      "strength": 4,
+      "row": 1,
+      "description": "SIerから Web系への転職を決断。複数社からオファーを受け、マーケティングオートメーション企業 Repro を選択。",
+      "tagNames": ["転職", "挑戦"]
+    },
+    {
+      "name": "Repro Senior Backend Engineer",
+      "type": "working",
+      "startDate": "2020-09-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 0,
+      "description": "Repro でバックエンドエンジニアとして入社。Go言語への移行を提案し実現。API 性能を3倍以上向上させる。",
+      "tagNames": ["在職", "成長", "挑戦"]
+    },
+    {
+      "name": "Go言語 API基盤への移行完了",
+      "type": "working",
+      "startDate": "2020-12-01",
+      "endDate": "2021-06-01",
+      "strength": 3,
+      "row": 0,
+      "description": "Go言語による API 基盤の移行がほぼ完了。CTO から『アーキテクチャチームのリーダーとなってほしい』と打診される。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "第一子誕生・育休取得",
+      "type": "living",
+      "startDate": "2022-02-01",
+      "endDate": "2022-04-01",
+      "strength": 4,
+      "row": 5,
+      "description": "長男・伸一郎が誕生。2ヶ月の育休を取得。エンジニアではなく『父親』として過ごす。人生観がシフト。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "価値観のシフト：完璧から現実へ",
+      "type": "feeling",
+      "startDate": "2022-02-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 4,
+      "description": "育休を通じて『完璧であることよりも人間的なバランス』の重要さに気づく。キャリア優先から人生全体のバランスへ。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "アーキテクチャチームリーダー就任",
+      "type": "working",
+      "startDate": "2022-04-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 0,
+      "description": "Repro でアーキテクチャチームのリーダーに。6名のエンジニアを率いて技術戦略に関わる。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "Go言語実践ガイド作成",
+      "type": "working",
+      "startDate": "2023-01-01",
+      "endDate": "2023-12-31",
+      "strength": 2,
+      "row": 0,
+      "description": "若手エンジニア向けの『Go言語実践ガイド』を社内教材として作成。20名以上の習得を支援。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "Senior Architect 職位獲得",
+      "type": "working",
+      "startDate": "2024-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 0,
+      "description": "技術的成果が評価され『Senior Architect』という新職位を獲得。より戦略的な責務を担当。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "親への定期的な帰省・親孝行",
+      "type": "living",
+      "startDate": "2017-04-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 5,
+      "description": "父親の死以来、月1回の帰省が習慣。母親の生活をサポート。父親の遺産で経済的なサポートも可能に。",
+      "tagNames": ["趣味"]
+    },
+    {
+      "name": "子育てと仕事のバランス模索",
+      "type": "feeling",
+      "startDate": "2022-02-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 4,
+      "description": "子どもの成長を見守ることの大切さ。『完璧でなくてもいい』という柔軟性。無理をしないメッセージをチームに発信。",
+      "tagNames": ["成長"]
+    }
+  ]
+}

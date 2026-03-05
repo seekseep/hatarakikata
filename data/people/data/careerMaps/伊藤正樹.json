@@ -1,0 +1,237 @@
+{
+  "personName": "伊藤正樹",
+  "language": "ja",
+  "birthDate": "1985-04-12",
+  "events": [
+    {
+      "name": "麻布中学校合格",
+      "type": "living",
+      "startDate": "1998-02-01",
+      "endDate": "1998-04-01",
+      "strength": 3,
+      "row": 3,
+      "description": "難関私立中学校・麻布中学への合格。親の期待への応答。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "物理への傾倒",
+      "type": "feeling",
+      "startDate": "1997-01-01",
+      "endDate": "2003-03-01",
+      "strength": 3,
+      "row": 4,
+      "description": "中学から高校期間における物理学への純粋な知的興奮。相対性理論への興味。",
+      "tagNames": ["成長", "挑戦"]
+    },
+    {
+      "name": "鉄道趣味",
+      "type": "living",
+      "startDate": "1998-01-01",
+      "endDate": "2000-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "中学時代の鉄道ファンクラブ活動。複雑なシステムの細部認識能力の育成。",
+      "tagNames": ["趣味"]
+    },
+    {
+      "name": "自作PC組立",
+      "type": "living",
+      "startDate": "2001-09-01",
+      "endDate": "2003-03-01",
+      "strength": 2,
+      "row": 5,
+      "description": "高1からのLinux導入による自分の興味追求。デジタルシステムへの傾倒。",
+      "tagNames": ["成長", "趣味"]
+    },
+    {
+      "name": "東京大学入学",
+      "type": "living",
+      "startDate": "2003-04-01",
+      "endDate": "2007-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "東京大学理科一類（物理学科）への入学。駒場寮での独立生活開始。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "素粒子物理への没頭",
+      "type": "feeling",
+      "startDate": "2003-04-01",
+      "endDate": "2004-12-31",
+      "strength": 3,
+      "row": 4,
+      "description": "大学初期段階での素粒子物理学への知的興奮と深い関心。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "情報工学への転向",
+      "type": "feeling",
+      "startDate": "2005-01-01",
+      "endDate": "2006-12-31",
+      "strength": 3,
+      "row": 4,
+      "description": "親の期待との折り合いにより情報工学への人生の軌道修正。本来の興味の放棄。",
+      "tagNames": ["成長", "挑戦"]
+    },
+    {
+      "name": "NTT通信入社",
+      "type": "working",
+      "startDate": "2007-04-01",
+      "endDate": "2015-08-31",
+      "strength": 3,
+      "row": 0,
+      "description": "大手通信企業への新卒入社。通信システム開発に従事。安定したキャリア形成。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "同期入社での優秀評価",
+      "type": "working",
+      "startDate": "2007-04-01",
+      "endDate": "2009-12-31",
+      "strength": 2,
+      "row": 0,
+      "description": "新卒から3年間での完璧な業務遂行による評価。係長候補への選抜。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "咲良との出会い・結婚",
+      "type": "living",
+      "startDate": "2008-06-01",
+      "endDate": "2009-09-30",
+      "strength": 2,
+      "row": 3,
+      "description": "同期女性社員・鈴木咲良との恋愛から結婚。安定した家庭基盤の構築。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "部下育成での挫折",
+      "type": "feeling",
+      "startDate": "2010-01-01",
+      "endDate": "2012-12-31",
+      "strength": 3,
+      "row": 4,
+      "description": "係長職で部下・田中慎二のメンタルヘルス問題。完璧性の強要の弊害を認識。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "長男誕生",
+      "type": "living",
+      "startDate": "2011-04-01",
+      "endDate": "2011-04-15",
+      "strength": 2,
+      "row": 3,
+      "description": "長男・健太郎の誕生。親としての責任と期待の伝承への葛藤開始。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "システムアーキテクチャの専門化",
+      "type": "working",
+      "startDate": "2012-01-01",
+      "endDate": "2015-08-31",
+      "strength": 3,
+      "row": 1,
+      "description": "大規模システム再設計プロジェクトでマイクロサービスアーキテクチャを導入。知的興奮の回復。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "長女誕生",
+      "type": "living",
+      "startDate": "2013-04-01",
+      "endDate": "2013-04-15",
+      "strength": 2,
+      "row": 3,
+      "description": "長女・美咲の誕生。父親としての役割と仕事のバランスへの違和感が深化。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "課長職への昇進",
+      "type": "working",
+      "startDate": "2015-09-01",
+      "endDate": "2018-02-28",
+      "strength": 3,
+      "row": 1,
+      "description": "マネジメント職への昇進。組織経営の本質と葛藤への直面。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "父の心筋梗塞",
+      "type": "feeling",
+      "startDate": "2016-01-01",
+      "endDate": "2016-12-31",
+      "strength": 3,
+      "row": 4,
+      "description": "父・隆一の心筋梗塞。人生の有限性と同じ道を歩む危機感の自覚。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "心理カウンセリング開始",
+      "type": "feeling",
+      "startDate": "2016-06-01",
+      "endDate": "2018-12-31",
+      "strength": 2,
+      "row": 4,
+      "description": "完璧性の強迫が親からの期待の内面化であることの発見。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "部長職への昇進",
+      "type": "working",
+      "startDate": "2018-03-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 2,
+      "description": "部長職への昇進。企業内での最高レベルのキャリア達成。",
+      "tagNames": ["在職"]
+    },
+    {
+      "name": "COVID-19パンデミック対応",
+      "type": "working",
+      "startDate": "2020-03-01",
+      "endDate": "2021-12-31",
+      "strength": 2,
+      "row": 2,
+      "description": "パンデミック期の危機管理最前線。仕事と家庭時間のバランス問題の顕在化。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "大学院特別聴講開始",
+      "type": "living",
+      "startDate": "2023-04-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 3,
+      "description": "東京大学大学院への特別聴講生入学。量子場の理論と宇宙物理学の再学習。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "昇進希望の辞退",
+      "type": "feeling",
+      "startDate": "2024-01-01",
+      "endDate": "2024-12-31",
+      "strength": 2,
+      "row": 4,
+      "description": "シニア職への昇進希望を辞退。自分の時間と知的興奮の優先化の決断。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "子どもたちとの関係再構築",
+      "type": "living",
+      "startDate": "2022-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 3,
+      "description": "健太郎への勉強サポート、美咲へのプログラミング教授。親の背中の見直し。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "自分の人生観の再定義",
+      "type": "feeling",
+      "startDate": "2022-01-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 4,
+      "description": "親の期待に応えた人生から、自分の興奮を優先する人生へのシフト。不完全さの受け入れ。",
+      "tagNames": ["成長"]
+    }
+  ]
+}

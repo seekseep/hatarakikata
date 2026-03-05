@@ -1,0 +1,247 @@
+{
+  "personName": "松本拓也",
+  "language": "ja",
+  "birthDate": "1988-07-15",
+  "events": [
+    {
+      "name": "ものづくり家族での育成",
+      "type": "living",
+      "startDate": "1988-07-15",
+      "endDate": "2000-12-31",
+      "strength": 3,
+      "row": 3,
+      "description": "広島の町工場・マツモト工業での育成。父の背中を見ながらものづくり精神を習得。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "電子工作入門",
+      "type": "living",
+      "startDate": "1995-01-01",
+      "endDate": "1997-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "小学3年からの真空管ラジオ修理。電子技術への初体験と達成感。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "秋葉原での部品学習",
+      "type": "living",
+      "startDate": "1997-01-01",
+      "endDate": "2000-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "毎週末の秋葉原での電子部品学習。電子工作の知識体系の構築。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "ロボコン第一回参加",
+      "type": "living",
+      "startDate": "2001-04-01",
+      "endDate": "2003-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "中学から高校でのロボットコンテスト参加。高2で広島地区大会優勝。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "バンド活動開始",
+      "type": "living",
+      "startDate": "2003-01-01",
+      "endDate": "2006-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "高校バンド『Metallic Dreams』でのベース活動。チームワークと感情表現の学習。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "広島大学工学部情報工学科入学",
+      "type": "living",
+      "startDate": "2007-04-01",
+      "endDate": "2011-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "地元広島大学への進学。実家通学で親の工場を見守りながら学習。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "起業サークル参加",
+      "type": "living",
+      "startDate": "2010-04-01",
+      "endDate": "2011-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "大学4年で起業サークル『Startup Lab Hiroshima』参加。起業の可能性を確信。",
+      "tagNames": ["成長", "挑戦"]
+    },
+    {
+      "name": "StormWare入社",
+      "type": "working",
+      "startDate": "2011-04-01",
+      "endDate": "2014-03-31",
+      "strength": 3,
+      "row": 0,
+      "description": "福岡のソフトウェア企業への就職。組み込みエンジニアとしての修行開始。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "Factory Intelligence 2.0プロジェクトリード",
+      "type": "working",
+      "startDate": "2012-01-01",
+      "endDate": "2014-03-31",
+      "strength": 3,
+      "row": 0,
+      "description": "IoTプロジェクトのリード。顧客ニーズの理解と15名チームのマネジメント。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "加藤由美子との出会い",
+      "type": "living",
+      "startDate": "2014-01-01",
+      "endDate": "2015-12-31",
+      "strength": 2,
+      "row": 3,
+      "description": "コンサルティング企業の窓口担当・由美子との出会い。事実婚への発展。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "NextGen Technologies入社",
+      "type": "working",
+      "startDate": "2014-04-01",
+      "endDate": "2016-05-31",
+      "strength": 3,
+      "row": 0,
+      "description": "AI企業へのシフト。CTO職での技術戦略策定と組織構築。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "技術基盤刷新プロジェクト",
+      "type": "working",
+      "startDate": "2014-04-01",
+      "endDate": "2016-05-31",
+      "strength": 3,
+      "row": 0,
+      "description": "全社技術基盤の刷新。マイクロサービス、クラウド、CI/CDの導入。",
+      "tagNames": ["成長", "挑戦"]
+    },
+    {
+      "name": "Kaizoku Technologies起業",
+      "type": "working",
+      "startDate": "2016-06-01",
+      "endDate": "2026-03-05",
+      "strength": 4,
+      "row": 0,
+      "description": "加藤由美子とともに起業。中小製造業向けAI生産最適化プラットフォーム開発。",
+      "tagNames": ["起業", "成長"]
+    },
+    {
+      "name": "マツモト工業への初期導入",
+      "type": "working",
+      "startDate": "2016-07-01",
+      "endDate": "2016-12-31",
+      "strength": 2,
+      "row": 0,
+      "description": "父の工場をユーザーとしての初期導入。実績作りと家族への貢献。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "シリーズAラウンド資金調達",
+      "type": "working",
+      "startDate": "2017-07-01",
+      "endDate": "2017-12-31",
+      "strength": 2,
+      "row": 0,
+      "description": "5000万円の資金調達成功。本格的な成長局面への突入。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "福岡に本社を置く決定",
+      "type": "feeling",
+      "startDate": "2017-06-01",
+      "endDate": "2017-12-31",
+      "strength": 2,
+      "row": 4,
+      "description": "東京移転ではなく福岡での地方発スタートアップを選択。人生のテーマの確認。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "シリーズBラウンド資金調達",
+      "type": "working",
+      "startDate": "2018-01-01",
+      "endDate": "2018-12-31",
+      "strength": 2,
+      "row": 0,
+      "description": "1億2000万円の資金調達。組織的成長と課題の直面。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "組織文化構築への奔走",
+      "type": "feeling",
+      "startDate": "2018-01-01",
+      "endDate": "2020-12-31",
+      "strength": 2,
+      "row": 4,
+      "description": "企業成長に伴う組織文化問題。マネジメント能力の深化への課題直面。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "COVID-19パンデミック対応",
+      "type": "working",
+      "startDate": "2020-03-01",
+      "endDate": "2021-12-31",
+      "strength": 2,
+      "row": 0,
+      "description": "パンデミック期の機会活用。デジタル化需要の急増への対応。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "SupplyLink開発・ローンチ",
+      "type": "working",
+      "startDate": "2020-06-01",
+      "endDate": "2021-12-31",
+      "strength": 3,
+      "row": 0,
+      "description": "サプライチェーン最適化プラットフォームの開発。業界全体への最適化へのシフト。",
+      "tagNames": ["成長", "挑戦"]
+    },
+    {
+      "name": "従業員120名超への成長",
+      "type": "working",
+      "startDate": "2023-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 0,
+      "description": "中堅企業への成長。リーダーシップ責任の一層の重大化。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "GreenFlow開発開始",
+      "type": "working",
+      "startDate": "2024-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 0,
+      "description": "カーボンニュートラル実現プラットフォームの開発。社会課題への取り組み拡大。",
+      "tagNames": ["成長", "挑戦"]
+    },
+    {
+      "name": "起業の成熟と新しい課題",
+      "type": "feeling",
+      "startDate": "2023-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 4,
+      "description": "ビジネスモデル確立後の『次は何をすべきか』という新たな問い。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "加藤由美子との継続的パートナーシップ",
+      "type": "living",
+      "startDate": "2015-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 3,
+      "description": "事実婚のパートナーシップ継続。人生最優先の基盤としての関係。",
+      "tagNames": ["成長"]
+    }
+  ]
+}

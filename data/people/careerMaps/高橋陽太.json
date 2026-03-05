@@ -1,0 +1,187 @@
+{
+  "personName": "高橋陽太",
+  "language": "ja",
+  "birthDate": "2002-07-14",
+  "events": [
+    {
+      "name": "少年野球チーム「松本ベアーズ」",
+      "type": "working",
+      "startDate": "2010-04-01",
+      "endDate": "2017-03-31",
+      "strength": 3,
+      "row": 1,
+      "description": "小学2年生で入団。最初はベンチだったが、休まず練習を続けレギュラーを獲得。セカンドを守り、中学まで継続した。",
+      "tagNames": ["挑戦", "成長"]
+    },
+    {
+      "name": "PCでインターネットに触れる",
+      "type": "working",
+      "startDate": "2012-10-01",
+      "endDate": "2013-03-31",
+      "strength": 1,
+      "row": 2,
+      "description": "小学4年生のころ、父のデスクトップPCでフラッシュゲームやYouTubeに触れ、インターネットの面白さを知る。",
+      "tagNames": ["挑戦"]
+    },
+    {
+      "name": "マインクラフトのサーバー構築・MOD導入",
+      "type": "working",
+      "startDate": "2016-12-01",
+      "endDate": "2017-03-31",
+      "strength": 3,
+      "row": 2,
+      "description": "中学2年の冬にマインクラフトを始め、ローカルサーバー構築やMOD導入を通じてPCスキルの基礎を身につけた。",
+      "tagNames": ["挑戦", "成長"]
+    },
+    {
+      "name": "Progateでプログラミング独学開始",
+      "type": "working",
+      "startDate": "2018-07-01",
+      "endDate": "2020-03-31",
+      "strength": 3,
+      "row": 2,
+      "description": "高校1年の夏にProgateでHTML/CSSを学び始め、JavaScript、ToDoアプリ制作へと進む。毎日2時間の学習を習慣化。",
+      "tagNames": ["挑戦", "成長"]
+    },
+    {
+      "name": "Twitterプログラミング学習コミュニティ参加",
+      "type": "living",
+      "startDate": "2019-04-01",
+      "endDate": "2020-03-31",
+      "strength": 2,
+      "row": 5,
+      "description": "高校2年の春に学習アカウントを作成。東京のエンジニアの働き方を知り、「松本を出たい」という焦りが生まれた。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "居酒屋キッチンのアルバイト",
+      "type": "working",
+      "startDate": "2021-10-01",
+      "endDate": "2023-05-31",
+      "strength": 2,
+      "row": 1,
+      "description": "大学2年の秋から居酒屋のキッチンでアルバイト。月4万円ほどの収入を得て生活費を補った。",
+      "tagNames": ["在職"]
+    },
+    {
+      "name": "ハッカソン参加・Flask個人開発",
+      "type": "working",
+      "startDate": "2020-10-01",
+      "endDate": "2022-09-30",
+      "strength": 3,
+      "row": 2,
+      "description": "大学1年後半にオンラインハッカソン初参加。2年生でFlaskの読書管理アプリを個人開発しGitHubに公開。",
+      "tagNames": ["挑戦", "成長"]
+    },
+    {
+      "name": "Webスタートアップで長期インターン",
+      "type": "working",
+      "startDate": "2023-06-01",
+      "endDate": "2024-03-31",
+      "strength": 4,
+      "row": 0,
+      "description": "大学3年の6月から都内スタートアップでGo言語のAPI開発に従事。先輩エンジニアの厳しいレビューを受けながら実務力を磨いた。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "Web系自社開発企業でバックエンドエンジニア",
+      "type": "working",
+      "startDate": "2024-04-01",
+      "endDate": "2026-03-05",
+      "strength": 4,
+      "row": 0,
+      "description": "従業員300人規模のWeb系企業に新卒入社。Go言語でのマイクロサービス開発を担当。2年目から小規模な設計を任されるようになる。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "松本市立小学校",
+      "type": "living",
+      "startDate": "2008-04-01",
+      "endDate": "2014-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "松本市郊外の公立小学校に通う。1学年2クラスの小規模校。算数が得意で、野球とPCに出会った時期。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "松本市立中学校",
+      "type": "living",
+      "startDate": "2014-04-01",
+      "endDate": "2017-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "公立中学校に進学。野球部でセカンドを守りつつ、マインクラフトを通じてPCスキルを独学した。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "松本市内の公立進学校",
+      "type": "living",
+      "startDate": "2017-04-01",
+      "endDate": "2020-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "偏差値55程度の公立高校に入学。帰宅部を選びプログラミング独学に時間を充てた。第一志望の国立大は不合格。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "都内私立大学 情報工学科",
+      "type": "living",
+      "startDate": "2020-04-01",
+      "endDate": "2024-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "都内の中堅私大に進学。コロナ禍のオンライン授業から始まり、ゼミでWebアプリ設計パターンを研究。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "「松本を出たい」という焦り",
+      "type": "feeling",
+      "startDate": "2019-04-01",
+      "endDate": "2020-03-31",
+      "strength": 4,
+      "row": 4,
+      "description": "Twitterで東京のエンジニアの生活を見て、地方にいては辿り着けない世界があると感じ、上京への焦りが強まった。",
+      "tagNames": ["挑戦"]
+    },
+    {
+      "name": "コロナ禍の孤独と「場所じゃなく自分が変わる」気づき",
+      "type": "feeling",
+      "startDate": "2020-04-01",
+      "endDate": "2021-09-30",
+      "strength": 3,
+      "row": 4,
+      "description": "上京直後にコロナで孤立。「東京に来れば変わる」という幻想が崩れ、変わるべきは自分自身だと理解した。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "「続ければなれるかもしれない」という静かな自信",
+      "type": "feeling",
+      "startDate": "2024-04-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 4,
+      "description": "社会人として働く中で、劇的な転機はなくても毎日積み上げる自分のスタイルに静かな誇りを持ち始めている。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "コーヒーのハンドドリップ",
+      "type": "living",
+      "startDate": "2022-04-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 5,
+      "description": "大学2年で個人経営のコーヒー屋に通い始め、自分でもハンドドリップを始める。思考の整理と精神的な回復のツール。",
+      "tagNames": ["挑戦"]
+    },
+    {
+      "name": "ランニング",
+      "type": "living",
+      "startDate": "2024-10-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 5,
+      "description": "社会人になり運動不足解消のため開始。毎朝走る習慣をつけ、10kmマラソン大会にもエントリー。",
+      "tagNames": ["挑戦", "成長"]
+    }
+  ]
+}

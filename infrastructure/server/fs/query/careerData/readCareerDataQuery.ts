@@ -5,7 +5,7 @@ import { CareerDataSchema } from '@/core/application/port/command/careerData/sav
 import type { ReadCareerDataQuery } from '@/core/application/port/query/careerData/readCareerDataQuery'
 import { failAsExternalServiceError, failAsNotFoundError, succeed } from '@/core/util/appResult'
 
-const CAREER_MAPS_DIR = path.resolve(process.cwd(), 'data/careerMaps')
+const CAREER_MAPS_DIR = path.resolve(process.cwd(), 'data/people/careerMaps')
 
 export const readCareerDataQuery: ReadCareerDataQuery = async (personName) => {
   try {

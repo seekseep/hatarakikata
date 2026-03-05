@@ -1,0 +1,277 @@
+{
+  "personName": "田中理恵",
+  "language": "ja",
+  "birthDate": "1993-07-15",
+  "events": [
+    {
+      "name": "児童演劇クラブ入会",
+      "type": "living",
+      "startDate": "2005-10-01",
+      "endDate": "2008-03-31",
+      "strength": 2,
+      "row": 5,
+      "description": "小学6年生の冬から児童演劇クラブに入会。週1回の稽古に通い『完璧主義』を初めて柔軟にする経験。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "英語スピーチコンテスト入選",
+      "type": "living",
+      "startDate": "2007-08-01",
+      "endDate": "2007-10-31",
+      "strength": 2,
+      "row": 5,
+      "description": "中学2年で名古屋市英語スピーチコンテスト出場。『My Mother, My Hero』のテーマで3位入賞。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "家事分担・効率化の学習",
+      "type": "living",
+      "startDate": "2007-04-01",
+      "endDate": "2010-03-31",
+      "strength": 2,
+      "row": 5,
+      "description": "中学1年生から月水金の夕食準備を担当。母からの『完璧より続く工夫が大事』という助言が人生観に影響。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "演劇部・舞台監督就任",
+      "type": "living",
+      "startDate": "2009-04-01",
+      "endDate": "2011-03-31",
+      "strength": 3,
+      "row": 5,
+      "description": "高校1年で演劇部に入部。舞台監督を兼ねて文化祭公演を成功させる。複数の視点を統合する能力を養う。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "名古屋学院高等学校進学",
+      "type": "living",
+      "startDate": "2008-04-01",
+      "endDate": "2011-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "愛知県随一の進学校に進学。朝6時出発、帰宅夜8時という生活。家事代行サービス導入で親からのサポート。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "情報系進学への決断",
+      "type": "living",
+      "startDate": "2010-04-01",
+      "endDate": "2011-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "高校での数学・物理の学習で情報系への関心が固まる。『Women in Technology』をテーマに英語スピーチで入選。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "東京大学工学部情報工学科進学",
+      "type": "living",
+      "startDate": "2011-04-01",
+      "endDate": "2015-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "東京大学情報工学科に進学。親元を離れ初めて『自分の期待から解放される』感覚を得る。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "大学2年でのターニングポイント",
+      "type": "feeling",
+      "startDate": "2012-04-01",
+      "endDate": "2012-12-31",
+      "strength": 3,
+      "row": 4,
+      "description": "データベース論で『プログラムは詩を書くようなもの』という言葉で『完璧さ』から『エレガンス』へ価値観がシフト。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "AtCoder 上位1000入賞",
+      "type": "living",
+      "startDate": "2013-04-01",
+      "endDate": "2014-09-30",
+      "strength": 2,
+      "row": 5,
+      "description": "大学3年時にプログラミングコンテスト『AtCoder』で上位1000に入るまで成長。プログラミング没頭期。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "エヌビディア・ジャパン インターンシップ",
+      "type": "working",
+      "startDate": "2013-07-01",
+      "endDate": "2013-09-30",
+      "strength": 3,
+      "row": 0,
+      "description": "大手IT企業でのインターンシップで『自分は単なるコーダーではなく、システム全体を考える力がある』と認識する。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "大学院進学・佐藤健一郎との出会い",
+      "type": "living",
+      "startDate": "2015-04-01",
+      "endDate": "2017-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "大学院に進学。図書館で佐藤健一郎と出会い交際。『完璧主義 vs アジャイル』の対比を体験。2年弱で別れ。",
+      "tagNames": ["在学"]
+    },
+    {
+      "name": "修士論文優秀評価・学生奨励賞ノミネート",
+      "type": "living",
+      "startDate": "2016-10-01",
+      "endDate": "2017-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "修士論文『分散キャッシング戦略の最適化』で優秀評価。日本データベース学会学生奨励賞ノミネート。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "メルカリ入社",
+      "type": "working",
+      "startDate": "2017-04-01",
+      "endDate": "2024-12-31",
+      "strength": 3,
+      "row": 0,
+      "description": "メルカリにバックエンドエンジニアとして入社。『日本の産業をテクノロジーで変革したい』という想い。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "バックエンド・チーム メンター活動開始",
+      "type": "working",
+      "startDate": "2018-01-01",
+      "endDate": "2021-12-31",
+      "strength": 2,
+      "row": 0,
+      "description": "入社2年目から新人育成のメンターに。『完璧ではなく段階的に学ぶこと』を教える経験で人材育成の充足感。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "技術ブログ開設・登壇",
+      "type": "working",
+      "startDate": "2019-01-01",
+      "endDate": "2021-12-31",
+      "strength": 2,
+      "row": 0,
+      "description": "バックエンドの知見を技術ブログで発信。PyCon Japan 2019 で『大規模分散システムのキャッシング』登壇。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "メルカリ米国上場準備への関わり",
+      "type": "working",
+      "startDate": "2019-03-01",
+      "endDate": "2019-12-31",
+      "strength": 3,
+      "row": 0,
+      "description": "メルカリのアメリカ上場準備でグローバルスケーラビリティを意識した開発。視野が劇的に広がる。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "青山翔太との出会い・交際開始",
+      "type": "living",
+      "startDate": "2021-04-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 5,
+      "description": "スタートアップ営業責任者・青山翔太と出会い交際。『バランスの取れた人生』の価値観を学ぶ。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "テックリード昇進",
+      "type": "working",
+      "startDate": "2021-01-01",
+      "endDate": "2025-03-31",
+      "strength": 4,
+      "row": 0,
+      "description": "上野の退職に伴い、28歳でテックリード（バックエンド25名チーム）に昇進。『人の育成』を最優先に。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "テックリード時代の困難と学習",
+      "type": "feeling",
+      "startDate": "2021-01-01",
+      "endDate": "2022-12-31",
+      "strength": 2,
+      "row": 4,
+      "description": "有能な若手エンジニア転職に『完璧主義』的自責を感じるが、妻・翔太と母からの言葉で『現実性』へシフト。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "青山翔太と結婚式",
+      "type": "living",
+      "startDate": "2023-03-01",
+      "endDate": "2023-03-31",
+      "strength": 3,
+      "row": 5,
+      "description": "翔太との結婚式を挙げる。デザイナーズホテルで80名ほどの来客。母が『同じ時代の課題に向き合う母娘』とスピーチ。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "第一子出産・育休取得",
+      "type": "living",
+      "startDate": "2023-06-01",
+      "endDate": "2024-07-31",
+      "strength": 4,
+      "row": 5,
+      "description": "娘・美優（みゆ）を出産。13ヶ月の育休取得。『完璧さの放棄』を実践。ホルモン変化への理解。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "育休中のスタートアップ通勤",
+      "type": "working",
+      "startDate": "2023-08-01",
+      "endDate": "2024-05-31",
+      "strength": 2,
+      "row": 0,
+      "description": "育休中も週1回、コワーキングスペースで『同じ課題に向き合う女性エンジニア』と交流。一人ではないことを実感。",
+      "tagNames": ["在職"]
+    },
+    {
+      "name": "職場復帰・新しい働き方の実装",
+      "type": "working",
+      "startDate": "2024-06-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 0,
+      "description": "育休から復帰し新しい時間割を実装。朝7時半～9時で家事、9時～12時半が集中業務。完璧な両立は不可能と認識。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "チーム代行責任の委譲",
+      "type": "working",
+      "startDate": "2024-06-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 0,
+      "description": "テックリード職の責任をシニアエンジニア2名に分散。『全ての決定を自分で行う』から『自律的判断できる仕組み』へ転換。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "エンジニアリングマネージャー職位転換",
+      "type": "working",
+      "startDate": "2025-01-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 0,
+      "description": "メルカリ経営陣から『テックリード』から『エンジニアリングマネージャー』への職位転換を提案・受諾。人の育成を最優先。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "母親としての試行錯誤",
+      "type": "feeling",
+      "startDate": "2024-06-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 4,
+      "description": "娘の夜泣きや環境変化によるストレス。『完璧に対応』から『今できることを精一杯』へシフト。親としても成長。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "夫婦関係の再構築",
+      "type": "living",
+      "startDate": "2023-06-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 5,
+      "description": "育児の厳密な役割分担から『その時その時で柔軟に対応』へ。『完璧な分担』より『甘えることもある関係』を実現。",
+      "tagNames": ["成長"]
+    }
+  ]
+}

@@ -1,0 +1,337 @@
+{
+  "personName": "吉田恵美",
+  "language": "ja",
+  "birthDate": "1980-01-01",
+  "events": [
+    {
+      "name": "三世代同居での成長",
+      "type": "living",
+      "startDate": "1980-01-01",
+      "endDate": "1993-12-31",
+      "strength": 3,
+      "row": 3,
+      "description": "新潟豪雪地帯での三世代同居。祖母からの手芸、両親からの柔軟な価値観を習得。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "児童美術展受賞",
+      "type": "living",
+      "startDate": "1989-01-01",
+      "endDate": "1991-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "小学4年での市児童美術展県奨励賞受賞。創造的才能の外部確認。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "祖母からの手芸指導",
+      "type": "living",
+      "startDate": "1987-01-01",
+      "endDate": "1993-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "祖母・八重子からの刺繍・手芸指導。創造の喜びと手仕事の価値を学ぶ。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "読書への没入",
+      "type": "living",
+      "startDate": "1988-01-01",
+      "endDate": "1995-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "図書館での読書習慣。『赤毛のアン』などの物語への深い共鳴。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "祖父からの圧力と母の励まし",
+      "type": "feeling",
+      "startDate": "1992-01-01",
+      "endDate": "1996-12-31",
+      "strength": 2,
+      "row": 4,
+      "description": "祖父の『女は家庭』という価値観への反発と母からの『自分の道を進め』という励まし。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "美術部での本格的修行",
+      "type": "living",
+      "startDate": "1994-01-01",
+      "endDate": "1998-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "中高時代の美術部。鈴木先生・松永先生の指導で素描から油彩へ。全国美術展覧会入選。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "全国高校美術展覧会入選",
+      "type": "living",
+      "startDate": "1997-01-01",
+      "endDate": "1997-12-31",
+      "strength": 2,
+      "row": 3,
+      "description": "高2の『積層する時間』が入選。作品の全国巡回展示。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "親元離別・東京への進学準備",
+      "type": "living",
+      "startDate": "1997-04-01",
+      "endDate": "1998-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "高3からの親戚宅での下宿生活。初めての親元分離と自立への準備。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "武蔵野美術大学入学",
+      "type": "living",
+      "startDate": "1998-04-01",
+      "endDate": "2002-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "東京での学生寮での生活。Webデザインへの興味の発展。卒業制作が実現される。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "Webデザインへの傾斜",
+      "type": "living",
+      "startDate": "2000-01-01",
+      "endDate": "2002-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "3年次でのWebデザインへのシフト。HTMLとCSSの独学。デジタル表現の開拓。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "ビジョンクリエイト入社",
+      "type": "working",
+      "startDate": "2002-04-01",
+      "endDate": "2010-05-31",
+      "strength": 3,
+      "row": 0,
+      "description": "東京のデザイン制作会社への入社。Webデザイナーとしてのキャリア開始。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "高橋敦との結婚",
+      "type": "living",
+      "startDate": "2003-01-01",
+      "endDate": "2003-12-31",
+      "strength": 2,
+      "row": 3,
+      "description": "大学後輩・高橋敦との結婚。広告代理店コピーライターとの結合。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "長女琴音出産",
+      "type": "living",
+      "startDate": "2005-04-01",
+      "endDate": "2005-04-30",
+      "strength": 2,
+      "row": 3,
+      "description": "長女・琴音の出産。育児と仕事の両立開始。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "JavaScriptへの学習開始",
+      "type": "working",
+      "startDate": "2008-01-01",
+      "endDate": "2010-05-31",
+      "strength": 2,
+      "row": 0,
+      "description": "2008年からのJavaScript本格学習。プログラミングへのシフトの準備。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "次女由莉出産",
+      "type": "living",
+      "startDate": "2007-11-01",
+      "endDate": "2007-11-30",
+      "strength": 2,
+      "row": 3,
+      "description": "次女・由莉の出産。育児負担の増大と婚姻関係の冷え込み。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "離婚成立",
+      "type": "feeling",
+      "startDate": "2010-03-01",
+      "endDate": "2010-05-31",
+      "strength": 3,
+      "row": 4,
+      "description": "高橋敦との協議離婚成立。シングルマザーとしての人生選択。",
+      "tagNames": ["成長", "挑戦"]
+    },
+    {
+      "name": "鎌倉への引越",
+      "type": "living",
+      "startDate": "2010-05-01",
+      "endDate": "2010-05-31",
+      "strength": 2,
+      "row": 3,
+      "description": "子ども2人を連れて鎌倉に引越。地方での新しい生活開始。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "フリーランスWebデザイナーへの転換",
+      "type": "working",
+      "startDate": "2010-06-01",
+      "endDate": "2013-12-31",
+      "strength": 3,
+      "row": 0,
+      "description": "会社を退職し独立。フリーランスとしての活動開始。JavaScriptへの傾斜を加速。",
+      "tagNames": ["フリーランス", "成長"]
+    },
+    {
+      "name": "フロントエンドエンジニアへの転身",
+      "type": "working",
+      "startDate": "2013-01-01",
+      "endDate": "2018-03-31",
+      "strength": 3,
+      "row": 0,
+      "description": "Reactなどの最新技術習得。デザイナーからエンジニアへの完全転換。",
+      "tagNames": ["フリーランス", "成長"]
+    },
+    {
+      "name": "Reactの習得",
+      "type": "working",
+      "startDate": "2014-01-01",
+      "endDate": "2014-12-31",
+      "strength": 2,
+      "row": 0,
+      "description": "Facebookが開発したReactの本格学習。UIの構築方法の革新への対応。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "スタートアップ企業での案件受託",
+      "type": "working",
+      "startDate": "2015-01-01",
+      "endDate": "2018-03-31",
+      "strength": 2,
+      "row": 0,
+      "description": "イノベーションラボなどでのスタートアップ案件。UX最適化を含む高度なプロジェクト。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "オンラインコース講師活動",
+      "type": "working",
+      "startDate": "2016-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 0,
+      "description": "初心者向けコース講師。知識の言語化と次世代への伝承。",
+      "tagNames": ["副業", "成長"]
+    },
+    {
+      "name": "独立フリーランス正式化",
+      "type": "working",
+      "startDate": "2018-04-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 0,
+      "description": "emu design worksとして屋号を持つ独立。40歳での新しい仕事形態の選択。",
+      "tagNames": ["フリーランス", "成長"]
+    },
+    {
+      "name": "デザインシステム構築への参入",
+      "type": "working",
+      "startDate": "2019-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 0,
+      "description": "複数スタートアップでのデザインシステム構築支援。デザインとエンジニアの橋渡し。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "地域貢献・デジタルリテラシー講座",
+      "type": "living",
+      "startDate": "2018-04-01",
+      "endDate": "2026-03-05",
+      "strength": 1,
+      "row": 5,
+      "description": "鎌倉地域での高齢者向けデジタルリテラシー講座。月1回のボランティア活動。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "母の高齢化と帰省の継続",
+      "type": "living",
+      "startDate": "2020-01-01",
+      "endDate": "2026-03-05",
+      "strength": 1,
+      "row": 3,
+      "description": "新潟の母・由紀子への支援。夏冬の帰省継続。世代交代の実感。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "鎌倉での一戸建て購入",
+      "type": "living",
+      "startDate": "2022-01-01",
+      "endDate": "2022-12-31",
+      "strength": 2,
+      "row": 3,
+      "description": "自分たちの家を購入。経済的安定と自分たちの人生の構築の象徴。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "メンター・コンサルティングへのシフト",
+      "type": "working",
+      "startDate": "2021-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 0,
+      "description": "スペシャリストからメンター・コンサルタントへの活動シフト。他者の成長への関与。",
+      "tagNames": ["フリーランス", "成長"]
+    },
+    {
+      "name": "オンライン講座の立ち上げ",
+      "type": "working",
+      "startDate": "2023-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 0,
+      "description": "フロントエンド開発テーマのオンライン講座開設。受け身の継続収入を実現。",
+      "tagNames": ["副業", "成長"]
+    },
+    {
+      "name": "ブログでの発信開始",
+      "type": "living",
+      "startDate": "2023-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 5,
+      "description": "『技術と人生』ブログ開始。業界への影響力拡大。月5000-10000アクセス。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "手芸とデジタルの融合作品制作",
+      "type": "living",
+      "startDate": "2021-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 5,
+      "description": "『刺繍とコード』アート作品の制作。デジタルアート展覧会に出品。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "月収50万円超の達成",
+      "type": "working",
+      "startDate": "2024-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 0,
+      "description": "複数の仕事形態による月収50万円超達成。経済的自立の確立。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "人生観の成熟と子どもたちへの伝承",
+      "type": "feeling",
+      "startDate": "2018-04-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 4,
+      "description": "自分の人生選択を誇ることへ。琴音と由莉への『自分たちの道を選ぶ』価値観の伝承。",
+      "tagNames": ["成長"]
+    }
+  ]
+}

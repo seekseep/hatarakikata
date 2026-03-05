@@ -1,0 +1,377 @@
+{
+  "personName": "藤原誠",
+  "language": "ja",
+  "birthDate": "1982-07-15",
+  "events": [
+    {
+      "name": "ものづくり地方での育成",
+      "type": "living",
+      "startDate": "1982-07-15",
+      "endDate": "1994-12-31",
+      "strength": 3,
+      "row": 3,
+      "description": "浜松の製造業集積地での育成。父・隆一の技術者としての背中を見ながら成長。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "ラジオ修理による電子工作入門",
+      "type": "living",
+      "startDate": "1989-01-01",
+      "endDate": "1992-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "小学3年からの真空管ラジオ修理。回路図読解と部品理解の基礎習得。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "秋葉原での電子部品学習",
+      "type": "living",
+      "startDate": "1991-01-01",
+      "endDate": "1994-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "毎週末の秋葉原での部品購入と学習。電子工作の体系的知識構築。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "登山への目覚め",
+      "type": "living",
+      "startDate": "1992-01-01",
+      "endDate": "1994-12-31",
+      "strength": 2,
+      "row": 5,
+      "description": "小学6年からの登山。細部へのこだわりと自然との融合の経験。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "物理部での活動",
+      "type": "living",
+      "startDate": "1995-04-01",
+      "endDate": "1998-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "中学の物理部でのマイコン制御LED回路作成。市科学展覧会佳作受賞。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "北アルプス槍ヶ岳登山",
+      "type": "living",
+      "startDate": "1996-07-01",
+      "endDate": "1996-07-31",
+      "strength": 2,
+      "row": 5,
+      "description": "父親との槍ヶ岳登山。自分の限界と超越の経験。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "高専進学決定",
+      "type": "living",
+      "startDate": "1997-01-01",
+      "endDate": "1998-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "岡谷工業高専への進学。地元志向と技術志向の折衷案を選択。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "岡谷工業高専入学",
+      "type": "living",
+      "startDate": "1998-04-01",
+      "endDate": "2003-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "5年間の高専教育。実験・実習による実践的技術習得。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "高専での実験・実習",
+      "type": "living",
+      "startDate": "2000-04-01",
+      "endDate": "2003-03-31",
+      "strength": 3,
+      "row": 3,
+      "description": "3年次以降の総合実験。センサ制御、マイコン応用、通信技術の習得。",
+      "tagNames": ["在学", "成長"]
+    },
+    {
+      "name": "卒業研究テーマ選定",
+      "type": "living",
+      "startDate": "2002-04-01",
+      "endDate": "2003-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "『温度・湿度センサを用いた環境制御システム』の設計。システム全体思考の習得。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "藤井由紀子との出会い",
+      "type": "living",
+      "startDate": "2001-01-01",
+      "endDate": "2003-12-31",
+      "strength": 2,
+      "row": 3,
+      "description": "高専時代の図書室での出会いから交際へ。浜松への共通の帰属意識。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "浜松精密電子工業入社",
+      "type": "working",
+      "startDate": "2003-04-01",
+      "endDate": "2026-03-05",
+      "strength": 4,
+      "row": 0,
+      "description": "浜松の自動車部品メーカーへの就職。地元への根ざしと組み込みエンジニアとしてのキャリア開始。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "組み込みシステム設計グループ配属",
+      "type": "working",
+      "startDate": "2003-04-01",
+      "endDate": "2008-12-31",
+      "strength": 2,
+      "row": 0,
+      "description": "初期段階のCAD操作から独立設計者への昇進。完璧な実装能力の確立。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "藤井由紀子と結婚",
+      "type": "living",
+      "startDate": "2004-11-01",
+      "endDate": "2004-11-30",
+      "strength": 2,
+      "row": 3,
+      "description": "高専時代の交際相手との結婚。浜松での家族基盤の構築。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "長男駿太郎出産",
+      "type": "living",
+      "startDate": "2005-03-01",
+      "endDate": "2005-03-31",
+      "strength": 2,
+      "row": 3,
+      "description": "長男・駿太郎の誕生。23歳での親となる経験。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "燃料噴射制御回路の再設計成功",
+      "type": "working",
+      "startDate": "2006-01-01",
+      "endDate": "2007-12-31",
+      "strength": 2,
+      "row": 0,
+      "description": "独立設計案件でのセンサIC改善。20%のサイズ削減と15%の省電力化達成。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "若手エンジニア賞受賞",
+      "type": "working",
+      "startDate": "2007-01-01",
+      "endDate": "2007-12-31",
+      "strength": 2,
+      "row": 0,
+      "description": "社内技術表彰での若手エンジニア賞受賞。昇給と認識の向上。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "次男拓也出産",
+      "type": "living",
+      "startDate": "2007-06-01",
+      "endDate": "2007-06-30",
+      "strength": 2,
+      "row": 3,
+      "description": "次男・拓也の誕生。子育てと仕事のバランス模索開始。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "地域技術者コミュニティ参加",
+      "type": "living",
+      "startDate": "2008-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 5,
+      "description": "浜松地域の技術者情報交換会への参加。業界課題の共有と解決。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "家の購入",
+      "type": "living",
+      "startDate": "2007-04-01",
+      "endDate": "2007-12-31",
+      "strength": 2,
+      "row": 3,
+      "description": "浜松市北区での自宅購入。親が育った地での子育ての選択。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "長女美優出産",
+      "type": "living",
+      "startDate": "2010-02-01",
+      "endDate": "2010-02-28",
+      "strength": 2,
+      "row": 3,
+      "description": "長女・美優の誕生。3人の子育てとキャリアのバランス確立。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "父の定年退職",
+      "type": "living",
+      "startDate": "2010-01-01",
+      "endDate": "2010-12-31",
+      "strength": 2,
+      "row": 3,
+      "description": "父・隆一の定年。世代交代と親からの期待の終了の実感。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "IoT統合制御プラットフォームプロジェクトリード",
+      "type": "working",
+      "startDate": "2011-01-01",
+      "endDate": "2016-12-31",
+      "strength": 3,
+      "row": 1,
+      "description": "新しい開発プロジェクトのリード。6名チームでのIoT対応システム構築。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "Linux・MQTT・Python習得",
+      "type": "working",
+      "startDate": "2011-01-01",
+      "endDate": "2014-12-31",
+      "strength": 2,
+      "row": 1,
+      "description": "IoT対応技術の習得。組み込みLinux、MQTTプロトコル、Pythonプログラミング。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "部門長補佐への昇進",
+      "type": "working",
+      "startDate": "2016-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 2,
+      "description": "昇進と給与増。月約48万円に達する。技術者としての地位確立。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "組み込みシステム技術協会委員",
+      "type": "living",
+      "startDate": "2014-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 5,
+      "description": "IoTワーキンググループのメンバー。業界標準化への貢献。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "静岡大学非常勤講師",
+      "type": "living",
+      "startDate": "2015-04-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 5,
+      "description": "組み込みシステム設計の講座担当。次世代への技術伝承。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "家族での登山活動継続",
+      "type": "living",
+      "startDate": "2010-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 5,
+      "description": "子どもたちとの登山。駿太郎の槍ヶ岳、拓也の燕岳。世代交代の実感。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "エッジAIの導入",
+      "type": "working",
+      "startDate": "2018-01-01",
+      "endDate": "2022-12-31",
+      "strength": 2,
+      "row": 2,
+      "description": "TensorFlow Liteなどの軽量DLの組み込みシステム統合。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "技術フェロー職への昇進",
+      "type": "working",
+      "startDate": "2018-01-01",
+      "endDate": "2026-03-05",
+      "strength": 3,
+      "row": 2,
+      "description": "経営層直下の技術戦略に関わる職位。年収800万円超。",
+      "tagNames": ["在職", "成長"]
+    },
+    {
+      "name": "IEEE国際会議キーノート依頼",
+      "type": "working",
+      "startDate": "2022-01-01",
+      "endDate": "2022-12-31",
+      "strength": 1,
+      "row": 2,
+      "description": "エッジAI関連の国際会議でのキーノート。部下に登壇を任せる。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "マスター・アプレンティス制度での指導",
+      "type": "living",
+      "startDate": "2018-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 5,
+      "description": "4名の若手エンジニアへの指導。『自分で考えさせる』スタイルの確立。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "5G対応製品開発",
+      "type": "working",
+      "startDate": "2020-01-01",
+      "endDate": "2022-12-31",
+      "strength": 2,
+      "row": 2,
+      "description": "低遅延1ms以下の5G対応組み込みシステムの実装。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "浜松テックコミュニティ立ち上げ",
+      "type": "living",
+      "startDate": "2021-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 5,
+      "description": "地域の技術者25名によるオンラインコミュニティ。月1回の勉強会開催。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "北アルプス槍ヶ岳再登山",
+      "type": "living",
+      "startDate": "2023-08-01",
+      "endDate": "2023-08-31",
+      "strength": 2,
+      "row": 5,
+      "description": "40年ぶりの槍ヶ岳再登山。親友・山田健太との人生の時間流の実感。",
+      "tagNames": ["趣味", "成長"]
+    },
+    {
+      "name": "浜松の製造業への社会的関与",
+      "type": "feeling",
+      "startDate": "2018-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 4,
+      "description": "地方ものづくりの衰退への危機感と次世代育成への使命感。",
+      "tagNames": ["成長"]
+    },
+    {
+      "name": "次世代への技術伝承への確信",
+      "type": "feeling",
+      "startDate": "2022-01-01",
+      "endDate": "2026-03-05",
+      "strength": 2,
+      "row": 4,
+      "description": "ものづくり精神と技術磨きのDNA伝承への確認。子どもたちの独立を見守る喜び。",
+      "tagNames": ["成長"]
+    }
+  ]
+}

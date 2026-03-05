@@ -32,7 +32,8 @@
       "Bash(sips -s format png app/favicon.ico --out /tmp/favicon_tmp.png)",
       "Bash(sips -s format png -s formatOptions rgba /tmp/favicon_tmp.png --out /tmp/favicon_rgba.png)",
       "Bash(sips -s format ico /tmp/favicon_rgba.png --out app/favicon.ico)",
-      "Bash(sips -g space app/favicon.ico)"
+      "Bash(sips -g space app/favicon.ico)",
+      "Bash(npx supabase db dump)"
     ]
   }
 }
