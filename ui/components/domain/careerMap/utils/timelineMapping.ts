@@ -118,3 +118,49 @@ export function computeTimelineConfig(careerMap: CareerMap & { startDate: string
     endDate: careerMap.endDate,
   }
 }
+
+export function computeMaxEventBottom(
+  events: CareerEvent[],
+  questions: { startDate: string; endDate: string; row?: number }[],
+  config: TimelineConfig,
+): number {
+  let max = 0
+  for (const event of events) {
+    const rect = eventToRect(event, config)
+    const bottom = rect.y + rect.height
+    if (bottom > max) max = bottom
+  }
+  for (const question of questions) {
+    const rect = questionToRect(question, config)
+    const bottom = rect.y + rect.height
+    if (bottom > max) max = bottom
+  }
+  return max
+}
+
+export function computeCanvasHeight(
+  headerPx: number,
+  maxEventBottom: number,
+  rowHeight: number,
+): number {
+  const minContentHeight = headerPx + 600
+  return Math.max(minContentHeight, maxEventBottom + rowHeight * 4)
+}
+
+export function computePlaceholderRect(
+  canvasX: number,
+  canvasY: number,
+  tickWidthPx: number,
+  config: TimelineConfig,
+): Rect {
+  const rowHeight = config.rowHeightInUnits * config.unit
+  const rowGapHeight = config.rowGapHeightInUnits * config.unit
+  const headerPx = config.headerHeightInUnits * config.unit
+  const rowStep = rowHeight + rowGapHeight
+  const row = yToRow(canvasY, config)
+  const rowY = headerPx + rowGapHeight + row * rowStep
+
+  const snappedX = Math.floor(canvasX / tickWidthPx) * tickWidthPx
+
+  return { x: snappedX, y: rowY, width: tickWidthPx, height: rowHeight }
+}
