@@ -5,8 +5,8 @@ import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNo
 
 import { Executor } from "../../../executor"
 import { CreateCareerGuideCommand } from "../../../port/command"
-import { FindCareerMapQuery, FindUserQuery } from "../../../port/query"
-import { getFixedCareerGuideContent, getFixedCareerGuideNextActions } from "./fixedCareerGuideContent"
+import { GenerateCareerGuideOperation } from "../../../port/operation"
+import { FindCareerMapQuery, FindUserQuery, ListCareerEventsByCareerMapIdQuery } from "../../../port/query"
 
 const CreateCareerGuideParametersSchema = z.object({
   baseCareerMapId: z.string(),
@@ -23,12 +23,20 @@ export type CreateCareerGuide = (
 export type MakeCreateCareerGuideDependencies = {
   findCareerMapQuery: FindCareerMapQuery
   findUserQuery: FindUserQuery
+  listCareerEventsByCareerMapIdQuery: ListCareerEventsByCareerMapIdQuery
+  generateCareerGuideOperation: GenerateCareerGuideOperation
   createCareerGuideCommand: CreateCareerGuideCommand
+}
+
+function sectionsToMarkdown(sections: { title: string; body: string }[]): string {
+  return sections.map((s) => `## ${s.title}\n\n${s.body}`).join("\n\n")
 }
 
 export function makeCreateCareerGuide({
   findCareerMapQuery,
   findUserQuery,
+  listCareerEventsByCareerMapIdQuery,
+  generateCareerGuideOperation,
   createCareerGuideCommand,
 }: MakeCreateCareerGuideDependencies): CreateCareerGuide {
   return async (input, executor) => {
@@ -41,17 +49,45 @@ export function makeCreateCareerGuide({
 
     const { baseCareerMapId, guideCareerMapId } = validation.data
 
-    const findResult = await findCareerMapQuery({ id: baseCareerMapId })
-    if (!findResult.success) return findResult
-    if (!findResult.data) return failAsNotFoundError("Base career map not found")
+    const baseCareerMapResult = await findCareerMapQuery({ id: baseCareerMapId })
+    if (!baseCareerMapResult.success) return baseCareerMapResult
+    if (!baseCareerMapResult.data) return failAsNotFoundError("Base career map not found")
+    const baseCareerMap = baseCareerMapResult.data
 
-    const baseCareerMap = findResult.data
-    const userResult = await findUserQuery({ id: baseCareerMap.userId })
-    if (!userResult.success) return userResult
-    const userName = userResult.data?.name ?? "不明"
+    const baseUserResult = await findUserQuery({ id: baseCareerMap.userId })
+    if (!baseUserResult.success) return baseUserResult
+    const userName = baseUserResult.data?.name ?? "不明"
 
-    const content = getFixedCareerGuideContent(userName)
-    const nextActions = getFixedCareerGuideNextActions()
+    const guideCareerMapResult = await findCareerMapQuery({ id: guideCareerMapId })
+    if (!guideCareerMapResult.success) return guideCareerMapResult
+    if (!guideCareerMapResult.data) return failAsNotFoundError("Guide career map not found")
+    const guideCareerMap = guideCareerMapResult.data
+
+    const guideUserResult = await findUserQuery({ id: guideCareerMap.userId })
+    if (!guideUserResult.success) return guideUserResult
+    const guideCareerMapName = guideUserResult.data?.name ?? "参考人物"
+
+    const baseEventsResult = await listCareerEventsByCareerMapIdQuery({ careerMapId: baseCareerMapId })
+    if (!baseEventsResult.success) return baseEventsResult
+
+    const guideEventsResult = await listCareerEventsByCareerMapIdQuery({ careerMapId: guideCareerMapId })
+    if (!guideEventsResult.success) return guideEventsResult
+
+    const guideResult = await generateCareerGuideOperation({
+      userName,
+      baseCareerEvents: baseEventsResult.data.items,
+      guideCareerMapName,
+      guideCareerEvents: guideEventsResult.data.items,
+    })
+    if (!guideResult.success) return guideResult
+
+    const content = sectionsToMarkdown(guideResult.data.content.sections)
+    const nextActions = guideResult.data.actions.map((a) => ({
+      type: a.type as "learning" | "job-change",
+      title: a.title,
+      description: a.description,
+      url: a.url,
+    }))
 
     const userId = executor.type === "user" ? executor.user.id : baseCareerMap.userId
 

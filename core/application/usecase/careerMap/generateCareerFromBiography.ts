@@ -2,25 +2,25 @@ import { z } from "zod"
 
 import type { Executor } from "@/core/application/executor"
 import type { SaveCareerDataCommand } from "@/core/application/port/command/careerData/saveCareerDataCommand"
-import type { SaveWikipediaMarkdownCacheCommand } from "@/core/application/port/command/wikipedia/saveWikipediaMarkdownCacheCommand"
-import type { FetchWikipediaBiographyOperation } from "@/core/application/port/operation/fetchWikipediaBiography"
 import type { GenerateCareerEventsFromBiographyOperation } from "@/core/application/port/operation/generateCareerEventsFromBiography"
 import type { ListCareerMapEventTagsQuery } from "@/core/application/port/query"
 import type { ListCareerDataQuery } from "@/core/application/port/query/careerData/listCareerDataQuery"
-import type { ReadWikipediaMarkdownCacheQuery } from "@/core/application/port/query/wikipedia/readWikipediaMarkdownCacheQuery"
 import type { GeneratedCareerEventParameter } from "@/core/domain"
 import { type AppResult, failAsConflictError, failAsForbiddenError, failAsInvalidParametersError, succeed } from "@/core/util/appResult"
 
-const GenerateCareerFromWikipediaParametersSchema = z.object({
+const GenerateCareerFromBiographyParametersSchema = z.object({
   personName: z.string().min(1),
   language: z.string().default("ja"),
+  biographyMarkdown: z.string().min(1),
+  wikipediaUrl: z.string().min(1),
+  wikipediaTitle: z.string().min(1),
 })
 
-export type GenerateCareerFromWikipediaParametersInput = z.input<
-  typeof GenerateCareerFromWikipediaParametersSchema
+export type GenerateCareerFromBiographyParametersInput = z.input<
+  typeof GenerateCareerFromBiographyParametersSchema
 >
 
-export type GenerateCareerFromWikipediaResult = {
+export type GenerateCareerFromBiographyResult = {
   personName: string
   language: string
   wikipediaUrl: string
@@ -29,32 +29,26 @@ export type GenerateCareerFromWikipediaResult = {
   events: GeneratedCareerEventParameter[]
 }
 
-export type GenerateCareerFromWikipediaUsecase = (
-  input: GenerateCareerFromWikipediaParametersInput,
+export type GenerateCareerFromBiographyUsecase = (
+  input: GenerateCareerFromBiographyParametersInput,
   executor: Executor
-) => Promise<AppResult<GenerateCareerFromWikipediaResult>>
+) => Promise<AppResult<GenerateCareerFromBiographyResult>>
 
-export type MakeGenerateCareerFromWikipediaDependencies = {
-  fetchWikipediaBiography: FetchWikipediaBiographyOperation
+export type MakeGenerateCareerFromBiographyDependencies = {
   generateCareerEventsFromBiography: GenerateCareerEventsFromBiographyOperation
   listCareerDataQuery: ListCareerDataQuery
   listCareerMapEventTagsQuery: ListCareerMapEventTagsQuery
-  readWikipediaMarkdownCacheQuery: ReadWikipediaMarkdownCacheQuery
   saveCareerDataCommand: SaveCareerDataCommand
-  saveWikipediaMarkdownCacheCommand: SaveWikipediaMarkdownCacheCommand
 }
 
-export function makeGenerateCareerFromWikipedia({
-  fetchWikipediaBiography,
+export function makeGenerateCareerFromBiography({
   generateCareerEventsFromBiography,
   listCareerDataQuery,
   listCareerMapEventTagsQuery,
-  readWikipediaMarkdownCacheQuery,
   saveCareerDataCommand,
-  saveWikipediaMarkdownCacheCommand,
-}: MakeGenerateCareerFromWikipediaDependencies): GenerateCareerFromWikipediaUsecase {
+}: MakeGenerateCareerFromBiographyDependencies): GenerateCareerFromBiographyUsecase {
   return async (input, executor) => {
-    const validation = GenerateCareerFromWikipediaParametersSchema.safeParse(input)
+    const validation = GenerateCareerFromBiographyParametersSchema.safeParse(input)
     if (!validation.success) return failAsInvalidParametersError(validation.error.message, validation.error)
 
     if (executor.type !== "system") {
@@ -74,29 +68,9 @@ export function makeGenerateCareerFromWikipedia({
 
     const tags = tagResult.data.items.map((tag) => ({ id: tag.id, name: tag.name }))
 
-    const cacheResult = await readWikipediaMarkdownCacheQuery(parameters.personName)
-    if (!cacheResult.success) return cacheResult
-
-    let biography: { title: string; content: string; url: string }
-
-    if (cacheResult.data !== null) {
-      biography = cacheResult.data
-    } else {
-      const fetchResult = await fetchWikipediaBiography({
-        personName: parameters.personName,
-        language: parameters.language,
-      })
-      if (!fetchResult.success) return fetchResult
-
-      const saveResult = await saveWikipediaMarkdownCacheCommand(parameters.personName, fetchResult.data)
-      if (!saveResult.success) return saveResult
-
-      biography = fetchResult.data
-    }
-
     const generateResult = await generateCareerEventsFromBiography({
       personName: parameters.personName,
-      biographyMarkdown: biography.content,
+      biographyMarkdown: parameters.biographyMarkdown,
       birthDate: null,
       tags,
     })
@@ -121,8 +95,8 @@ export function makeGenerateCareerFromWikipedia({
     const data = {
       personName: parameters.personName,
       language: parameters.language,
-      wikipediaUrl: biography.url,
-      wikipediaTitle: biography.title,
+      wikipediaUrl: parameters.wikipediaUrl,
+      wikipediaTitle: parameters.wikipediaTitle,
       birthDate,
       events,
     }

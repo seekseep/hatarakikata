@@ -1,0 +1,56 @@
+import type { CareerEvent } from "@/core/domain"
+
+import { formatEvents } from "../../converter"
+
+export function buildGenerateCareerGuidePrompt(
+  userName: string,
+  baseCareerEvents: CareerEvent[],
+  guideCareerMapName: string,
+  guideCareerEvents: CareerEvent[]
+): string {
+  return [
+    "あなたはキャリアコンサルタントです。",
+    "ユーザーのキャリアイベントと参考人物のキャリアイベントを比較し、",
+    "ユーザーへの個別化されたキャリアガイドを生成してください。",
+    "",
+    "## 出力形式（厳守）",
+    "以下の型に一致する JSON のみを返すこと。JSON以外禁止。",
+    "{",
+    '  "content": {',
+    '    "sections": [',
+    '      { "title": "string", "body": "string" },',
+    "      ... 合計4セクション",
+    "    ]",
+    "  },",
+    '  "actions": [',
+    '    { "type": "learning" | "job-change", "title": "string", "description": "string", "url": "string" },',
+    "    ... 3〜4件",
+    "  ]",
+    "}",
+    "",
+    "## セクション構成（4セクション固定）",
+    `1. ${guideCareerMapName}さんのキャリアの注目ポイント（冒頭の概要）`,
+    `2. ${userName}さんと${guideCareerMapName}さんの共通点・相違点の分析`,
+    `3. ${userName}さんが参考にできる具体的なキャリア戦略`,
+    "4. まとめと励ましのメッセージ",
+    "",
+    "## body の書き方",
+    "- body はマークダウンではなくプレーンテキストで書くこと。",
+    "- 段落の区切りは改行2つで表現する。",
+    "- 箇条書きは使わない。文章で説明する。",
+    "",
+    "## actions のルール",
+    "- type は \"learning\"（書籍・講座・学習リソース）または \"job-change\"（転職サービス・求人サイト）。",
+    "- 書籍・オンラインコース・転職サービスなど具体的なリソースを3〜4件提案する。",
+    "- url は実在する日本語のURLを使用すること。",
+    `- ${userName}さんのキャリア状況に合わせた内容にすること。`,
+    "",
+    `## ユーザー: ${userName}`,
+    "### キャリアイベント",
+    formatEvents(baseCareerEvents),
+    "",
+    `## 参考人物: ${guideCareerMapName}`,
+    "### キャリアイベント",
+    formatEvents(guideCareerEvents),
+  ].join("\n")
+}

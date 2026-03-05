@@ -3,11 +3,11 @@ import { z } from "zod"
 import type { Executor } from "@/core/application/executor"
 import type { CreateCareerEventCommand, CreateCareerMapCommand, CreateUserCommand } from "@/core/application/port/command"
 import type { CreateAuthUserOperation } from "@/core/application/port/operation/createAuthUser"
-import type { FetchWikipediaBiographyOperation } from "@/core/application/port/operation/fetchWikipediaBiography"
 import type { GenerateCareerEventsFromBiographyOperation } from "@/core/application/port/operation/generateCareerEventsFromBiography"
 import type { ListCareerMapEventTagsQuery } from "@/core/application/port/query"
 import type { CareerEvent } from "@/core/domain"
 import { type AppResult, failAsForbiddenError, failAsInvalidParametersError, succeed } from "@/core/util/appResult"
+import type { DownloadWikipediaBiographyUsecase } from "./downloadWikipediaBiography"
 
 const ImportCareerFromWikipediaParametersSchema = z.object({
   personName: z.string().min(1),
@@ -32,7 +32,7 @@ export type ImportCareerFromWikipediaUsecase = (
 ) => Promise<AppResult<ImportCareerFromWikipediaResult>>
 
 export type MakeImportCareerFromWikipediaDependencies = {
-  fetchWikipediaBiography: FetchWikipediaBiographyOperation
+  downloadWikipediaBiography: DownloadWikipediaBiographyUsecase
   generateCareerEventsFromBiography: GenerateCareerEventsFromBiographyOperation
   createAuthUser: CreateAuthUserOperation
   createUserCommand: CreateUserCommand
@@ -42,7 +42,7 @@ export type MakeImportCareerFromWikipediaDependencies = {
 }
 
 export function makeImportCareerFromWikipedia({
-  fetchWikipediaBiography,
+  downloadWikipediaBiography,
   generateCareerEventsFromBiography,
   createAuthUser,
   createUserCommand,
@@ -68,10 +68,10 @@ export function makeImportCareerFromWikipedia({
     const resolveTagIds = (names: string[]): string[] =>
       names.map((n) => tagIdByName.get(n)).filter((id): id is string => !!id)
 
-    const biographyResult = await fetchWikipediaBiography({
-      personName: parameters.personName,
-      language: parameters.language,
-    })
+    const biographyResult = await downloadWikipediaBiography(
+      { personName: parameters.personName, language: parameters.language },
+      executor
+    )
     if (!biographyResult.success) return biographyResult
 
     const generateResult = await generateCareerEventsFromBiography({

@@ -5,16 +5,16 @@ import inquirer from 'inquirer'
 import pLimit from 'p-limit'
 
 import type { SystemExecutor } from '../core/application/executor'
+import { downloadWikipediaBiography } from './usecase/wikipedia'
 import { loadPersonNamesFromFile } from './utils/loadPersonNamesFromFile'
-import { processOne } from './utils/processOne'
 
 const CONCURRENCY = 5
 
 const program = new Command()
 
 program
-  .name('generate-wikipedia-career')
-  .description('WikipediaページからキャリアデータをAIで生成する')
+  .name('download-wikipedia-biography')
+  .description('Wikipediaページから経歴データをダウンロードする')
   .argument('[personNames...]', '人物名（複数指定可）')
   .option('-l, --language <code>', 'Wikipedia言語コード', 'ja')
   .option('-f, --file <path>', '人物名リストファイル（1行1名、# コメント行は無視）')
@@ -26,7 +26,7 @@ const opts = program.opts<{ language: string; file?: string }>()
 
 const executor: SystemExecutor = {
   type: 'system',
-  operation: { name: 'generate-wikipedia-career' },
+  operation: { name: 'download-wikipedia-biography' },
 }
 
 async function main() {
@@ -49,7 +49,7 @@ async function main() {
     personNames = [answers.personName]
   }
 
-  console.log(`\n${personNames.length}件をWikipediaページからキャリアデータを生成します（最大${CONCURRENCY}件並列）...\n`)
+  console.log(`\n${personNames.length}件のWikipedia経歴をダウンロードします（最大${CONCURRENCY}件並列）...\n`)
 
   const limit = pLimit(CONCURRENCY)
 
@@ -57,18 +57,13 @@ async function main() {
     personNames.map((personName, i) =>
       limit(async () => {
         console.log(`\n▶ ${personName} (${i + 1}/${personNames.length})`)
-        const result = await processOne(personName, language, executor)
+        const result = await downloadWikipediaBiography({ personName, language }, executor)
 
         if (!result.success) {
-          if (result.error.type === 'ConflictError') {
-            console.log(`  [${personName}] スキップ: データが既に存在します`)
-          } else {
-            console.error(`  [${personName}] 失敗: ${result.error.type} - ${result.error.message}`)
-          }
+          console.error(`  [${personName}] 失敗: ${result.error.type} - ${result.error.message}`)
         } else {
-          console.log(`  [${personName}] Wikipedia URL: ${result.data.wikipediaUrl}`)
-          console.log(`  [${personName}] 推定生年月日: ${result.data.birthDate ?? '不明'}`)
-          console.log(`  [${personName}] イベント数: ${result.data.events.length}`)
+          console.log(`  [${personName}] Wikipedia URL: ${result.data.url}`)
+          console.log(`  [${personName}] タイトル: ${result.data.title}`)
         }
       })
     )

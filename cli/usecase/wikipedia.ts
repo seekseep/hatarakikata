@@ -1,4 +1,5 @@
-import { makeGenerateCareerFromWikipedia } from '@/core/application/usecase/careerMap/generateCareerFromWikipedia'
+import { makeDownloadWikipediaBiography } from '@/core/application/usecase/careerMap/downloadWikipediaBiography'
+import { makeGenerateCareerFromBiography } from '@/core/application/usecase/careerMap/generateCareerFromBiography'
 import { makeImportCareerData } from '@/core/application/usecase/careerMap/importCareerData'
 import { makeListCareerData } from '@/core/application/usecase/careerMap/listCareerData'
 import { generateCareerEventsFromBiography } from '@/infrastructure/server/ai/operation/generateCareerEventsFromBiography'
@@ -14,14 +15,17 @@ import { listCareerMapEventTagsQuery } from '@/infrastructure/server/supabase/qu
 import { findUserByNameQuery, listUserNamesQuery } from '@/infrastructure/server/supabase/query/user'
 import { fetchWikipediaBiography } from '@/infrastructure/server/wikipedia/fetchWikipediaBiography'
 
-export const generateCareerFromWikipedia = makeGenerateCareerFromWikipedia({
+export const downloadWikipediaBiography = makeDownloadWikipediaBiography({
   fetchWikipediaBiography,
+  readWikipediaMarkdownCacheQuery,
+  saveWikipediaMarkdownCacheCommand,
+})
+
+export const generateCareerFromBiography = makeGenerateCareerFromBiography({
   generateCareerEventsFromBiography,
   listCareerDataQuery,
   listCareerMapEventTagsQuery,
-  readWikipediaMarkdownCacheQuery,
   saveCareerDataCommand,
-  saveWikipediaMarkdownCacheCommand,
 })
 
 export const importCareerData = makeImportCareerData({
