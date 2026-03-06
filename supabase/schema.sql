@@ -57,7 +57,6 @@ create index career_map_event_tag_attachments_tag_id_idx on career_map_event_tag
 -- Career Questions
 create table career_questions (
   id uuid primary key default gen_random_uuid(),
-  user_id uuid not null references users(id) on delete cascade,
   career_map_id uuid not null references career_maps(id) on delete cascade,
   name text not null default '',
   title text not null default '',
@@ -68,7 +67,6 @@ create table career_questions (
   end_date text
 );
 
-create index career_questions_user_id_idx on career_questions(user_id);
 create index career_questions_career_map_id_idx on career_questions(career_map_id);
 
 -- Career Guides

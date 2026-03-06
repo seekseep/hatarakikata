@@ -57,6 +57,7 @@ export default function CareerQuestionDrawer({ open, onClose }: CareerQuestionDr
       </div>
 
       <CareerQuestionAnswerDialog
+        key={selectedQuestion?.id}
         open={selectedQuestion !== null}
         question={selectedQuestion}
         onClose={() => setSelectedQuestion(null)}

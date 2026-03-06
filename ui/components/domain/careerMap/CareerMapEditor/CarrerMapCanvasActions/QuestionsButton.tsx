@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useRef } from "react"
 import { RiChat3Line } from "react-icons/ri"
 
 import { openQuestionsDrawer } from "../../actions/dialogActions"
@@ -9,6 +10,16 @@ import ActionButton from "./ActionButton"
 export default function QuestionsButton() {
   const { dispatch, state: { questions } } = useCarrerMapEditorContext()
   const openQuestionCount = questions.filter((q) => q.status === "open").length
+  const prevCountRef = useRef(openQuestionCount)
+  const badgeRef = useRef<HTMLSpanElement>(null)
+
+  useEffect(() => {
+    if (openQuestionCount > prevCountRef.current && badgeRef.current) {
+      badgeRef.current.style.animation = 'none'
+      badgeRef.current.style.animation = 'badge-bounce 300ms ease'
+    }
+    prevCountRef.current = openQuestionCount
+  }, [openQuestionCount])
 
   return (
     <ActionButton
@@ -16,7 +27,10 @@ export default function QuestionsButton() {
       icon={<RiChat3Line className="text-xl" />}
       onClick={() => dispatch(openQuestionsDrawer())}
       badge={openQuestionCount > 0 ? (
-        <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center pointer-events-none">
+        <span
+          ref={badgeRef}
+          className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-red-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center pointer-events-none"
+        >
           {openQuestionCount}
         </span>
       ) : undefined}

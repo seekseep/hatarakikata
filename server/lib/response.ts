@@ -22,5 +22,15 @@ export function toResponse<T>(result: AppResult<T>): NextResponse {
   }
 
   const status = statusMap[error.type]
-  return NextResponse.json(error.message, { status })
+
+  const safeMessages: Record<string, string> = {
+    InvalidParametersError: 'Invalid parameters',
+    ForbiddenError: 'Forbidden',
+    NotFoundError: 'Not found',
+    ConflictError: 'Conflict',
+    InternalServerError: 'Internal server error',
+    ExternalServiceError: 'External service error',
+  }
+
+  return NextResponse.json({ error: safeMessages[error.type] ?? 'Unknown error' }, { status })
 }

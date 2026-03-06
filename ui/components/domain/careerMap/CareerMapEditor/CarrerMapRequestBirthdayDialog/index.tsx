@@ -17,9 +17,10 @@ import YearStep from "./YearStep"
 
 type CarrerMapRequestBirthdayDialogProps = {
   open: boolean
+  onComplete?: () => void
 }
 
-export default function CarrerMapRequestBirthdayDialog({ open }: CarrerMapRequestBirthdayDialogProps) {
+export default function CarrerMapRequestBirthdayDialog({ open, onComplete }: CarrerMapRequestBirthdayDialogProps) {
   const { state: { careerMapId } } = useCarrerMapEditorContext()
   const careerMapQuery = useCareerMapQuery(careerMapId)
   const updateCareerMapMutation = useUpdateCareerMapMutation()
@@ -54,10 +55,14 @@ export default function CarrerMapRequestBirthdayDialog({ open }: CarrerMapReques
     setError(null)
     const m = String(month).padStart(2, "0")
     const d = String(day).padStart(2, "0")
-    updateCareerMapMutation.mutate(
-      { id: careerMapId, startDate: `${year}-${m}-${d}` },
-      { onSuccess: () => { careerMapQuery.refetch() } },
-    )
+    const startDate = `${year}-${m}-${d}`
+    const data = { id: careerMapId, startDate }
+    updateCareerMapMutation.mutate(data, {
+      onSuccess () {
+        careerMapQuery.refetch()
+        onComplete?.()
+      }
+    })
   }
 
   const stepLabel = step === "year" ? "年" : step === "month" ? "月" : "日"
@@ -115,8 +120,9 @@ export default function CarrerMapRequestBirthdayDialog({ open }: CarrerMapReques
             variant="primary"
             size="medium"
             onClick={handleSubmit}
+            disabled={updateCareerMapMutation.isPending}
           >
-            確定
+            {updateCareerMapMutation.isPending ? "送信中..." : "確定"}
           </Button>
         </div>
       </div>

@@ -31,6 +31,28 @@ import { CarrerMapEditorProvider } from "./CarrerMapEditorProvider"
 import CarrerMapErrorBanner from "./CarrerMapErrorBanner"
 import CarrerMapRequestBirthdayDialog from "./CarrerMapRequestBirthdayDialog"
 import ConfirmDialog from "./ConfirmDialog"
+import {
+  getCareerGuideDetailDrawerGuideId,
+  getCareerGuideDetailDrawerOpen,
+  getCareerGuidePromptDialogOpen,
+  getCareerGuidesDrawerOpen,
+  getConfirmDialogMessage,
+  getConfirmDialogOpen,
+  getCreatingCareerGuideBaseCareerMapId,
+  getCreatingCareerGuideOpen,
+  getEventDialogOpen,
+  getGenerateDialogOpen,
+  getJsonImportDialogOpen,
+  getQuestionAnswerDialogKey,
+  getQuestionAnswerDialogOpen,
+  getQuestionAnswerDialogQuestion,
+  getQuestionsDrawerOpen,
+  getRequiredStartDateOpen,
+  getSearchDrawerOpen,
+  getViewerCareerMapId,
+  getViewerOpen,
+  getViewerUserName,
+} from "./helpers"
 import ImportCareerMapDialog from "./ImportCareerMapDialog"
 
 type CareerMapEditorProps = {
@@ -70,6 +92,8 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
     editor.dispatch(editor.state.mode.confirmAction)
   }, [editor])
 
+  const mode = editor.state.mode
+
   return (
     <CarrerMapEditorProvider value={editor}>
       <CarrerMapEditorContainer>
@@ -93,78 +117,80 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
       <CarrerMapErrorBanner />
 
       <CareerMapViewerDrawer
-        open={editor.state.mode.type === 'viewer'}
-        careerMapId={editor.state.mode.type === 'viewer' ? editor.state.mode.careerMapId : ''}
-        userName={editor.state.mode.type === 'viewer' ? editor.state.mode.userName : undefined}
+        open={getViewerOpen(mode)}
+        careerMapId={getViewerCareerMapId(mode)}
+        userName={getViewerUserName(mode)}
         onClose={() => editor.dispatch(closeDialog())}
         onCreateCareerGuide={() => editor.dispatch(
           openConfirmDialog(
             "このキャリアマップをもとにガイドを作成しますか？",
-            requestCreateCareerGuide(editor.state.mode.type === 'viewer' ? editor.state.mode.careerMapId : ''),
+            requestCreateCareerGuide(getViewerCareerMapId(mode)),
           )
         )}
       />
 
       <CarrerMapRequestBirthdayDialog
-        open={editor.state.mode.type === 'required-start-date'}
+        open={getRequiredStartDateOpen(mode)}
+        onComplete={() => editor.dispatch(closeDialog())}
       />
 
       <CareerMapEventDialog
-        open={editor.state.mode.type === 'create-dialog' || editor.state.mode.type === 'edit-dialog'}
+        open={getEventDialogOpen(mode)}
         onClose={() => editor.dispatch(closeDialog())}
       />
       <CareerMapEventGenerateDialog
-        open={editor.state.mode.type === 'generate-dialog'}
+        open={getGenerateDialogOpen(mode)}
         onClose={() => editor.dispatch(closeDialog())}
       />
       <ImportCareerMapDialog
-        open={editor.state.mode.type === 'json-import-dialog'}
+        open={getJsonImportDialogOpen(mode)}
         onClose={() => editor.dispatch(closeDialog())}
       />
 
       <ConfirmDialog
-        open={editor.state.mode.type === 'confirm-dialog'}
-        message={editor.state.mode.type === 'confirm-dialog' ? editor.state.mode.message : ''}
+        open={getConfirmDialogOpen(mode)}
+        message={getConfirmDialogMessage(mode)}
         onCancel={() => editor.dispatch(closeDialog())}
         onConfirm={handleConfirmAction}
       />
 
       <CareerGuidePromptDialog
-        open={editor.state.mode.type === 'career-guide-prompt-dialog'}
+        open={getCareerGuidePromptDialogOpen(mode)}
         onClose={() => editor.dispatch(closeDialog())}
         onSearch={() => editor.dispatch(openSearchDrawer())}
       />
 
       <CareerQuestionAnswerDialog
-        open={editor.state.mode.type === 'question-answer-dialog'}
-        question={editor.state.mode.type === 'question-answer-dialog' ? editor.state.mode.question : null}
+        key={getQuestionAnswerDialogKey(mode)}
+        open={getQuestionAnswerDialogOpen(mode)}
+        question={getQuestionAnswerDialogQuestion(mode)}
         onClose={() => editor.dispatch(closeDialog())}
       />
 
       <CareerMapSearchDrawer
-        open={editor.state.mode.type === 'search-drawer'}
+        open={getSearchDrawerOpen(mode)}
         onClose={() => editor.dispatch(closeDialog())}
       />
 
       <CareerQuestionDrawer
-        open={editor.state.mode.type === 'questions-drawer'}
+        open={getQuestionsDrawerOpen(mode)}
         onClose={() => editor.dispatch(closeDialog())}
       />
 
       <CareerGuidesDrawer
-        open={editor.state.mode.type === 'career-guides-drawer'}
+        open={getCareerGuidesDrawerOpen(mode)}
         onClose={() => editor.dispatch(closeDialog())}
       />
 
       <CareerGuideDetailDrawer
-        open={editor.state.mode.type === 'career-guide-detail-drawer'}
-        guideId={editor.state.mode.type === 'career-guide-detail-drawer' ? editor.state.mode.guideId : ''}
+        open={getCareerGuideDetailDrawerOpen(mode)}
+        guideId={getCareerGuideDetailDrawerGuideId(mode)}
         onBack={() => editor.dispatch(closeDialog())}
       />
 
       <CareerGuideCreatingDialog
-        open={editor.state.mode.type === 'creating-career-guide'}
-        baseCareerMapId={editor.state.mode.type === 'creating-career-guide' ? editor.state.mode.baseCareerMapId : ''}
+        open={getCreatingCareerGuideOpen(mode)}
+        baseCareerMapId={getCreatingCareerGuideBaseCareerMapId(mode)}
         guideCareerMapId={careerMapId}
         onClose={() => editor.dispatch(closeDialog())}
         onCreated={(guideId) => editor.dispatch(openCareerGuideDetailDrawer(guideId))}
