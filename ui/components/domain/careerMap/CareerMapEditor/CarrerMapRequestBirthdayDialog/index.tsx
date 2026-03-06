@@ -5,6 +5,7 @@ import { useState } from "react"
 import Alert from "@/ui/components/basic/Alert"
 import Button from "@/ui/components/basic/Button"
 import Dialog from "@/ui/components/basic/dialog/Dialog"
+import { useCareerMapQuery, useUpdateCareerMapMutation } from "@/ui/hooks/careerMap"
 
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 import { DEFAULT_YEAR_RANGE_START } from "./constants"
@@ -19,7 +20,9 @@ type CarrerMapRequestBirthdayDialogProps = {
 }
 
 export default function CarrerMapRequestBirthdayDialog({ open }: CarrerMapRequestBirthdayDialogProps) {
-  const { updateCareerMap } = useCarrerMapEditorContext()
+  const { state: { careerMapId } } = useCarrerMapEditorContext()
+  const careerMapQuery = useCareerMapQuery(careerMapId)
+  const updateCareerMapMutation = useUpdateCareerMapMutation()
   const [step, setStep] = useState<Step>("year")
   const [year, setYear] = useState<number | null>(null)
   const [month, setMonth] = useState<number | null>(null)
@@ -51,7 +54,10 @@ export default function CarrerMapRequestBirthdayDialog({ open }: CarrerMapReques
     setError(null)
     const m = String(month).padStart(2, "0")
     const d = String(day).padStart(2, "0")
-    updateCareerMap({ startDate: `${year}-${m}-${d}` })
+    updateCareerMapMutation.mutate(
+      { id: careerMapId, startDate: `${year}-${m}-${d}` },
+      { onSuccess: () => { careerMapQuery.refetch() } },
+    )
   }
 
   const stepLabel = step === "year" ? "年" : step === "month" ? "月" : "日"

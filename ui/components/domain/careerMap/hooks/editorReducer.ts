@@ -172,6 +172,12 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
         ),
       }
 
+    case 'ADD_QUESTIONS':
+      return {
+        ...state,
+        questions: [...state.questions, ...action.questions],
+      }
+
     // --- Hover ---
 
     case 'HOVER_EVENT':

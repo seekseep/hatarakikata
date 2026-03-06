@@ -13,8 +13,13 @@ export function initializeQuestions(careerMapId: string): Promise<CareerQuestion
   })
 }
 
-export function answerQuestion(id: string, answer: Record<string, unknown>): Promise<CareerEvent> {
-  return apiFetch<CareerEvent>(`/api/career-questions/${id}/answer`, {
+export type AnswerQuestionResponse = {
+  event: CareerEvent
+  newQuestions: CareerQuestion[]
+}
+
+export function answerQuestion(id: string, answer: Record<string, unknown>): Promise<AnswerQuestionResponse> {
+  return apiFetch<AnswerQuestionResponse>(`/api/career-questions/${id}/answer`, {
     method: 'POST',
     body: JSON.stringify(answer),
   })

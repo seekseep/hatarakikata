@@ -1,4 +1,4 @@
-import { memo, useMemo } from "react"
+import { memo } from "react"
 
 import { SCALE_DISPLAY_CONFIG } from "../utils/constants"
 import { buildTimelineConfig, computeCanvasWidth } from "../utils/timelineMapping"
@@ -23,7 +23,7 @@ type MonthTick = {
 }
 
 export default memo(function CarrerMapCanvasRuler({ startDate, endDate, scale }: Props) {
-  const config = useMemo(() => buildTimelineConfig(startDate, endDate, scale), [startDate, endDate, scale])
+  const config = buildTimelineConfig(startDate, endDate, scale)
   const { tickMonths } = SCALE_DISPLAY_CONFIG[scale - 1]
 
   const canvasWidth = computeCanvasWidth(config)
@@ -40,38 +40,35 @@ export default memo(function CarrerMapCanvasRuler({ startDate, endDate, scale }:
   const rowHeight = headerHeight / (hasMonths ? 2 : 1)
 
   // 年セグメント: hasMonths=true → 1年ずつ, false → tickMonths ずつ
-  const yearSegments = useMemo((): YearSegment[] => {
+  const yearSegments: YearSegment[] = []
+  {
     const step = hasMonths ? 12 : tickMonths
-    const segments: YearSegment[] = []
     for (let m = 0; m < totalMonths; m += step) {
       const span = Math.min(step, totalMonths - m)
       const date = new Date(originYear, originMonth + m, 1)
       const year = date.getFullYear()
-      segments.push({
+      yearSegments.push({
         left: m * monthPx,
         width: span * monthPx,
         year,
         age: year - birthYear,
       })
     }
-    return segments
-  }, [totalMonths, hasMonths, tickMonths, originYear, originMonth, monthPx, birthYear])
+  }
 
   // 月目盛り: hasMonths=true のときのみ
-  const monthTicks = useMemo((): MonthTick[] => {
-    if (!hasMonths) return []
-    const ticks: MonthTick[] = []
+  const monthTicks: MonthTick[] = []
+  if (hasMonths) {
     for (let m = 0; m < totalMonths; m += tickMonths) {
       const span = Math.min(tickMonths, totalMonths - m)
       const date = new Date(originYear, originMonth + m, 1)
-      ticks.push({
+      monthTicks.push({
         left: m * monthPx,
         width: span * monthPx,
         month: date.getMonth(),
       })
     }
-    return ticks
-  }, [hasMonths, totalMonths, tickMonths, originYear, originMonth, monthPx])
+  }
 
   return (
     <div

@@ -48,18 +48,21 @@ export default function CarrerMapCanvas() {
         onPointerUp={handleCanvasPointerUp}
         onClick={handleCanvasClick}
       >
-        <CarrerMapCanvasRuler
-          startDate={careerMap!.startDate!}
-          endDate={careerMap!.endDate}
-          scale={scale}
-        />
-
-        <CarrerMapCanvasGrid
-          startDate={careerMap!.startDate!}
-          endDate={careerMap!.endDate}
-          scale={scale}
-          canvasHeight={canvasHeight}
-        />
+        {careerMap?.startDate && careerMap?.endDate && (
+          <>
+            <CarrerMapCanvasRuler
+              startDate={careerMap.startDate}
+              endDate={careerMap.endDate}
+              scale={scale}
+            />
+            <CarrerMapCanvasGrid
+              startDate={careerMap.startDate}
+              endDate={careerMap.endDate}
+              scale={scale}
+              canvasHeight={canvasHeight}
+            />
+          </>
+        )}
 
         {/* Events */}
         {events.map((event) => {

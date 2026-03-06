@@ -75,6 +75,8 @@ export type AnswerQuestionAction = { type: 'ANSWER_QUESTION'; questionId: string
 
 export type CloseQuestionAction = { type: 'CLOSE_QUESTION'; questionId: string }
 
+export type AddQuestionsAction = { type: 'ADD_QUESTIONS'; questions: CareerQuestion[] }
+
 // --- Hover Actions ---
 
 export type HoverEventAction = { type: 'HOVER_EVENT'; eventId: string }
@@ -117,5 +119,6 @@ export type EditorAction =
   | RevertProcessQuestionAction
   | AnswerQuestionAction
   | CloseQuestionAction
+  | AddQuestionsAction
   | HoverEventAction
   | UnhoverEventAction

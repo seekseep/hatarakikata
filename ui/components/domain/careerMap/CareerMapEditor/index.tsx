@@ -5,11 +5,9 @@ import { useCallback, useEffect } from "react"
 import Spinner from "@/ui/components/basic/Spinner"
 import {
   useCareerEventsByCareerMapIdQuery,
-  useCreateCareerEventMutation,
-  useDeleteCareerEventMutation,
   useUpdateCareerEventMutation,
 } from "@/ui/hooks/careerEvent"
-import { useCareerMapQuery, useUpdateCareerMapMutation } from "@/ui/hooks/careerMap"
+import { useCareerMapQuery } from "@/ui/hooks/careerMap"
 import { useCareerQuestionsQuery, useInitializeQuestionsMutation } from "@/ui/hooks/careerQuestion"
 
 import { closeDialog, openCareerGuideDetailDrawer, openConfirmDialog, openSearchDrawer, requestCreateCareerGuide } from "../actions/dialogActions"
@@ -42,10 +40,7 @@ type CareerMapEditorProps = {
 export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
   const careerMapQuery = useCareerMapQuery(careerMapId)
   const careerEventsQuery = useCareerEventsByCareerMapIdQuery(careerMapId)
-  const updateCareerMapMutation = useUpdateCareerMapMutation()
-  const createCareerEventMutation = useCreateCareerEventMutation()
   const updateCareerEventMutation = useUpdateCareerEventMutation()
-  const deleteCareerEventMutation = useDeleteCareerEventMutation()
 
   const questionsQuery = useCareerQuestionsQuery(careerMapId)
   const initQuestionsMutation = useInitializeQuestionsMutation(careerMapId)
@@ -67,10 +62,7 @@ export default function CarrerMapEditor({ careerMapId }: CareerMapEditorProps) {
     careerMapQuery,
     careerEventsQuery,
     questionsQuery,
-    updateCareerMapMutation,
-    createCareerEventMutation,
     updateCareerEventMutation,
-    deleteCareerEventMutation,
   })
 
   const handleConfirmAction = useCallback(() => {

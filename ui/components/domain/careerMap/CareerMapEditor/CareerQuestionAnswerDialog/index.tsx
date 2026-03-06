@@ -9,7 +9,7 @@ import Dialog from "@/ui/components/basic/dialog/Dialog"
 import { useAnswerQuestionMutation } from "@/ui/hooks/careerQuestion"
 
 import { addEvent } from "../../actions/eventActions"
-import { answerQuestion, revertProcessQuestion, startProcessQuestion } from "../../actions/questionActions"
+import { addQuestions, answerQuestion, revertProcessQuestion, startProcessQuestion } from "../../actions/questionActions"
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 import ConditionAwareField from "./ConditionAwareField"
 
@@ -53,9 +53,12 @@ export default function CareerQuestionAnswerDialog({
     answerMutation.mutate(
       { id: question.id, answer: data },
       {
-        onSuccess: (event) => {
+        onSuccess: ({ event, newQuestions }) => {
           dispatch(addEvent(event))
           dispatch(answerQuestion(question.id))
+          if (newQuestions.length > 0) {
+            dispatch(addQuestions(newQuestions))
+          }
           onClose()
         },
         onError: () => {

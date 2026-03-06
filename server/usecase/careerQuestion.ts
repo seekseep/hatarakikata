@@ -21,6 +21,7 @@ export const answerQuestion = makeAnswerQuestion({
   findCareerQuestionQuery,
   updateCareerQuestionCommand,
   createCareerEventCommand,
+  createCareerQuestionCommand,
   findCareerMapQuery,
 })
 

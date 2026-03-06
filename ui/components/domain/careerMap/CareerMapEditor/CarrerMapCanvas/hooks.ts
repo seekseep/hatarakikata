@@ -2,7 +2,10 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
+import { useDeleteCareerEventMutation } from "@/ui/hooks/careerEvent"
+
 import { openCreateDialog } from "../../actions/dialogActions"
+import { deleteEvent as deleteEventAction } from "../../actions/eventActions"
 import { enterIdle } from "../../actions/modeActions"
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 import { SCALE_DISPLAY_CONFIG } from "../../utils/constants"
@@ -20,11 +23,12 @@ export function useCarrerMapCanvas() {
       hoveredEventId
     },
     dispatch,
-    deleteEvent,
     handleDragStart,
     handleDragMove,
     handleDragEnd
   } = useCarrerMapEditorContext()
+
+  const deleteCareerEventMutation = useDeleteCareerEventMutation()
 
   const openQuestionsWithPosition = useMemo(() =>
     questions.filter(
@@ -77,14 +81,15 @@ export function useCarrerMapCanvas() {
         if (selectedEventIds.size === 0) return
         e.preventDefault()
         for (const eventId of selectedEventIds) {
-          deleteEvent(eventId)
+          dispatch(deleteEventAction(eventId))
+          deleteCareerEventMutation.mutate({ id: eventId })
         }
         dispatch(enterIdle())
       }
     }
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [isPlacement, selectedEventIds, dispatch, deleteEvent])
+  }, [isPlacement, selectedEventIds, dispatch, deleteCareerEventMutation])
 
   const handleCanvasPointerMove = useCallback((e: React.PointerEvent) => {
     handleDragMove(e)

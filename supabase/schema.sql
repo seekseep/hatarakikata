@@ -1,6 +1,5 @@
 -- Drop tables (reverse dependency order)
 drop table if exists career_guides cascade;
-drop table if exists career_guides cascade;
 drop table if exists career_questions cascade;
 drop table if exists career_map_event_tag_attachments cascade;
 drop table if exists career_map_event_tags cascade;
@@ -59,6 +58,7 @@ create index career_map_event_tag_attachments_tag_id_idx on career_map_event_tag
 create table career_questions (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references users(id) on delete cascade,
+  career_map_id uuid not null references career_maps(id) on delete cascade,
   name text not null default '',
   title text not null default '',
   status text not null default 'open' check (status in ('open', 'closed')),
@@ -69,6 +69,7 @@ create table career_questions (
 );
 
 create index career_questions_user_id_idx on career_questions(user_id);
+create index career_questions_career_map_id_idx on career_questions(career_map_id);
 
 -- Career Guides
 create table career_guides (

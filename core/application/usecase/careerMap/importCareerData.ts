@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 import type { Executor } from "@/core/application/executor"
-import type { CreateAuthUserCommand, CreateCareerEventCommand, CreateCareerMapCommand, CreateUserCommand, DeleteUserCommand } from "@/core/application/port/command"
+import type { CreateAuthUserCommand, CreateCareerEventCommand, CreateCareerMapCommand, CreateUserCommand, DeleteAuthUserByEmailCommand, DeleteUserCommand } from "@/core/application/port/command"
 import type { FindUserByNameQuery, ListCareerMapEventTagsQuery, ListUserNamesQuery, ReadCareerDataQuery } from "@/core/application/port/query"
 import type { CareerEvent } from "@/core/domain"
 import { type AppResult, failAsConflictError, failAsForbiddenError, failAsInvalidParametersError, succeed } from "@/core/util/appResult"
@@ -37,6 +37,7 @@ export type MakeImportCareerDataDependencies = {
   createUserCommand: CreateUserCommand
   createCareerMapCommand: CreateCareerMapCommand
   createCareerEventCommand: CreateCareerEventCommand
+  deleteAuthUserByEmailCommand: DeleteAuthUserByEmailCommand
   deleteUserCommand: DeleteUserCommand
 }
 
@@ -49,6 +50,7 @@ export function makeImportCareerData({
   createUserCommand,
   createCareerMapCommand,
   createCareerEventCommand,
+  deleteAuthUserByEmailCommand,
   deleteUserCommand,
 }: MakeImportCareerDataDependencies): ImportCareerDataUsecase {
   return async (input, executor) => {
@@ -63,16 +65,23 @@ export function makeImportCareerData({
 
     const existingUsers = await listUserNamesQuery()
     if (!existingUsers.success) return existingUsers
-    if (existingUsers.data.names.includes(parameters.personName)) {
-      if (!parameters.force) {
-        return failAsConflictError(`${parameters.personName} は既にインポート済みです`)
+
+    if (parameters.force) {
+      // Delete auth user by email (handles case where DB user is gone but auth user remains)
+      const deleteAuthByEmailResult = await deleteAuthUserByEmailCommand({ email: parameters.email })
+      if (!deleteAuthByEmailResult.success) return deleteAuthByEmailResult
+
+      // Delete DB user by name if it exists
+      if (existingUsers.data.names.includes(parameters.personName)) {
+        const existingUser = await findUserByNameQuery(parameters.personName)
+        if (!existingUser.success) return existingUser
+        if (existingUser.data) {
+          const deleteDbResult = await deleteUserCommand({ id: existingUser.data.id })
+          if (!deleteDbResult.success) return deleteDbResult
+        }
       }
-      const existingUser = await findUserByNameQuery(parameters.personName)
-      if (!existingUser.success) return existingUser
-      if (existingUser.data) {
-        const deleteResult = await deleteUserCommand({ id: existingUser.data.id })
-        if (!deleteResult.success) return deleteResult
-      }
+    } else if (existingUsers.data.names.includes(parameters.personName)) {
+      return failAsConflictError(`${parameters.personName} は既にインポート済みです`)
     }
 
     const dataResult = await readCareerDataQuery(parameters.personName)

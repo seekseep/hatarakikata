@@ -4,12 +4,15 @@ import { RiAlignBottom } from "react-icons/ri"
 
 import type { CareerEvent } from "@/core/domain"
 import { findNonOverlappingRow } from "@/core/domain/service/careerMap/row"
+import { useUpdateCareerEventMutation } from "@/ui/hooks/careerEvent"
 
+import { updateEvent as updateEventAction } from "../../actions/eventActions"
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 import ActionButton from "./ActionButton"
 
 export default function AlignEventsButton() {
-  const { state, updateEvent } = useCarrerMapEditorContext()
+  const { state, dispatch } = useCarrerMapEditorContext()
+  const updateCareerEventMutation = useUpdateCareerEventMutation()
 
   const handleAlignEvents = () => {
     const events = state.events
@@ -28,7 +31,10 @@ export default function AlignEventsButton() {
       })
       placed.push({ ...event, row: newRow })
       if (newRow === event.row) continue
-      updateEvent({ ...event, row: newRow })
+      const updated = { ...event, row: newRow }
+      dispatch(updateEventAction(updated))
+      const { id, tags, ...body } = updated
+      updateCareerEventMutation.mutate({ id, ...body, tags: tags.map((t) => t.id) })
     }
   }
 

@@ -1,5 +1,5 @@
 import clsx from "clsx"
-import { memo, useMemo } from "react"
+import { memo } from "react"
 
 import { SCALE_DISPLAY_CONFIG } from "../utils/constants"
 import { buildTimelineConfig, computeCanvasWidth } from "../utils/timelineMapping"
@@ -12,7 +12,7 @@ type Props = {
 }
 
 export default memo(function CarrerMapCanvasGrid({ startDate, endDate, scale, canvasHeight }: Props) {
-  const config = useMemo(() => buildTimelineConfig(startDate, endDate, scale), [startDate, endDate, scale])
+  const config = buildTimelineConfig(startDate, endDate, scale)
 
   const canvasWidth = computeCanvasWidth(config)
   const monthPx = config.monthWidthInUnits * config.unit
@@ -20,16 +20,13 @@ export default memo(function CarrerMapCanvasGrid({ startDate, endDate, scale, ca
   const headerHeight = config.headerHeightInUnits * config.unit
   const { tickMonths, groupMonths } = SCALE_DISPLAY_CONFIG[scale - 1]
 
-  const verticalLines = useMemo(() => {
-    const lines: Array<{ left: number; isGroup: boolean }> = []
-    for (let m = tickMonths; m < totalMonths; m += tickMonths) {
-      lines.push({
-        left: m * monthPx,
-        isGroup: m % groupMonths === 0,
-      })
-    }
-    return lines
-  }, [totalMonths, tickMonths, groupMonths, monthPx])
+  const verticalLines: Array<{ left: number; isGroup: boolean }> = []
+  for (let m = tickMonths; m < totalMonths; m += tickMonths) {
+    verticalLines.push({
+      left: m * monthPx,
+      isGroup: m % groupMonths === 0,
+    })
+  }
 
   const lineHeight = canvasHeight - headerHeight
 

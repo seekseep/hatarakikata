@@ -1,10 +1,11 @@
 import { z } from "zod"
 
 import { CareerEvent, CareerQuestion, CareerQuestionKeySchema } from "@/core/domain"
-import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError } from "@/core/util/appResult"
+import { FOLLOW_UP_BUILDERS } from "@/core/domain/service/careerQuestion/builder"
+import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError, succeed } from "@/core/util/appResult"
 
 import { Executor } from "../../executor"
-import { CreateCareerEventCommand } from "../../port/command"
+import { CreateCareerEventCommand, CreateCareerQuestionCommand } from "../../port/command"
 import { UpdateCareerQuestionCommand } from "../../port/command"
 import { FindCareerMapQuery, FindCareerQuestionQuery } from "../../port/query"
 
@@ -14,15 +15,21 @@ const AnswerQuestionParametersSchema = CareerQuestionKeySchema.extend({
 
 export type AnswerQuestionParametersInput = z.input<typeof AnswerQuestionParametersSchema>
 
+export type AnswerQuestionResult = {
+  event: CareerEvent
+  newQuestions: CareerQuestion[]
+}
+
 export type AnswerQuestion = (
   input: AnswerQuestionParametersInput,
   executor: Executor
-) => Promise<AppResult<CareerEvent>>
+) => Promise<AppResult<AnswerQuestionResult>>
 
 export type MakeAnswerQuestionDependencies = {
   findCareerQuestionQuery: FindCareerQuestionQuery
   updateCareerQuestionCommand: UpdateCareerQuestionCommand
   createCareerEventCommand: CreateCareerEventCommand
+  createCareerQuestionCommand: CreateCareerQuestionCommand
   findCareerMapQuery: FindCareerMapQuery
 }
 
@@ -64,6 +71,7 @@ export function makeAnswerQuestion({
   findCareerQuestionQuery,
   updateCareerQuestionCommand,
   createCareerEventCommand,
+  createCareerQuestionCommand,
   findCareerMapQuery,
 }: MakeAnswerQuestionDependencies): AnswerQuestion {
   return async (input, executor) => {
@@ -95,6 +103,7 @@ export function makeAnswerQuestion({
       return failAsInvalidParametersError("Question is already closed")
 
     const careerMapId = question.careerMapId
+    const careerMap = careerMapResult.data
 
     // name に基づいてハンドラーを選択
     const creator = CAREER_EVENT_CREATORS[question.name] ?? defaultCareerEventCreator
@@ -108,6 +117,33 @@ export function makeAnswerQuestion({
     const updateResult = await updateCareerQuestionCommand({ id, status: "closed" })
     if (!updateResult.success) return updateResult
 
-    return createResult
+    // Create follow-up questions
+    const newQuestions: CareerQuestion[] = []
+    const followUpBuilder = FOLLOW_UP_BUILDERS[question.name]
+    if (followUpBuilder) {
+      const followUps = followUpBuilder({
+        user: executor.user,
+        careerMap,
+        answeredQuestion: question,
+        answer,
+      })
+      for (const followUp of followUps) {
+        const result = await createCareerQuestionCommand({
+          careerMapId,
+          name: followUp.name,
+          title: followUp.title,
+          status: "open",
+          fields: followUp.fields,
+          row: followUp.row,
+          startDate: followUp.startDate,
+          endDate: followUp.endDate,
+        })
+        if (result.success) {
+          newQuestions.push(result.data)
+        }
+      }
+    }
+
+    return succeed({ event: createResult.data, newQuestions })
   }
 }

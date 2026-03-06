@@ -1,9 +1,11 @@
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 
-import type { CareerEventPayload, CareerEventType } from "@/core/domain"
+import type { CareerEvent, CareerEventPayload, CareerEventType } from "@/core/domain"
+import { useCreateCareerEventMutation, useDeleteCareerEventMutation, useUpdateCareerEventMutation } from "@/ui/hooks/careerEvent"
 import { useCareerMapEventTagsQuery } from "@/ui/hooks/careerMapEventTag"
 
+import { addEvent, deleteEvent as deleteEventAction, replaceEvent, updateEvent as updateEventAction } from "../../actions/eventActions"
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 import { fromMonth,toMonth } from "./utils"
 
@@ -20,10 +22,12 @@ type FormValues = {
 export function useCareerMapEventDialogForm(propOpen: boolean, propOnClose: () => void) {
   const {
     state: { careerMapId, mode: editorMode },
-    createEvent,
-    updateEvent,
-    deleteEvent,
+    dispatch,
   } = useCarrerMapEditorContext()
+
+  const createCareerEventMutation = useCreateCareerEventMutation()
+  const updateCareerEventMutation = useUpdateCareerEventMutation()
+  const deleteCareerEventMutation = useDeleteCareerEventMutation()
 
   const open = propOpen
   const mode = editorMode.type === 'edit-dialog' ? "edit" : "create"
@@ -97,16 +101,26 @@ export function useCareerMapEventDialogForm(propOpen: boolean, propOnClose: () =
 
     if (mode === "edit" && event) {
       const tagNameMap = new Map(availableTags.map((t) => [t.id, t.name]))
-      updateEvent({ ...event, ...payload, tags: tags.map((id) => ({ id, name: tagNameMap.get(id) ?? id })) })
+      const updated: CareerEvent = { ...event, ...payload, tags: tags.map((id) => ({ id, name: tagNameMap.get(id) ?? id })) }
+      dispatch(updateEventAction(updated))
+      const { id, tags: updatedTags, ...body } = updated
+      updateCareerEventMutation.mutate({ id, ...body, tags: updatedTags.map((t) => t.id) })
     } else {
-      createEvent(payload)
+      const tempId = `temp-${Date.now()}-${Math.random().toString(36).slice(2)}`
+      const tempEvent = { ...payload, id: tempId, tags: payload.tags.map((id) => ({ id, name: id })) } as CareerEvent
+      dispatch(addEvent(tempEvent))
+      createCareerEventMutation.mutate(payload, {
+        onSuccess: (created) => { dispatch(replaceEvent(tempId, created)) },
+        onError: () => { dispatch(deleteEventAction(tempId)) },
+      })
     }
     close()
   })
 
   const handleDelete = () => {
     if (event) {
-      deleteEvent(event.id)
+      dispatch(deleteEventAction(event.id))
+      deleteCareerEventMutation.mutate({ id: event.id })
       close()
     }
   }

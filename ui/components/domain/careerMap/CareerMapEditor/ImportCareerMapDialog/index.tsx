@@ -4,12 +4,15 @@ import { useState } from "react"
 import { RiCloseLine } from "react-icons/ri"
 import { z } from "zod"
 
+import type { CareerEvent } from "@/core/domain"
 import { careerEventPayloadBaseObject } from "@/core/domain"
 import Button from "@/ui/components/basic/Button"
 import Dialog from "@/ui/components/basic/dialog/Dialog"
 import Spinner from "@/ui/components/basic/Spinner"
+import { useCreateCareerEventMutation } from "@/ui/hooks/careerEvent"
 import { useCareerMapEventTagsQuery } from "@/ui/hooks/careerMapEventTag"
 
+import { addEvent, deleteEvent as deleteEventAction, replaceEvent } from "../../actions/eventActions"
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 
 const ImportEventSchema = careerEventPayloadBaseObject
@@ -26,7 +29,8 @@ type ImportCareerMapDialogProps = {
 }
 
 export default function ImportCareerMapDialog({ open: jsonImportDialogOpen, onClose: closeJsonImportDialog }: ImportCareerMapDialogProps) {
-  const { state: { careerMapId }, createEventAsync } = useCarrerMapEditorContext()
+  const { state: { careerMapId }, dispatch } = useCarrerMapEditorContext()
+  const createCareerEventMutation = useCreateCareerEventMutation()
   const [json, setJson] = useState("")
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
@@ -64,7 +68,17 @@ export default function ImportCareerMapDialog({ open: jsonImportDialogOpen, onCl
     try {
       for (const event of result.data) {
         const { tagNames, ...rest } = event
-        await createEventAsync({ ...rest, careerMapId, tags: resolveTagIds(tagNames ?? []) })
+        const payload = { ...rest, careerMapId, tags: resolveTagIds(tagNames ?? []) }
+        const tempId = `temp-${Date.now()}-${Math.random().toString(36).slice(2)}`
+        const tempEvent = { ...payload, id: tempId, tags: payload.tags.map((id) => ({ id, name: id })) } as CareerEvent
+        dispatch(addEvent(tempEvent))
+        try {
+          const created = await createCareerEventMutation.mutateAsync(payload)
+          dispatch(replaceEvent(tempId, created))
+        } catch {
+          dispatch(deleteEventAction(tempId))
+          throw new Error("イベントの作成中にエラーが発生しました。")
+        }
       }
       setJson("")
       setError(null)

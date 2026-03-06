@@ -7,6 +7,7 @@ import { listCareerDataQuery } from '@/infrastructure/server/fs/query/careerData
 import { readCareerDataQuery } from '@/infrastructure/server/fs/query/careerData/readCareerDataQuery'
 import { updateCareerEventCommand, upsertCareerMapVectorCommand } from '@/infrastructure/server/supabase/command'
 import { createAuthUserCommand } from '@/infrastructure/server/supabase/command/auth/createAuthUserCommand'
+import { deleteAuthUserByEmailCommand } from '@/infrastructure/server/supabase/command/auth/deleteAuthUserByEmailCommand'
 import { createCareerEventCommand } from '@/infrastructure/server/supabase/command/careerEvent/createCareerEventCommand'
 import { createCareerMapCommand } from '@/infrastructure/server/supabase/command/careerMap/createCareerMapCommand'
 import { createUserCommand, deleteUserCommand } from '@/infrastructure/server/supabase/command/user'
@@ -46,6 +47,7 @@ export const importCareerData = makeImportCareerData({
   createUserCommand,
   createCareerMapCommand,
   createCareerEventCommand,
+  deleteAuthUserByEmailCommand,
   deleteUserCommand,
 })
 

@@ -1,6 +1,7 @@
 import type { CareerQuestion } from "@/core/domain"
 
 import type {
+  AddQuestionsAction,
   AnswerQuestionAction,
   CloseQuestionAction,
   RevertProcessQuestionAction,
@@ -26,4 +27,8 @@ export function answerQuestion(questionId: string): AnswerQuestionAction {
 
 export function closeQuestion(questionId: string): CloseQuestionAction {
   return { type: 'CLOSE_QUESTION', questionId }
+}
+
+export function addQuestions(questions: CareerQuestion[]): AddQuestionsAction {
+  return { type: 'ADD_QUESTIONS', questions }
 }

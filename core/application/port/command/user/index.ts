@@ -1,4 +1,5 @@
 export * from './createAuthUserCommand'
 export * from './createUserCommand'
+export * from './deleteAuthUserByEmailCommand'
 export * from './deleteUserCommand'
 export * from './updateUserCommand'

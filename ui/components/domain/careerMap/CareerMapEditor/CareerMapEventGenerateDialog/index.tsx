@@ -11,10 +11,10 @@ import Dialog from "@/ui/components/basic/dialog/Dialog"
 import TextAreaField from "@/ui/components/basic/field/TextAreaField"
 import SpeechRecognitionButton from "@/ui/components/basic/SpeechRecognitionButton"
 import ThinkingOverlay from "@/ui/components/basic/ThinkingOverlay"
-import { useGenerateCareerEventsMutation } from "@/ui/hooks/careerEvent"
+import { useGenerateCareerEventsMutation, useUpdateCareerEventMutation } from "@/ui/hooks/careerEvent"
 import { useSpeechRecognition } from "@/ui/hooks/useSpeechRecognition"
 
-import { addEvents } from "../../actions/eventActions"
+import { addEvents, updateEvent as updateEventAction } from "../../actions/eventActions"
 import { useCarrerMapEditorContext } from "../../hooks/CarrerMapEditorContext"
 
 type FormValues = {
@@ -30,7 +30,6 @@ export default function CareerMapEventGenerateDialog({ open: generateDialogOpen,
   const {
     state: { careerMapId, events },
     dispatch,
-    updateEvent,
   } = useCarrerMapEditorContext()
 
   const form = useForm<FormValues>({
@@ -39,6 +38,7 @@ export default function CareerMapEventGenerateDialog({ open: generateDialogOpen,
   const { handleSubmit, setValue, getValues, reset } = form
 
   const generateMutation = useGenerateCareerEventsMutation()
+  const updateCareerEventMutation = useUpdateCareerEventMutation()
 
   const handleSpeechResult = useCallback((text: string) => {
     setValue("input", getValues("input") + text)
@@ -74,7 +74,11 @@ export default function CareerMapEventGenerateDialog({ open: generateDialogOpen,
         .map((a) => a.event)
 
       if (createdEvents.length > 0) dispatch(addEvents(createdEvents))
-      for (const event of updatedEvents) updateEvent(event)
+      for (const event of updatedEvents) {
+        dispatch(updateEventAction(event))
+        const { id, tags, ...body } = event
+        updateCareerEventMutation.mutate({ id, ...body, tags: tags.map((t) => t.id) })
+      }
 
       reset()
 
