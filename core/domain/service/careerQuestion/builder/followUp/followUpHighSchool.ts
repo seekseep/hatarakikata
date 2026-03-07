@@ -16,6 +16,7 @@ export const followUpHighSchool: FollowUpQuestionBuilder = ({ answer }) => {
         { name: "hobby", binding: null, label: "趣味・好きだったこと", type: "text" },
         { name: "start_date", binding: "startDate", label: "開始時期", type: "date", default: startDate },
         { name: "end_date", binding: "endDate", label: "終了時期", type: "date", default: endDate },
+        { name: "event_type", binding: "type", label: "種類", type: "hidden", options: ["living", "working", "feeling"], default: "feeling" },
       ],
       row: 1,
       startDate,

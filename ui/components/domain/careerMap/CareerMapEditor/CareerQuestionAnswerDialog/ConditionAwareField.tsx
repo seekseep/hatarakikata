@@ -81,6 +81,8 @@ export default function ConditionAwareField({
           label={field.label}
         />
       )
+    case "hidden":
+      return null
     default:
       return null
   }

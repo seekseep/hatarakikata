@@ -6,7 +6,14 @@ import { createSupabaseAdmin } from '../../client'
 export const updateCareerQuestionCommand: UpdateCareerQuestionCommand = async (parameters) => {
   const supabase = createSupabaseAdmin()
   const updateData: Record<string, unknown> = {}
+  if (parameters.careerMapId !== undefined) updateData.career_map_id = parameters.careerMapId
+  if (parameters.name !== undefined) updateData.name = parameters.name
+  if (parameters.title !== undefined) updateData.title = parameters.title
   if (parameters.status !== undefined) updateData.status = parameters.status
+  if (parameters.fields !== undefined) updateData.fields = parameters.fields
+  if (parameters.row !== undefined) updateData.row = parameters.row
+  if (parameters.startDate !== undefined) updateData.start_date = parameters.startDate
+  if (parameters.endDate !== undefined) updateData.end_date = parameters.endDate
 
   if (Object.keys(updateData).length > 0) {
     const { error } = await supabase

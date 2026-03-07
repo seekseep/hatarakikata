@@ -13,6 +13,7 @@ export const buildMiddleSchool: QuestionBuilder = ({ careerMap }) => {
       { name: "school_name", binding: "name", label: "中学校の名前", type: "text" },
       { name: "start_date", binding: "startDate", label: "入学年月", type: "date", default: startDefault },
       { name: "end_date", binding: "endDate", label: "卒業年月", type: "date", default: endDefault },
+      { name: "event_type", binding: "type", label: "種類", type: "hidden", options: ["living", "working", "feeling"], default: "living" },
     ],
     row: 0,
     startDate: startDefault,

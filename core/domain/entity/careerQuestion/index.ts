@@ -7,6 +7,7 @@ export const CareerQuestionFieldTypeSchema = z.enum([
   "number",
   "select",
   "radio",
+  "hidden",
 ])
 export type CareerQuestionFieldType = z.infer<typeof CareerQuestionFieldTypeSchema>
 

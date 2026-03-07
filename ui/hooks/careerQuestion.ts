@@ -8,6 +8,7 @@ import {
   closeQuestion,
   initializeQuestions,
   listQuestions,
+  updateQuestion,
 } from '@/ui/service/api'
 
 const CAREER_QUESTIONS_QUERY_KEY = ['careerQuestions'] as const
@@ -52,5 +53,12 @@ export function useCloseQuestionMutation(careerMapId: string) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [...CAREER_QUESTIONS_QUERY_KEY, careerMapId] })
     },
+  })
+}
+
+export function useUpdateCareerQuestionMutation() {
+  return useMutation({
+    mutationFn: ({ id, ...body }: { id: string; [key: string]: unknown }) =>
+      updateQuestion(id, body),
   })
 }

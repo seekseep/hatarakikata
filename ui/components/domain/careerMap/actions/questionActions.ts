@@ -7,6 +7,7 @@ import type {
   RevertProcessQuestionAction,
   SetQuestionsAction,
   StartProcessQuestionAction,
+  UpdateQuestionAction,
 } from "../hooks/EditorAction"
 
 export function setQuestions(questions: CareerQuestion[]): SetQuestionsAction {
@@ -31,4 +32,8 @@ export function closeQuestion(questionId: string): CloseQuestionAction {
 
 export function addQuestions(questions: CareerQuestion[]): AddQuestionsAction {
   return { type: 'ADD_QUESTIONS', questions }
+}
+
+export function updateQuestion(question: CareerQuestion): UpdateQuestionAction {
+  return { type: 'UPDATE_QUESTION', question }
 }

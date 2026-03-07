@@ -178,6 +178,14 @@ export function editorReducer(state: EditorState, action: EditorAction): EditorS
         questions: [...state.questions, ...action.questions],
       }
 
+    case 'UPDATE_QUESTION':
+      return {
+        ...state,
+        questions: state.questions.map(q =>
+          q.id === action.question.id ? action.question : q
+        ),
+      }
+
     // --- Hover ---
 
     case 'HOVER_EVENT':

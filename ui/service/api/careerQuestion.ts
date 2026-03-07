@@ -28,3 +28,10 @@ export function answerQuestion(id: string, answer: Record<string, unknown>): Pro
 export function closeQuestion(id: string): Promise<CareerQuestion> {
   return apiFetch<CareerQuestion>(`/api/career-questions/${id}/close`, { method: 'POST' })
 }
+
+export function updateQuestion(id: string, body: Record<string, unknown>): Promise<CareerQuestion> {
+  return apiFetch<CareerQuestion>(`/api/career-questions/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(body),
+  })
+}
