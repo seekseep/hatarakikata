@@ -4,12 +4,16 @@ import type { AppResult } from '@/core/util/appResult'
 
 export function toResponse<T>(result: AppResult<T>): NextResponse {
   if (result.success) {
+    if (result.data === undefined || result.data === null) {
+      return new NextResponse(null, { status: 204 })
+    }
     return NextResponse.json(result.data, { status: 200 })
   }
 
   const { error } = result
   const statusMap = {
     InvalidParametersError: 400,
+    InsufficientCreditsError: 402,
     ForbiddenError: 403,
     NotFoundError: 404,
     ConflictError: 409,
@@ -25,6 +29,7 @@ export function toResponse<T>(result: AppResult<T>): NextResponse {
 
   const safeMessages: Record<string, string> = {
     InvalidParametersError: 'Invalid parameters',
+    InsufficientCreditsError: 'Insufficient credits',
     ForbiddenError: 'Forbidden',
     NotFoundError: 'Not found',
     ConflictError: 'Conflict',
@@ -32,5 +37,5 @@ export function toResponse<T>(result: AppResult<T>): NextResponse {
     ExternalServiceError: 'External service error',
   }
 
-  return NextResponse.json({ error: safeMessages[error.type] ?? 'Unknown error' }, { status })
+  return NextResponse.json({ error: error.message || safeMessages[error.type] || 'Unknown error' }, { status })
 }

@@ -11,7 +11,7 @@ import {
 
 export const CURRENT_USER_QUERY_KEY = ['user', 'me'] as const
 
-export function useCurrentUserQuery(enabled: boolean = true) {
+export function useGetCurrentUserQuery(enabled: boolean = true) {
   return useQuery({
     queryKey: CURRENT_USER_QUERY_KEY,
     queryFn: fetchCurrentUser,

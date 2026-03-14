@@ -10,7 +10,7 @@ import Alert from '@/ui/components/basic/Alert'
 import Breadcrumb from '@/ui/components/basic/Breadcrumb'
 import Button from '@/ui/components/basic/Button'
 import TextField from '@/ui/components/basic/field/TextField'
-import { CURRENT_USER_QUERY_KEY,useCurrentUserQuery, useUpdateCurrentUserMutation } from '@/ui/hooks/user'
+import { CURRENT_USER_QUERY_KEY,useGetCurrentUserQuery, useUpdateCurrentUserMutation } from '@/ui/hooks/user'
 
 const UpdateNameFormSchema = z.object({
   name: z.string().min(1, '名前は必須です'),
@@ -21,7 +21,7 @@ type UpdateNameForm = z.infer<typeof UpdateNameFormSchema>
 export default function MeNamePage() {
   const router = useRouter()
   const queryClient = useQueryClient()
-  const { data: currentUser } = useCurrentUserQuery()
+  const { data: currentUser } = useGetCurrentUserQuery()
   const mutation = useUpdateCurrentUserMutation()
   const methods = useForm<UpdateNameForm>({
     resolver: zodResolver(UpdateNameFormSchema),

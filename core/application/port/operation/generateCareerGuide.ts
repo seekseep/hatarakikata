@@ -1,7 +1,7 @@
 import { z } from "zod"
 
-import { CareerEventSchema, GenerateCareerGuideResultSchema } from "@/core/domain"
 import type { GenerateCareerGuideResult } from "@/core/domain"
+import { CareerEventSchema, GenerateCareerGuideResultSchema } from "@/core/domain"
 import type { AppResult } from "@/core/util/appResult"
 
 export const GenerateCareerGuideOperationParametersSchema = z.object({

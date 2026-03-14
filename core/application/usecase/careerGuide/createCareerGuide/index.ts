@@ -1,12 +1,13 @@
 import { z } from "zod"
 
 import { CareerGuide } from "@/core/domain"
+import { resolveCreditTransaction } from "@/core/domain/service/credit"
 import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError } from "@/core/util/appResult"
 
 import { Executor } from "../../../executor"
-import { CreateCareerGuideCommand } from "../../../port/command"
+import { CreateCareerGuideCommand, CreateCreditTransactionCommand } from "../../../port/command"
 import { GenerateCareerGuideOperation } from "../../../port/operation"
-import { FindCareerMapQuery, FindUserQuery, ListCareerEventsByCareerMapIdQuery } from "../../../port/query"
+import { FindCareerMapQuery, FindUserQuery, GetCreditBalanceQuery, GetMembershipQuery, ListCareerEventsByCareerMapIdQuery } from "../../../port/query"
 
 const CreateCareerGuideParametersSchema = z.object({
   baseCareerMapId: z.string(),
@@ -26,6 +27,9 @@ export type MakeCreateCareerGuideDependencies = {
   listCareerEventsByCareerMapIdQuery: ListCareerEventsByCareerMapIdQuery
   generateCareerGuideOperation: GenerateCareerGuideOperation
   createCareerGuideCommand: CreateCareerGuideCommand
+  getCreditBalanceQuery: GetCreditBalanceQuery
+  getMembershipQuery: GetMembershipQuery
+  createCreditTransactionCommand: CreateCreditTransactionCommand
 }
 
 function sectionsToMarkdown(sections: { title: string; body: string }[]): string {
@@ -38,6 +42,9 @@ export function makeCreateCareerGuide({
   listCareerEventsByCareerMapIdQuery,
   generateCareerGuideOperation,
   createCareerGuideCommand,
+  getCreditBalanceQuery,
+  getMembershipQuery,
+  createCreditTransactionCommand,
 }: MakeCreateCareerGuideDependencies): CreateCareerGuide {
   return async (input, executor) => {
     const validation = CreateCareerGuideParametersSchema.safeParse(input)
@@ -46,6 +53,24 @@ export function makeCreateCareerGuide({
 
     if (executor.type !== "user" && executor.type !== "system")
       return failAsForbiddenError("Forbidden")
+
+    // クレジット事前チェック
+    let creditTransaction: ReturnType<typeof resolveCreditTransaction> extends AppResult<infer T> ? T : never = null
+    if (executor.type === "user") {
+      const membershipResult = await getMembershipQuery({ userId: executor.user.id })
+      if (!membershipResult.success) return membershipResult
+      const balanceResult = await getCreditBalanceQuery({ userId: executor.user.id })
+      if (!balanceResult.success) return balanceResult
+
+      const txResult = resolveCreditTransaction({
+        userId: executor.user.id,
+        plan: membershipResult.data.plan,
+        operation: 'generateCareerGuide',
+        balance: balanceResult.data,
+      })
+      if (!txResult.success) return txResult
+      creditTransaction = txResult.data
+    }
 
     const { baseCareerMapId, guideCareerMapId } = validation.data
 
@@ -80,6 +105,12 @@ export function makeCreateCareerGuide({
       guideCareerEvents: guideEventsResult.data.items,
     })
     if (!guideResult.success) return guideResult
+
+    // クレジット消費
+    if (creditTransaction) {
+      const usageResult = await createCreditTransactionCommand(creditTransaction)
+      if (!usageResult.success) return usageResult
+    }
 
     const content = sectionsToMarkdown(guideResult.data.content.sections)
     const nextActions = guideResult.data.actions.map((a) => ({

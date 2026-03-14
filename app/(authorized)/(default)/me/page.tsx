@@ -3,7 +3,7 @@
 import { useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { useEffect,useState } from 'react'
-import { RiDeleteBinLine,RiLockPasswordLine, RiLogoutBoxRLine, RiMailLine, RiUserLine } from 'react-icons/ri'
+import { RiCoinLine, RiDeleteBinLine, RiLockPasswordLine, RiLogoutBoxRLine, RiMailLine, RiPriceTag3Line, RiUserLine } from 'react-icons/ri'
 
 import Breadcrumb from '@/ui/components/basic/Breadcrumb'
 import ConfirmDialog from '@/ui/components/basic/dialog/ConfirmDialog'
@@ -11,14 +11,14 @@ import MenuList from '@/ui/components/basic/menu/MenuList'
 import MenuListItemButton from '@/ui/components/basic/menu/MenuListItemButton'
 import MenuListItemLink from '@/ui/components/basic/menu/MenuListItemLink'
 import { SESSION_QUERY_KEY,useSignOutMutation } from '@/ui/hooks/auth'
-import { useCurrentUserQuery, useDeleteCurrentUserMutation } from '@/ui/hooks/user'
+import { useDeleteCurrentUserMutation,useGetCurrentUserQuery } from '@/ui/hooks/user'
 import { useAuth } from '@/ui/providers/AuthProvider'
 
 export default function MePage() {
   const router = useRouter()
   const queryClient = useQueryClient()
   const { user } = useAuth()
-  const { data: currentUser } = useCurrentUserQuery()
+  const { data: currentUser } = useGetCurrentUserQuery()
   const logoutMutation = useSignOutMutation()
   const deleteMutation = useDeleteCurrentUserMutation()
   const [withdrawDialogOpen, setWithdrawDialogOpen] = useState(false)
@@ -62,6 +62,18 @@ export default function MePage() {
 
       <div className="rounded-lg bg-white shadow-sm">
         <MenuList>
+          <MenuListItemLink
+            to="/me/plan"
+            primaryText="プラン"
+            icon={<RiPriceTag3Line />}
+            secondaryText={currentUser?.membership.plan === 'premium' ? 'プレミアム' : 'フリー'}
+          />
+          <MenuListItemLink
+            to="/me/credit"
+            primaryText="クレジット"
+            icon={<RiCoinLine />}
+            secondaryText={`残高: ${currentUser?.balance ?? 0}`}
+          />
           <MenuListItemLink
             to="/me/name"
             primaryText="名前"

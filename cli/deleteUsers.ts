@@ -1,9 +1,8 @@
 import 'dotenv/config'
 
 import * as fs from 'fs'
-import * as path from 'path'
-
 import inquirer from 'inquirer'
+import * as path from 'path'
 
 import { createSupabaseAdmin } from '../infrastructure/server/supabase/client'
 

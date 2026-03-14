@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { RiUserLine } from 'react-icons/ri'
 
-import { useCurrentUserQuery } from '@/ui/hooks/user'
+import { useGetCurrentUserQuery } from '@/ui/hooks/user'
 
 const maxWidthStyles = {
   sm: 'max-w-sm',
@@ -26,7 +26,7 @@ type GlobalNavigationProps = {
 }
 
 export default function GlobalNavigation({ maxWidth = '5xl' }: GlobalNavigationProps) {
-  const { data: currentUser } = useCurrentUserQuery()
+  const { data: currentUser } = useGetCurrentUserQuery()
 
   return (
     <header className="bg-background border-b border-foreground/10">

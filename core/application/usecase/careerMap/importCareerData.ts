@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 import type { Executor } from "@/core/application/executor"
-import type { CreateAuthUserCommand, CreateCareerEventCommand, CreateCareerMapCommand, CreateUserCommand, DeleteAuthUserByEmailCommand, DeleteUserCommand } from "@/core/application/port/command"
+import type { CreateAuthUserCommand, CreateCareerEventCommand, CreateCareerMapCommand, CreateCreditTransactionCommand, CreateMembershipCommand, CreateUserCommand, DeleteAuthUserByEmailCommand, DeleteUserCommand } from "@/core/application/port/command"
 import type { FindUserByNameQuery, ListCareerMapEventTagsQuery, ListUserNamesQuery, ReadCareerDataQuery } from "@/core/application/port/query"
 import type { CareerEvent } from "@/core/domain"
 import { type AppResult, failAsConflictError, failAsForbiddenError, failAsInvalidParametersError, succeed } from "@/core/util/appResult"
@@ -37,6 +37,8 @@ export type MakeImportCareerDataDependencies = {
   createUserCommand: CreateUserCommand
   createCareerMapCommand: CreateCareerMapCommand
   createCareerEventCommand: CreateCareerEventCommand
+  createMembershipCommand: CreateMembershipCommand
+  createCreditTransactionCommand: CreateCreditTransactionCommand
   deleteAuthUserByEmailCommand: DeleteAuthUserByEmailCommand
   deleteUserCommand: DeleteUserCommand
 }
@@ -50,6 +52,8 @@ export function makeImportCareerData({
   createUserCommand,
   createCareerMapCommand,
   createCareerEventCommand,
+  createMembershipCommand,
+  createCreditTransactionCommand,
   deleteAuthUserByEmailCommand,
   deleteUserCommand,
 }: MakeImportCareerDataDependencies): ImportCareerDataUsecase {
@@ -105,6 +109,12 @@ export function makeImportCareerData({
 
     const userResult = await createUserCommand({ id: userId, name: data.personName })
     if (!userResult.success) return userResult
+
+    const membershipResult = await createMembershipCommand({ userId, plan: 'free' })
+    if (!membershipResult.success) return membershipResult
+
+    const creditResult = await createCreditTransactionCommand({ userId, amount: 100, type: 'grant' })
+    if (!creditResult.success) return creditResult
 
     const careerMapResult = await createCareerMapCommand({ userId, startDate: data.birthDate })
     if (!careerMapResult.success) return careerMapResult

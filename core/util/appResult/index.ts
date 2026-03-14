@@ -1,4 +1,4 @@
-import { AppError, ConflictError, ExternalServiceError, ForbiddenError, InternalServerError, InvalidParametersError, NotFoundError } from '@/core/error/appError'
+import { AppError, ConflictError, ExternalServiceError, ForbiddenError, InsufficientCreditsError, InternalServerError, InvalidParametersError, NotFoundError } from '@/core/error/appError'
 
 import { AppResult } from './types'
 
@@ -40,4 +40,8 @@ export function failAsExternalServiceError<T>(message: string, cause?: unknown):
 
 export function failAsConflictError<T>(message: string, cause?: unknown): AppResult<T> {
   return fail<T>({ type: "ConflictError", message, cause } satisfies ConflictError)
+}
+
+export function failAsInsufficientCreditsError<T>(message: string, cause?: unknown): AppResult<T> {
+  return fail<T>({ type: "InsufficientCreditsError", message, cause } satisfies InsufficientCreditsError)
 }

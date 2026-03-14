@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { type ReactNode,useEffect, useRef } from 'react'
 
 import Spinner from '@/ui/components/basic/Spinner'
-import { CURRENT_USER_QUERY_KEY,useCurrentUserQuery, useInitializeUserMutation } from '@/ui/hooks/user'
+import { CURRENT_USER_QUERY_KEY,useGetCurrentUserQuery, useInitializeUserMutation } from '@/ui/hooks/user'
 import { useAuth } from '@/ui/providers/AuthProvider'
 import { ApiError } from '@/ui/service/api/client'
 
@@ -17,7 +17,7 @@ export default function AuthorizedLayout({ children }: { children: ReactNode }) 
     data: currentUser,
     isLoading: isUserLoading,
     error: userError,
-  } = useCurrentUserQuery(!!authUser && !isAuthLoading)
+  } = useGetCurrentUserQuery(!!authUser && !isAuthLoading)
 
   const initMutation = useInitializeUserMutation()
   const initCalledRef = useRef(false)

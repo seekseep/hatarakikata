@@ -4,6 +4,7 @@ import { useCallback } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { RiCloseLine } from "react-icons/ri"
 
+import { CREDIT_COSTS } from "@/core/application/config/creditCosts"
 import Alert from "@/ui/components/basic/Alert"
 import AudioLevelMeter from "@/ui/components/basic/AudioLevelMeter"
 import Button from "@/ui/components/basic/Button"
@@ -12,6 +13,7 @@ import TextAreaField from "@/ui/components/basic/field/TextAreaField"
 import SpeechRecognitionButton from "@/ui/components/basic/SpeechRecognitionButton"
 import ThinkingOverlay from "@/ui/components/basic/ThinkingOverlay"
 import { useGenerateCareerEventsMutation, useUpdateCareerEventMutation } from "@/ui/hooks/careerEvent"
+import { useGetCurrentUserQuery } from "@/ui/hooks/user"
 import { useSpeechRecognition } from "@/ui/hooks/useSpeechRecognition"
 
 import { addEvents, updateEvent as updateEventAction } from "../../actions/eventActions"
@@ -27,6 +29,12 @@ type CareerMapEventGenerateDialogProps = {
 }
 
 export default function CareerMapEventGenerateDialog({ open: generateDialogOpen, onClose: closeGenerateDialog }: CareerMapEventGenerateDialogProps) {
+  const { data: currentUser } = useGetCurrentUserQuery()
+  const isFree = currentUser?.membership.plan === 'free'
+  const balance = currentUser?.balance ?? 0
+  const cost = CREDIT_COSTS.generateCareerEvents
+  const hasInsufficientCredits = isFree && balance < cost
+
   const {
     state: { careerMapId, events },
     dispatch,
@@ -140,6 +148,14 @@ export default function CareerMapEventGenerateDialog({ open: generateDialogOpen,
             <p className="text-sm text-foreground/70">次の質問: {nextQuestion}</p>
           )}
 
+          {isFree && (
+            <p className="text-sm text-foreground/70">
+              {hasInsufficientCredits
+                ? `クレジットが不足しています（残高: ${balance} / 必要: ${cost}）`
+                : `残高: ${balance} クレジット（この操作で ${cost} 消費）`}
+            </p>
+          )}
+
           {generateMutation.error && (
             <Alert variant="error">
               {generateMutation.error instanceof Error
@@ -153,7 +169,7 @@ export default function CareerMapEventGenerateDialog({ open: generateDialogOpen,
               type="submit"
               variant="primary"
               size="medium"
-              disabled={generateMutation.isPending}
+              disabled={generateMutation.isPending || hasInsufficientCredits}
             >
               {generateMutation.isPending ? "生成中..." : "生成"}
             </Button>

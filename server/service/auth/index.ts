@@ -28,6 +28,8 @@ export async function getExecutor(): Promise<UserExecutor> {
   return general({
     id: data.user.id,
     name: '',
+    balance: 0,
+    membership: { plan: 'free' },
   })
 }
 
@@ -36,5 +38,5 @@ function general(user: User): UserExecutor {
 }
 
 function guest(): UserExecutor {
-  return { type: 'user', userType: 'guest', user: { id: '', name: '' } }
+  return { type: 'user', userType: 'guest', user: { id: '', name: '', balance: 0, membership: { plan: 'free' } } }
 }

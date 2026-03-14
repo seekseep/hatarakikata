@@ -1,12 +1,13 @@
 import { z } from "zod"
 
 import type { Executor } from "@/core/application/executor"
-import type { CreateCareerEventCommand } from "@/core/application/port/command"
+import type { CreateCareerEventCommand, CreateCreditTransactionCommand } from "@/core/application/port/command"
 import type { UpdateCareerEventCommand } from "@/core/application/port/command/careerEvent/updateCareerEventCommand"
 import type { GenerateCareerEventsOperation } from "@/core/application/port/operation"
-import type { FindCareerMapQuery, ListCareerMapEventTagsQuery } from "@/core/application/port/query"
+import type { FindCareerMapQuery, GetCreditBalanceQuery, GetMembershipQuery, ListCareerMapEventTagsQuery } from "@/core/application/port/query"
 import type { CareerEvent } from "@/core/domain"
 import { CareerEventSchema } from "@/core/domain"
+import { resolveCreditTransaction } from "@/core/domain/service/credit"
 import { type AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError, succeed } from "@/core/util/appResult"
 
 const GenerateCareerEventsParametersSchema = z.object({
@@ -44,6 +45,9 @@ export type MakeGenerateCareerEventsDependencies = {
   updateCareerEventCommand: UpdateCareerEventCommand
   findCareerMapQuery: FindCareerMapQuery
   listCareerMapEventTagsQuery: ListCareerMapEventTagsQuery
+  getCreditBalanceQuery: GetCreditBalanceQuery
+  getMembershipQuery: GetMembershipQuery
+  createCreditTransactionCommand: CreateCreditTransactionCommand
 }
 
 export function makeGenerateCareerEvents({
@@ -52,6 +56,9 @@ export function makeGenerateCareerEvents({
   updateCareerEventCommand,
   findCareerMapQuery,
   listCareerMapEventTagsQuery,
+  getCreditBalanceQuery,
+  getMembershipQuery,
+  createCreditTransactionCommand,
 }: MakeGenerateCareerEventsDependencies): GenerateCareerEventsUsecase {
   return async (input, executor) => {
     const validation = GenerateCareerEventsParametersSchema.safeParse(input)
@@ -60,6 +67,22 @@ export function makeGenerateCareerEvents({
     if (executor.type !== "user" || executor.userType !== "general") {
       return failAsForbiddenError("Forbidden")
     }
+
+    // クレジット事前チェック
+    let creditTransaction: ReturnType<typeof resolveCreditTransaction> extends AppResult<infer T> ? T : never = null
+    const membershipResult = await getMembershipQuery({ userId: executor.user.id })
+    if (!membershipResult.success) return membershipResult
+    const balanceResult = await getCreditBalanceQuery({ userId: executor.user.id })
+    if (!balanceResult.success) return balanceResult
+
+    const txResult = resolveCreditTransaction({
+      userId: executor.user.id,
+      plan: membershipResult.data.plan,
+      operation: 'generateCareerEvents',
+      balance: balanceResult.data,
+    })
+    if (!txResult.success) return txResult
+    creditTransaction = txResult.data
 
     const parameters = validation.data
 
@@ -87,6 +110,12 @@ export function makeGenerateCareerEvents({
     })
 
     if (!generateResult.success) return generateResult
+
+    // クレジット消費
+    if (creditTransaction) {
+      const usageResult = await createCreditTransactionCommand(creditTransaction)
+      if (!usageResult.success) return usageResult
+    }
 
     const tagIdByName = new Map(tags.map((t) => [t.name, t.id]))
     const tagNameById = new Map(tags.map((t) => [t.id, t.name]))

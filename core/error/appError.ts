@@ -34,4 +34,10 @@ export type ConflictError = {
   cause?: unknown
 }
 
-export type AppError = InvalidParametersError | NotFoundError | ForbiddenError | InternalServerError | ExternalServiceError | ConflictError
+export type InsufficientCreditsError = {
+  type: "InsufficientCreditsError"
+  message: string
+  cause?: unknown
+}
+
+export type AppError = InvalidParametersError | NotFoundError | ForbiddenError | InternalServerError | ExternalServiceError | ConflictError | InsufficientCreditsError

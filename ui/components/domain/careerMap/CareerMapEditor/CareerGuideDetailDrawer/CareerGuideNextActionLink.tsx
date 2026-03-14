@@ -1,10 +1,10 @@
 import {
-  RiBriefcaseLine,
   RiBookOpenLine,
+  RiBriefcaseLine,
+  RiExternalLinkLine,
   RiGraduationCapLine,
   RiGroupLine,
   RiSmartphoneLine,
-  RiExternalLinkLine,
 } from "react-icons/ri"
 
 import type { CareerGuideNextAction } from "@/core/domain"

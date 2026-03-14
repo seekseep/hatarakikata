@@ -1,12 +1,11 @@
 import 'dotenv/config'
 
+import cliProgress from 'cli-progress'
 import * as crypto from 'crypto'
 import * as fs from 'fs'
-import * as path from 'path'
-
-import cliProgress from 'cli-progress'
 import inquirer from 'inquirer'
 import pLimit from 'p-limit'
+import * as path from 'path'
 
 import type { SystemExecutor } from '../core/application/executor'
 import { listUserNamesQuery } from '../infrastructure/server/supabase/query/user'

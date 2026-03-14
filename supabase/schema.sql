@@ -1,4 +1,8 @@
 -- Drop tables (reverse dependency order)
+drop table if exists invitation_codes cascade;
+drop table if exists credit_transactions cascade;
+drop table if exists credit_balances cascade;
+drop table if exists memberships cascade;
 drop table if exists career_guides cascade;
 drop table if exists career_questions cascade;
 drop table if exists career_map_event_tag_attachments cascade;
@@ -95,6 +99,38 @@ create table career_map_vectors (
 );
 
 create index career_map_vectors_embedding_idx on career_map_vectors using ivfflat (embedding vector_cosine_ops) with (lists = 100);
+
+-- Memberships (1ユーザー1行)
+create table memberships (
+  user_id uuid primary key references users(id) on delete cascade,
+  plan text not null default 'free' check (plan in ('free', 'premium'))
+);
+
+-- Credit Balances (残高スナップショット: 1ユーザー1行)
+create table credit_balances (
+  user_id uuid primary key references users(id) on delete cascade,
+  balance integer not null default 0 check (balance >= 0)
+);
+
+-- Credit Transactions (取引履歴: 付与は正、消費は負)
+create table credit_transactions (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references users(id) on delete cascade,
+  amount integer not null,
+  type text not null check (type in ('grant', 'usage')),
+  operation text,
+  created_at timestamptz not null default now()
+);
+
+create index credit_transactions_user_id_idx on credit_transactions(user_id);
+
+-- Invitation Codes (招待コード)
+create table invitation_codes (
+  id uuid primary key default gen_random_uuid(),
+  code text not null unique,
+  used_at timestamptz,
+  created_at timestamptz not null default now()
+);
 
 -- Match career map vectors by cosine similarity
 create or replace function match_career_map_vectors(

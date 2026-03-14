@@ -5,7 +5,7 @@ import { makeReindexAllCareerMapVectors } from '@/core/application/usecase/caree
 import { createEmbeddingOperation } from '@/infrastructure/server/ai/operation'
 import { listCareerDataQuery } from '@/infrastructure/server/fs/query/careerData/listCareerDataQuery'
 import { readCareerDataQuery } from '@/infrastructure/server/fs/query/careerData/readCareerDataQuery'
-import { updateCareerEventCommand, upsertCareerMapVectorCommand } from '@/infrastructure/server/supabase/command'
+import { createCreditTransactionCommand, createMembershipCommand, updateCareerEventCommand, upsertCareerMapVectorCommand } from '@/infrastructure/server/supabase/command'
 import { createAuthUserCommand } from '@/infrastructure/server/supabase/command/auth/createAuthUserCommand'
 import { deleteAuthUserByEmailCommand } from '@/infrastructure/server/supabase/command/auth/deleteAuthUserByEmailCommand'
 import { createCareerEventCommand } from '@/infrastructure/server/supabase/command/careerEvent/createCareerEventCommand'
@@ -47,6 +47,8 @@ export const importCareerData = makeImportCareerData({
   createUserCommand,
   createCareerMapCommand,
   createCareerEventCommand,
+  createMembershipCommand,
+  createCreditTransactionCommand,
   deleteAuthUserByEmailCommand,
   deleteUserCommand,
 })
