@@ -1,11 +1,10 @@
 import { z } from "zod"
 
+import { Executor } from "@/core/application/executor"
+import { UpdateUserCommand, UpdateUserCommandParametersSchema } from "@/core/application/port"
+import { FindUserQuery } from "@/core/application/port"
 import { User } from "@/core/domain"
-import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError } from "@/core/util/appResult"
-
-import { Executor } from "../../executor"
-import { UpdateUserCommand, UpdateUserCommandParametersSchema } from "../../port/command"
-import { FindUserQuery } from "../../port/query"
+import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError } from "@/core/util"
 
 const UpdateUserParametersSchema = UpdateUserCommandParametersSchema
 

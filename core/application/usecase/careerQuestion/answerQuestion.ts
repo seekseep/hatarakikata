@@ -1,13 +1,12 @@
 import { z } from "zod"
 
+import { Executor } from "@/core/application/executor"
+import { CreateCareerEventCommand, CreateCareerQuestionCommand } from "@/core/application/port"
+import { UpdateCareerQuestionCommand } from "@/core/application/port"
+import { FindCareerMapQuery, FindCareerQuestionQuery } from "@/core/application/port"
 import { CareerEvent, CareerQuestion, CareerQuestionKeySchema } from "@/core/domain"
 import { FOLLOW_UP_BUILDERS } from "@/core/domain/service/careerQuestion/builder"
-import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError, succeed } from "@/core/util/appResult"
-
-import { Executor } from "../../executor"
-import { CreateCareerEventCommand, CreateCareerQuestionCommand } from "../../port/command"
-import { UpdateCareerQuestionCommand } from "../../port/command"
-import { FindCareerMapQuery, FindCareerQuestionQuery } from "../../port/query"
+import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError, succeed } from "@/core/util"
 
 const AnswerQuestionParametersSchema = CareerQuestionKeySchema.extend({
   answer: z.record(z.string(), z.unknown()),

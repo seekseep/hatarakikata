@@ -1,8 +1,7 @@
+import { Executor } from "@/core/application/executor"
+import { ListCareerGuidesByUserIdQuery } from "@/core/application/port"
 import { CareerGuideWithSource } from "@/core/domain"
-import { AppResult, failAsForbiddenError } from "@/core/util/appResult"
-
-import { Executor } from "../../executor"
-import { ListCareerGuidesByUserIdQuery } from "../../port/query"
+import { AppResult, failAsForbiddenError } from "@/core/util"
 
 export type ListMyCareerGuides = (
   executor: Executor

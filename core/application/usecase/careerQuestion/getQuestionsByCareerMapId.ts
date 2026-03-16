@@ -1,10 +1,9 @@
 import { z } from "zod"
 
+import { Executor } from "@/core/application/executor"
+import { FindCareerMapQuery, ListCareerQuestionsByCareerMapIdQuery } from "@/core/application/port"
 import { CareerQuestion } from "@/core/domain"
-import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError } from "@/core/util/appResult"
-
-import { Executor } from "../../executor"
-import { FindCareerMapQuery, ListCareerQuestionsByCareerMapIdQuery } from "../../port/query"
+import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError } from "@/core/util"
 
 const GetQuestionsByCareerMapIdParametersSchema = z.object({
   careerMapId: z.string(),

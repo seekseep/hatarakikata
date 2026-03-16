@@ -1,12 +1,11 @@
 import { z } from "zod"
 
+import { Executor } from "@/core/application/executor"
+import { CreateCareerQuestionCommand } from "@/core/application/port"
+import { FindCareerMapQuery, ListCareerQuestionsByCareerMapIdQuery } from "@/core/application/port"
 import { CareerQuestion } from "@/core/domain"
 import { QUESTION_BUILDERS } from "@/core/domain/service/careerQuestion/builder"
-import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError, succeed } from "@/core/util/appResult"
-
-import { Executor } from "../../executor"
-import { CreateCareerQuestionCommand } from "../../port/command"
-import { FindCareerMapQuery, ListCareerQuestionsByCareerMapIdQuery } from "../../port/query"
+import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError, succeed } from "@/core/util"
 
 const InitializeQuestionsParametersSchema = z.object({
   careerMapId: z.string(),

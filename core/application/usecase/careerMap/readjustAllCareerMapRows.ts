@@ -1,9 +1,9 @@
 import type { Executor } from "@/core/application/executor"
-import type { UpdateCareerEventCommand } from "@/core/application/port/command"
-import type { ListAllCareerMapIdsQuery, ListCareerEventsByCareerMapIdQuery } from "@/core/application/port/query"
+import type { UpdateCareerEventCommand } from "@/core/application/port"
+import type { ListAllCareerMapIdsQuery, ListCareerEventsByCareerMapIdQuery } from "@/core/application/port"
 import type { CareerEvent } from "@/core/domain/entity/careerEvent"
 import { findNonOverlappingRow } from "@/core/domain/service/careerMap/row"
-import { type AppResult, failAsForbiddenError, succeed } from "@/core/util/appResult"
+import { type AppResult, failAsForbiddenError, succeed } from "@/core/util"
 
 type ReadjustAllCareerMapRowsResult = {
   mapsProcessed: number

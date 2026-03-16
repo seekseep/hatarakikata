@@ -41,6 +41,17 @@ const eslintConfig = defineConfig([
       "no-multiple-empty-lines": ["error", { max: 1, maxEOF: 0, maxBOF: 0 }],
     },
   },
+  {
+    files: ["core/application/usecase/**/*"],
+    rules: {
+      "no-restricted-imports": ["error", {
+        patterns: [{
+          group: ["**/usecase/**"],
+          message: "ユースケースから他のユースケースを参照してはいけません"
+        }]
+      }]
+    }
+  },
 ]);
 
 export default eslintConfig;

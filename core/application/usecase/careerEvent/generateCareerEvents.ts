@@ -1,14 +1,14 @@
 import { z } from "zod"
 
 import type { Executor } from "@/core/application/executor"
-import type { CreateCareerEventCommand, CreateCreditTransactionCommand } from "@/core/application/port/command"
-import type { UpdateCareerEventCommand } from "@/core/application/port/command/careerEvent/updateCareerEventCommand"
-import type { GenerateCareerEventsOperation } from "@/core/application/port/operation"
-import type { FindCareerMapQuery, GetCreditBalanceQuery, GetMembershipQuery, ListCareerMapEventTagsQuery } from "@/core/application/port/query"
+import type { CreateCareerEventCommand, CreateCreditTransactionCommand } from "@/core/application/port"
+import type { UpdateCareerEventCommand } from "@/core/application/port"
+import type { GenerateCareerEventsOperation } from "@/core/application/port"
+import type { FindCareerMapQuery, GetCreditBalanceQuery, GetMembershipQuery, ListCareerMapEventTagsQuery } from "@/core/application/port"
 import type { CareerEvent } from "@/core/domain"
 import { CareerEventSchema } from "@/core/domain"
 import { resolveCreditTransaction } from "@/core/domain/service/credit"
-import { type AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError, succeed } from "@/core/util/appResult"
+import { type AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError, succeed } from "@/core/util"
 
 const GenerateCareerEventsParametersSchema = z.object({
   careerMapId: z.string(),

@@ -1,11 +1,10 @@
 import { z } from "zod"
 
+import { Executor } from "@/core/application/executor"
+import { UpdateCareerQuestionCommand } from "@/core/application/port"
+import { FindCareerMapQuery, FindCareerQuestionQuery } from "@/core/application/port"
 import { CareerQuestion, CareerQuestionKeySchema } from "@/core/domain"
-import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError, succeed } from "@/core/util/appResult"
-
-import { Executor } from "../../executor"
-import { UpdateCareerQuestionCommand } from "../../port/command"
-import { FindCareerMapQuery, FindCareerQuestionQuery } from "../../port/query"
+import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError, succeed } from "@/core/util"
 
 const CloseQuestionParametersSchema = CareerQuestionKeySchema
 

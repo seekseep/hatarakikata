@@ -1,6 +1,6 @@
 import type { Executor } from "@/core/application/executor"
-import type { ListCareerDataQuery } from "@/core/application/port/query"
-import { type AppResult, failAsForbiddenError } from "@/core/util/appResult"
+import type { ListCareerDataQuery } from "@/core/application/port"
+import { type AppResult, failAsForbiddenError } from "@/core/util"
 
 type ListCareerDataResult = {
   names: string[]

@@ -1,9 +1,9 @@
 import { z } from "zod"
 
 import type { Executor } from "@/core/application/executor"
-import type { UpdateInvitationCommand, UpdateMembershipCommand } from "@/core/application/port/command"
-import type { FindInvitationByCodeQuery } from "@/core/application/port/query"
-import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError, succeed } from "@/core/util/appResult"
+import type { UpdateInvitationCommand, UpdateMembershipCommand } from "@/core/application/port"
+import type { FindInvitationByCodeQuery } from "@/core/application/port"
+import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError, succeed } from "@/core/util"
 
 const RedeemInvitationParametersSchema = z.object({
   code: z.string().min(1),
