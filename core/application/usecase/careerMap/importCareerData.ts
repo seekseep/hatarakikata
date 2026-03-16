@@ -4,6 +4,7 @@ import type { Executor } from "@/core/application/executor"
 import type { CreateAuthUserCommand, CreateCareerEventCommand, CreateCareerMapCommand, CreateCreditTransactionCommand, CreateMembershipCommand, CreateUserCommand, DeleteAuthUserByEmailCommand, DeleteUserCommand } from "@/core/application/port/command"
 import type { FindUserByNameQuery, ListCareerMapEventTagsQuery, ListUserNamesQuery, ReadCareerDataQuery } from "@/core/application/port/query"
 import type { CareerEvent } from "@/core/domain"
+import { findNonOverlappingRow, type PlacedItem } from "@/core/domain/service/careerMap/row"
 import { type AppResult, failAsConflictError, failAsForbiddenError, failAsInvalidParametersError, succeed } from "@/core/util/appResult"
 
 const ImportCareerDataParametersSchema = z.object({
@@ -122,8 +123,26 @@ export function makeImportCareerData({
     const careerMapId = careerMapResult.data.id
     const createdEvents: CareerEvent[] = []
 
+    // イベントを startDate 昇順・strength 降順でソートし、row を再計算
+    const sortedEvents = [...data.events].sort((a, b) => {
+      const dateCompare = a.startDate.localeCompare(b.startDate)
+      if (dateCompare !== 0) return dateCompare
+      return b.strength - a.strength
+    })
+
+    const placed: PlacedItem[] = []
+    const eventsWithRows = sortedEvents.map((event) => {
+      const row = findNonOverlappingRow(placed, {
+        startDate: event.startDate,
+        endDate: event.endDate,
+        strength: event.strength,
+      })
+      placed.push({ startDate: event.startDate, endDate: event.endDate, strength: event.strength, row })
+      return { ...event, row }
+    })
+
     const eventResults = await Promise.all(
-      data.events.map(async (event) => {
+      eventsWithRows.map(async (event) => {
         const { tagNames, ...rest } = event
         const result = await createCareerEventCommand({
           careerMapId,
