@@ -3,7 +3,7 @@ export { buildHighSchool } from "./buildHighSchool"
 export { buildMiddleSchool } from "./buildMiddleSchool"
 export { buildUniversity } from "./buildUniversity"
 export { FOLLOW_UP_BUILDERS } from "./followUp"
-export type { FollowUpQuestionBuilder, QuestionBuilder, QuestionBuilderParams, QuestionBuilderResult } from "./types"
+export type { FollowUpQuestionBuilder, FollowUpQuestionBuilderParameters, QuestionBuilder, QuestionBuilderParameters, QuestionBuilderResult } from "./types"
 
 import { buildElementarySchool } from "./buildElementarySchool"
 import { buildHighSchool } from "./buildHighSchool"

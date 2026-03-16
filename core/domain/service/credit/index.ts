@@ -1,15 +1,19 @@
-import type { AiOperationName } from "@/core/application/config/creditCosts"
+import { z } from "zod"
+
+import { AiOperationNameSchema } from "@/core/application/config/creditCosts"
 import { CREDIT_COSTS } from "@/core/application/config/creditCosts"
 import type { CreateCreditTransactionCommandParameters } from "@/core/application/port/command/credit/createCreditTransactionCommand"
-import type { MembershipPlan } from "@/core/application/port/query/membership/getMembershipQuery"
+import { MembershipPlanSchema } from "@/core/application/port/query/membership/getMembershipQuery"
 import { type AppResult, failAsInsufficientCreditsError, succeed } from "@/core/util/appResult"
 
-export type ResolveCreditTransactionParams = {
-  userId: string
-  plan: MembershipPlan
-  operation: AiOperationName
-  balance: number
-}
+export const ResolveCreditTransactionParametersSchema = z.object({
+  userId: z.string(),
+  plan: MembershipPlanSchema,
+  operation: AiOperationNameSchema,
+  balance: z.number(),
+})
+
+export type ResolveCreditTransactionParameters = z.infer<typeof ResolveCreditTransactionParametersSchema>
 
 /**
  * メンバーシップと残高から、クレジット取引パラメータを決定する。
@@ -18,22 +22,22 @@ export type ResolveCreditTransactionParams = {
  * - free + 残高不足: InsufficientCreditsError を返す
  */
 export function resolveCreditTransaction(
-  params: ResolveCreditTransactionParams
+  parameters: ResolveCreditTransactionParameters
 ): AppResult<CreateCreditTransactionCommandParameters | null> {
-  if (params.plan !== 'free') {
+  if (parameters.plan !== 'free') {
     return succeed(null)
   }
 
-  const cost = CREDIT_COSTS[params.operation]
+  const cost = CREDIT_COSTS[parameters.operation]
 
-  if (params.balance < cost) {
+  if (parameters.balance < cost) {
     return failAsInsufficientCreditsError("Insufficient credits")
   }
 
   return succeed({
-    userId: params.userId,
+    userId: parameters.userId,
     amount: cost,
     type: 'usage' as const,
-    operation: params.operation,
+    operation: parameters.operation,
   })
 }

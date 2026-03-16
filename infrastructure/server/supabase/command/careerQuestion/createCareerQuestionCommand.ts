@@ -4,20 +4,20 @@ import { failAsExternalServiceError, succeed } from '@/core/util/appResult'
 import { createSupabaseAdmin } from '../../client'
 import { careerQuestionRowToEntity } from '../../converter'
 
-export const createCareerQuestionCommand: CreateCareerQuestionCommand = async (params) => {
+export const createCareerQuestionCommand: CreateCareerQuestionCommand = async (parameters) => {
   try {
     const supabase = createSupabaseAdmin()
     const { data, error } = await supabase
       .from('career_questions')
       .insert({
-        career_map_id: params.careerMapId,
-        name: params.name,
-        title: params.title,
-        status: params.status ?? 'open',
-        fields: params.fields,
-        row: params.row ?? null,
-        start_date: params.startDate ?? null,
-        end_date: params.endDate ?? null,
+        career_map_id: parameters.careerMapId,
+        name: parameters.name,
+        title: parameters.title,
+        status: parameters.status ?? 'open',
+        fields: parameters.fields,
+        row: parameters.row ?? null,
+        start_date: parameters.startDate ?? null,
+        end_date: parameters.endDate ?? null,
       })
       .select('id, career_map_id, name, title, status, fields, row, start_date, end_date')
       .single()

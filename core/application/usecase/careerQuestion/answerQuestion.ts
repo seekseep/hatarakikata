@@ -1,9 +1,7 @@
 import { z } from "zod"
 
 import { Executor } from "@/core/application/executor"
-import { CreateCareerEventCommand, CreateCareerQuestionCommand } from "@/core/application/port"
-import { UpdateCareerQuestionCommand } from "@/core/application/port"
-import { FindCareerMapQuery, FindCareerQuestionQuery } from "@/core/application/port"
+import { CreateCareerEventCommand, type CreateCareerEventCommandParametersInput, CreateCareerQuestionCommand, FindCareerMapQuery, FindCareerQuestionQuery, UpdateCareerQuestionCommand } from "@/core/application/port"
 import { CareerEvent, CareerQuestion, CareerQuestionKeySchema } from "@/core/domain"
 import { FOLLOW_UP_BUILDERS } from "@/core/domain/service/careerQuestion/builder"
 import { AppResult, failAsForbiddenError, failAsInvalidParametersError, failAsNotFoundError, succeed } from "@/core/util"
@@ -37,30 +35,30 @@ type CareerEventCreator = (
   question: CareerQuestion,
   answer: Record<string, unknown>,
   careerMapId: string,
-) => Parameters<CreateCareerEventCommand>[0]
+) => CreateCareerEventCommandParametersInput
 
 // デフォルト: binding でマッピング
 function defaultCareerEventCreator(
   question: CareerQuestion,
   answer: Record<string, unknown>,
   careerMapId: string,
-): Parameters<CreateCareerEventCommand>[0] {
-  const params: Record<string, unknown> = { careerMapId }
+): CreateCareerEventCommandParametersInput {
+  const parameters: Record<string, unknown> = { careerMapId }
 
   for (const field of question.fields) {
     if (field.binding && answer[field.name] !== undefined) {
-      params[field.binding] = answer[field.name]
+      parameters[field.binding] = answer[field.name]
     }
   }
 
-  params.type = params.type ?? "living"
-  params.strength = params.strength ?? 3
-  params.row = params.row ?? 0
-  params.tags = params.tags ?? []
-  params.startDate = params.startDate ?? ""
-  params.endDate = params.endDate ?? ""
+  parameters.type = parameters.type ?? "living"
+  parameters.strength = parameters.strength ?? 3
+  parameters.row = parameters.row ?? 0
+  parameters.tags = parameters.tags ?? []
+  parameters.startDate = parameters.startDate ?? ""
+  parameters.endDate = parameters.endDate ?? ""
 
-  return params as Parameters<CreateCareerEventCommand>[0]
+  return parameters as CreateCareerEventCommandParametersInput
 }
 
 // name ごとの特殊ハンドラーマップ（将来の拡張用）
@@ -106,10 +104,10 @@ export function makeAnswerQuestion({
 
     // name に基づいてハンドラーを選択
     const creator = CAREER_EVENT_CREATORS[question.name] ?? defaultCareerEventCreator
-    const careerEventParams = creator(question, answer, careerMapId)
+    const careerEventInput = creator(question, answer, careerMapId)
 
     // Create the CareerEvent
-    const createResult = await createCareerEventCommand(careerEventParams)
+    const createResult = await createCareerEventCommand(careerEventInput)
     if (!createResult.success) return createResult
 
     // Close the question

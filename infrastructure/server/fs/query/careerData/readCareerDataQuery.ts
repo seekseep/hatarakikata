@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-import { CareerDataSchema } from '@/core/application/port/command/careerData/saveCareerDataCommand'
+import { SaveCareerDataCommandParametersSchema } from '@/core/application/port/command/careerData/saveCareerDataCommand'
 import type { ReadCareerDataQuery } from '@/core/application/port/query/careerData/readCareerDataQuery'
 import { failAsExternalServiceError, failAsNotFoundError, succeed } from '@/core/util/appResult'
 
@@ -16,7 +16,7 @@ export const readCareerDataQuery: ReadCareerDataQuery = async (personName) => {
     }
 
     const raw = JSON.parse(fs.readFileSync(filePath, 'utf-8'))
-    const validation = CareerDataSchema.safeParse(raw)
+    const validation = SaveCareerDataCommandParametersSchema.safeParse(raw)
 
     if (!validation.success) {
       return failAsExternalServiceError(`Invalid career data format: ${validation.error.message}`, validation.error)

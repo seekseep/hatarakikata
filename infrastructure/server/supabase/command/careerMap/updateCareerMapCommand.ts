@@ -4,16 +4,16 @@ import { failAsExternalServiceError,succeed } from '@/core/util/appResult'
 import { createSupabaseAdmin } from '../../client'
 import { careerMapRowToEntity } from '../../converter'
 
-export const updateCareerMapCommand: UpdateCareerMapCommand = async (params) => {
+export const updateCareerMapCommand: UpdateCareerMapCommand = async (parameters) => {
   const supabase = createSupabaseAdmin()
   const updateData: Record<string, unknown> = {}
-  if (params.userId !== undefined) updateData.user_id = params.userId
-  if (params.startDate !== undefined) updateData.start_date = params.startDate
+  if (parameters.userId !== undefined) updateData.user_id = parameters.userId
+  if (parameters.startDate !== undefined) updateData.start_date = parameters.startDate
 
   const { data, error } = await supabase
     .from('career_maps')
     .update(updateData)
-    .eq('id', params.id)
+    .eq('id', parameters.id)
     .select('id, user_id, start_date')
     .single()
 
